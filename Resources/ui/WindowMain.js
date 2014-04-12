@@ -32,31 +32,31 @@ function createUI(sv) {
 
 	sv.ui.Window = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.white,
-		width : Ti.App.widthScreen,
-		height : Ti.App.heightScreen,
-		navBarHidden:true
-		// borderColor : 'yellow',
-		// borderRadius : 10,
+		// width : Ti.App.widthScreen,
+		// height : Ti.App.heightScreen,
+		// navBarHidden : true
+		borderColor : 'yellow',
+		borderRadius : 10,
 	});
-	sv.ui.View1 = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.widthScreen,
-		height : Ti.App.size(220),
-		top : 0,
-		left : 0
+	sv.ui.View1 = Ti.UI.createButton({
+		// width : Ti.App.widthScreen,
+		// height : Ti.App.size(220),
+		top : Ti.App.size(200),
+		color : 'black',
+		title : 'menu1'
 	});
 
 	sv.ui.Button = Ti.UI.createButton({
 		title : 'Simple first!',
 		color : 'black',
-		top:Ti.App.size(400)
+		top : Ti.App.size(400)
 	});
 
 	sv.ui.btnBack = Ti.UI.createButton({
 		title : 'Back',
 		top : Ti.App.size(500),
 		color : 'black',
-		bottom:0
+		bottom : 0
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.size(50)
 	});
@@ -65,7 +65,7 @@ function createUI(sv) {
 
 	sv.ui.Button.addEventListener('click', sv.fu.eventClickButton);
 	sv.ui.btnBack.addEventListener('click', sv.fu.eventClickButtonBack);
-
+	sv.ui.View1.addEventListener('click', sv.fu.eventClickMenu1);
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
@@ -87,7 +87,13 @@ function createUI_Event(sv) {
 	sv.fu.eventClickButtonBack = function(e) {
 		sv.ui.Window.close();
 	};
-
+	sv.fu.eventClickMenu1 = function(e) {
+		var menu1 = new (require('/ui/menu1'))();
+		// sv.ui.Window.close();
+		// menu1.open();
+		// sv.ui=null;
+		sv.ui.Window.add(menu1);
+	};
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
