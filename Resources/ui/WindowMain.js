@@ -31,21 +31,34 @@ function createUI(sv) {
 	sv.ui = {};
 
 	sv.ui.Window = Ti.UI.createWindow({
+		backgroundColor : Ti.App.Color.white,
+		width : Ti.App.widthScreen,
+		height : Ti.App.heightScreen,
+		navBarHidden:true
+		// borderColor : 'yellow',
+		// borderRadius : 10,
+	});
+	sv.ui.View1 = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.widthScreen / 2,
-		borderColor : 'yellow',
-		borderRadius : 10,
+		width : Ti.App.widthScreen,
+		height : Ti.App.size(220),
+		top : 0,
+		left : 0
 	});
 
 	sv.ui.Button = Ti.UI.createButton({
 		title : 'Simple first!',
-		color : Ti.App.Color.white
+		color : 'black',
+		top:Ti.App.size(400)
 	});
 
 	sv.ui.btnBack = Ti.UI.createButton({
 		title : 'Back',
-		top : 10,
-		color : Ti.App.Color.white
+		top : Ti.App.size(500),
+		color : 'black',
+		bottom:0
+		// width : Ti.App.widthScreen,
+		// height : Ti.App.size(50)
 	});
 
 	createUI_Event(sv);
@@ -56,6 +69,7 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
+	sv.ui.Window.add(sv.ui.View1);
 	sv.ui.Window.add(sv.ui.Button);
 	sv.ui.Window.add(sv.ui.btnBack);
 }
