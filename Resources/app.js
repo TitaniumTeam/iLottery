@@ -5,7 +5,7 @@ if (Ti.version < 1.8) {
 
 (function() {
 	new (require('ui-controller/AllData'));
-	
+
 	var Window = new (require('ui/WindowMain'))();
 	Window.open();
 })();
