@@ -35,8 +35,8 @@ function createUI(sv) {
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
 		// navBarHidden : true
-		borderColor : 'yellow',
-		borderRadius : 10,
+		// borderColor : 'yellow',
+		// borderRadius : 10,
 	});
 	sv.ui.View1 = Ti.UI.createButton({
 		// width : Ti.App.widthScreen,
@@ -79,7 +79,6 @@ function createUI(sv) {
  */
 function createUI_Event(sv) {
 	sv.fu = {};
-
 	sv.fu.eventClickButton = function(e) {
 		alert('isSimple = ' + sv.vari.isSimple);
 	};
@@ -88,8 +87,8 @@ function createUI_Event(sv) {
 		sv.ui.Window.close();
 	};
 	sv.fu.eventClickMenu1 = function(e) {
-		var menu1 = new (require('/ui/menu1'))();
-		sv.ui.Window.add(menu1);
+		var windowkqsx = new (require('/ui/WindowKQSX'))();
+		windowkqsx.open();
 	};
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
