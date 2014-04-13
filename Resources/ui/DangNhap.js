@@ -330,7 +330,8 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventClickviewdangnhap = function(e) {
-		alert('Click viewdangnhap');
+		var newWindow = new (require('ui/Info'))();
+		newWindow.open();
 	};
 
 	sv.fu.eventClickviewdangky = function(e) {
