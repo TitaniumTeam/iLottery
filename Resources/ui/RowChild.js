@@ -22,7 +22,8 @@ module.exports=function(_top,_left,_width,_conso,_visible){
 	sv.ui.view_contain.add(sv.ui.line_doc);
 	sv.ui.lbl_kq=Ti.UI.createLabel({
 		text:_conso,
-		color:'black'
+		color:'black',
+		textAlign:'left'
 	});
 	sv.ui.view_contain.add(sv.ui.lbl_kq);
 	return sv.ui.view_contain;
