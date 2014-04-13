@@ -11,5 +11,6 @@ module.exports = function() {
 	sv.brown = '666666';
 	sv.nauden = '343434';
 	sv.superwhite = 'ffffff';
+	sv.blue='3a5b9a';
 	return sv;
 };
