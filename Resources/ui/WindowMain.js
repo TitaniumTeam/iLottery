@@ -89,9 +89,6 @@ function createUI_Event(sv) {
 	};
 	sv.fu.eventClickMenu1 = function(e) {
 		var menu1 = new (require('/ui/menu1'))();
-		// sv.ui.Window.close();
-		// menu1.open();
-		// sv.ui=null;
 		sv.ui.Window.add(menu1);
 	};
 	sv.fu.eventOpenWindow = function(e) {

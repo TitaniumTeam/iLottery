@@ -79,14 +79,12 @@ function tao_ui(sv) {
 	});
 
 	sv.arr.datarow = [];
-	sv.arr.stt = ['Đặc biệt', 'Nhất', 'Nhì', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.arr.left_line = [Ti.App.size(430), Ti.App.size(340), Ti.App.size(530), Ti.App.size(300), Ti.App.size(580)];
 	//row 1
-	sv.ui.row1 = new (require('/ui/row'))(sv.arr.height[0],'Đặc biệt');
+	sv.ui.row1 = new (require('/ui/row'))(sv.arr.height[0],'Đặc biệt','00768',null);
 	sv.ui.scrollView.add(sv.ui.row1);
 	///row 2
-	sv.ui.row2 = new (require('ui/row'))(sv.arr.height[0],'Nhất');
+	sv.ui.row2 = new (require('ui/row'))(sv.arr.height[0],'Nhất','12344',null);
 	sv.ui.scrollView.add(sv.ui.row2);
 	//row 3
 	sv.ui.row3 = new (require('ui/row'))(sv.arr.height[0],'Nhì');
@@ -97,15 +95,32 @@ function tao_ui(sv) {
 	//row 5
 	sv.ui.row5 = new (require('ui/row'))(sv.arr.height[0],'Tư');
 	sv.ui.scrollView.add(sv.ui.row5);
+	//row 6
+	sv.ui.row6 = new (require('ui/row'))(sv.arr.height[1],'Năm');
+	sv.ui.scrollView.add(sv.ui.row6);
+	//row 7
+	sv.ui.row7 = new (require('ui/row'))(sv.arr.height[0],'Sáu');
+	sv.ui.scrollView.add(sv.ui.row7);
+	//row 8
+	sv.ui.row8 = new (require('ui/row'))(sv.arr.height[0],'Bảy');
+	sv.ui.scrollView.add(sv.ui.row8);
 	////
+	createUI_Event(sv);
+	sv.ui.menu_icon.addEventListener('click',sv.fu.backhome);
+	
 	sv.ui.ViewTong.add(sv.ui.View1);
 	sv.ui.View1.add(sv.ui.user_icon);
 	sv.ui.View1.add(sv.ui.menu_icon);
 	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.ViewTong.add(sv.ui.scrollView);
+	
 }
 
 function createUI_Event(sv) {
 	sv.fu = {};
+	sv.fu.backhome=function(e){
+		alert('test');
+		// sv.ui.Window.remove(sv.ui.ViewTong);
+	};
 }
