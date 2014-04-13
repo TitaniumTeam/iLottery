@@ -154,7 +154,8 @@ function tao_ui(sv) {
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
 		bottom:Ti.App.size(20),
-		color:Ti.App.Color.superwhite
+		color:Ti.App.Color.superwhite,
+		textAlign:'center'
 	});
 	/////////////
 	tao_event(sv);
