@@ -26,17 +26,28 @@ function tao_ui(sv) {
 		height : Ti.App.size(120),
 		top : 0
 	});
-	sv.ui.menu_icon = Ti.UI.createButton({
-		width : Ti.App.size(56),
-		heigth : Ti.App.size(40),
-		left : Ti.App.size(32),
-		backgroundImage : '/assets/icon/menu.png'
+	sv.ui.view_menu_icon = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		left : 0,
+		top : 0,
 	});
-	sv.ui.user_icon = Ti.UI.createView({
+	sv.ui.menu_icon = Ti.UI.createImageView({
+		width : Ti.App.size(56),
+		heigth : Ti.App.size(37),
+		image : '/assets/icon/menu.png',
+	});
+	sv.ui.view_user_icon = Ti.UI.createView({
+		width : Ti.App.size(120),
+		height : Ti.App.size(120),
+		right:0,
+		top : 0,
+	});
+	sv.ui.user_icon = Ti.UI.createImageView({
 		width : Ti.App.size(46),
 		height : Ti.App.size(58),
-		right : Ti.App.size(37),
-		backgroundImage : '/assets/icon/user.png'
+		image : '/assets/icon/user.png',
+		// top : Ti.App.size(30)
 	});
 	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
 		width : Ti.App.size(280),
@@ -51,7 +62,6 @@ function tao_ui(sv) {
 		text : '(12/4/2014)',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(60),
-		// letf : Ti.App.size(500)
 	});
 
 	sv.ui.scrollView = Ti.UI.createScrollView({
@@ -102,56 +112,30 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.row8);
 	////
 	createUI_Event(sv);
-	sv.ui.menu_icon.addEventListener('click', sv.fu.eventBackHome);
+	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventBackHome);
+	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventLogin);
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
 
 	sv.ui.WindowSoXo.add(sv.ui.View1);
-	sv.ui.View1.add(sv.ui.user_icon);
-	sv.ui.View1.add(sv.ui.menu_icon);
+	sv.ui.View1.add(sv.ui.view_menu_icon);
+	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
+	sv.ui.View1.add(sv.ui.view_user_icon);
+	sv.ui.view_user_icon.add(sv.ui.user_icon);
 	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.scrollView);
 
 }
 
-function checkFeed(data1, data2) {
-
-	// silently ignore this if there's no network connection
-	if (Titanium.Network.online == false) {
-		return;
-	}
-
-	var t = new Date().getTime();
-	Ti.API.info('checking feed in bg.. ' + t);
-
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.timeout = 1000000;
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ERROR ' + e.error);
-	};
-	xhr.onload = function() {
-		var xml = this.responseXML.documentElement;
-		// demo to increase the badge number...
-		var items = xml.getElementsByTagName("item");
-		for (var i = 0; i < items.length; i++) {
-			var title = items.item(i).getElementsByTagName("title").item(0).text;
-			var thongtin = items.item(i).getElementsByTagName("description").item(0).text;
-			data1.push(title);
-			data2.push(thongtin);
-		}
-
-	};
-
-	xhr.open('GET', 'http://xskt.com.vn/rss-feed/mien-bac-xsmb.rss');
-	xhr.send();
-}
-
 function createUI_Event(sv) {
 	sv.fu = {};
 	sv.fu.eventBackHome = function(e) {
 		sv.ui.WindowSoXo.close();
-
+	};
+	sv.fu.eventLogin = function(e) {
+		var windowlogin = new (require('/ui/WindowLogin'))();
+		windowlogin.open();
 	};
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
@@ -159,7 +143,8 @@ function createUI_Event(sv) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.WindowSoXo.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.menu_icon.removeEventListener('click', sv.fu.eventBackHome);
+		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
+		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventLogin);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
