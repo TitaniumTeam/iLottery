@@ -16,7 +16,7 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.ui.WindowSoXo = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.white,
+		backgroundColor : Ti.App.Color.magenta,
 		navBarHidden : true,
 		fullscreen : true
 	});
@@ -113,7 +113,7 @@ function tao_ui(sv) {
 	////
 	createUI_Event(sv);
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventBackHome);
-	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventLogin);
+	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventWindowDK );
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
 
@@ -133,9 +133,9 @@ function createUI_Event(sv) {
 	sv.fu.eventBackHome = function(e) {
 		sv.ui.WindowSoXo.close();
 	};
-	sv.fu.eventLogin = function(e) {
-		var windowlogin = new (require('/ui/WindowLogin'))();
-		windowlogin.open();
+	sv.fu.eventWindowDK = function(e) {
+		var windowDK = new (require('/ui/WindowDK'))();
+		windowDK.open();
 	};
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
@@ -144,7 +144,7 @@ function createUI_Event(sv) {
 		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.WindowSoXo.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
-		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventLogin);
+		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowDK );
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
