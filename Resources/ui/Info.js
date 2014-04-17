@@ -1,0 +1,391 @@
+module.exports = function() {
+	var sv = {};
+	sv.vari = {};
+	sv.arr = {};
+	sv.ui = {};
+	sv.fu = {};
+	sv.test = {};
+
+	(function() {
+		createVariable(sv);
+		createUI(sv);
+	})();
+
+	return sv.ui.Window;
+};
+/**
+ * Khởi tạo biến
+ */
+function createVariable(sv) {
+}
+
+function createUI(sv) {
+	sv.ui.Window = Ti.UI.createWindow({
+		backgroundColor : Ti.App.Color.magenta,
+		// width : Ti.App.widthScreen,
+		// height : Ti.App.heightScreen,
+		navBarHidden : true,
+		fullscreen : true,
+		keepScreenOn : true,
+		top : 0,
+	});
+
+	sv.ui.ViewTong = Ti.UI.createScrollView({
+		backgroundColor : Ti.App.Color.magenta,
+		// width : Ti.App.widthScreen,
+		// height : Ti.App.heightScreen,
+		top : 0,
+		left : 0
+	});
+
+	//tao view header
+	sv.ui.ViewHeader = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+		height : Ti.App.size(620),
+	});
+
+	sv.ui.IconMenu = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/menu.png',
+		top : Ti.App.size(40),
+		left : Ti.App.size(30),
+		right : Ti.App.size(630),
+		bottom : Ti.App.size(540),
+	});
+
+	sv.ui.IconUser = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/user.png',
+		top : Ti.App.size(40),
+		right : Ti.App.size(35),
+		left : Ti.App.size(635),
+		bottom : Ti.App.size(530),
+	});
+
+	sv.ui.Avatar = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/avatar-defaut.png',
+		top : Ti.App.size(130),
+		right : Ti.App.size(250),
+		left : Ti.App.size(250),
+		bottom : Ti.App.size(280),
+	});
+
+	sv.ui.LabelName = Ti.UI.createLabel({
+		text : 'LinhSon93',
+		font : {
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold',
+			fontFamily : 'Aria'
+		},
+		top : Ti.App.size(375),
+		bottom : Ti.App.size(210),
+	});
+
+	sv.ui.LabelThongTin = Ti.UI.createLabel({
+		text : 'Siêu pro vừa đi chơi - ID: 9999999999',
+		font : {
+			fontSize : Ti.App.size(20),
+			fontFamily : 'Aria'
+		},
+		top : Ti.App.size(425),
+		bottom : Ti.App.size(170),
+	});
+
+	sv.ui.ViewBut = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/icon-5.png',
+		top : Ti.App.size(445),
+		right : Ti.App.size(25),
+		left : Ti.App.size(665),
+		bottom : Ti.App.size(145),
+	});
+
+	sv.ui.ViewThongSo = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.nauden,
+		opacity : 0.5,
+		height : Ti.App.size(120),
+		bottom : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+	});
+
+	//tao view ung dung
+	sv.ui.ViewUngDung = Ti.UI.createView({
+		height : Ti.App.size(620),
+		top : Ti.App.size(660),
+		left : Ti.App.size(20),
+		right : Ti.App.size(20),
+	});
+
+	sv.ui.UngDung = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.white,
+		height : Ti.App.size(495),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+		borderWidth : Ti.App.size(1),
+		borderColor : Ti.App.Color.magenta,
+	});
+
+	sv.ui.Row1 = Ti.UI.createView({
+		borderWidth : Ti.App.size(1),
+		borderColor : Ti.App.Color.magenta,
+		height : Ti.App.size(99),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.ViewIconRow1 = Ti.UI.createImageView({
+		bottom : Ti.App.size(0),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(580),
+	});
+
+	sv.ui.IconRow1 = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/icon-info-1.png',
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(40),
+		right : Ti.App.size(40),
+	});
+
+	sv.ui.LabelRow1 = Ti.UI.createLabel({
+		text : 'Nạp Xu',
+		font : {
+			fontSize : Ti.App.size(20),
+			textAlign : 'left',
+			fontFamily : 'Aria'
+		},
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(100),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.Row2 = Ti.UI.createView({
+		borderWidth : Ti.App.size(1),
+		borderColor : Ti.App.Color.magenta,
+		height : Ti.App.size(99),
+		top : Ti.App.size(99),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.ViewIconRow2 = Ti.UI.createImageView({
+		bottom : Ti.App.size(0),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(580),
+	});
+
+	sv.ui.IconRow2 = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/icon-info-2.png',
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(40),
+		right : Ti.App.size(40),
+	});
+
+	sv.ui.LabelRow2 = Ti.UI.createLabel({
+		text : 'Con số đã chơi',
+		font : {
+			fontSize : Ti.App.size(20),
+			textAlign : 'left',
+			fontFamily : 'Aria'
+		},
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(100),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.Row3 = Ti.UI.createView({
+		borderWidth : Ti.App.size(1),
+		borderColor : Ti.App.Color.magenta,
+		height : Ti.App.size(99),
+		top : Ti.App.size(198),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.ViewIconRow3 = Ti.UI.createImageView({
+		bottom : Ti.App.size(0),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(580),
+	});
+
+	sv.ui.IconRow3 = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/icon-info-3.png',
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(40),
+		right : Ti.App.size(40),
+	});
+
+	sv.ui.LabelRow3 = Ti.UI.createLabel({
+		text : 'Lịch sử giao dịch',
+		font : {
+			fontSize : Ti.App.size(20),
+			textAlign : 'left',
+			fontFamily : 'Aria'
+		},
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(100),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.Row4 = Ti.UI.createView({
+		borderWidth : Ti.App.size(1),
+		borderColor : Ti.App.Color.magenta,
+		height : Ti.App.size(99),
+		top : Ti.App.size(297),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.ViewIconRow4 = Ti.UI.createImageView({
+		bottom : Ti.App.size(0),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(580),
+	});
+
+	sv.ui.IconRow4 = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/icon-info-4.png',
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(40),
+		right : Ti.App.size(40),
+	});
+
+	sv.ui.LabelRow4 = Ti.UI.createLabel({
+		text : 'Hòm thư',
+		font : {
+			fontSize : Ti.App.size(20),
+			textAlign : 'left',
+			fontFamily : 'Aria'
+		},
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(100),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.Row5 = Ti.UI.createView({
+		borderWidth : Ti.App.size(1),
+		borderColor : Ti.App.Color.magenta,
+		height : Ti.App.size(99),
+		top : Ti.App.size(396),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+	});
+
+	sv.ui.ViewIconRow5 = Ti.UI.createImageView({
+		bottom : Ti.App.size(0),
+		top : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(580),
+	});
+
+	sv.ui.IconRow5 = Ti.UI.createImageView({
+		backgroundImage : '/assets/images/icon/icon-info-5.png',
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(40),
+		right : Ti.App.size(40),
+	});
+
+	sv.ui.LabelRow5 = Ti.UI.createLabel({
+		text : 'Nâng cấp tài khoản VIP',
+		font : {
+			fontSize : Ti.App.size(20),
+			textAlign : 'left',
+			fontFamily : 'Aria'
+		},
+		bottom : Ti.App.size(30),
+		top : Ti.App.size(30),
+		left : Ti.App.size(100),
+		right : Ti.App.size(0),
+	});
+
+	createUI_Event(sv);
+
+	sv.ui.IconMenu.addEventListener('click', sv.fu.eventClickIconMenu);
+	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+
+	sv.ui.Window.add(sv.ui.ViewTong);
+
+	sv.ui.ViewTong.add(sv.ui.ViewHeader);
+	sv.ui.ViewTong.add(sv.ui.ViewUngDung);
+
+	sv.ui.ViewHeader.add(sv.ui.IconMenu);
+	sv.ui.ViewHeader.add(sv.ui.IconUser);
+	sv.ui.ViewHeader.add(sv.ui.Avatar);
+	sv.ui.ViewHeader.add(sv.ui.LabelName);
+	sv.ui.ViewHeader.add(sv.ui.LabelThongTin);
+	sv.ui.ViewHeader.add(sv.ui.ViewBut);
+	sv.ui.ViewHeader.add(sv.ui.ViewThongSo);
+
+	sv.ui.ViewUngDung.add(sv.ui.UngDung);
+
+	sv.ui.UngDung.add(sv.ui.Row1);
+	sv.ui.UngDung.add(sv.ui.Row2);
+	sv.ui.UngDung.add(sv.ui.Row3);
+	sv.ui.UngDung.add(sv.ui.Row4);
+	sv.ui.UngDung.add(sv.ui.Row5);
+
+	sv.ui.Row1.add(sv.ui.ViewIconRow1);
+	sv.ui.Row1.add(sv.ui.LabelRow1);
+
+	sv.ui.Row2.add(sv.ui.ViewIconRow2);
+	sv.ui.Row2.add(sv.ui.LabelRow2);
+
+	sv.ui.Row3.add(sv.ui.ViewIconRow3);
+	sv.ui.Row3.add(sv.ui.LabelRow3);
+
+	sv.ui.Row4.add(sv.ui.ViewIconRow4);
+	sv.ui.Row4.add(sv.ui.LabelRow4);
+
+	sv.ui.Row5.add(sv.ui.ViewIconRow5);
+	sv.ui.Row5.add(sv.ui.LabelRow5);
+
+	sv.ui.ViewIconRow1.add(sv.ui.IconRow1);
+	sv.ui.ViewIconRow2.add(sv.ui.IconRow2);
+	sv.ui.ViewIconRow3.add(sv.ui.IconRow3);
+	sv.ui.ViewIconRow4.add(sv.ui.IconRow4);
+	sv.ui.ViewIconRow5.add(sv.ui.IconRow5);
+
+}
+
+function createUI_Event(sv) {
+	sv.fu = {};
+
+	sv.fu.eventClickIconMenu = function(e) {
+		var newWindow = new (require('ui/DangNhap'))();
+		newWindow.open();
+	};
+
+	sv.fu.eventOpenWindow = function(e) {
+		Ti.API.info('Opened window');
+	};
+
+	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.IconMenu.removeEventListener('click', sv.fu.eventClickIconMenu);
+		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv.test = null;
+		sv = null;
+
+		Ti.API.info('Closed window, sv=' + sv);
+	};
+}
