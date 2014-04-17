@@ -3,7 +3,7 @@
  * _visible: visible cua line doc
  */
 
-module.exports = function(_top, _left, _width,_height, _conso, _visible) {
+module.exports = function(_top, _left, _width,_height, _conso, _visible,_border) {
 	var sv = {};
 	sv.ui = {};
 	sv.ui.view_contain = Ti.UI.createView({
@@ -31,6 +31,10 @@ module.exports = function(_top, _left, _width,_height, _conso, _visible) {
 	sv.ui.view_contain.add(sv.ui.lbl_kq);
 	sv.ui.view_contain.setColor_Line = function(_color) {
 		sv.ui.line_doc.backgroundColor=_color;
+	};
+	if(_border==true){
+		sv.ui.view_contain.borderColor=Ti.App.Corlor.nauden;
+		
 	};
 	return sv.ui.view_contain;
 };

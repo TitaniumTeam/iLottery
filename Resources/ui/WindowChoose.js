@@ -89,8 +89,8 @@ function tao_ui(sv) {
 	sv.ui.varrow22 = sv.ui.arrow2.getvArrow2();
 	///
 	sv.vari.combobox = require('/ui/ComboBox');
-	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(250), Ti.App.size(345), 'Tỉnh thành',Ti.App.size(585));
-	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(350), Ti.App.size(445), 'Ngày',Ti.App.size(585));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(250), Ti.App.size(345), 'Tỉnh thành', Ti.App.size(585));
+	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(350), Ti.App.size(445), 'Ngày', Ti.App.size(585));
 	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
 	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
 	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
@@ -102,6 +102,8 @@ function tao_ui(sv) {
 
 	//////
 	tao_event(sv);
+	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
+	sv.ui.arrow2.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.btn_xemkq.addEventListener('click', sv.fu.event_click_xem);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
@@ -132,21 +134,23 @@ function tao_event(sv) {
 		windowsupport.open();
 	};
 	sv.fu.event_click_view = function(e) {
-		view_click(sv.ui.table_view,sv.ui.table_view1);
+		view_click(sv.ui.table_view, sv.ui.table_view1);
 	};
 	sv.fu.event_clicktbl = function(e) {
-		tbl_click(e,sv.ui.lblfirst, sv.ui.table_view);
+		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view);
 	};
 	sv.fu.event_click_view1 = function(e) {
-		view_click(sv.ui.table_view1,sv.ui.table_view);
+		view_click(sv.ui.table_view1, sv.ui.table_view);
 	};
 	sv.fu.event_clicktbl1 = function(e) {
-		tbl_click(e,sv.ui.lblfirst1, sv.ui.table_view1);
+		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1);
 	};
 	sv.fu.openWindow = function(e) {
 		Ti.API.info('open window');
 	};
 	sv.fu.closeWindow = function(e) {
+		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
 		sv.ui.btn_xemkq.removeEventListener('click', sv.fu.event_click_xem);
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
@@ -157,11 +161,12 @@ function tao_event(sv) {
 	};
 }
 
-function tbl_click(e,_lbl, _tbl) {
+function tbl_click(e, _lbl, _tbl) {
 	_lbl.text = e.row.tenrow;
 	_tbl.visible = false;
 }
-function view_click(_tbl1,_tbl2){
-	_tbl1.visible=true;
-	_tbl2.visible=false;
+
+function view_click(_tbl1, _tbl2) {
+	_tbl1.visible = true;
+	_tbl2.visible = false;
 }

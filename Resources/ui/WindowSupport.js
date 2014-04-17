@@ -52,7 +52,7 @@ function tao_ui(sv) {
 		// top : Ti.App.size(30)
 	});
 	sv.ui.lbl_Choose = Ti.UI.createLabel({
-		width : Ti.App.size(280),
+		width : Ti.App.size(260),
 		height : Ti.App.size(50),
 		text : 'Dãy số lâu về',
 		color : Ti.App.Color.white,
@@ -72,7 +72,7 @@ function tao_ui(sv) {
 		top : Ti.App.size(700),
 		width : Ti.App.size(670),
 		height : Ti.App.size(70),
-		backgroundColor : Ti.App.Color.brown,
+		backgroundColor : 'pink',
 		text : 'Thống kê bộ số XX về 23 lần',
 		color : Ti.App.Color.nauden,
 		font : {
@@ -189,6 +189,9 @@ function tao_ui(sv) {
 	sv.ui.tblDayso.setData(sv.arr.datatbl);
 	//////
 	tao_event(sv);
+	sv.ui.btn_xemkq.addEventListener('click',sv.fu.event_btnxacnhan_click);
+	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
+	sv.ui.arrow2.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.view_choose1.addEventListener('click', sv.fu.event_click_view1);
@@ -222,6 +225,10 @@ function tao_ui(sv) {
 };
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.event_btnxacnhan_click=function(e){
+		var windowrealtime=new (require('/ui/WindowRealTime'))();
+		windowrealtime.open();
+	};
 	sv.fu.event_click_view = function(e) {
 		view_click(sv.ui.table_view, sv.ui.table_view1, sv.ui.table_view2);
 	};
@@ -244,6 +251,9 @@ function tao_event(sv) {
 		Ti.API.info('open window');
 	};
 	sv.fu.closeWindow = function(e) {
+		sv.ui.btn_xemkq.removeEventListener('click',sv.fu.event_btnxacnhan_click);
+		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
 		sv.ui.view_choose2.removeEventListener('click', sv.fu.event_click_view2);
 		sv.ui.table_view2.removeEventListener('click', sv.fu.event_clicktbl2);
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);

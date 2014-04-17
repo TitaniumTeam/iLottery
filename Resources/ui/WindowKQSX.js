@@ -50,11 +50,12 @@ function tao_ui(sv) {
 		// top : Ti.App.size(30)
 	});
 	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
-		width : Ti.App.size(280),
+		width : Ti.App.size(320),
 		height : Ti.App.size(50),
 		text : 'Xổ số Miền Bắc',
 		color : Ti.App.Color.white,
-		top : Ti.App.size(10)
+		top : Ti.App.size(10),
+		font:{fontSize:Ti.App.size(45)}
 	});
 	sv.ui.lbl_Ngay = Ti.UI.createLabel({
 		width : Ti.App.size(220),
@@ -62,6 +63,7 @@ function tao_ui(sv) {
 		text : '(12/4/2014)',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(60),
+		font:{fontSize:Ti.App.size(40)}
 	});
 
 	sv.ui.scrollView = Ti.UI.createScrollView({
@@ -87,10 +89,10 @@ function tao_ui(sv) {
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.ui.row=require('/ui/RowContain');
 	//row 1
-	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768');
+	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768',false);
 	sv.ui.scrollView.add(sv.ui.row1);
 	///row 2
-	sv.ui.row2 = new sv.ui.row(sv.arr.height[0], 'Nhất', '12344');
+	sv.ui.row2 = new sv.ui.row(sv.arr.height[0], 'Nhất', '12344',false);
 	sv.ui.scrollView.add(sv.ui.row2);
 	//row 3
 	sv.arr.kq_giainhi = [1213, 14122];
