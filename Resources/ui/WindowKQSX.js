@@ -16,7 +16,7 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.ui.WindowSoXo = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.magenta,
+		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
 		fullscreen : true
 	});

@@ -66,10 +66,10 @@ function tao_ui(sv) {
 		right : Ti.App.size(20),
 		color : Ti.App.Color.superwhite,
 		textAlign : 'center',
-		top : Ti.App.size(585)
+		top : Ti.App.size(560)
 	});
 	sv.ui.lbl_thongke = Titanium.UI.createLabel({
-		top : Ti.App.size(720),
+		top : Ti.App.size(700),
 		width : Ti.App.size(670),
 		height : Ti.App.size(70),
 		backgroundColor : Ti.App.Color.brown,
@@ -83,18 +83,18 @@ function tao_ui(sv) {
 	});
 	//
 	sv.vari.arrow = require('/ui/vArrow');
-	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(249));
+	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(210));
 	sv.ui.varrow11 = sv.ui.arrow1.getvArrow1();
 	sv.ui.varrow12 = sv.ui.arrow1.getvArrow2();
 	///
-	sv.ui.arrow2 = new sv.vari.arrow(Ti.App.size(350));
+	sv.ui.arrow2 = new sv.vari.arrow(Ti.App.size(315));
 	sv.ui.varrow21 = sv.ui.arrow2.getvArrow1();
 	sv.ui.varrow22 = sv.ui.arrow2.getvArrow2();
 	///////
 	sv.vari.combobox = require('/ui/ComboBox');
-	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(250), Ti.App.size(345), 'Từ ngày', Ti.App.size(585));
-	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(350), Ti.App.size(445), 'Đến ngày', Ti.App.size(585));
-	sv.ui.view_choose2 = new sv.vari.combobox(Ti.App.size(450), Ti.App.size(545), 'Bộ số', Ti.App.size(670));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(210), Ti.App.size(305), 'Từ ngày', Ti.App.size(585));
+	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(315), Ti.App.size(410), 'Đến ngày', Ti.App.size(585));
+	sv.ui.view_choose2 = new sv.vari.combobox(Ti.App.size(425), Ti.App.size(520), 'Bộ số', Ti.App.size(670));
 	sv.arr.ngay1 = ['6/9/2014', '1/1/2014'];
 	sv.arr.ngay2 = ['6/9/2014', '1/1/2014'];
 	sv.arr.ngay3 = ['6/9/2014', '1/1/2014'];
@@ -108,39 +108,85 @@ function tao_ui(sv) {
 	sv.ui.table_view1 = sv.ui.view_choose1.getTableView();
 	sv.ui.table_view2 = sv.ui.view_choose2.getTableView();
 	///////
-	sv.ui.demuc=Titanium.UI.createView({
-		width:Ti.App.size(720),
-		height:Ti.App.size(75),
-		backgroundColor:Ti.App.Color.superwhite,
-		top:Ti.App.size(840),
-		left:0,
-		right:0
-	});
-	sv.ui.rowchild=require('/ui/RowChild');
-	sv.ui.rowc1=new sv.ui.rowchild(0,0,Ti.App.size(220),'Số nhịp',true);
-	sv.ui.rowc1.setcolor(Ti.App.Color.nauden);
-	sv.ui.rowc2=new sv.ui.rowchild(0,Ti.App.size(220),Ti.App.size(270),'ve giai',true);
-	sv.ui.rowc2.setcolor(Ti.App.Color.nauden);
-	sv.ui.rowc3=new sv.ui.rowchild(0,Ti.App.size(490),Ti.App.size(220),'ngay',false);
-	sv.ui.rowc3.setcolor(Ti.App.Color.nauden);
-	sv.ui.scrollview=Ti.UI.createScrollView({
-		top : Ti.App.size(920),
+	sv.ui.demuc = Titanium.UI.createView({
 		width : Ti.App.size(720),
+		height : Ti.App.size(75),
+		backgroundColor : Ti.App.Color.superwhite,
+		top : Ti.App.size(825),
 		left : 0,
-		right : 0,
-		bottom : 0,
-		// contentHeight : viewScrollParent.height,
-		// height : viewScrollParent.height,
-		layout : 'vertical',
-		horizontalWrap : false,
-		scrollType : 'vertical',
-		backgroundColor : 'transparent',
-		showHorizontalScrollIndicator : false,
-		showVerticalScrollIndicator : false,
-		disableBounce : true,
-		scrollsToTop : false,
-		horizontalBounce : true,
+		right : 0
 	});
+	sv.ui.rowchild = require('/ui/RowChild');
+	sv.ui.rowc1 = new sv.ui.rowchild(Ti.App.size(20), 0, Ti.App.size(220), Ti.App.size(40), 'Số nhịp', true);
+	sv.ui.rowc1.setColor_Line(Ti.App.Color.nauden);
+	sv.ui.rowc2 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(220), Ti.App.size(270), Ti.App.size(40), 'Về giải', true);
+	sv.ui.rowc2.setColor_Line(Ti.App.Color.nauden);
+	sv.ui.rowc3 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(490), Ti.App.size(230), Ti.App.size(40), 'Ngày', false);
+	sv.ui.rowc3.setColor_Line(Ti.App.Color.nauden);
+	sv.ui.tblDayso = Ti.UI.createTableView({
+		width : Ti.App.size(720),
+		top : Ti.App.size(900),
+		backgroundColor : 'transparent',
+		separatorColor : Ti.App.Color.nauden,
+		left : 0,
+		right : Ti.App.size(16)
+	});
+	sv.arr.params = [{
+		nhip : '2',
+		giai : 'G5',
+		ngay : '1/1/2014'
+	}, {
+		nhip : '2',
+		giai : 'G5',
+		ngay : '1/1/2014'
+	}, {
+		nhip : '2',
+		giai : 'G5',
+		ngay : '1/1/2014'
+	}];
+	sv.arr.datatbl = [];
+	for (var i = 0; i < (sv.arr.params.length); i++) {
+		sv.ui.row = Ti.UI.createTableViewRow({
+			height : Ti.App.size(80),
+			width : Ti.App.size(720),
+		});
+		sv.ui.lblnhip = Ti.UI.createLabel({
+			width : Ti.App.size(220),
+			left : 0,
+			text : sv.arr.params[i].nhip,
+			color : Ti.App.Color.nauden,
+			font : {
+				fontSize : Ti.App.size(40)
+			},
+			textAlign : 'center'
+		});
+		sv.ui.row.add(sv.ui.lblnhip);
+		sv.ui.lblgiai = Ti.UI.createLabel({
+			width : Ti.App.size(270),
+			left : Ti.App.size(220),
+			text : sv.arr.params[i].giai,
+			color : Ti.App.Color.nauden,
+			font : {
+				fontSize : Ti.App.size(40)
+			},
+			textAlign : 'center'
+		});
+		sv.ui.row.add(sv.ui.lblgiai);
+		sv.ui.lblngayve = Ti.UI.createLabel({
+			width : Ti.App.size(230),
+			left : Ti.App.size(490),
+			text : sv.arr.params[i].ngay,
+			color : Ti.App.Color.nauden,
+			font : {
+				fontSize : Ti.App.size(40)
+			},
+			textAlign : 'center'
+		});
+		sv.ui.row.add(sv.ui.lblngayve);
+
+		sv.arr.datatbl.push(sv.ui.row);
+	};
+	sv.ui.tblDayso.setData(sv.arr.datatbl);
 	//////
 	tao_event(sv);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
@@ -152,7 +198,7 @@ function tao_ui(sv) {
 	sv.ui.WindowSupport.addEventListener('open', sv.fu.openWindow);
 	sv.ui.WindowSupport.addEventListener('close', sv.fu.closeWindow);
 	//////
-	sv.ui.WindowSupport.add(sv.ui.scrollview);
+	sv.ui.WindowSupport.add(sv.ui.tblDayso);
 	sv.ui.demuc.add(sv.ui.rowc1);
 	sv.ui.demuc.add(sv.ui.rowc2);
 	sv.ui.demuc.add(sv.ui.rowc3);
@@ -165,6 +211,7 @@ function tao_ui(sv) {
 	sv.ui.WindowSupport.add(sv.ui.view_choose2);
 	sv.ui.WindowSupport.add(sv.ui.table_view);
 	sv.ui.WindowSupport.add(sv.ui.table_view1);
+	sv.ui.WindowSupport.add(sv.ui.table_view2);
 	sv.ui.WindowSupport.add(sv.ui.btn_xemkq);
 	sv.ui.WindowSupport.add(sv.ui.View1);
 	sv.ui.View1.add(sv.ui.view_menu_icon);
@@ -182,13 +229,13 @@ function tao_event(sv) {
 		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view);
 	};
 	sv.fu.event_click_view1 = function(e) {
-		view_click(sv.ui.table_view1, sv.ui.table_view2,sv.ui.table_view);
+		view_click(sv.ui.table_view1, sv.ui.table_view2, sv.ui.table_view);
 	};
 	sv.fu.event_clicktbl1 = function(e) {
 		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1);
 	};
 	sv.fu.event_click_view2 = function(e) {
-		view_click(sv.ui.table_view2, sv.ui.table_view1,sv.ui.table_view);
+		view_click(sv.ui.table_view2, sv.ui.table_view1, sv.ui.table_view);
 	};
 	sv.fu.event_clicktbl2 = function(e) {
 		tbl_click(e, sv.ui.lblfirst2, sv.ui.table_view2);
@@ -218,3 +265,4 @@ function view_click(_tbl1, _tbl2, _tbl3) {
 	_tbl2.visible = false;
 	_tbl3.visible = false;
 }
+

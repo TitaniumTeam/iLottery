@@ -17,24 +17,25 @@ module.exports = function(_topv,_toptbl,_textlbl,_width) {
 		font : {
 			fonSize : Ti.App.size(30)
 		},
-		text : _textlbl
+		text : _textlbl,
+		left:Ti.App.size(20)
 	});
 	sv.ui.view_contain.getLblFirst=function(){
 		return sv.ui.lblfirst;
 	};
 	//
 	sv.ui.tableview = Ti.UI.createTableView({
-		separatorColor : Ti.App.Color.magenta,
+		separatorColor : Ti.App.Color.nauden,
 		top : _toptbl,
-		width : Ti.App.size(585),
+		width : Ti.App.size(670),
 		left :  Ti.App.size(25),
 		right : Ti.App.size(25),
 		visible : false,
-		backgroundColor:Ti.App.Color.superwhite,
-		// backgroundColor:'blue',
-		// zIndex:10,
+		backgroundColor:Ti.App.Color.magenta,
 		height:Ti.UI.SIZE,
-		zIndex:10
+		zIndex:10,
+		borderColor:Ti.App.Color.nauden,
+		borderWidth:1
 	});
 	sv.ui.view_contain.setTable = function(_tinh) {
 		sv.arr.data = [];
@@ -53,7 +54,8 @@ module.exports = function(_topv,_toptbl,_textlbl,_width) {
 					fontSize : Ti.App.size(30)
 				},
 				text : _tinh[i],
-				backgroundSelectedColor:'yellow'
+				backgroundSelectedColor:'yellow',
+				left:Ti.App.size(20)
 			});
 
 			sv.ui.rowTbl.add(sv.ui.tinhthanh);
@@ -65,5 +67,6 @@ module.exports = function(_topv,_toptbl,_textlbl,_width) {
 	sv.ui.view_contain.getTableView = function() {
 		return sv.ui.tableview;
 	};
+	
 	return sv.ui.view_contain;
 };
