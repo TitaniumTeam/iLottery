@@ -45,7 +45,7 @@ function tao_ui(sv) {
 	sv.ui.menu_icon = Ti.UI.createImageView({
 		width : Ti.App.size(56),
 		heigth : Ti.App.size(37),
-		image : '/assets/icon/menu.png',
+		image : '/assets/images/icon/menu.png',
 	});
 	sv.ui.view_user_icon = Ti.UI.createView({
 		width : Ti.App.size(120),
@@ -56,7 +56,7 @@ function tao_ui(sv) {
 	sv.ui.user_icon = Ti.UI.createImageView({
 		width : Ti.App.size(46),
 		height : Ti.App.size(58),
-		image : '/assets/icon/user.png',
+		image : '/assets/images/icon/user.png',
 	});
 	sv.ui.lbl_Login = Ti.UI.createLabel({
 		width : Ti.App.size(220),
@@ -98,7 +98,7 @@ function tao_ui(sv) {
 	sv.ui.avatar = Ti.UI.createImageView({
 		width : Ti.App.size(210),
 		height : Ti.App.size(210),
-		image : '/assets/icon/avatar-defaut.png',
+		image : '/assets/images/icon/avatar-defaut.png',
 		top : Ti.App.size(280),
 	});
 	sv.vari.txt1 = 'Nhập tài khoản';
@@ -107,7 +107,7 @@ function tao_ui(sv) {
 		text : sv.vari.txt1,
 		attributes :[{
 			type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-			value : Ti.App.superwhite,
+			value : 'white',
 			range : [0, sv.vari.txt1.length]
 		},]
 	});
@@ -115,7 +115,7 @@ function tao_ui(sv) {
 		text : sv.vari.txt2,
 		attributes :[{
 			type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-			value : Ti.App.superwhite,
+			value : 'white',
 			range : [0, sv.vari.txt2.length]
 		},]
 		

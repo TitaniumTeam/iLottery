@@ -16,7 +16,7 @@ module.exports=function(_top,_left,_width,_conso,_visible){
 		width:1,
 		height:Ti.App.size(70),
 		right:0,
-		backgroundColor : Ti.App.Color.magenta,
+		backgroundColor : Ti.App.brown,
 		visible:_visible
 	});
 	sv.ui.view_contain.add(sv.ui.line_doc);
