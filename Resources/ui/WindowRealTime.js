@@ -193,7 +193,7 @@ function tao_ui(sv) {
 		width:Ti.App.size(200),
 		height:Ti.App.size(60),
 		left:0,
-		text:'Day so ve',
+		text:'Dãy số về',
 		top:Ti.App.size(20),
 		font:{fontSize:Ti.App.size(30)},
 		color:Ti.App.Color.nauden,
