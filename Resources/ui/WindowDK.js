@@ -107,7 +107,7 @@ function tao_ui(sv) {
 		text : sv.vari.txt1,
 		attributes :[{
 			type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-			value : 'white',
+			value : Ti.App.superwhite,
 			range : [0, sv.vari.txt1.length]
 		},]
 	});
@@ -115,7 +115,7 @@ function tao_ui(sv) {
 		text : sv.vari.txt2,
 		attributes :[{
 			type : Titanium.UI.iOS.ATTRIBUTE_FOREGROUND_COLOR,
-			value : 'white',
+			value : Ti.App.superwhite,
 			range : [0, sv.vari.txt2.length]
 		},]
 		
