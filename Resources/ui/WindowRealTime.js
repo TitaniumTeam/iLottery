@@ -51,7 +51,7 @@ function tao_ui(sv) {
 		// top : Ti.App.size(30)
 	});
 	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
-		width : Ti.App.size(240),
+		width : Ti.App.size(260),
 		height : Ti.App.size(50),
 		text : 'TRỰC TIÊP',
 		color : Ti.App.Color.white,
@@ -73,7 +73,7 @@ function tao_ui(sv) {
 		// backgroundColor:'transparent',
 		// backgroundSelectedColor:Ti.App.Color.nauden
 		backgroundColor : Ti.App.Color.nauden,
-		borderRadius :10,
+		borderRadius : 10,
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmn = Titanium.UI.createLabel({
@@ -186,32 +186,107 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.row8);
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(360),
+		height : Ti.App.size(300),
 		backgroundColor : 'transparent'
 	});
-	sv.ui.lbl_dsve=Ti.UI.createLabel({
-		width:Ti.App.size(200),
-		height:Ti.App.size(60),
-		left:0,
-		text:'Dãy số về',
-		top:Ti.App.size(20),
-		font:{fontSize:Ti.App.size(30)},
-		color:Ti.App.Color.nauden,
-		textAlign:'center'
+	sv.ui.lbl_dsve = Ti.UI.createLabel({
+		width : Ti.App.size(200),
+		height : Ti.App.size(60),
+		left : Ti.App.size(20),
+		text : 'Dãy số về',
+		top : Ti.App.size(20),
+		font : {
+			fontSize : Ti.App.size(30)
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left'
 	});
 	sv.ui.vDaysove.add(sv.ui.lbl_dsve);
+	sv.ui.vConsove = Ti.UI.createView({
+		width : Ti.App.size(680),
+		height : Ti.App.size(240),
+		top : Ti.App.size(80),
+		left : Ti.App.size(20),
+		right : Ti.App.size(20)
+	});
+	sv.ui.vDaysove.add(sv.ui.vConsove);
+	sv.vari.rowchild = require('/ui/RowChild');
+	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
+	for (var i = 0; i < 9; i++) {
+		sv.ui.rowc1 = new sv.vari.rowchild(Ti.App.size(0), Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
+		sv.ui.vConsove.add(sv.ui.rowc1);
+	}
+	for (var i = 0; i < 9; i++) {
+		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.vConsove.add(sv.ui.rowc2);
+	}
+	for (var i = 0; i < 9; i++) {
+		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.vConsove.add(sv.ui.rowc3);
+	}
 	sv.ui.scrollView.add(sv.ui.vDaysove);
-
+	////
 	sv.ui.vdau_sau = Ti.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(780),
-		backgroundColor : 'yellow'
+		height : Ti.App.size(70),
 	});
+
+	sv.ui.lbl_dsve_saudau = Ti.UI.createLabel({
+		width : Ti.App.size(70),
+		height : Ti.App.size(70),
+		left : Ti.App.size(20),
+		text : 'Số đầu',
+		top : 0,
+		font : {
+			fontSize : Ti.App.size(20)
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left'
+	});
+	sv.ui.vdau_sau.add(sv.ui.lbl_dsve_saudau);
+	sv.ui.lbl_dsve_sau = Ti.UI.createLabel({
+		width : Ti.App.size(70),
+		height : Ti.App.size(70),
+		left : Ti.App.size(120),
+		text : 'Số sau',
+		top : 0,
+		font : {
+			fontSize : Ti.App.size(20)
+		},
+		color : Ti.App.Color.nauden,
+		textAlign : 'left'
+	});
+	sv.ui.vdau_sau.add(sv.ui.lbl_dsve_sau);
 	sv.ui.scrollView.add(sv.ui.vdau_sau);
+	////
+	for (var i = 0; i < 8; i++) {
+		sv.ui.vds_sovesau = Ti.UI.createView({
+			width : Ti.App.size(670),
+			height : Ti.App.size(70),
+			left : Ti.App.size(20),
+			// top : Ti.App.size(75) * i,
+			borderColor : Ti.App.Color.magenta,
+			borderWidth : 1,
+			borderRadius : 2
+		});
+		sv.ui.space=Ti.UI.createView({
+			width:Ti.App.size(670),
+			height:Ti.App.size(5),
+			left : Ti.App.size(20),
+		});
+		for (var j = 0; j < 4; j++) {
+			sv.ui.rowchild_vds = new sv.vari.rowchild(Ti.App.size(1), setleft(j,0), Ti.App.size(67), Ti.App.size(67), sv.arr.dayso1[j], false, false, false,setbg(j,0));
+			sv.ui.vds_sovesau.add(sv.ui.rowchild_vds);
+		}
+		sv.ui.scrollView.add(sv.ui.space);
+		sv.ui.scrollView.add(sv.ui.vds_sovesau);
+	}
+
+	;
 	////
 	createUI_Event(sv);
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventBackHome);
-	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventWindowDK);
+	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventWindowKQSX);
 	sv.ui.WindowRealTime.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowRealTime.addEventListener('close', sv.fu.eventCloseWindow);
 	/////
@@ -234,9 +309,9 @@ function createUI_Event(sv) {
 	sv.fu.eventBackHome = function(e) {
 		sv.ui.WindowRealTime.close();
 	};
-	sv.fu.eventWindowDK = function(e) {
-		// var windowDK = new (require('/ui/WindowDK'))();
-		// windowDK.open();
+	sv.fu.eventWindowKQSX = function(e) {
+		var windowkqsx = new (require('/ui/WindowKQSX'))();
+		windowkqsx.open();
 	};
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
@@ -245,7 +320,7 @@ function createUI_Event(sv) {
 		sv.ui.WindowRealTime.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.WindowRealTime.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
-		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowDK);
+		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowKQSX);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -254,4 +329,18 @@ function createUI_Event(sv) {
 
 		Ti.API.info('Closed window, sv=' + sv);
 	};
+}
+
+function setbg(i, _bg) {
+	if (i == _bg) {
+		return true;
+	} else
+		return false;
+};
+function setleft(j,_left){
+	if(j==_left){
+		return Ti.App.size(1);
+	}
+	else
+	return Ti.App.size(74) * j;
 }
