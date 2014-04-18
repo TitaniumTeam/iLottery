@@ -18,7 +18,9 @@ module.exports = function(_height, _ten, _conso, _kt) {
 		height : Ti.App.size(60),
 		left : Ti.App.size(20),
 		top : Ti.App.size(30),
-		text : _ten
+		text : _ten,font : {
+			fontSize : Ti.App.size(40)
+		},
 	});
 	sv.ui.row1.add(sv.ui.lbl_tengiai);
 	sv.ui.line = Ti.UI.createView({
@@ -47,6 +49,7 @@ module.exports = function(_height, _ten, _conso, _kt) {
 	sv.ui.lblvien.add(sv.ui.lblso);
 	sv.ui.rowchild = require('/ui/RowChild');
 	if (_ten == 'Đặc biệt') {
+		// sv.ui.lbl_tengiai.setFont({fontSize:Ti.App.size(35)});
 		if (_kt == true) {
 			sv.ui.row1.add(sv.ui.lblvien);
 			sv.ui.lblso.setColor(Ti.App.Color.red);

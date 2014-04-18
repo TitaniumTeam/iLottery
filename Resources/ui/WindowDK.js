@@ -63,43 +63,46 @@ function tao_ui(sv) {
 		height : Ti.App.size(50),
 		text : 'ĐĂNG KÝ',
 		color : Ti.App.Color.white,
-		top : Ti.App.size(30)
+		top : Ti.App.size(30),
+		font : {
+			fontSize : Ti.App.size(50)
+		},
 	});
 	sv.ui.circle1 = Ti.UI.createImageView({
-		width : Ti.App.size(460),
-		height : Ti.App.size(460),
-		borderRadius : Ti.App.size(460) / 2,
+		width : Ti.App.size(400),
+		height : Ti.App.size(400),
+		borderRadius : Ti.App.size(400) / 2,
 		borderColor : 'black',
 		backgroundColor : 'transparent',
-		top : Ti.App.size(150),
-		opacity : 0.1,
+		top : Ti.App.size(130),
+		opacity : 0.05,
 		borderWidth : 2
 	});
 	sv.ui.circle2 = Ti.UI.createImageView({
-		width : Ti.App.size(380),
-		height : Ti.App.size(380),
-		borderRadius : Ti.App.size(380) / 2,
+		width : Ti.App.size(320),
+		height : Ti.App.size(320),
+		borderRadius : Ti.App.size(320) / 2,
 		borderColor : 'black',
 		backgroundColor : 'transparent',
-		top : Ti.App.size(190),
-		opacity : 0.2,
+		top : Ti.App.size(170),
+		opacity : 0.1,
 		borderWidth : 2
 	});
 	sv.ui.circle3 = Ti.UI.createImageView({
-		width : Ti.App.size(290),
-		height : Ti.App.size(290),
-		borderRadius : Ti.App.size(290) / 2,
+		width : Ti.App.size(240),
+		height : Ti.App.size(240),
+		borderRadius : Ti.App.size(240) / 2,
 		borderColor : 'black',
 		backgroundColor : 'transparent',
-		top : Ti.App.size(235),
-		opacity : 0.3,
+		top : Ti.App.size(210),
+		opacity : 0.15,
 		borderWidth : 2
 	});
 	sv.ui.avatar = Ti.UI.createImageView({
-		width : Ti.App.size(210),
-		height : Ti.App.size(210),
+		width : Ti.App.size(180),
+		height : Ti.App.size(180),
 		image : '/assets/images/icon/avatar-defaut.png',
-		top : Ti.App.size(280),
+		top : Ti.App.size(240),
 	});
 	sv.vari.txt1 = 'Nhập tài khoản';
 	sv.vari.txt2 = 'Nhập mật khẩu';
@@ -129,9 +132,11 @@ function tao_ui(sv) {
 		borderWidth : 2,
 		textAlign : 'center',
 		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(690),
+		top : Ti.App.size(600),
 		backgroundColor : 'transparent',
-		attributedHintText : sv.vari.attr1
+		attributedHintText : sv.vari.attr1,font : {
+			fontSize : Ti.App.size(40)
+		},
 	});
 	sv.ui.txtPassword = Ti.UI.createTextField({
 		width : Ti.App.size(680),
@@ -143,8 +148,10 @@ function tao_ui(sv) {
 		attributedHintText : sv.vari.attr2,
 		textAlign : 'center',
 		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(805),
-		backgroundColor : 'transparent',
+		top : Ti.App.size(720),
+		backgroundColor : 'transparent',font : {
+			fontSize : Ti.App.size(40)
+		},
 	});
 	sv.ui.btn_dangki=Ti.UI.createLabel({
 		width:Ti.App.size(680),
@@ -155,7 +162,10 @@ function tao_ui(sv) {
 		right : Ti.App.size(20),
 		bottom:Ti.App.size(20),
 		color:Ti.App.Color.superwhite,
-		textAlign:'center'
+		textAlign:'center',
+		font : {
+			fontSize : Ti.App.size(50)
+		},
 	});
 	/////////////
 	tao_event(sv);
@@ -182,7 +192,6 @@ function tao_event(sv) {
 	sv.fu = {};
 	sv.fu.eventBackHome = function(e) {
 		sv.ui.WindowDK.close();
-		alert('ket qua' + sv.ui.txtUser.value);
 	};
 	sv.fu.openWindow = function(e) {
 		Ti.API.info('open window');

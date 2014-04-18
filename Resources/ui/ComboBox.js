@@ -15,7 +15,7 @@ module.exports = function(_topv,_toptbl,_textlbl,_width) {
 	sv.ui.lblfirst = Titanium.UI.createLabel({
 		color : Ti.App.Color.nauden,
 		font : {
-			fonSize : Ti.App.size(30)
+			fontSize : Ti.App.size(40)
 		},
 		text : _textlbl,
 		left:Ti.App.size(20)

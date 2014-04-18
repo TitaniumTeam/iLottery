@@ -53,7 +53,7 @@ function tao_ui(sv) {
 	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
 		width : Ti.App.size(260),
 		height : Ti.App.size(50),
-		text : 'TRỰC TIÊP',
+		text : 'TRỰC TIẾP',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(30),
 		font : {

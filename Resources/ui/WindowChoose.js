@@ -52,10 +52,13 @@ function tao_ui(sv) {
 		// top : Ti.App.size(30)
 	});
 	sv.ui.lbl_Choose = Ti.UI.createLabel({
-		width : Ti.App.size(220),
+		width : Ti.App.size(300),
 		height : Ti.App.size(50),
 		text : 'LỰA CHỌN',
 		color : Ti.App.Color.white,
+		font : {
+			fontSize : Ti.App.size(50)
+		},
 	});
 	sv.ui.lbl_info = Ti.UI.createLabel({
 		width : Ti.App.size(720),
@@ -77,7 +80,10 @@ function tao_ui(sv) {
 		right : Ti.App.size(25),
 		bottom : Ti.App.size(20),
 		color : Ti.App.Color.superwhite,
-		textAlign : 'center'
+		textAlign : 'center',
+		font : {
+			fontSize : Ti.App.size(50)
+		},
 	});
 	sv.vari.arrow = require('/ui/vArrow');
 	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(249));
