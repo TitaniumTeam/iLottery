@@ -52,7 +52,7 @@ function tao_ui(sv) {
 		// top : Ti.App.size(30)
 	});
 	sv.ui.lbl_Choose = Ti.UI.createLabel({
-		width : Ti.App.size(300),
+		width : Ti.App.size(340),
 		height : Ti.App.size(50),
 		text : 'Dãy số lâu về',
 		color : Ti.App.Color.white,

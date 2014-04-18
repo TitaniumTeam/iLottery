@@ -59,7 +59,7 @@ function tao_ui(sv) {
 		image : '/assets/images/icon/user.png',
 	});
 	sv.ui.lbl_Login = Ti.UI.createLabel({
-		width : Ti.App.size(220),
+		width : Ti.App.size(280),
 		height : Ti.App.size(50),
 		text : 'ĐĂNG KÝ',
 		color : Ti.App.Color.white,
