@@ -7,7 +7,7 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.WindowSupport;
+	return sv.ui.ViewTong;
 };
 
 /*khoi tao UI
@@ -17,51 +17,15 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.vari = {};
-	sv.ui.WindowSupport = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.magenta,
-		navBarHidden : true,
-		fullscreen : true
-	});
-	sv.ui.View1 = Ti.UI.createView({
-		backgroundColor : 'red',
+	sv.ui.ViewTong = Titanium.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(120),
-		top : 0
-	});
-	sv.ui.view_menu_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
+		height : Ti.UI.SIZE,
 		left : 0,
 		top : 0,
-	});
-	sv.ui.menu_icon = Ti.UI.createImageView({
-		width : Ti.App.size(56),
-		heigth : Ti.App.size(37),
-		image : '/assets/images/icon/menu.png',
-	});
-	sv.ui.view_user_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		right : 0,
-		top : 0,
-	});
-	sv.ui.user_icon = Ti.UI.createImageView({
-		width : Ti.App.size(46),
-		height : Ti.App.size(58),
-		image : '/assets/images/icon/user.png',
-		// top : Ti.App.size(30)
-	});
-	sv.ui.lbl_Choose = Ti.UI.createLabel({
-		width : Ti.App.size(340),
-		height : Ti.App.size(50),
-		text : 'Dãy số lâu về',
-		color : Ti.App.Color.white,
-		font : {
-			fontSize : Ti.App.size(50)
-		},
+		backgroundColor : 'transparent'
 	});
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(120),
+		top : Ti.App.size(0),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
@@ -192,7 +156,7 @@ function tao_ui(sv) {
 		separatorColor : Ti.App.Color.nauden,
 		left : 0,
 		right : Ti.App.size(16),
-		top:0,
+		top : 0,
 		height : Ti.UI.SIZE,
 	});
 	sv.arr.params = [{
@@ -253,10 +217,10 @@ function tao_ui(sv) {
 	sv.ui.tblDayso.setData(sv.arr.datatbl);
 	sv.ui.vTong2.add(sv.ui.tblDayso);
 	sv.ui.scrollView.add(sv.ui.vTong2);
+
+	sv.ui.ViewTong.add(sv.ui.scrollView);
 	//////
 	tao_event(sv);
-	sv.ui.view_menu_icon.addEventListener('click',sv.fu.event_backhome);
-	sv.ui.btn_xemkq.addEventListener('click', sv.fu.event_btnxacnhan_click);
 	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.arrow2.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
@@ -265,29 +229,11 @@ function tao_ui(sv) {
 	sv.ui.table_view1.addEventListener('click', sv.fu.event_clicktbl1);
 	sv.ui.view_choose2.addEventListener('click', sv.fu.event_click_view2);
 	sv.ui.table_view2.addEventListener('click', sv.fu.event_clicktbl2);
-	sv.ui.WindowSupport.addEventListener('open', sv.fu.openWindow);
-	sv.ui.WindowSupport.addEventListener('close', sv.fu.closeWindow);
 	//////
 
-	sv.ui.WindowSupport.add(sv.ui.scrollView);
-	sv.ui.WindowSupport.add(sv.ui.View1);
-	sv.ui.View1.add(sv.ui.view_menu_icon);
-	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
-	sv.ui.View1.add(sv.ui.view_user_icon);
-	sv.ui.view_user_icon.add(sv.ui.user_icon);
-	sv.ui.View1.add(sv.ui.lbl_Choose);
 };
 function tao_event(sv) {
 	sv.fu = {};
-	sv.fu.event_backhome=function(e){
-		sv.ui.drawer=new (require('/ui/slide_menu'))(2);
-		sv.ui.drawer.open();
-		sv.ui.drawer.toggleLeftWindow();
-	};
-	sv.fu.event_btnxacnhan_click = function(e) {
-		var windowrealtime = new (require('/ui/WindowRealTime'))();
-		windowrealtime.open();
-	};
 	sv.fu.event_click_view = function(e) {
 		view_click(sv.ui.table_view, sv.ui.table_view1, sv.ui.table_view2);
 	};
@@ -305,22 +251,6 @@ function tao_event(sv) {
 	};
 	sv.fu.event_clicktbl2 = function(e) {
 		tbl_click(e, sv.ui.lblfirst2, sv.ui.table_view2);
-	};
-	sv.fu.openWindow = function(e) {
-		Ti.API.info('open window');
-	};
-	sv.fu.closeWindow = function(e) {
-		sv.ui.btn_xemkq.removeEventListener('click', sv.fu.event_btnxacnhan_click);
-		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
-		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.view_choose2.removeEventListener('click', sv.fu.event_click_view2);
-		sv.ui.table_view2.removeEventListener('click', sv.fu.event_clicktbl2);
-		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
-		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
-		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
-		sv.ui.WindowSupport.removeEventListener('open', sv.fu.openWindow);
-		sv.ui.WindowSupport.removeEventListener('close', sv.fu.closeWindow);
 	};
 }
 

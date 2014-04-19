@@ -16,7 +16,7 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(120),
+		top : 0,
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,

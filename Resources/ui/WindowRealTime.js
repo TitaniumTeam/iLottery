@@ -20,7 +20,7 @@ function tao_ui(sv) {
 		width:Ti.App.size(720),
 		height:Ti.UI.SIZE,
 		left:0,
-		top:Ti.App.size(120),
+		top:0,
 		backgroundColor:'transparent'
 	});
 	sv.ui.View1 = Ti.UI.createView({

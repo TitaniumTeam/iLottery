@@ -7,7 +7,7 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.WindowChoose;
+	return sv.ui.ViewTong;
 };
 
 /*khoi tao UI
@@ -17,11 +17,14 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.vari = {};
-	sv.ui.WindowChoose = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.magenta,
-		navBarHidden : true,
-		fullscreen : true
+	sv.ui.ViewTong=Titanium.UI.createView({
+		width:Ti.App.size(720),
+		height:Ti.UI.SIZE,
+		left:0,
+		top:0,
+		backgroundColor:'transparent'
 	});
+	/*
 	sv.ui.View1 = Ti.UI.createView({
 		backgroundColor : 'red',
 		width : Ti.App.size(720),
@@ -59,7 +62,7 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(50)
 		},
-	});
+	});*/
 	sv.ui.lbl_info = Ti.UI.createLabel({
 		width : Ti.App.size(720),
 		height : Ti.App.size(100),
@@ -69,7 +72,7 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(30)
 		},
 		textAlign : 'center',
-		top : Ti.App.size(120)
+		top : Ti.App.size(20)
 	});
 	sv.ui.btn_xemkq = Ti.UI.createLabel({
 		width : Ti.App.size(670),
@@ -78,7 +81,7 @@ function tao_ui(sv) {
 		text : 'Xem kết quả',
 		left : Ti.App.size(25),
 		right : Ti.App.size(25),
-		bottom : Ti.App.size(20),
+		top : Ti.App.size(800),
 		color : Ti.App.Color.superwhite,
 		textAlign : 'center',
 		font : {
@@ -108,44 +111,24 @@ function tao_ui(sv) {
 
 	//////
 	tao_event(sv);
-	sv.ui.view_menu_icon.addEventListener('click',sv.fu.event_slide);
 	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.arrow2.addEventListener('click', sv.fu.event_click_view1);
-	sv.ui.btn_xemkq.addEventListener('click', sv.fu.event_click_xem);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.view_choose1.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.table_view1.addEventListener('click', sv.fu.event_clicktbl1);
-	sv.ui.WindowChoose.addEventListener('open', sv.fu.openWindow);
-	sv.ui.WindowChoose.addEventListener('close', sv.fu.closeWindow);
 	//////
-	sv.ui.WindowChoose.add(sv.ui.arrow1);
-	sv.ui.WindowChoose.add(sv.ui.arrow2);
-	sv.ui.WindowChoose.add(sv.ui.view_choose);
-	sv.ui.WindowChoose.add(sv.ui.view_choose1);
-	sv.ui.WindowChoose.add(sv.ui.table_view);
-	sv.ui.WindowChoose.add(sv.ui.table_view1);
-	sv.ui.WindowChoose.add(sv.ui.btn_xemkq);
-	sv.ui.WindowChoose.add(sv.ui.lbl_info);
-	sv.ui.WindowChoose.add(sv.ui.View1);
-	sv.ui.View1.add(sv.ui.view_menu_icon);
-	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
-	sv.ui.View1.add(sv.ui.view_user_icon);
-	sv.ui.view_user_icon.add(sv.ui.user_icon);
-	sv.ui.View1.add(sv.ui.lbl_Choose);
-	
+	sv.ui.ViewTong.add(sv.ui.arrow1);
+	sv.ui.ViewTong.add(sv.ui.arrow2);
+	sv.ui.ViewTong.add(sv.ui.view_choose);
+	sv.ui.ViewTong.add(sv.ui.view_choose1);
+	sv.ui.ViewTong.add(sv.ui.table_view);
+	sv.ui.ViewTong.add(sv.ui.table_view1);
+	sv.ui.ViewTong.add(sv.ui.btn_xemkq);
+	sv.ui.ViewTong.add(sv.ui.lbl_info);
 };
 function tao_event(sv) {
 	sv.fu = {};
-	sv.fu.event_slide=function(e){
-		var drawer=new (require('/ui/slide_menu'))(0);
-		drawer.open();
-		drawer.toggleLeftWindow();
-	};
-	sv.fu.event_click_xem = function(e) {
-		var windowsupport = new (require('/ui/WindowSupport'))();
-		windowsupport.open();
-	};
 	sv.fu.event_click_view = function(e) {
 		view_click(sv.ui.table_view, sv.ui.table_view1);
 	};
@@ -157,20 +140,6 @@ function tao_event(sv) {
 	};
 	sv.fu.event_clicktbl1 = function(e) {
 		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1);
-	};
-	sv.fu.openWindow = function(e) {
-		Ti.API.info('open window');
-	};
-	sv.fu.closeWindow = function(e) {
-		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
-		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.btn_xemkq.removeEventListener('click', sv.fu.event_click_xem);
-		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
-		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
-		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
-		sv.ui.WindowChoose.removeEventListener('open', sv.fu.openWindow);
-		sv.ui.WindowChoose.removeEventListener('close', sv.fu.closeWindow);
 	};
 }
 

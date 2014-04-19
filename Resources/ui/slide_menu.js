@@ -175,8 +175,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2);
-	{
+	sv.ui.view_menulist.add(sv.ui.tableView2); {
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -446,6 +445,14 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(40)
 		}
 	});
+	sv.ui.Viewtong = Titanium.UI.createView({
+		top : Ti.App.size(120),
+		left : 0,
+		width : Ti.App.size(720),
+		height : Ti.UI.SIZE,
+		backgroundColor : 'transparent'
+	});
+	sv.ui.WindowSoXo.add(sv.ui.Viewtong);
 	sv.ui.View1.add(sv.ui.view_menu_icon);
 	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
 	sv.ui.View1.add(sv.ui.view_user_icon);
@@ -455,11 +462,15 @@ function tao_ui(sv) {
 	sv.ui.WindowSoXo.add(sv.ui.View1);
 	sv.ui.v = require('/ui/WindowKQSX');
 	sv.ui.scrollView_first = new sv.ui.v();
+	sv.ui.windowRealTime = require('/ui/WindowRealTime');
+	sv.ui.wdRealTime = new sv.ui.windowRealTime();
+	sv.ui.windowChoose = require('/ui/WindowChoose');
+	sv.ui.wdChoose = new sv.ui.windowChoose();
+	sv.ui.windowSupport = require('/ui/WindowSupport');
+	sv.ui.wdSupport = new sv.ui.windowSupport();
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowSoXo
 	});
-	sv.ui.windowRealTime = require('/ui/WindowRealTime');
-	sv.ui.wdRealTime = new sv.ui.windowRealTime();
 	/*
 	navcontroller win
 	* */
@@ -499,23 +510,29 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				// sv.ui.WindowSoXo.remove(sv.vari.crrview);
-				sv.ui.WindowSoXo.add(sv.ui.wdRealTime);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.Viewtong.add(sv.ui.wdRealTime);
 				sv.ui.drawer.toggleLeftWindow();
 				break;
 			case 1:
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.Viewtong.add(sv.ui.wdChoose);
 				sv.ui.drawer.toggleLeftWindow();
 				break;
 			case 2:
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.Viewtong.add(sv.ui.scrollView_first);
 				sv.ui.drawer.toggleLeftWindow();
 				break;
 			case 3:
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.Viewtong.add(sv.ui.wdSupport);
 				sv.ui.drawer.toggleLeftWindow();
 				break;
 		}
 	};
 	sv.fu.eventOpenWindow = function(e) {
-		sv.ui.WindowSoXo.add(sv.ui.scrollView_first);
+		sv.ui.Viewtong.add(sv.ui.scrollView_first);
 		Ti.API.info('Opened window');
 	};
 	sv.fu.eventCloseWindow = function(e) {
