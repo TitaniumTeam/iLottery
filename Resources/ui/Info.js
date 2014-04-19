@@ -184,8 +184,8 @@ function createUI(sv) {
 		backgroundImage : '/assets/images/icon/icon-info-2.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
-		left : Ti.App.size(40),
-		right : Ti.App.size(40),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
 	});
 
 	sv.ui.LabelRow2 = Ti.UI.createLabel({
@@ -221,8 +221,8 @@ function createUI(sv) {
 		backgroundImage : '/assets/images/icon/icon-info-3.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
-		left : Ti.App.size(40),
-		right : Ti.App.size(40),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
 	});
 
 	sv.ui.LabelRow3 = Ti.UI.createLabel({
@@ -258,8 +258,8 @@ function createUI(sv) {
 		backgroundImage : '/assets/images/icon/icon-info-4.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
-		left : Ti.App.size(40),
-		right : Ti.App.size(40),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
 	});
 
 	sv.ui.LabelRow4 = Ti.UI.createLabel({
@@ -295,8 +295,8 @@ function createUI(sv) {
 		backgroundImage : '/assets/images/icon/icon-info-5.png',
 		bottom : Ti.App.size(30),
 		top : Ti.App.size(30),
-		left : Ti.App.size(40),
-		right : Ti.App.size(40),
+		left : Ti.App.size(30),
+		right : Ti.App.size(30),
 	});
 
 	sv.ui.LabelRow5 = Ti.UI.createLabel({
@@ -319,8 +319,8 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
 	sv.ui.Window.add(sv.ui.ViewTong);
+	sv.ui.Window.add(sv.ui.ViewHeader);
 
-	sv.ui.ViewTong.add(sv.ui.ViewHeader);
 	sv.ui.ViewTong.add(sv.ui.ViewUngDung);
 
 	sv.ui.ViewHeader.add(sv.ui.IconMenu);

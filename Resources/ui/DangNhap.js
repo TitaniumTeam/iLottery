@@ -282,8 +282,8 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
 	sv.ui.Window.add(sv.ui.viewtong);
+	sv.ui.Window.add(sv.ui.viewheader);
 
-	sv.ui.viewtong.add(sv.ui.viewheader);
 	sv.ui.viewtong.add(sv.ui.viewdnface);
 	sv.ui.viewtong.add(sv.ui.viewdngmail);
 	sv.ui.viewtong.add(sv.ui.viewhoac);
