@@ -267,7 +267,7 @@ function tao_ui(sv) {
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
-	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(350), sv.arr.ten_right[1], sv.arr.icon_right[1]);
+	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(348), sv.arr.ten_right[1], sv.arr.icon_right[1]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header2r);
 	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(695), sv.arr.ten_right[2], sv.arr.icon_right[2]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header3r);
@@ -463,6 +463,7 @@ function tao_ui(sv) {
 	sv.ui.WindowSoXo.add(sv.ui.View1);
 	sv.ui.v = require('/ui/WindowKQSX');
 	sv.ui.scrollView_first = new sv.ui.v();
+	sv.ui.Viewtong.add(sv.ui.scrollView_first);
 	sv.ui.windowRealTime = require('/ui/WindowRealTime');
 	sv.ui.wdRealTime = new sv.ui.windowRealTime();
 	sv.ui.windowChoose = require('/ui/WindowChoose');
@@ -538,7 +539,6 @@ function tao_event(sv) {
 		}
 	};
 	sv.fu.eventOpenWindow = function(e) {
-		sv.ui.Viewtong.add(sv.ui.scrollView_first);
 		Ti.API.info('Opened window');
 	};
 	sv.fu.eventCloseWindow = function(e) {
@@ -551,7 +551,6 @@ function tao_event(sv) {
 		sv.ui = null;
 		sv.fu = null;
 		sv = null;
-
 		Ti.API.info('Closed window, sv=' + sv);
 	};
 };
