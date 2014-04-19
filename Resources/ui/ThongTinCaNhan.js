@@ -214,8 +214,8 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
 	sv.ui.Window.add(sv.ui.ViewTong);
+	sv.ui.Window.add(sv.ui.ViewHeader);
 
-	sv.ui.ViewTong.add(sv.ui.ViewHeader);
 	sv.ui.ViewTong.add(sv.ui.ViewEmail);
 	sv.ui.ViewTong.add(sv.ui.ViewTaiKhoan);
 	sv.ui.ViewTong.add(sv.ui.ViewMatKhau);

@@ -6,8 +6,8 @@ if (Ti.version < 1.8) {
 (function() {
 	new (require('ui-controller/AllData'));
 
-	var Window = new (require('ui/WindowMain'))();
-	Window.open();
-	// var Window=new(require('ui/DangNhap'))();
+	// var Window = new (require('ui/WindowMain'))();
 	// Window.open();
+	var Window=new(require('ui/DangNhap'))();
+	Window.open();
 })();
