@@ -307,7 +307,9 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu = {};
 	sv.fu.eventBackHome = function(e) {
-		sv.ui.WindowRealTime.close();
+		var drawer=new (require('/ui/slide_menu'))(3);
+		drawer.open();
+		drawer.toggleLeftWindow();
 	};
 	sv.fu.eventWindowKQSX = function(e) {
 		var windowkqsx = new (require('/ui/WindowKQSX'))();

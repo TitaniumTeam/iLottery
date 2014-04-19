@@ -1,3 +1,4 @@
+var NappDrawerModule = require('dk.napp.drawer');
 module.exports = function() {
 	var sv = {};
 	sv.vari = {};
@@ -134,7 +135,10 @@ function tao_ui(sv) {
 function createUI_Event(sv) {
 	sv.fu = {};
 	sv.fu.eventBackHome = function(e) {
-		sv.ui.WindowSoXo.close();
+		var draw=new (require('/ui/slide_menu'))(1);
+		draw.open();
+		draw.toggleLeftWindow();
+		
 	};
 	sv.fu.eventWindowDK = function(e) {
 		var windowDK = new (require('/ui/WindowDK'))();

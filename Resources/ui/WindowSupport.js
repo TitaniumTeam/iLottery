@@ -255,6 +255,7 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.vTong2);
 	//////
 	tao_event(sv);
+	sv.ui.view_menu_icon.addEventListener('click',sv.fu.event_backhome);
 	sv.ui.btn_xemkq.addEventListener('click', sv.fu.event_btnxacnhan_click);
 	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.arrow2.addEventListener('click', sv.fu.event_click_view1);
@@ -278,6 +279,11 @@ function tao_ui(sv) {
 };
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.event_backhome=function(e){
+		var drawer=new (require('/ui/slide_menu'))(2);
+		drawer.open();
+		drawer.toggleLeftWindow();
+	};
 	sv.fu.event_btnxacnhan_click = function(e) {
 		var windowrealtime = new (require('/ui/WindowRealTime'))();
 		windowrealtime.open();

@@ -108,6 +108,7 @@ function tao_ui(sv) {
 
 	//////
 	tao_event(sv);
+	sv.ui.view_menu_icon.addEventListener('click',sv.fu.event_slide);
 	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.arrow2.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.btn_xemkq.addEventListener('click', sv.fu.event_click_xem);
@@ -132,9 +133,15 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.view_user_icon);
 	sv.ui.view_user_icon.add(sv.ui.user_icon);
 	sv.ui.View1.add(sv.ui.lbl_Choose);
+	
 };
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.event_slide=function(e){
+		var drawer=new (require('/ui/slide_menu'))(0);
+		drawer.open();
+		drawer.toggleLeftWindow();
+	};
 	sv.fu.event_click_xem = function(e) {
 		var windowsupport = new (require('/ui/WindowSupport'))();
 		windowsupport.open();
