@@ -1,4 +1,3 @@
-var NappDrawerModule = require('dk.napp.drawer');
 module.exports = function() {
 	var sv = {};
 	sv.vari = {};
@@ -8,7 +7,7 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.WindowSoXo;
+	return sv.ui.scrollView;
 };
 /**khoi tao UI
  * */
@@ -16,65 +15,12 @@ function tao_ui(sv) {
 	sv.vari = {};
 	sv.ui = {};
 	sv.arr = {};
-	sv.ui.WindowSoXo = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.superwhite,
-		navBarHidden : true,
-		fullscreen : true
-	});
-	sv.ui.View1 = Ti.UI.createView({
-		backgroundColor : 'red',
-		width : Ti.App.size(720),
-		height : Ti.App.size(120),
-		top : 0
-	});
-	sv.ui.view_menu_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : 0,
-		top : 0,
-	});
-	sv.ui.menu_icon = Ti.UI.createImageView({
-		width : Ti.App.size(56),
-		heigth : Ti.App.size(37),
-		image : '/assets/images/icon/menu.png',
-	});
-	sv.ui.view_user_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		right:0,
-		top : 0,
-	});
-	sv.ui.user_icon = Ti.UI.createImageView({
-		width : Ti.App.size(46),
-		height : Ti.App.size(58),
-		image : '/assets/images/icon/user.png',
-		// top : Ti.App.size(30)
-	});
-	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
-		width : Ti.App.size(320),
-		height : Ti.App.size(50),
-		text : 'Xổ số Miền Bắc',
-		color : Ti.App.Color.white,
-		top : Ti.App.size(10),
-		font:{fontSize:Ti.App.size(45)}
-	});
-	sv.ui.lbl_Ngay = Ti.UI.createLabel({
-		width : Ti.App.size(220),
-		height : Ti.App.size(50),
-		text : '(12/4/2014)',
-		color : Ti.App.Color.white,
-		top : Ti.App.size(60),
-		font:{fontSize:Ti.App.size(40)}
-	});
-
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(120),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
 		bottom : 0,
-		// contentHeight : viewScrollParent.height,
-		// height : viewScrollParent.height,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -116,48 +62,8 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.row8);
 	////
 	createUI_Event(sv);
-	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventBackHome);
-	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventWindowDK );
-	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
-
-	sv.ui.WindowSoXo.add(sv.ui.View1);
-	sv.ui.View1.add(sv.ui.view_menu_icon);
-	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
-	sv.ui.View1.add(sv.ui.view_user_icon);
-	sv.ui.view_user_icon.add(sv.ui.user_icon);
-	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
-	sv.ui.View1.add(sv.ui.lbl_Ngay);
-	sv.ui.WindowSoXo.add(sv.ui.scrollView);
+	
 
 }
 
-function createUI_Event(sv) {
-	sv.fu = {};
-	sv.fu.eventBackHome = function(e) {
-		var draw=new (require('/ui/slide_menu'))(1);
-		draw.open();
-		draw.toggleLeftWindow();
-		
-	};
-	sv.fu.eventWindowDK = function(e) {
-		var windowDK = new (require('/ui/WindowDK'))();
-		windowDK.open();
-	};
-	sv.fu.eventOpenWindow = function(e) {
-		Ti.API.info('Opened window');
-	};
-	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.WindowSoXo.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
-		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowDK );
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
-
-		Ti.API.info('Closed window, sv=' + sv);
-	};
-}
+function createUI_Event(sv) {}

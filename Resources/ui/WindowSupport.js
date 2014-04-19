@@ -280,9 +280,9 @@ function tao_ui(sv) {
 function tao_event(sv) {
 	sv.fu = {};
 	sv.fu.event_backhome=function(e){
-		var drawer=new (require('/ui/slide_menu'))(2);
-		drawer.open();
-		drawer.toggleLeftWindow();
+		sv.ui.drawer=new (require('/ui/slide_menu'))(2);
+		sv.ui.drawer.open();
+		sv.ui.drawer.toggleLeftWindow();
 	};
 	sv.fu.event_btnxacnhan_click = function(e) {
 		var windowrealtime = new (require('/ui/WindowRealTime'))();

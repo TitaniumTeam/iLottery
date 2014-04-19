@@ -7,7 +7,7 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.WindowRealTime;
+	return sv.ui.Viewtong;
 };
 /*
  * khoi tao ui
@@ -16,52 +16,21 @@ function tao_ui(sv) {
 	sv.vari = {};
 	sv.ui = {};
 	sv.arr = {};
-	sv.ui.WindowRealTime = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.superwhite,
-		navBarHidden : true,
-		fullscreen : true
+	sv.ui.Viewtong=Titanium.UI.createView({
+		width:Ti.App.size(720),
+		height:Ti.UI.SIZE,
+		left:0,
+		top:Ti.App.size(120),
+		backgroundColor:'transparent'
 	});
 	sv.ui.View1 = Ti.UI.createView({
 		backgroundColor : 'red',
 		width : Ti.App.size(720),
-		height : Ti.App.size(220),
+		height : Ti.App.size(100),
 		top : 0
 	});
-	sv.ui.view_menu_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		left : 0,
-		top : 0,
-	});
-	sv.ui.menu_icon = Ti.UI.createImageView({
-		width : Ti.App.size(56),
-		heigth : Ti.App.size(37),
-		image : '/assets/images/icon/menu.png',
-	});
-	sv.ui.view_user_icon = Ti.UI.createView({
-		width : Ti.App.size(120),
-		height : Ti.App.size(120),
-		right : 0,
-		top : 0,
-	});
-	sv.ui.user_icon = Ti.UI.createImageView({
-		width : Ti.App.size(46),
-		height : Ti.App.size(58),
-		image : '/assets/images/icon/user.png',
-		// top : Ti.App.size(30)
-	});
-	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
-		width : Ti.App.size(260),
-		height : Ti.App.size(50),
-		text : 'TRỰC TIẾP',
-		color : Ti.App.Color.white,
-		top : Ti.App.size(30),
-		font : {
-			fontSize : Ti.App.size(45)
-		}
-	});
 	sv.ui.lbl_sxmb = Titanium.UI.createLabel({
-		top : Ti.App.size(140),
+		top : Ti.App.size(10),
 		heigth : Ti.App.size(100),
 		width : Ti.App.size(210),
 		color : Ti.App.Color.superwhite,
@@ -77,7 +46,7 @@ function tao_ui(sv) {
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmn = Titanium.UI.createLabel({
-		top : Ti.App.size(140),
+		top : Ti.App.size(10),
 		heigth : Ti.App.size(100),
 		width : Ti.App.size(210),
 		color : Ti.App.Color.superwhite,
@@ -93,7 +62,7 @@ function tao_ui(sv) {
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmt = Titanium.UI.createLabel({
-		top : Ti.App.size(140),
+		top : Ti.App.size(10),
 		heigth : Ti.App.size(100),
 		width : Ti.App.size(210),
 		color : Ti.App.Color.superwhite,
@@ -112,7 +81,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		height : Ti.App.size(100),
 		left : 0,
-		top : Ti.App.size(220),
+		top : Ti.App.size(100),
 		backgroundColor : Ti.App.Color.magenta
 	});
 	sv.ui.lbl_tg = Titanium.UI.createLabel({
@@ -138,11 +107,11 @@ function tao_ui(sv) {
 		}
 	});
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(320),
+		top : Ti.App.size(200),
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
+		// bottom : 0,
 		// contentHeight : viewScrollParent.height,
 		// height : viewScrollParent.height,
 		layout : 'vertical',
@@ -285,52 +254,17 @@ function tao_ui(sv) {
 	;
 	////
 	createUI_Event(sv);
-	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventBackHome);
-	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventWindowKQSX);
-	sv.ui.WindowRealTime.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.WindowRealTime.addEventListener('close', sv.fu.eventCloseWindow);
 	/////
-	sv.ui.WindowRealTime.add(sv.ui.view_title);
 	sv.ui.view_title.add(sv.ui.lbl_tuongthuat);
 	sv.ui.view_title.add(sv.ui.lbl_tg);
-	sv.ui.WindowRealTime.add(sv.ui.View1);
 	sv.ui.View1.add(sv.ui.lbl_sxmb);
 	sv.ui.View1.add(sv.ui.lbl_sxmn);
 	sv.ui.View1.add(sv.ui.lbl_sxmt);
-	sv.ui.View1.add(sv.ui.view_menu_icon);
-	sv.ui.view_menu_icon.add(sv.ui.menu_icon);
-	sv.ui.View1.add(sv.ui.view_user_icon);
-	sv.ui.view_user_icon.add(sv.ui.user_icon);
-	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
-	sv.ui.WindowRealTime.add(sv.ui.scrollView);
+	sv.ui.Viewtong.add(sv.ui.view_title);
+	sv.ui.Viewtong.add(sv.ui.View1);
+	sv.ui.Viewtong.add(sv.ui.scrollView);
 };
 function createUI_Event(sv) {
-	sv.fu = {};
-	sv.fu.eventBackHome = function(e) {
-		var drawer=new (require('/ui/slide_menu'))(3);
-		drawer.open();
-		drawer.toggleLeftWindow();
-	};
-	sv.fu.eventWindowKQSX = function(e) {
-		var windowkqsx = new (require('/ui/WindowKQSX'))();
-		windowkqsx.open();
-	};
-	sv.fu.eventOpenWindow = function(e) {
-		Ti.API.info('Opened window');
-	};
-	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.WindowRealTime.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.WindowRealTime.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
-		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowKQSX);
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv = null;
-
-		Ti.API.info('Closed window, sv=' + sv);
-	};
 }
 
 function setbg(i, _bg) {
