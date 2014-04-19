@@ -34,12 +34,12 @@ function tao_ui(sv) {
 
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.ui.row=require('/ui/RowContain');
+	sv.ui.row = require('/ui/RowContain');
 	//row 1
-	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768',false);
+	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768', false);
 	sv.ui.scrollView.add(sv.ui.row1);
 	///row 2
-	sv.ui.row2 = new sv.ui.row(sv.arr.height[0], 'Nhất', '12344',false);
+	sv.ui.row2 = new sv.ui.row(sv.arr.height[0], 'Nhất', '12344', false);
 	sv.ui.scrollView.add(sv.ui.row2);
 	//row 3
 	sv.arr.kq_giainhi = [1213, 14122];
@@ -62,8 +62,8 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.row8);
 	////
 	createUI_Event(sv);
-	
 
 }
 
-function createUI_Event(sv) {}
+function createUI_Event(sv) {
+}

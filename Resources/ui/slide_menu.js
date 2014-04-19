@@ -175,7 +175,8 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2); {
+	sv.ui.view_menulist.add(sv.ui.tableView2);
+	{
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -501,7 +502,6 @@ function tao_event(sv) {
 	sv.vari = {};
 	sv.fu.eventSlideleft = function(e) {
 		sv.ui.drawer.toggleLeftWindow();
-
 	};
 	sv.fu.eventSlideright = function(e) {
 		sv.ui.drawer.toggleRightWindow();
@@ -522,11 +522,17 @@ function tao_event(sv) {
 			case 2:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.Viewtong.add(sv.ui.scrollView_first);
+				// sv.ui.scrollView_first.scrollToIndex(0, {
+					// animated : true
+				// });
 				sv.ui.drawer.toggleLeftWindow();
 				break;
 			case 3:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.Viewtong.add(sv.ui.wdSupport);
+				// sv.ui.wdSupport.scrollToIndex(0, {
+					// animated : true
+				// });
 				sv.ui.drawer.toggleLeftWindow();
 				break;
 		}

@@ -16,12 +16,12 @@ function tao_ui(sv) {
 	sv.vari = {};
 	sv.ui = {};
 	sv.arr = {};
-	sv.ui.Viewtong=Titanium.UI.createView({
-		width:Ti.App.size(720),
-		height:Ti.UI.SIZE,
-		left:0,
-		top:0,
-		backgroundColor:'transparent'
+	sv.ui.Viewtong = Titanium.UI.createView({
+		width : Ti.App.size(720),
+		height : Ti.UI.SIZE,
+		left : 0,
+		top : 0,
+		backgroundColor : 'transparent'
 	});
 	sv.ui.View1 = Ti.UI.createView({
 		backgroundColor : 'red',
@@ -238,13 +238,13 @@ function tao_ui(sv) {
 			borderWidth : 1,
 			borderRadius : 2
 		});
-		sv.ui.space=Ti.UI.createView({
-			width:Ti.App.size(670),
-			height:Ti.App.size(5),
+		sv.ui.space = Ti.UI.createView({
+			width : Ti.App.size(670),
+			height : Ti.App.size(5),
 			left : Ti.App.size(20),
 		});
 		for (var j = 0; j < 4; j++) {
-			sv.ui.rowchild_vds = new sv.vari.rowchild(Ti.App.size(1), setleft(j,0), Ti.App.size(67), Ti.App.size(67), sv.arr.dayso1[j], false, false, false,setbg(j,0));
+			sv.ui.rowchild_vds = new sv.vari.rowchild(Ti.App.size(1), setleft(j, 0), Ti.App.size(67), Ti.App.size(67), sv.arr.dayso1[j], false, false, false, setbg(j, 0));
 			sv.ui.vds_sovesau.add(sv.ui.rowchild_vds);
 		}
 		sv.ui.scrollView.add(sv.ui.space);
@@ -273,10 +273,9 @@ function setbg(i, _bg) {
 	} else
 		return false;
 };
-function setleft(j,_left){
-	if(j==_left){
+function setleft(j, _left) {
+	if (j == _left) {
 		return Ti.App.size(1);
-	}
-	else
-	return Ti.App.size(74) * j;
+	} else
+		return Ti.App.size(74) * j;
 }

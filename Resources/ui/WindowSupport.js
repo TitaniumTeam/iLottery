@@ -7,7 +7,8 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.ViewTong;
+	// return sv.ui.ViewTong;
+	return sv.ui.scrollView;
 };
 
 /*khoi tao UI
@@ -17,13 +18,13 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.vari = {};
-	sv.ui.ViewTong = Titanium.UI.createView({
-		width : Ti.App.size(720),
-		height : Ti.UI.SIZE,
-		left : 0,
-		top : 0,
-		backgroundColor : 'transparent'
-	});
+	// sv.ui.ViewTong = Titanium.UI.createView({
+		// width : Ti.App.size(720),
+		// height : Ti.UI.SIZE,
+		// left : 0,
+		// top : 0,
+		// backgroundColor : 'transparent'
+	// });
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(0),
 		width : Ti.App.size(720),
@@ -218,7 +219,7 @@ function tao_ui(sv) {
 	sv.ui.vTong2.add(sv.ui.tblDayso);
 	sv.ui.scrollView.add(sv.ui.vTong2);
 
-	sv.ui.ViewTong.add(sv.ui.scrollView);
+	// sv.ui.ViewTong.add(sv.ui.scrollView);
 	//////
 	tao_event(sv);
 	sv.ui.arrow1.addEventListener('click', sv.fu.event_click_view);
