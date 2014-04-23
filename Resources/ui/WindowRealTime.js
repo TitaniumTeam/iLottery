@@ -7,7 +7,7 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.Viewtong;
+	return sv;
 };
 /*
  * khoi tao ui
@@ -153,6 +153,7 @@ function tao_ui(sv) {
 	//row 8
 	sv.ui.row8 = new sv.ui.row(sv.arr.height[0], 'Bảy');
 	sv.ui.scrollView.add(sv.ui.row8);
+	
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
