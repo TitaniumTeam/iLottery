@@ -656,6 +656,7 @@ function tao_event(sv) {
 	//su kien dong slide
 	sv.fu.evt_draw_close=function(e){
 		sv.ui.txtTimkiem.blur();
+		sv.ui.txtTimkiem.value='';
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.scrollView_right.scrollTo(0, 0);
 	};
