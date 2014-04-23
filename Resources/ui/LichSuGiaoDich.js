@@ -32,7 +32,7 @@ function createUI(sv) {
 
 	//Tao view Truong
 	sv.ui.ViewTruong = Ti.UI.createView({
-		top : Ti.App.size(120),
+		top : Ti.App.size(0),
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(80),
 	});
@@ -100,7 +100,7 @@ function createUI(sv) {
 
 	sv.ui.ViewLine = Ti.UI.createView({
 		height : Ti.App.size(2),
-		top : Ti.App.size(200),
+		top : Ti.App.size(80),
 		backgroundColor : Ti.App.Color.nauden,
 	});
 
@@ -109,7 +109,7 @@ function createUI(sv) {
 	sv.ui.ViewDanhSach = Ti.UI.createTableView({
 		backgroundColor : Ti.App.Color.magenta,
 		separatorColor : 'transparent',
-		top : Ti.App.size(202),
+		top : Ti.App.size(82),
 		bottom : Ti.App.size(120),
 		left : 0,
 		right : 0

@@ -11,22 +11,13 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv.ui.ViewTong;
 };
 
 function createVariable(sv) {
 }
 
 function createUI(sv) {
-	sv.ui.Window = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.white,
-		// width : Ti.App.widthScreen,
-		// height : Ti.App.heightScreen,
-		navBarHidden : true,
-		fullscreen : true,
-		keepScreenOn : true,
-		top : 0,
-	});
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.white,
@@ -36,45 +27,11 @@ function createUI(sv) {
 		left : 0
 	});
 
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.WidthScreen,
-		height : Ti.App.size(120),
-		top : 0,
-	});
-
-	sv.ui.IconBack = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/arrow.png',
-		left : Ti.App.size(45),
-		top : Ti.App.size(40),
-		bottom : Ti.App.size(40),
-		right : Ti.App.size(640)
-	});
-
-	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'THÔNG TIN CÁ NHÂN',
-		font : {
-			fontSize : Ti.App.size(32),
-			fontWeight : 'bold',
-			fontFamily : 'Aria'
-		},
-		color : Ti.App.Color.white,
-		top : Ti.App.size(40),
-		bottom : Ti.App.size(40),
-	});
-
-	sv.ui.IconUser = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/user.png',
-		top : Ti.App.size(30),
-		bottom : Ti.App.size(30),
-		left : Ti.App.size(635),
-		right : Ti.App.size(35)
-	});
 
 	//Tao view Email
 	sv.ui.ViewEmail = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(160),
+		top : Ti.App.size(40),
 		height : Ti.App.size(95),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20)
@@ -111,7 +68,7 @@ function createUI(sv) {
 	//Tao view Tai Khoan
 	sv.ui.ViewTaiKhoan = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(275),
+		top : Ti.App.size(155),
 		height : Ti.App.size(95),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20)
@@ -147,7 +104,7 @@ function createUI(sv) {
 	//Tao view Mat Khau
 	sv.ui.ViewMatKhau = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.magenta,
-		top : Ti.App.size(390),
+		top : Ti.App.size(270),
 		height : Ti.App.size(95),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20)
@@ -183,7 +140,7 @@ function createUI(sv) {
 
 	//tao view xac nhan
 	sv.ui.ViewXacNhan = Ti.UI.createView({
-		top : Ti.App.size(1085),
+		top : Ti.App.size(765),
 		height : Ti.App.size(190),
 		left : Ti.App.size(20),
 		right : Ti.App.size(20)
@@ -207,23 +164,20 @@ function createUI(sv) {
 		},
 	});
 
-	createUI_Event(sv);
+	// createUI_Event(sv);
 
-	sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
-	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-
-	sv.ui.Window.add(sv.ui.ViewTong);
-	sv.ui.Window.add(sv.ui.ViewHeader);
+	// sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
+	// sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	// sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+// 
+	// sv.ui.Window.add(sv.ui.ViewTong);
+	// sv.ui.Window.add(sv.ui.ViewHeader);
 
 	sv.ui.ViewTong.add(sv.ui.ViewEmail);
 	sv.ui.ViewTong.add(sv.ui.ViewTaiKhoan);
 	sv.ui.ViewTong.add(sv.ui.ViewMatKhau);
 	sv.ui.ViewTong.add(sv.ui.ViewXacNhan);
 
-	sv.ui.ViewHeader.add(sv.ui.IconBack);
-	sv.ui.ViewHeader.add(sv.ui.IconUser);
-	sv.ui.ViewHeader.add(sv.ui.LabelHeader);
 
 	sv.ui.ViewEmail.add(sv.ui.LabelEmail);
 	sv.ui.ViewEmail.add(sv.ui.TfEmail);
