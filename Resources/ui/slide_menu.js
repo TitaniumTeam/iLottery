@@ -641,10 +641,10 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "DÃY SỐ LÂU VỀ", false);
-				sv.ui.wdSupport.scrollTo(0, 0);
-				sv.ui.wdSupport.ui.scrollView.ui.table_view.visible = false;
-				sv.ui.wdSupport.ui.scrollView.ui.table_view1.visible = false;
-				sv.ui.wdSupport.ui.scrollView.ui.table_view2.visible = false;
+				sv.ui.wdSupport.ui.scrollView.scrollTo(0, 0);
+				sv.ui.wdSupport.ui.table_view.visible = false;
+				sv.ui.wdSupport.ui.table_view1.visible = false;
+				sv.ui.wdSupport.ui.table_view2.visible = false;
 				sv.ui.Viewtong.add(sv.ui.wdSupport.ui.scrollView);
 				break;
 		}
