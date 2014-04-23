@@ -13,7 +13,8 @@ module.exports = function() {
 function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
-
+	sv.vari = {};
+	sv.vari.flag_txtfield = false;
 	///////
 	/*win right
 	*
@@ -274,7 +275,7 @@ function tao_ui(sv) {
 		scrollType : 'vertical',
 		backgroundColor : 'transparent',
 		showHorizontalScrollIndicator : false,
-		showVerticalScrollIndicator :true,
+		showVerticalScrollIndicator : true,
 		disableBounce : true,
 		scrollsToTop : true,
 		horizontalBounce : true,
@@ -503,7 +504,7 @@ function tao_ui(sv) {
 		font : {
 			fontSize : Ti.App.size(40),
 		},
-		left:Ti.App.size(260)
+		left : Ti.App.size(260)
 	});
 	sv.ui.Viewtong = Titanium.UI.createView({
 		top : Ti.App.size(120),
@@ -553,10 +554,10 @@ function tao_ui(sv) {
 		rightDrawerWidth : Ti.App.size(480),
 		tatusBarStyle : NappDrawerModule.STATUSBAR_WHITE, // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
-
 	});
 	///
 	tao_event(sv);
+	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
@@ -568,19 +569,15 @@ function tao_ui(sv) {
 };
 function tao_event(sv) {
 	sv.fu = {};
-	sv.vari = {};
 	sv.fu.window_click = function(e) {
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.scrollView_right.scrollTo(0, 0);
-		Ti.API.info('window click');
 	};
 	sv.fu.eventSlideleft = function(e) {
-		Ti.API.info('winleft open');
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.drawer.toggleLeftWindow();
 	};
 	sv.fu.eventSlideright = function(e) {
-		Ti.API.info('winright open');
 		sv.ui.scrollView_right.scrollTo(0, 0);
 		sv.ui.drawer.toggleRightWindow();
 	};
@@ -605,6 +602,7 @@ function tao_event(sv) {
 				sv.ui.Viewtong.add(sv.ui.wdInfoUser);
 				break;
 			case 1:
+				sv.vari.flag_txtfield = true;
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
@@ -627,8 +625,8 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "LỰA CHỌN", false);
-				sv.ui.wdChoose.ui.table_view.visible=false;
-				sv.ui.wdChoose.ui.table_view1.visible=false;
+				sv.ui.wdChoose.ui.table_view.visible = false;
+				sv.ui.wdChoose.ui.table_view1.visible = false;
 				sv.ui.Viewtong.add(sv.ui.wdChoose.ui.ViewTong);
 				break;
 			case 2:
@@ -637,16 +635,16 @@ function tao_event(sv) {
 				sv.ui.wdKQSX.scrollTo(0, 0);
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.add(sv.ui.wdKQSX);
-				
+
 				break;
 			case 3:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "DÃY SỐ LÂU VỀ", false);
 				sv.ui.wdSupport.scrollTo(0, 0);
-				sv.ui.wdSupport.ui.scrollView.ui.table_view.visible=false;
-				sv.ui.wdSupport.ui.scrollView.ui.table_view1.visible=false;
-				sv.ui.wdSupport.ui.scrollView.ui.table_view2.visible=false;
+				sv.ui.wdSupport.ui.scrollView.ui.table_view.visible = false;
+				sv.ui.wdSupport.ui.scrollView.ui.table_view1.visible = false;
+				sv.ui.wdSupport.ui.scrollView.ui.table_view2.visible = false;
 				sv.ui.Viewtong.add(sv.ui.wdSupport.ui.scrollView);
 				break;
 		}
@@ -654,7 +652,17 @@ function tao_event(sv) {
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
+	sv.fu.evt_draw_open = function(e) {
+		sv.ui.scrollView.scrollTo(0, 0);
+		sv.ui.scrollView_right.scrollTo(0, 0);
+		if(sv.vari.flag_txtfield==true){
+			sv.ui.wdTTCN.ui.TfMatKhau.blur();
+			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
+			sv.ui.wdTTCN.ui.TfEmail.blur();
+		};
+	};
 	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.drawer.removeEventListener('windowDidOpen', sv.fu.evt_draw_open);
 		sv.ui.tableView.removeEventListener('click', sv.fu.evt_tblview_click);
 		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.WindowSoXo.removeEventListener('close', sv.fu.eventCloseWindow);
@@ -675,11 +683,11 @@ function set_label(sv, _ten, _false) {
 	if (_false == false) {
 		sv.ui.lbl_Ngay.visible = _false;
 		sv.ui.lbl_GiaiSX.top = Ti.App.size(35);
-	} else{
+	} else {
 		sv.ui.lbl_GiaiSX.top = Ti.App.size(10);
-		sv.ui.lbl_Ngay.visible=true;
-		sv.ui.lbl_Ngay.top=Ti.App.size(60);
-		sv.ui.lbl_Ngay.left=Ti.App.size(260);
+		sv.ui.lbl_Ngay.visible = true;
+		sv.ui.lbl_Ngay.top = Ti.App.size(60);
+		sv.ui.lbl_Ngay.left = Ti.App.size(260);
 	}
-		
+
 }
