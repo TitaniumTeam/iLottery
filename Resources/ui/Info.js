@@ -43,6 +43,7 @@ function createUI(sv) {
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.SIZE,
+		showVerticalScrollIndicator:true
 	});
 
 	//tao view header

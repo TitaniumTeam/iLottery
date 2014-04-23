@@ -24,7 +24,8 @@ function createUI(sv) {
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
 		top : 0,
-		left : 0
+		left : 0,
+		showVerticalScrollIndicator:true
 	});
 
 

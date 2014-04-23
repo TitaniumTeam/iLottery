@@ -26,7 +26,7 @@ function tao_ui(sv) {
 		height : Ti.App.size(200),
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
-		left : 0
+		left : 0,
 	});
 	sv.ui.view_user_avatar = Titanium.UI.createView({
 		left : 0,
@@ -93,7 +93,7 @@ function tao_ui(sv) {
 		scrollType : 'vertical',
 		backgroundColor : 'transparent',
 		showHorizontalScrollIndicator : false,
-		showVerticalScrollIndicator : false,
+		showVerticalScrollIndicator : true,
 		disableBounce : true,
 		scrollsToTop : true,
 		horizontalBounce : true,
@@ -274,7 +274,7 @@ function tao_ui(sv) {
 		scrollType : 'vertical',
 		backgroundColor : 'transparent',
 		showHorizontalScrollIndicator : false,
-		showVerticalScrollIndicator : false,
+		showVerticalScrollIndicator :true,
 		disableBounce : true,
 		scrollsToTop : true,
 		horizontalBounce : true,
@@ -586,13 +586,14 @@ function tao_event(sv) {
 		sv.ui.drawer.toggleRightWindow();
 	};
 	sv.fu.evt_tblviewright3_click = function(e) {
+		sv.ui.drawer.toggleRightWindow();
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
 				sv.ui.Viewtong.removeAllChildren();
 				set_label(sv, "LỊCH SỬ GIAO DỊCH", false);
 				sv.ui.Viewtong.add(sv.ui.wdLSGD);
-				sv.ui.drawer.toggleRightWindow();
+				//sv.ui.drawer.toggleRightWindow();
 				break;
 		};
 	};
@@ -618,30 +619,33 @@ function tao_event(sv) {
 		switch(e.index) {
 			case 0:
 				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "TRỰC TIẾP", false);
 				sv.ui.Viewtong.add(sv.ui.wdRealTime.ui.Viewtong);
 				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
-				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.wdRealTime.ui.scrollView.top=Ti.App.size(200);
 				break;
 			case 1:
 				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "LỰA CHỌN", false);
 				sv.ui.Viewtong.add(sv.ui.wdChoose);
-				sv.ui.drawer.toggleLeftWindow();
+				
 				break;
 			case 2:
 				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.add(sv.ui.wdKQSX);
 				sv.ui.wdKQSX.scrollTo(0, 0);
-				sv.ui.drawer.toggleLeftWindow();
+				
 				break;
 			case 3:
 				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "DÃY SỐ LÂU VỀ", false);
 				sv.ui.wdSupport.scrollTo(0, 0);
 				sv.ui.Viewtong.add(sv.ui.wdSupport);
-				sv.ui.drawer.toggleLeftWindow();
 				break;
 		}
 	};

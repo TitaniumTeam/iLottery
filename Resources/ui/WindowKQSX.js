@@ -26,7 +26,7 @@ function tao_ui(sv) {
 		scrollType : 'vertical',
 		backgroundColor : 'transparent',
 		showHorizontalScrollIndicator : false,
-		showVerticalScrollIndicator : false,
+		showVerticalScrollIndicator : true,
 		disableBounce : true,
 		scrollsToTop : false,
 		horizontalBounce : true,
