@@ -10,7 +10,7 @@ if (Ti.version < 1.8) {
 	// Window.open();
 	// var Window=new(require('ui/DangNhap'))();
 	// Window.open();
-	var home=new (require('/ui/slide_menu'))(1);
+	var home=new (require('/ui/slide_menu'))();
 	home.open();
 	// Window.open();
 	// var Window=new(require('ui/DangNhap'))();

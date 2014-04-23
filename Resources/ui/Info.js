@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv.ui.ViewTong;
 };
 /**
  * Khởi tạo biến
@@ -20,55 +20,68 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-	sv.ui.Window = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.magenta,
-		// width : Ti.App.widthScreen,
-		// height : Ti.App.heightScreen,
-		navBarHidden : true,
-		fullscreen : true,
-		keepScreenOn : true,
+	// sv.ui.Window = Ti.UI.createWindow({
+	// backgroundColor : Ti.App.Color.magenta,
+	// // width : Ti.App.widthScreen,
+	// // height : Ti.App.heightScreen,
+	// navBarHidden : true,
+	// fullscreen : true,
+	// keepScreenOn : true,
+	// top : 0,
+	// });
+	sv.ui.ViewTong = Titanium.UI.createView({
 		top : 0,
+		left : 0,
+		width : Ti.App.size(720),
+		height : Ti.UI.SIZE,
 	});
-
-	sv.ui.ViewTong = Ti.UI.createScrollView({
+	sv.ui.scrollview = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
 		// width : Ti.App.widthScreen,
 		// height : Ti.App.heightScreen,
-		top : 0,
-		left : 0
+		top : Ti.App.size(500),
+		left : 0,
+		width : Ti.App.size(720),
+		height : Ti.UI.SIZE,
 	});
 
 	//tao view header
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		top : Ti.App.size(0),
-		left : Ti.App.size(0),
-		right : Ti.App.size(0),
-		height : Ti.App.size(620),
+	// sv.ui.ViewHeader = Ti.UI.createView({
+	// backgroundColor : Ti.App.Color.red,
+	// top : Ti.App.size(0),
+	// left : Ti.App.size(0),
+	// right : Ti.App.size(0),
+	// height : Ti.App.size(620),
+	// });
+	//
+	// sv.ui.IconMenu = Ti.UI.createImageView({
+	// backgroundImage : '/assets/images/icon/menu.png',
+	// top : Ti.App.size(40),
+	// left : Ti.App.size(30),
+	// right : Ti.App.size(630),
+	// bottom : Ti.App.size(540),
+	// });
+	//
+	// sv.ui.IconUser = Ti.UI.createImageView({
+	// backgroundImage : '/assets/images/icon/user.png',
+	// top : Ti.App.size(40),
+	// right : Ti.App.size(35),
+	// left : Ti.App.size(635),
+	// bottom : Ti.App.size(530),
+	// });
+	sv.ui.viewAvatar = Titanium.UI.createView({
+		top : 0,
+		left : 0,
+		height : Ti.App.size(500),
+		backgroundColor : 'red'
 	});
-
-	sv.ui.IconMenu = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/menu.png',
-		top : Ti.App.size(40),
-		left : Ti.App.size(30),
-		right : Ti.App.size(630),
-		bottom : Ti.App.size(540),
-	});
-
-	sv.ui.IconUser = Ti.UI.createImageView({
-		backgroundImage : '/assets/images/icon/user.png',
-		top : Ti.App.size(40),
-		right : Ti.App.size(35),
-		left : Ti.App.size(635),
-		bottom : Ti.App.size(530),
-	});
-
 	sv.ui.Avatar = Ti.UI.createImageView({
 		backgroundImage : '/assets/images/icon/avatar-defaut.png',
-		top : Ti.App.size(130),
+		top : Ti.App.size(10),
 		right : Ti.App.size(250),
 		left : Ti.App.size(250),
-		bottom : Ti.App.size(280),
+		//bottom : Ti.App.size(280),
+		height : Ti.App.size(215)
 	});
 
 	sv.ui.LabelName = Ti.UI.createLabel({
@@ -78,7 +91,7 @@ function createUI(sv) {
 			fontWeight : 'bold',
 			fontFamily : 'Aria'
 		},
-		top : Ti.App.size(375),
+		top : Ti.App.size(260),
 		bottom : Ti.App.size(210),
 	});
 
@@ -88,13 +101,13 @@ function createUI(sv) {
 			fontSize : Ti.App.size(20),
 			fontFamily : 'Aria'
 		},
-		top : Ti.App.size(425),
+		top : Ti.App.size(300),
 		bottom : Ti.App.size(170),
 	});
 
 	sv.ui.ViewBut = Ti.UI.createImageView({
 		backgroundImage : '/assets/images/icon/icon-5.png',
-		top : Ti.App.size(445),
+		top : Ti.App.size(325),
 		right : Ti.App.size(25),
 		left : Ti.App.size(665),
 		bottom : Ti.App.size(145),
@@ -107,12 +120,13 @@ function createUI(sv) {
 		bottom : Ti.App.size(0),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
+		top : Ti.App.size(380)
 	});
 
 	//tao view ung dung
 	sv.ui.ViewUngDung = Ti.UI.createView({
-		height : Ti.App.size(620),
-		top : Ti.App.size(660),
+		height : Ti.UI.SIZE,
+		top : 0,
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
 	});
@@ -120,7 +134,7 @@ function createUI(sv) {
 	sv.ui.UngDung = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.white,
 		height : Ti.App.size(495),
-		top : Ti.App.size(0),
+		top : Ti.App.size(35),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
 		borderWidth : Ti.App.size(1),
@@ -314,22 +328,21 @@ function createUI(sv) {
 
 	createUI_Event(sv);
 
-	sv.ui.IconMenu.addEventListener('click', sv.fu.eventClickIconMenu);
-	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
+	// sv.ui.IconMenu.addEventListener('click', sv.fu.eventClickIconMenu);
+	// sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
+	// sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 
-	sv.ui.Window.add(sv.ui.ViewTong);
-	sv.ui.Window.add(sv.ui.ViewHeader);
+	// sv.ui.Window.add(sv.ui.ViewTong);
+	// sv.ui.Window.add(sv.ui.ViewHeader);
 
-	sv.ui.ViewTong.add(sv.ui.ViewUngDung);
-
-	sv.ui.ViewHeader.add(sv.ui.IconMenu);
-	sv.ui.ViewHeader.add(sv.ui.IconUser);
-	sv.ui.ViewHeader.add(sv.ui.Avatar);
-	sv.ui.ViewHeader.add(sv.ui.LabelName);
-	sv.ui.ViewHeader.add(sv.ui.LabelThongTin);
-	sv.ui.ViewHeader.add(sv.ui.ViewBut);
-	sv.ui.ViewHeader.add(sv.ui.ViewThongSo);
+	sv.ui.scrollview.add(sv.ui.ViewUngDung);
+	sv.ui.ViewTong.add(sv.ui.scrollview);
+	sv.ui.ViewTong.add(sv.ui.viewAvatar);
+	sv.ui.viewAvatar.add(sv.ui.Avatar);
+	sv.ui.viewAvatar.add(sv.ui.LabelName);
+	sv.ui.viewAvatar.add(sv.ui.LabelThongTin);
+	sv.ui.viewAvatar.add(sv.ui.ViewBut);
+	sv.ui.viewAvatar.add(sv.ui.ViewThongSo);
 
 	sv.ui.ViewUngDung.add(sv.ui.UngDung);
 
@@ -375,9 +388,9 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.IconMenu.removeEventListener('click', sv.fu.eventClickIconMenu);
-		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
+		// sv.ui.IconMenu.removeEventListener('click', sv.fu.eventClickIconMenu);
+		// sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
+		// sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 
 		sv.vari = null;
 		sv.arr = null;

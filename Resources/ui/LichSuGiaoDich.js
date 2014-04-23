@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv.ui.ViewTong;
 };
 /**
  * Khởi tạo biến
@@ -20,15 +20,6 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-	sv.ui.Window = Ti.UI.createWindow({
-		backgroundColor : Ti.App.Color.white,
-		// width : Ti.App.widthScreen,
-		// height : Ti.App.heightScreen,
-		navBarHidden : true,
-		fullscreen : true,
-		keepScreenOn : true,
-		top : 0,
-	});
 
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.white,
@@ -38,40 +29,6 @@ function createUI(sv) {
 		left : 0
 	});
 
-	sv.ui.ViewHeader = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.WidthScreen,
-		height : Ti.App.size(120),
-		top : 0,
-	});
-
-	sv.ui.IconBack = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/arrow.png',
-		left : Ti.App.size(45),
-		top : Ti.App.size(40),
-		bottom : Ti.App.size(40),
-		right : Ti.App.size(640)
-	});
-
-	sv.ui.LabelHeader = Ti.UI.createLabel({
-		text : 'LỊCH SỬ GIAO DỊCH',
-		font : {
-			fontSize : Ti.App.size(32),
-			fontWeight : 'bold',
-			fontFamily : 'Aria'
-		},
-		color : Ti.App.Color.white,
-		top : Ti.App.size(40),
-		bottom : Ti.App.size(40),
-	});
-
-	sv.ui.IconUser = Ti.UI.createView({
-		backgroundImage : '/assets/images/icon/user.png',
-		top : Ti.App.size(30),
-		bottom : Ti.App.size(30),
-		left : Ti.App.size(635),
-		right : Ti.App.size(35)
-	});
 
 	//Tao view Truong
 	sv.ui.ViewTruong = Ti.UI.createView({
@@ -158,22 +115,15 @@ function createUI(sv) {
 		right : 0
 	});
 
-	createUI_Event(sv);
+	// createUI_Event(sv);
+// 
+	// sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
 
-	sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
-	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-
-	sv.ui.Window.add(sv.ui.ViewTong);
-	sv.ui.Window.add(sv.ui.ViewHeader);
 
 	sv.ui.ViewTong.add(sv.ui.ViewTruong);
 	sv.ui.ViewTong.add(sv.ui.ViewLine);
 	sv.ui.ViewTong.add(sv.ui.ViewDanhSach);
 
-	sv.ui.ViewHeader.add(sv.ui.IconBack);
-	sv.ui.ViewHeader.add(sv.ui.IconUser);
-	sv.ui.ViewHeader.add(sv.ui.LabelHeader);
 
 	sv.ui.ViewTruong.add(sv.ui.TT);
 	sv.ui.ViewTruong.add(sv.ui.Line1);
