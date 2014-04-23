@@ -76,14 +76,22 @@ function createUI(sv) {
 		height : Ti.App.size(500),
 		backgroundColor : 'red'
 	});
+	sv.ui.circle=Titanium.UI.createImageView({
+		backgroundImage:'/assets/images/icon/xxxjav.png',
+		top:-Ti.App.size(70),
+		width:Ti.App.size(420),
+		height:Ti.App.size(420),
+		left:Ti.App.size(150)
+	});
+	sv.ui.viewAvatar.add(sv.ui.circle);
 	sv.ui.Avatar = Ti.UI.createImageView({
 		backgroundImage : '/assets/images/icon/avatar-defaut.png',
-		top : Ti.App.size(10),
-		right : Ti.App.size(250),
-		left : Ti.App.size(250),
+		top : Ti.App.size(45),
+		// right : Ti.App.size(250),
+		left : Ti.App.size(265),
 		//bottom : Ti.App.size(280),
-		height : Ti.App.size(200),
-		width : Ti.App.size(200),
+		height : Ti.App.size(190),
+		width : Ti.App.size(190),
 		zIndex : 10
 	});
 	sv.ui.LabelName = Ti.UI.createLabel({
@@ -117,7 +125,7 @@ function createUI(sv) {
 
 	sv.ui.ViewThongSo = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.red,
-		opacity : 0.2,
+		opacity : 0.5,
 		height : Ti.App.size(120),
 		bottom : Ti.App.size(0),
 		left : Ti.App.size(0),
