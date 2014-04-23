@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.ViewTong;
+	return sv;
 };
 /**
  * Khởi tạo biến
@@ -43,7 +43,7 @@ function createUI(sv) {
 		left : 0,
 		width : Ti.App.size(720),
 		height : Ti.UI.SIZE,
-		showVerticalScrollIndicator:true
+		showVerticalScrollIndicator : true
 	});
 
 	//tao view header
@@ -82,28 +82,29 @@ function createUI(sv) {
 		right : Ti.App.size(250),
 		left : Ti.App.size(250),
 		//bottom : Ti.App.size(280),
-		height : Ti.App.size(215)
+		height : Ti.App.size(200),
+		width : Ti.App.size(200),
+		zIndex : 10
 	});
-
 	sv.ui.LabelName = Ti.UI.createLabel({
 		text : 'LinhSon93',
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold',
-			fontFamily : 'Aria'
 		},
 		top : Ti.App.size(260),
 		bottom : Ti.App.size(210),
+		color : Ti.App.Color.superwhite
 	});
 
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
 		text : 'Siêu pro vừa đi chơi - ID: 9999999999',
 		font : {
-			fontSize : Ti.App.size(20),
-			fontFamily : 'Aria'
+			fontSize : Ti.App.size(25),
 		},
 		top : Ti.App.size(300),
 		bottom : Ti.App.size(170),
+		color : Ti.App.Color.superwhite
 	});
 
 	sv.ui.ViewBut = Ti.UI.createImageView({
@@ -115,14 +116,119 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewThongSo = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.nauden,
-		opacity : 0.5,
+		backgroundColor : Ti.App.Color.red,
+		opacity : 0.2,
 		height : Ti.App.size(120),
 		bottom : Ti.App.size(0),
 		left : Ti.App.size(0),
 		right : Ti.App.size(0),
-		top : Ti.App.size(380)
+		top : Ti.App.size(380),
+		zIndex : 0
 	});
+	sv.ui.Viewcontain = Ti.UI.createView({
+		height : Ti.App.size(120),
+		bottom : Ti.App.size(0),
+		left : Ti.App.size(0),
+		right : Ti.App.size(0),
+		top : Ti.App.size(380),
+		zIndex : 1,
+		backgroundColor : 'transparent'
+	});
+	sv.ui.vThongso1 = Titanium.UI.createView({
+		width : Ti.App.size(235),
+		height : Ti.App.size(120),
+		left : 0,
+		top : 0
+	});
+	sv.ui.Viewcontain.add(sv.ui.vThongso1);
+	sv.ui.lbltest = Titanium.UI.createLabel({
+		text : "Tỷ lệ trúng loto",
+		color : Ti.App.Color.white,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		top : Ti.App.size(10),
+		textAlign : 'center'
+	});
+	sv.ui.lbl_tyle = Titanium.UI.createLabel({
+		top : Ti.App.size(60),
+		backgroundColor : Ti.App.Color.nauden,
+		borderRadius : 5,
+		textAlign : 'center',
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		text : '20%',
+		color : Ti.App.Color.superwhite,
+		width:Ti.App.size(135),
+		height:Ti.App.size(40)
+	});
+	sv.ui.vThongso1.add(sv.ui.lbltest);
+	sv.ui.vThongso1.add(sv.ui.lbl_tyle);
+	//
+	sv.ui.vThongso2 = Titanium.UI.createView({
+		width : Ti.App.size(235),
+		height : Ti.App.size(120),
+		left : Ti.App.size(235),
+		top : 0
+	});
+	sv.ui.Viewcontain.add(sv.ui.vThongso2);
+	sv.ui.lbl_soxu = Titanium.UI.createLabel({
+		text : "Số xu hiện tại",
+		color : Ti.App.Color.white,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		top : Ti.App.size(10),
+		textAlign : 'center'
+	});
+	sv.ui.lbl_xu = Titanium.UI.createLabel({
+		top : Ti.App.size(60),
+		backgroundColor : Ti.App.Color.nauden,
+		borderRadius : 5,
+		textAlign : 'center',
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		text : '10.000Xu',
+		color : Ti.App.Color.superwhite,
+		width:Ti.App.size(135),
+		height:Ti.App.size(40)
+	});
+	sv.ui.vThongso2.add(sv.ui.lbl_soxu);
+	sv.ui.vThongso2.add(sv.ui.lbl_xu);
+//
+sv.ui.vThongso3 = Titanium.UI.createView({
+		width : Ti.App.size(235),
+		height : Ti.App.size(120),
+		left : Ti.App.size(470),
+		top : 0
+	});
+	sv.ui.Viewcontain.add(sv.ui.vThongso3);
+	sv.ui.tyletrungdb = Titanium.UI.createLabel({
+		text : "Tỷ lệ trúng đặc biệt",
+		color : Ti.App.Color.white,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		top : Ti.App.size(10),
+		textAlign : 'center'
+	});
+	sv.ui.tyle_db = Titanium.UI.createLabel({
+		top : Ti.App.size(60),
+		backgroundColor : Ti.App.Color.nauden,
+		borderRadius : 5,
+		textAlign : 'center',
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		text : '0%',
+		color : Ti.App.Color.superwhite,
+		width:Ti.App.size(135),
+		height:Ti.App.size(40)
+	});
+	sv.ui.vThongso3.add(sv.ui.tyletrungdb);
+	sv.ui.vThongso3.add(sv.ui.tyle_db);
 
 	//tao view ung dung
 	sv.ui.ViewUngDung = Ti.UI.createView({
@@ -344,7 +450,7 @@ function createUI(sv) {
 	sv.ui.viewAvatar.add(sv.ui.LabelThongTin);
 	sv.ui.viewAvatar.add(sv.ui.ViewBut);
 	sv.ui.viewAvatar.add(sv.ui.ViewThongSo);
-
+	sv.ui.viewAvatar.add(sv.ui.Viewcontain);
 	sv.ui.ViewUngDung.add(sv.ui.UngDung);
 
 	sv.ui.UngDung.add(sv.ui.Row1);

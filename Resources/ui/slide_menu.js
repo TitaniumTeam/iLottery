@@ -599,7 +599,8 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "", false);
-				sv.ui.Viewtong.add(sv.ui.wdInfoUser);
+				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0,0);
+				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
 				break;
 			case 1:
 				sv.vari.flag_txtfield = true;
