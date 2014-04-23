@@ -566,22 +566,20 @@ function tao_ui(sv) {
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.WindowSoXo.addEventListener('singletap', sv.fu.window_click);
 };
 function tao_event(sv) {
 	sv.fu = {};
-	sv.fu.window_click = function(e) {
-		sv.ui.scrollView.scrollTo(0, 0);
-		sv.ui.scrollView_right.scrollTo(0, 0);
-	};
+	//su kien click nut 3gach
 	sv.fu.eventSlideleft = function(e) {
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.drawer.toggleLeftWindow();
 	};
+	//su kien click nut user icon
 	sv.fu.eventSlideright = function(e) {
 		sv.ui.scrollView_right.scrollTo(0, 0);
 		sv.ui.drawer.toggleRightWindow();
 	};
+	///su kien table view3 menu right
 	sv.fu.evt_tblviewright3_click = function(e) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
@@ -593,6 +591,7 @@ function tao_event(sv) {
 				break;
 		};
 	};
+	//su kien table view 1 menu right
 	sv.fu.evt_tblviewright1_click = function(e) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
@@ -612,6 +611,7 @@ function tao_event(sv) {
 				break;
 		};
 	};
+	///su kien table view 1 menu left
 	sv.fu.evt_tblview_click = function(e) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
@@ -621,7 +621,6 @@ function tao_event(sv) {
 				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
 				set_label(sv, "TRỰC TIẾP", false);
 				sv.ui.Viewtong.add(sv.ui.wdRealTime.ui.Viewtong);
-				//sv.ui.wdRealTime.ui.scrollView.top=Ti.App.size(200);
 				break;
 			case 1:
 				sv.ui.Viewtong.removeAllChildren();
@@ -654,11 +653,13 @@ function tao_event(sv) {
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
+	//su kien dong slide
 	sv.fu.evt_draw_close=function(e){
 		sv.ui.txtTimkiem.blur();
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.scrollView_right.scrollTo(0, 0);
 	};
+	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
 		if(sv.vari.flag_txtfield==true){
 			sv.ui.wdTTCN.ui.TfMatKhau.blur();
@@ -666,6 +667,7 @@ function tao_event(sv) {
 			sv.ui.wdTTCN.ui.TfEmail.blur();
 		};
 	};
+	//su kien dong window
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.drawer.removeEventListener('windowDidClose',sv.fu.evt_draw_close);
 		sv.ui.drawer.removeEventListener('windowDidOpen', sv.fu.evt_draw_open);
