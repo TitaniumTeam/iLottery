@@ -8,7 +8,7 @@ module.exports = function() {
 		tao_ui(sv);
 	})();
 	// return sv.ui.ViewTong;
-	return sv.ui.scrollView;
+	return sv;
 };
 
 /*khoi tao UI

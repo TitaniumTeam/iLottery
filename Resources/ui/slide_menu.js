@@ -555,7 +555,6 @@ function tao_ui(sv) {
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
 
 	});
-
 	///
 	tao_event(sv);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
@@ -586,14 +585,13 @@ function tao_event(sv) {
 		sv.ui.drawer.toggleRightWindow();
 	};
 	sv.fu.evt_tblviewright3_click = function(e) {
-		sv.ui.drawer.toggleRightWindow();
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
 				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "LỊCH SỬ GIAO DỊCH", false);
 				sv.ui.Viewtong.add(sv.ui.wdLSGD);
-				//sv.ui.drawer.toggleRightWindow();
 				break;
 		};
 	};
@@ -602,15 +600,15 @@ function tao_event(sv) {
 		switch(e.index) {
 			case 0:
 				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleRightWindow();
 				set_label(sv, "", false);
 				sv.ui.Viewtong.add(sv.ui.wdInfoUser);
-				sv.ui.drawer.toggleRightWindow();
 				break;
 			case 1:
 				sv.ui.Viewtong.removeAllChildren();
-				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
-				sv.ui.Viewtong.add(sv.ui.wdTTCN);
 				sv.ui.drawer.toggleRightWindow();
+				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
+				sv.ui.Viewtong.add(sv.ui.wdTTCN.ui.ViewTong);
 				break;
 		};
 	};
@@ -620,24 +618,25 @@ function tao_event(sv) {
 			case 0:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
 				set_label(sv, "TRỰC TIẾP", false);
 				sv.ui.Viewtong.add(sv.ui.wdRealTime.ui.Viewtong);
-				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
-				sv.ui.wdRealTime.ui.scrollView.top=Ti.App.size(200);
+				//sv.ui.wdRealTime.ui.scrollView.top=Ti.App.size(200);
 				break;
 			case 1:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "LỰA CHỌN", false);
-				sv.ui.Viewtong.add(sv.ui.wdChoose);
-				
+				sv.ui.wdChoose.ui.table_view.visible=false;
+				sv.ui.wdChoose.ui.table_view1.visible=false;
+				sv.ui.Viewtong.add(sv.ui.wdChoose.ui.ViewTong);
 				break;
 			case 2:
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.ui.wdKQSX.scrollTo(0, 0);
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.add(sv.ui.wdKQSX);
-				sv.ui.wdKQSX.scrollTo(0, 0);
 				
 				break;
 			case 3:
@@ -645,7 +644,10 @@ function tao_event(sv) {
 				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "DÃY SỐ LÂU VỀ", false);
 				sv.ui.wdSupport.scrollTo(0, 0);
-				sv.ui.Viewtong.add(sv.ui.wdSupport);
+				sv.ui.wdSupport.ui.scrollView.ui.table_view.visible=false;
+				sv.ui.wdSupport.ui.scrollView.ui.table_view1.visible=false;
+				sv.ui.wdSupport.ui.scrollView.ui.table_view2.visible=false;
+				sv.ui.Viewtong.add(sv.ui.wdSupport.ui.scrollView);
 				break;
 		}
 	};

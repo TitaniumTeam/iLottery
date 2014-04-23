@@ -11,7 +11,7 @@ module.exports = function() {
 		createUI(sv);
 	})();
 
-	return sv.ui.ViewTong;
+	return sv;
 };
 
 function createVariable(sv) {

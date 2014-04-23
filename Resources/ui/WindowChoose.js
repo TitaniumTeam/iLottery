@@ -7,7 +7,7 @@ module.exports = function() {
 	(function() {
 		tao_ui(sv);
 	})();
-	return sv.ui.ViewTong;
+	return sv;
 };
 
 /*khoi tao UI
