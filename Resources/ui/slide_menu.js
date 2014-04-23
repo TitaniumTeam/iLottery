@@ -252,7 +252,7 @@ function tao_ui(sv) {
 		height : Ti.App.size(75),
 		color : Ti.App.Color.nauden,
 		hintText : 'Tìm kiếm ...',
-		textAlign : 'left',
+		textAlign : 'center',
 		top : Ti.App.size(20),
 		left : Ti.App.size(25),
 		right : Ti.App.size(25),
@@ -558,6 +558,7 @@ function tao_ui(sv) {
 	///
 	tao_event(sv);
 	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
+	sv.ui.drawer.addEventListener('windowDidClose',sv.u.evt_draw_close);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
@@ -653,9 +654,12 @@ function tao_event(sv) {
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
-	sv.fu.evt_draw_open = function(e) {
+	sv.u.evt_draw_close=function(e){
+		sv.ui.txtTimkiem.blur();
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.scrollView_right.scrollTo(0, 0);
+	};
+	sv.fu.evt_draw_open = function(e) {
 		if(sv.vari.flag_txtfield==true){
 			sv.ui.wdTTCN.ui.TfMatKhau.blur();
 			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
@@ -663,6 +667,7 @@ function tao_event(sv) {
 		};
 	};
 	sv.fu.eventCloseWindow = function(e) {
+		sv.ui.drawer.removeEventListener('windowDidClose',sv.u.evt_draw_close);
 		sv.ui.drawer.removeEventListener('windowDidOpen', sv.fu.evt_draw_open);
 		sv.ui.tableView.removeEventListener('click', sv.fu.evt_tblview_click);
 		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
