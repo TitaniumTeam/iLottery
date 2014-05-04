@@ -6,15 +6,33 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 	})();
 	return sv.ui.drawer;
 };
-function tao_ui(sv) {
-	sv.ui = {};
+function tao_bien(sv) {
 	sv.arr = {};
 	sv.vari = {};
 	sv.vari.flag_txtfield = false;
+	///cac mang menu ben phai
+	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
+	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
+	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
+	sv.arr.datatbl_right1 = [];
+	sv.arr.datatbl_right2 = [];
+	sv.arr.datatbl_right3 = [];
+	///cac mang menu ben trai
+	sv.arr.ten = ['XEM KẾT QUẢ SỔ XỐ', 'TƯ VẤN', 'CHỨC NĂNG VIP'];
+	sv.arr.icon = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-1.png', '/assets/images/icon/icon-3.png'];
+	sv.arr.ten_menu = ['Lựa chọn', 'Kết quả sổ xố miền Bắc', 'Kết quả sổ xố miền Nam', 'Kết quả sổ xố miền Trung', 'Xem dãy số lâu về', 'Xem dãy số hay về', 'Cầu đang ăn', 'Xem số Vip'];
+	sv.arr.datatbl = [];
+	sv.arr.datatbl1 = [];
+	sv.arr.datatbl3 = [];
+}
+
+function tao_ui(sv) {
+	sv.ui = {};
 	///////
 	/*win right
 	*
@@ -108,17 +126,14 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent'
 	});
 	sv.ui.scrollView_right.add(sv.ui.view_menulist_right);
-	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.ui.row_slide = require('/ui/rowheader');
-	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
 	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(348), sv.arr.ten_right[1], sv.arr.icon_right[1]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header2r);
 	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(695), sv.arr.ten_right[2], sv.arr.icon_right[2]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header3r);
-	sv.arr.datatbl_right = [];
-	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
+
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -144,10 +159,10 @@ function tao_ui(sv) {
 			textAlign : 'left'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
-		sv.arr.datatbl_right.push(sv.ui.row);
+		sv.arr.datatbl_right1.push(sv.ui.row);
 	}
 	sv.ui.tableView_r = Ti.UI.createTableView({
-		data : sv.arr.datatbl_right,
+		data : sv.arr.datatbl_right1,
 		top : Ti.App.size(60),
 		separatorColor : Ti.App.Color.gray,
 		backgroundColor : 'transparent',
@@ -157,7 +172,6 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r);
-	sv.arr.datatbl_right1 = [];
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -183,10 +197,10 @@ function tao_ui(sv) {
 			textAlign : 'left'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
-		sv.arr.datatbl_right1.push(sv.ui.row);
+		sv.arr.datatbl_right2.push(sv.ui.row);
 	}
 	sv.ui.tableView_r2 = Ti.UI.createTableView({
-		data : sv.arr.datatbl_right1,
+		data : sv.arr.datatbl_right2,
 		top : Ti.App.size(410),
 		separatorColor : Ti.App.Color.gray,
 		backgroundColor : 'transparent',
@@ -196,7 +210,6 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r2);
-	sv.arr.datatbl_r3 = [];
 	for (var i = 0; i < 2; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -222,10 +235,10 @@ function tao_ui(sv) {
 			textAlign : 'left'
 		});
 		sv.ui.row.add(sv.ui.lblgiai);
-		sv.arr.datatbl_r3.push(sv.ui.row);
+		sv.arr.datatbl_right3.push(sv.ui.row);
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
-		data : sv.arr.datatbl_r3,
+		data : sv.arr.datatbl_right3,
 		top : Ti.App.size(760),
 		separatorColor : Ti.App.Color.gray,
 		backgroundColor : 'transparent',
@@ -291,8 +304,6 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.view_menulist);
 	sv.ui.matrix = Titanium.UI.create2DMatrix();
 	sv.ui.matrix = sv.ui.matrix.rotate(180);
-	sv.arr.ten = ['XEM KẾT QUẢ SỔ XỐ', 'TƯ VẤN', 'CHỨC NĂNG VIP'];
-	sv.arr.icon = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-1.png', '/assets/images/icon/icon-3.png'];
 	sv.ui.row_slide = require('/ui/rowheader');
 	sv.ui.row_header1 = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten[0], sv.arr.icon[0]);
 	sv.ui.view_menulist.add(sv.ui.row_header1);
@@ -300,8 +311,6 @@ function tao_ui(sv) {
 	sv.ui.view_menulist.add(sv.ui.row_header2);
 	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(790), sv.arr.ten[2], sv.arr.icon[2]);
 	sv.ui.view_menulist.add(sv.ui.row_header3);
-	sv.arr.datatbl = [];
-	sv.arr.ten_menu = ['Lựa chọn', 'Kết quả sổ xố miền Bắc', 'Kết quả sổ xố miền Nam', 'Kết quả sổ xố miền Trung', 'Xem dãy số lâu về', 'Xem dãy số hay về', 'Cầu đang ăn', 'Xem số Vip'];
 	for (var i = 0; i < 4; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -349,7 +358,6 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView);
-	sv.arr.datatbl1 = [];
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -396,8 +404,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2);
-	{
+	sv.ui.view_menulist.add(sv.ui.tableView2); {
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -558,7 +565,7 @@ function tao_ui(sv) {
 	///
 	tao_event(sv);
 	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
-	sv.ui.drawer.addEventListener('windowDidClose',sv.fu.evt_draw_close);
+	sv.ui.drawer.addEventListener('windowDidClose', sv.fu.evt_draw_close);
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
@@ -596,17 +603,17 @@ function tao_event(sv) {
 		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				set_label(sv, "", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "", false);
-				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0,0);
+				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0, 0);
 				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
 				break;
 			case 1:
 				sv.vari.flag_txtfield = true;
+				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
 				sv.ui.Viewtong.add(sv.ui.wdTTCN.ui.ViewTong);
 				break;
 		};
@@ -616,36 +623,36 @@ function tao_event(sv) {
 		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
 				set_label(sv, "TRỰC TIẾP", false);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(sv.ui.wdRealTime.ui.Viewtong);
 				break;
 			case 1:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "LỰA CHỌN", false);
 				sv.ui.wdChoose.ui.table_view.visible = false;
 				sv.ui.wdChoose.ui.table_view1.visible = false;
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(sv.ui.wdChoose.ui.ViewTong);
 				break;
 			case 2:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.wdKQSX.scrollTo(0, 0);
 				set_label(sv, "Xổ số Miền Bắc", true);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(sv.ui.wdKQSX);
 
 				break;
 			case 3:
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				set_label(sv, "DÃY SỐ LÂU VỀ", false);
 				sv.ui.wdSupport.ui.scrollView.scrollTo(0, 0);
 				sv.ui.wdSupport.ui.table_view.visible = false;
 				sv.ui.wdSupport.ui.table_view1.visible = false;
 				sv.ui.wdSupport.ui.table_view2.visible = false;
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(sv.ui.wdSupport.ui.scrollView);
 				break;
 		}
@@ -654,15 +661,15 @@ function tao_event(sv) {
 		Ti.API.info('Opened window');
 	};
 	//su kien dong slide
-	sv.fu.evt_draw_close=function(e){
+	sv.fu.evt_draw_close = function(e) {
 		sv.ui.txtTimkiem.blur();
-		sv.ui.txtTimkiem.value='';
+		sv.ui.txtTimkiem.value = '';
 		sv.ui.scrollView.scrollTo(0, 0);
 		sv.ui.scrollView_right.scrollTo(0, 0);
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		if(sv.vari.flag_txtfield==true){
+		if (sv.vari.flag_txtfield == true) {
 			sv.ui.wdTTCN.ui.TfMatKhau.blur();
 			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
 			sv.ui.wdTTCN.ui.TfEmail.blur();
@@ -670,12 +677,11 @@ function tao_event(sv) {
 	};
 	//su kien dong window
 	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.drawer.removeEventListener('windowDidClose',sv.fu.evt_draw_close);
+		sv.ui.drawer.removeEventListener('windowDidClose', sv.fu.evt_draw_close);
 		sv.ui.drawer.removeEventListener('windowDidOpen', sv.fu.evt_draw_open);
 		sv.ui.tableView.removeEventListener('click', sv.fu.evt_tblview_click);
 		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.WindowSoXo.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.WindowSoXo.removeEventListener('singletap', sv.fu.window_click);
 		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
 		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowDK);
 		sv.ui.tableView_r.removeEventListener('click', sv.fu.evt_tblviewright1_click);
