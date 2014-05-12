@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		createRemove(sv);
 	})();
 
 	return sv;
@@ -76,12 +77,12 @@ function createUI(sv) {
 		height : Ti.App.size(500),
 		backgroundColor : 'red'
 	});
-	sv.ui.circle=Titanium.UI.createImageView({
-		image:'/assets/images/icon/xxxjav.png',
-		top:-Ti.App.size(70),
-		width:Ti.App.size(420),
-		height:Ti.App.size(420),
-		left:Ti.App.size(150)
+	sv.ui.circle = Titanium.UI.createImageView({
+		image : '/assets/images/icon/xxxjav.png',
+		top : -Ti.App.size(70),
+		width : Ti.App.size(420),
+		height : Ti.App.size(420),
+		left : Ti.App.size(150)
 	});
 	sv.ui.viewAvatar.add(sv.ui.circle);
 	sv.ui.Avatar = Ti.UI.createImageView({
@@ -168,8 +169,8 @@ function createUI(sv) {
 		},
 		text : '20%',
 		color : Ti.App.Color.superwhite,
-		width:Ti.App.size(135),
-		height:Ti.App.size(40)
+		width : Ti.App.size(135),
+		height : Ti.App.size(40)
 	});
 	sv.ui.vThongso1.add(sv.ui.lbltest);
 	sv.ui.vThongso1.add(sv.ui.lbl_tyle);
@@ -200,13 +201,13 @@ function createUI(sv) {
 		},
 		text : '10.000Xu',
 		color : Ti.App.Color.superwhite,
-		width:Ti.App.size(135),
-		height:Ti.App.size(40)
+		width : Ti.App.size(135),
+		height : Ti.App.size(40)
 	});
 	sv.ui.vThongso2.add(sv.ui.lbl_soxu);
 	sv.ui.vThongso2.add(sv.ui.lbl_xu);
-//
-sv.ui.vThongso3 = Titanium.UI.createView({
+	//
+	sv.ui.vThongso3 = Titanium.UI.createView({
 		width : Ti.App.size(235),
 		height : Ti.App.size(120),
 		left : Ti.App.size(470),
@@ -232,8 +233,8 @@ sv.ui.vThongso3 = Titanium.UI.createView({
 		},
 		text : '0%',
 		color : Ti.App.Color.superwhite,
-		width:Ti.App.size(135),
-		height:Ti.App.size(40)
+		width : Ti.App.size(135),
+		height : Ti.App.size(40)
 	});
 	sv.ui.vThongso3.add(sv.ui.tyletrungdb);
 	sv.ui.vThongso3.add(sv.ui.tyle_db);
@@ -515,5 +516,11 @@ function createUI_Event(sv) {
 		sv = null;
 
 		Ti.API.info('Closed window, sv=' + sv);
+	};
+}
+
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		Ti.API.info('da remove xong ');
 	};
 }

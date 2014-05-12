@@ -6,6 +6,7 @@ module.exports = function() {
 	sv.fu = {};
 	(function() {
 		tao_ui(sv);
+		createRemove(sv);
 	})();
 	return sv;
 };
@@ -111,9 +112,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		// bottom : 0,
-		// contentHeight : viewScrollParent.height,
-		// height : viewScrollParent.height,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -121,7 +119,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		scrollsToTop : false,
 		horizontalBounce : true,
 	});
 
@@ -279,4 +276,9 @@ function setleft(j, _left) {
 		return Ti.App.size(1);
 	} else
 		return Ti.App.size(74) * j;
+}
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		Ti.API.info('remove event wd realtime');
+	};
 }

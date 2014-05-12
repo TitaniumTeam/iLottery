@@ -6,6 +6,7 @@ module.exports = function() {
 	sv.fu = {};
 	(function() {
 		tao_ui(sv);
+		createRemove(sv);
 	})();
 	return sv;
 };
@@ -24,45 +25,6 @@ function tao_ui(sv) {
 		top : 0,
 		backgroundColor : 'transparent'
 	});
-	/*
-	 sv.ui.View1 = Ti.UI.createView({
-	 backgroundColor : 'red',
-	 width : Ti.App.size(720),
-	 height : Ti.App.size(120),
-	 top : 0
-	 });
-	 sv.ui.view_menu_icon = Ti.UI.createView({
-	 width : Ti.App.size(120),
-	 height : Ti.App.size(120),
-	 left : 0,
-	 top : 0,
-	 });
-	 sv.ui.menu_icon = Ti.UI.createImageView({
-	 width : Ti.App.size(56),
-	 heigth : Ti.App.size(37),
-	 image : '/assets/images/icon/menu.png',
-	 });
-	 sv.ui.view_user_icon = Ti.UI.createView({
-	 width : Ti.App.size(120),
-	 height : Ti.App.size(120),
-	 right : 0,
-	 top : 0,
-	 });
-	 sv.ui.user_icon = Ti.UI.createImageView({
-	 width : Ti.App.size(46),
-	 height : Ti.App.size(58),
-	 image : '/assets/images/icon/user.png',
-	 // top : Ti.App.size(30)
-	 });
-	 sv.ui.lbl_Choose = Ti.UI.createLabel({
-	 width : Ti.App.size(300),
-	 height : Ti.App.size(50),
-	 text : 'LỰA CHỌN',
-	 color : Ti.App.Color.white,
-	 font : {
-	 fontSize : Ti.App.size(50)
-	 },
-	 });*/
 	sv.ui.lbl_info = Ti.UI.createLabel({
 		width : Ti.App.size(720),
 		height : Ti.App.size(100),
@@ -151,4 +113,16 @@ function tbl_click(e, _lbl, _tbl) {
 function view_click(_tbl1, _tbl2) {
 	_tbl1.visible = true;
 	_tbl2.visible = false;
+}
+
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
+		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
+		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
+		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
+		Ti.API.info('remove event wd choose');
+	};
 }

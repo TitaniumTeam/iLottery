@@ -6,8 +6,9 @@ module.exports = function() {
 	sv.fu = {};
 	(function() {
 		tao_ui(sv);
+		createRemove(sv);
 	})();
-	return sv.ui.scrollView;
+	return sv;
 };
 /**khoi tao UI
  * */
@@ -20,7 +21,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -28,7 +28,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		scrollsToTop : false,
 		horizontalBounce : true,
 	});
 
@@ -66,4 +65,9 @@ function tao_ui(sv) {
 }
 
 function createUI_Event(sv) {
+}
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		Ti.API.info('remove event kqsx');
+	};
 }

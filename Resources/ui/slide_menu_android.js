@@ -15,6 +15,22 @@ function tao_bien(sv) {
 	sv.arr = {};
 	sv.vari = {};
 	sv.vari.flag_txtfield = false;
+	sv.vari.VTView = 1;
+	///bien view hien tai
+	sv.vari.viewht = null;
+	/////khoi tao cac file require
+	sv.ui.windowKQSX = require('/ui/WindowKQSX');
+	sv.ui.windowRealTime = require('/ui/WindowRealTime');
+	sv.ui.windowChoose = require('/ui/WindowChoose');
+	sv.ui.windowSupport = require('/ui/WindowSupport');
+	sv.ui.windowInfoUser = require('/ui/Info');
+	sv.ui.windowLichsuGD = require('/ui/LichSuGiaoDich');
+	sv.ui.windowThongtincanhan = require('/ui/ThongTinCaNhan');
+	sv.ui.wdRealTime = new sv.ui.windowRealTime();
+	sv.ui.wdChoose = new sv.ui.windowChoose();
+	sv.ui.wdInfoUser = new sv.ui.windowInfoUser();
+	sv.ui.wdLSGD = new sv.ui.windowLichsuGD();
+	sv.ui.wdTTCN = new sv.ui.windowThongtincanhan();
 	///cac mang menu ben phai
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
@@ -65,7 +81,7 @@ function tao_ui(sv) {
 	sv.ui.view_info = Titanium.UI.createView({
 		left : Ti.App.size(160),
 		top : Ti.App.size(30),
-		height : Ti.App.size(140),
+		height : Ti.UI.SIZE,
 		bottom : Ti.App.size(30),
 	});
 	sv.ui.viewavatar.add(sv.ui.view_info);
@@ -106,7 +122,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -114,7 +129,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		scrollsToTop : true,
 		horizontalBounce : true,
 	});
 	sv.ui.view_menulist_right = Titanium.UI.createView({
@@ -282,7 +296,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -290,7 +303,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		scrollsToTop : true,
 		horizontalBounce : true,
 	});
 	sv.ui.view_menulist = Titanium.UI.createView({
@@ -404,7 +416,8 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2); {
+	sv.ui.view_menulist.add(sv.ui.tableView2);
+	{
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -524,24 +537,8 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.View1);
-	sv.ui.v = require('/ui/WindowKQSX');
-	sv.ui.wdKQSX = new sv.ui.v();
-	sv.ui.Viewtong.add(sv.ui.wdKQSX);
-	sv.ui.windowRealTime = require('/ui/WindowRealTime');
-	sv.ui.wdRealTime = new sv.ui.windowRealTime();
-	sv.ui.windowChoose = require('/ui/WindowChoose');
-	sv.ui.wdChoose = new sv.ui.windowChoose();
-	sv.ui.windowSupport = require('/ui/WindowSupport');
-	sv.ui.wdSupport = new sv.ui.windowSupport();
-	sv.ui.windowInfoUser = require('/ui/Info');
-	sv.ui.wdInfoUser = new sv.ui.windowInfoUser();
-	sv.ui.windowLichsuGD = require('/ui/LichSuGiaoDich');
-	sv.ui.wdLSGD = new sv.ui.windowLichsuGD();
-	sv.ui.windowThongtincanhan = require('/ui/ThongTinCaNhan');
-	sv.ui.wdTTCN = new sv.ui.windowThongtincanhan();
-	/*
-	navcontroller win
-	* */
+	sv.vari.viewht = new sv.ui.windowKQSX();
+
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
 		fullscreen : true,
@@ -572,6 +569,69 @@ function tao_ui(sv) {
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
 };
+
+////remove event moi view
+
+function removeAllEvent(sv) {
+	sv.fu = {};
+	//view luachon
+	if (sv.vari.VTView == 1) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view kqsx mien bac
+	if (sv.vari.VTView == 2) {
+
+	}
+	//view kqsx mien nam
+	if (sv.vari.VTView == 3) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//view kqsxmien trung
+	if (sv.vari.VTView == 4) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view xem day so lau ve
+	if (sv.vari.VTView == 5) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view xem day so hay ve
+	if (sv.vari.VTView == 6) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view xem cau dang an
+	if (sv.vari.VTView == 7) {
+
+	}
+	//xem so vip
+	if (sv.vari.VTView == 8) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//thong tin tai khoan
+	if (sv.vari.VTView == 9) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//nap truc tiep
+	if (sv.vari.VTView == 10) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//nap bang sms
+	if (sv.vari.VTView == 11) {
+	}
+	//bang quy doi
+	if (sv.vari.VTView == 12) {
+	}
+	//lich su giao dich
+	if (sv.vari.VTView == 13) {
+		//ViewHienTai.removeAllEvent();
+	}
+	//con so da choi
+	if (sv.vari.VTView == 14) {
+
+	}
+
+}
+
+/////tao event
 function tao_event(sv) {
 	sv.fu = {};
 	//su kien click nut 3gach
@@ -586,29 +646,25 @@ function tao_event(sv) {
 	};
 	///su kien table view3 menu right
 	sv.fu.evt_tblviewright3_click = function(e) {
-		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				set_label(sv, "LỊCH SỬ GIAO DỊCH", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "LỊCH SỬ GIAO DỊCH", false);
 				sv.ui.Viewtong.add(sv.ui.wdLSGD);
 				break;
 		};
 	};
 	//su kien table view 1 menu right
 	sv.fu.evt_tblviewright1_click = function(e) {
-		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
 				set_label(sv, "", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0, 0);
 				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
 				break;
 			case 1:
-				sv.vari.flag_txtfield = true;
 				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
@@ -618,10 +674,8 @@ function tao_event(sv) {
 	};
 	///su kien table view 1 menu left
 	sv.fu.evt_tblview_click = function(e) {
-		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
 		switch(e.index) {
 			case 0:
-				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
 				set_label(sv, "TRỰC TIẾP", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
@@ -636,16 +690,13 @@ function tao_event(sv) {
 				sv.ui.Viewtong.add(sv.ui.wdChoose.ui.ViewTong);
 				break;
 			case 2:
-				sv.ui.wdKQSX.scrollTo(0, 0);
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				sv.ui.Viewtong.add(sv.ui.wdKQSX);
-
 				break;
 			case 3:
 				set_label(sv, "DÃY SỐ LÂU VỀ", false);
-				sv.ui.wdSupport.ui.scrollView.scrollTo(0, 0);
 				sv.ui.wdSupport.ui.table_view.visible = false;
 				sv.ui.wdSupport.ui.table_view1.visible = false;
 				sv.ui.wdSupport.ui.table_view2.visible = false;
@@ -656,6 +707,7 @@ function tao_event(sv) {
 		}
 	};
 	sv.fu.eventOpenWindow = function(e) {
+		sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
 		Ti.API.info('Opened window');
 	};
 	//su kien dong slide
@@ -667,12 +719,18 @@ function tao_event(sv) {
 	};
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
-		if (sv.vari.flag_txtfield == true) {
-			sv.ui.wdTTCN.ui.TfMatKhau.blur();
-			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
-			sv.ui.wdTTCN.ui.TfEmail.blur();
-		};
+		if (e.window == NappDrawerModule.LEFT_WINDOW) {
+			if (sv.vari.flag_txtfield == true) {
+				sv.vari.viewht.set_statetxt(true);
+			}
+		} else if (e.window == NappDrawerModule.RIGHT_WINDOW) {
+			if (sv.vari.flag_txtfield == true) {
+				sv.vari.viewht.set_statetxt(true);
+			}
+		}
+
 	};
+	///su kien hide action bar
 	sv.fu.onNavDrawerWinOpen = function(evt) {
 		this.removeEventListener('open', sv.fu.onNavDrawerWinOpen);
 
@@ -705,7 +763,7 @@ function tao_event(sv) {
 function set_label(sv, _ten, _false) {
 	sv.ui.lbl_GiaiSX.text = _ten;
 	if (_false == false) {
-		sv.ui.lbl_Ngay.visible = _false;
+		sv.ui.lbl_Ngay.visible = false;
 		sv.ui.lbl_GiaiSX.top = Ti.App.size(35);
 	} else {
 		sv.ui.lbl_GiaiSX.top = Ti.App.size(10);

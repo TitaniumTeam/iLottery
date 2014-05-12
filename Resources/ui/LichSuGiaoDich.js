@@ -9,9 +9,10 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		createRemove(sv);
 	})();
 
-	return sv.ui.ViewTong;
+	return sv;
 };
 /**
  * Khởi tạo biến
@@ -28,7 +29,6 @@ function createUI(sv) {
 		top : 0,
 		left : 0
 	});
-
 
 	//Tao view Truong
 	sv.ui.ViewTruong = Ti.UI.createView({
@@ -116,14 +116,12 @@ function createUI(sv) {
 	});
 
 	// createUI_Event(sv);
-// 
+	//
 	// sv.ui.IconBack.addEventListener('click', sv.fu.eventClickIconBack);
-
 
 	sv.ui.ViewTong.add(sv.ui.ViewTruong);
 	sv.ui.ViewTong.add(sv.ui.ViewLine);
 	sv.ui.ViewTong.add(sv.ui.ViewDanhSach);
-
 
 	sv.ui.ViewTruong.add(sv.ui.TT);
 	sv.ui.ViewTruong.add(sv.ui.Line1);
@@ -160,5 +158,11 @@ function createUI_Event(sv) {
 		sv = null;
 
 		Ti.API.info('Closed window, sv=' + sv);
+	};
+}
+
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		Ti.API.info('da remove xong ');
 	};
 }

@@ -6,8 +6,8 @@ module.exports = function() {
 	sv.fu = {};
 	(function() {
 		tao_ui(sv);
+		createRemove(sv);
 	})();
-	// return sv.ui.ViewTong;
 	return sv;
 };
 
@@ -18,21 +18,11 @@ function tao_ui(sv) {
 	sv.ui = {};
 	sv.arr = {};
 	sv.vari = {};
-	// sv.ui.ViewTong = Titanium.UI.createView({
-		// width : Ti.App.size(720),
-		// height : Ti.UI.SIZE,
-		// left : 0,
-		// top : 0,
-		// backgroundColor : 'transparent'
-	// });
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top : Ti.App.size(0),
+		top :0,
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
-		// contentHeight : viewScrollParent.height,
-		// height : viewScrollParent.height,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -40,7 +30,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : false,
 		disableBounce : true,
-		scrollsToTop : false,
 		horizontalBounce : true,
 	});
 	//
@@ -266,3 +255,16 @@ function view_click(_tbl1, _tbl2, _tbl3) {
 	_tbl3.visible = false;
 }
 
+function createRemove(sv) {
+	sv.removeAllEvent = function() {
+		sv.ui.arrow1.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.arrow2.removeEventListener('click', sv.fu.event_click_view1);
+		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
+		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
+		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
+		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
+		sv.ui.view_choose2.removeEventListener('click', sv.fu.event_click_view2);
+		sv.ui.table_view2.removeEventListener('click', sv.fu.event_clicktbl2);
+		Ti.API.info('remove event wd support');
+	};
+}
