@@ -492,7 +492,6 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
 		width : Ti.UI.SIZE,
-		height : Ti.App.size(50),
 		text : 'Xổ số Miền Bắc',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(10),
@@ -502,7 +501,6 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_Ngay = Ti.UI.createLabel({
 		width : Ti.App.size(220),
-		height : Ti.App.size(50),
 		text : '(12/4/2014)',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(60),
