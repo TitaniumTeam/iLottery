@@ -28,7 +28,7 @@ function tao_ui(sv) {
 		scrollType : 'vertical',
 		backgroundColor : 'transparent',
 		showHorizontalScrollIndicator : false,
-		showVerticalScrollIndicator : false,
+		showVerticalScrollIndicator : true,
 		disableBounce : true,
 		horizontalBounce : true,
 	});
@@ -112,7 +112,7 @@ function tao_ui(sv) {
 
 	sv.ui.demuc = Titanium.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(75),
+		height : Ti.App.size(80),
 		backgroundColor : Ti.App.Color.superwhite,
 		left : 0,
 		right : 0
@@ -135,10 +135,10 @@ function tao_ui(sv) {
 	*/
 	sv.ui.vTong2 = Titanium.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(720),
+		// height : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL,
 	});
 	sv.ui.tblDayso = Ti.UI.createTableView({
 		width : Ti.App.size(720),
@@ -146,7 +146,7 @@ function tao_ui(sv) {
 		separatorColor : Ti.App.Color.nauden,
 		left : 0,
 		right : Ti.App.size(16),
-		top : 0,
+		top : Ti.App.size(10),
 		height : Ti.UI.SIZE,
 	});
 	sv.arr.params = [{

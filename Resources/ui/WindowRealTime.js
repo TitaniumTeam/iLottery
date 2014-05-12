@@ -19,7 +19,7 @@ function tao_ui(sv) {
 	sv.arr = {};
 	sv.ui.Viewtong = Titanium.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL,
 		left : 0,
 		top : 0,
 		backgroundColor : 'transparent'
@@ -43,7 +43,7 @@ function tao_ui(sv) {
 		// backgroundColor:'transparent',
 		// backgroundSelectedColor:Ti.App.Color.nauden
 		backgroundColor : Ti.App.Color.nauden,
-		borderRadius : 10,
+		borderRadius : Ti.App.size(10),
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmn = Titanium.UI.createLabel({
@@ -59,7 +59,7 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.nauden,
 		// backgroundColor:Ti.App.Color.nauden,
-		borderRadius : 10,
+		borderRadius : Ti.App.size(10),
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmt = Titanium.UI.createLabel({
@@ -87,7 +87,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_tg = Titanium.UI.createLabel({
 		width : Ti.App.size(720),
-		height : Ti.App.size(30),
+		// height : Ti.App.size(40),
 		top : Ti.App.size(10),
 		textAlign : 'center',
 		text : 'Xổ số Miền Bắc ngày 1-4-2014(Hà Nội)',
@@ -98,7 +98,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_tuongthuat = Titanium.UI.createLabel({
 		width : Ti.App.size(720),
-		height : Ti.App.size(30),
+		// height : Ti.App.size(30),
 		bottom : Ti.App.size(10),
 		text : 'Đang tường thuật trực tiếp',
 		textAlign : 'center',
@@ -180,7 +180,7 @@ function tao_ui(sv) {
 	sv.vari.rowchild = require('/ui/RowChild');
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc1 = new sv.vari.rowchild(Ti.App.size(0), Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
+		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
 		sv.ui.vConsove.add(sv.ui.rowc1);
 	}
 	for (var i = 0; i < 9; i++) {
@@ -233,8 +233,8 @@ function tao_ui(sv) {
 			left : Ti.App.size(20),
 			// top : Ti.App.size(75) * i,
 			borderColor : Ti.App.Color.magenta,
-			borderWidth : 1,
-			borderRadius : 2
+			borderWidth : Ti.App.size(1),
+			borderRadius : Ti.App.size(2)
 		});
 		sv.ui.space = Ti.UI.createView({
 			width : Ti.App.size(670),
@@ -251,8 +251,6 @@ function tao_ui(sv) {
 
 	;
 	////
-	createUI_Event(sv);
-	/////
 	sv.ui.view_title.add(sv.ui.lbl_tuongthuat);
 	sv.ui.view_title.add(sv.ui.lbl_tg);
 	sv.ui.View1.add(sv.ui.lbl_sxmb);
@@ -279,6 +277,6 @@ function setleft(j, _left) {
 }
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
-		Ti.API.info('remove event wd realtime');
+		Ti.API.info('remove event keo wd realtime');
 	};
 }

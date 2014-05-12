@@ -66,6 +66,7 @@ function tao_ui(sv) {
 
 function createUI_Event(sv) {
 }
+
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		Ti.API.info('remove event kqsx');

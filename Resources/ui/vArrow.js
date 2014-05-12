@@ -6,7 +6,7 @@ module.exports = function(_top) {
 	sv.fu = {};
 	sv.ui.vArrow = Ti.UI.createView({
 		width : Ti.App.size(90),
-		height : Ti.App.size(96),
+		height : Ti.App.size(95),
 		right : Ti.App.size(25),
 		top : _top,
 		backgroundColor : Ti.App.Color.magenta,
@@ -39,11 +39,11 @@ module.exports = function(_top) {
 	});
 	sv.ui.vArrow2.add(sv.ui.arrow_dow);
 	sv.ui.vArrow.add(sv.ui.vArrow2);
-	
-	sv.ui.vArrow.getvArrow1=function(){
+
+	sv.ui.vArrow.getvArrow1 = function() {
 		return sv.ui.vArrow1;
 	};
-	sv.ui.vArrow.getvArrow2=function(){
+	sv.ui.vArrow.getvArrow2 = function() {
 		return sv.ui.vArrow2;
 	};
 	return sv.ui.vArrow;

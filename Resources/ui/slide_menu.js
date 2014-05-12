@@ -15,6 +15,17 @@ function tao_bien(sv) {
 	sv.arr = {};
 	sv.vari = {};
 	sv.vari.flag_txtfield = false;
+	sv.vari.VTView = 1;
+	///bien view hien tai
+	sv.vari.viewht = null;
+	/////khoi tao cac file require
+	sv.vari.windowKQSX = require('/ui/WindowKQSX');
+	sv.vari.windowRealTime = require('/ui/WindowRealTime');
+	sv.vari.windowChoose = require('/ui/WindowChoose');
+	sv.vari.windowSupport = require('/ui/WindowSupport');
+	sv.vari.windowInfoUser = require('/ui/Info');
+	sv.vari.windowLichsuGD = require('/ui/LichSuGiaoDich');
+	sv.vari.windowThongtincanhan = require('/ui/ThongTinCaNhan');
 	///cac mang menu ben phai
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
@@ -49,7 +60,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.view_user_avatar = Titanium.UI.createView({
 		left : 0,
-		height : Ti.App.size(200),
+		height : Ti.UI.SIZE,
 		width : Ti.App.size(160),
 		top : 0
 	});
@@ -65,7 +76,7 @@ function tao_ui(sv) {
 	sv.ui.view_info = Titanium.UI.createView({
 		left : Ti.App.size(160),
 		top : Ti.App.size(30),
-		height : Ti.App.size(140),
+		height : Ti.UI.SIZE,
 		bottom : Ti.App.size(30),
 	});
 	sv.ui.viewavatar.add(sv.ui.view_info);
@@ -106,7 +117,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -114,7 +124,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		scrollsToTop : true,
 		horizontalBounce : true,
 	});
 	sv.ui.view_menulist_right = Titanium.UI.createView({
@@ -267,12 +276,13 @@ function tao_ui(sv) {
 		hintText : 'Tìm kiếm ...',
 		textAlign : 'center',
 		top : Ti.App.size(20),
-		left : Ti.App.size(25),
-		right : Ti.App.size(25),
+		// left : Ti.App.size(25),
+		// right : Ti.App.size(25),
 		backgroundColor : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(30)
-		}
+		},
+		returnKeyType : Ti.UI.RETURNKEY_SEARCH
 	});
 	sv.ui.view_timkiem.add(sv.ui.txtTimkiem);
 	sv.ui.win_left.add(sv.ui.view_timkiem);
@@ -282,7 +292,6 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
-		bottom : 0,
 		layout : 'vertical',
 		horizontalWrap : false,
 		scrollType : 'vertical',
@@ -290,7 +299,6 @@ function tao_ui(sv) {
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		scrollsToTop : true,
 		horizontalBounce : true,
 	});
 	sv.ui.view_menulist = Titanium.UI.createView({
@@ -404,7 +412,8 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2); {
+	sv.ui.view_menulist.add(sv.ui.tableView2);
+	{
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -456,8 +465,8 @@ function tao_ui(sv) {
 	 * */
 	sv.ui.WindowSoXo = Ti.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
-		navBarHidden : true,
-		fullscreen : true
+		fullscreen : true,
+		navBarHidden : true
 	});
 	sv.ui.View1 = Ti.UI.createView({
 		backgroundColor : 'red',
@@ -494,7 +503,6 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_GiaiSX = Ti.UI.createLabel({
 		width : Ti.UI.SIZE,
-		height : Ti.App.size(50),
 		text : 'Xổ số Miền Bắc',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(10),
@@ -504,7 +512,6 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_Ngay = Ti.UI.createLabel({
 		width : Ti.App.size(220),
-		height : Ti.App.size(50),
 		text : '(12/4/2014)',
 		color : Ti.App.Color.white,
 		top : Ti.App.size(60),
@@ -528,29 +535,14 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.View1);
-	sv.ui.v = require('/ui/WindowKQSX');
-	sv.ui.wdKQSX = new sv.ui.v();
-	sv.ui.Viewtong.add(sv.ui.wdKQSX);
-	sv.ui.windowRealTime = require('/ui/WindowRealTime');
-	sv.ui.wdRealTime = new sv.ui.windowRealTime();
-	sv.ui.windowChoose = require('/ui/WindowChoose');
-	sv.ui.wdChoose = new sv.ui.windowChoose();
-	sv.ui.windowSupport = require('/ui/WindowSupport');
-	sv.ui.wdSupport = new sv.ui.windowSupport();
-	sv.ui.windowInfoUser = require('/ui/Info');
-	sv.ui.wdInfoUser = new sv.ui.windowInfoUser();
-	sv.ui.windowLichsuGD = require('/ui/LichSuGiaoDich');
-	sv.ui.wdLSGD = new sv.ui.windowLichsuGD();
-	sv.ui.windowThongtincanhan = require('/ui/ThongTinCaNhan');
-	sv.ui.wdTTCN = new sv.ui.windowThongtincanhan();
+	sv.vari.viewht = new sv.vari.windowKQSX();
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
-		window : sv.ui.WindowSoXo
+		window : sv.ui.WindowSoXo,
+		orientationModes : [Ti.UI.PORTRAIT]
 	});
-	/*
-	navcontroller win
-	* */
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
+		fullscreen : true,
 		leftWindow : sv.ui.win_left,
 		centerWindow : sv.ui.navController,
 		rightWindow : sv.ui.win_right,
@@ -561,19 +553,97 @@ function tao_ui(sv) {
 		rightDrawerWidth : Ti.App.size(480),
 		tatusBarStyle : NappDrawerModule.STATUSBAR_WHITE, // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
+		animationMode : NappDrawerModule.ANIMATION_PARALLAX_FACTOR_7,
+		animationVelocity : 1000,
+		top : 0
 	});
 	///
 	tao_event(sv);
 	sv.ui.drawer.addEventListener('windowDidOpen', sv.fu.evt_draw_open);
 	sv.ui.drawer.addEventListener('windowDidClose', sv.fu.evt_draw_close);
+	///su kien menu left
+	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview1_click);
+	sv.ui.tableView2.addEventListener('click', sv.fu.evt_tblview2_click);
+	sv.ui.tableView3.addEventListener('click', sv.fu.evt_tblview3_click);
+	//sukien menu right
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
-	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
+	//su kien click icon
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventSlideleft);
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
+	//su kien dong win
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
 };
+
+////remove event moi view
+
+function removeAllEvent(sv) {
+	sv.fu = {};
+	//view luachon
+	if (sv.vari.VTView == 1) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view kqsx mien bac
+	if (sv.vari.VTView == 2) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//view kqsx mien nam
+	if (sv.vari.VTView == 3) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//view kqsxmien trung
+	if (sv.vari.VTView == 4) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view xem day so lau ve
+	if (sv.vari.VTView == 5) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	///view xem day so hay ve
+	if (sv.vari.VTView == 6) {
+
+	}
+	///view xem cau dang an
+	if (sv.vari.VTView == 7) {
+
+	}
+	//xem so vip
+	if (sv.vari.VTView == 8) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//thong tin tai khoan
+	if (sv.vari.VTView == 9) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//thay doi mat khau
+	if (sv.vari.VTView == 10) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//hom thu
+	if (sv.vari.VTView == 11) {
+	}
+	//nap truc tiep
+	if (sv.vari.VTView == 12) {
+	}
+	//nap bang sms
+	if (sv.vari.VTView == 13) {
+	}
+	//bang quy doi
+	if (sv.vari.VTView == 14) {
+
+	}
+	//lich su giao dich
+	if (sv.vari.VTView == 15) {
+		sv.vari.viewht.removeAllEvent();
+	}
+	//con so da choi
+	if (sv.vari.VTView == 16) {
+
+	}
+}
+
+/////tao event
 function tao_event(sv) {
 	sv.fu = {};
 	//su kien click nut 3gach
@@ -588,78 +658,129 @@ function tao_event(sv) {
 	};
 	///su kien table view3 menu right
 	sv.fu.evt_tblviewright3_click = function(e) {
-		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "LỊCH SỬ GIAO DỊCH", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				set_label(sv, "LỊCH SỬ GIAO DỊCH", false);
-				sv.ui.Viewtong.add(sv.ui.wdLSGD);
+				sv.vari.viewht = new sv.vari.windowLichsuGD();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
+				sv.vari.VTView = 15;
 				break;
 		};
 	};
 	//su kien table view 1 menu right
 	sv.fu.evt_tblviewright1_click = function(e) {
-		Ti.API.info('is righwindowopen' + sv.ui.drawer.isRightWindowOpen());
 		switch(e.index) {
 			case 0:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
 				set_label(sv, "", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				sv.ui.wdInfoUser.ui.scrollview.scrollTo(0, 0);
-				sv.ui.Viewtong.add(sv.ui.wdInfoUser.ui.ViewTong);
+				sv.vari.viewht = new sv.vari.windowInfoUser();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
+				sv.vari.VTView = 9;
 				break;
 			case 1:
 				sv.vari.flag_txtfield = true;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
 				set_label(sv, "THÔNG TIN CÁ NHÂN", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleRightWindow();
-				sv.ui.Viewtong.add(sv.ui.wdTTCN.ui.ViewTong);
+				sv.vari.viewht = new sv.vari.windowThongtincanhan();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
+				sv.vari.VTView = 10;
 				break;
 		};
 	};
 	///su kien table view 1 menu left
-	sv.fu.evt_tblview_click = function(e) {
-		Ti.API.info("isLeftWindowOpen: " + sv.ui.drawer.isLeftWindowOpen());
+	sv.fu.evt_tblview1_click = function(e) {
 		switch(e.index) {
 			case 0:
-				sv.ui.wdRealTime.ui.scrollView.scrollTo(0, 0);
-				set_label(sv, "TRỰC TIẾP", false);
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "LỰA CHỌN", false);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.Viewtong.add(sv.ui.wdRealTime.ui.Viewtong);
+				sv.vari.viewht = new sv.vari.windowChoose();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
+				sv.vari.VTView = 1;
 				break;
 			case 1:
-				set_label(sv, "LỰA CHỌN", false);
-				sv.ui.wdChoose.ui.table_view.visible = false;
-				sv.ui.wdChoose.ui.table_view1.visible = false;
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.Viewtong.add(sv.ui.wdChoose.ui.ViewTong);
-				break;
-			case 2:
-				sv.ui.wdKQSX.scrollTo(0, 0);
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.Viewtong.add(sv.ui.wdKQSX);
-
+				sv.vari.viewht = new sv.vari.windowKQSX();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.VTView = 2;
 				break;
-			case 3:
-				set_label(sv, "DÃY SỐ LÂU VỀ", false);
-				sv.ui.wdSupport.ui.scrollView.scrollTo(0, 0);
-				sv.ui.wdSupport.ui.table_view.visible = false;
-				sv.ui.wdSupport.ui.table_view1.visible = false;
-				sv.ui.wdSupport.ui.table_view2.visible = false;
+			case 2:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "Xổ số Miền Nam", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
-				sv.ui.Viewtong.add(sv.ui.wdSupport.ui.scrollView);
+				sv.vari.viewht = new sv.vari.windowKQSX();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.VTView = 3;
+				break;
+			case 3:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "Xổ số Miền Trung", true);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewht = new sv.vari.windowKQSX();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.VTView = 4;
 				break;
 		}
 	};
-	sv.fu.eventOpenWindow = function(e) {
-		Ti.API.info('Opened window');
+	///su kien table view2 _ left click
+	sv.fu.evt_tblview2_click = function(e) {
+		switch(e.index) {
+			case 0:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "DÃY SỐ LÂU VỀ", false);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewht = new sv.vari.windowSupport();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.VTView = 5;
+				break;
+		}
 	};
+	///su kien table view3_ left click
+	sv.fu.evt_tblview3_click = function(e) {
+		switch(e.index) {
+			case 0:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "TRỰC TIẾP", false);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewht = new sv.vari.windowRealTime();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.Viewtong);
+				sv.vari.VTView = 8;
+				break;
+		}
+	};
+	////open drawer
 	//su kien dong slide
 	sv.fu.evt_draw_close = function(e) {
 		sv.ui.txtTimkiem.blur();
@@ -670,21 +791,28 @@ function tao_event(sv) {
 	//su kien mo slide
 	sv.fu.evt_draw_open = function(e) {
 		if (sv.vari.flag_txtfield == true) {
-			sv.ui.wdTTCN.ui.TfMatKhau.blur();
-			sv.ui.wdTTCN.ui.TfTaiKhoan.blur();
-			sv.ui.wdTTCN.ui.TfEmail.blur();
-		};
+			sv.vari.viewht.set_statetxt(true);
+		}
+	};
+	///open window
+	sv.fu.eventOpenWindow = function(e) {
+		sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+		Ti.API.info('Opened window');
 	};
 	//su kien dong window
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.drawer.removeEventListener('windowDidClose', sv.fu.evt_draw_close);
 		sv.ui.drawer.removeEventListener('windowDidOpen', sv.fu.evt_draw_open);
 		sv.ui.tableView.removeEventListener('click', sv.fu.evt_tblview_click);
+		sv.ui.tableView2.removeEventListener('click', sv.fu.evt_tblview2_click);
+		sv.ui.tableView3.removeEventListener('click', sv.fu.evt_tblview3_click);
 		sv.ui.WindowSoXo.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.WindowSoXo.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.view_menu_icon.removeEventListener('click', sv.fu.eventBackHome);
 		sv.ui.view_user_icon.removeEventListener('click', sv.fu.eventWindowDK);
+		sv.ui.tableView_r3.removeEventListener('click', sv.fu.evt_tblviewright3_click);
 		sv.ui.tableView_r.removeEventListener('click', sv.fu.evt_tblviewright1_click);
+		sv.ui.drawer.removeEventListener('open', sv.fu.onNavDrawerWinOpen);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -696,7 +824,7 @@ function tao_event(sv) {
 function set_label(sv, _ten, _false) {
 	sv.ui.lbl_GiaiSX.text = _ten;
 	if (_false == false) {
-		sv.ui.lbl_Ngay.visible = _false;
+		sv.ui.lbl_Ngay.visible = false;
 		sv.ui.lbl_GiaiSX.top = Ti.App.size(35);
 	} else {
 		sv.ui.lbl_GiaiSX.top = Ti.App.size(10);
