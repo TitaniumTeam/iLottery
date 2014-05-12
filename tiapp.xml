@@ -13,7 +13,7 @@
     <analytics>true</analytics>
     <guid>b5553cbc-0b42-4ac7-9c6d-6fe96150a303</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
-<ios>
+    <ios>
         <plist>
             <dict>
                 <key>UISupportedInterfaceOrientations~iphone</key>
@@ -49,6 +49,7 @@
     </mobileweb>
     <modules>
         <module platform="iphone">dk.napp.drawer</module>
+        <module platform="android">dk.napp.drawer</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

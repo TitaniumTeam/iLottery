@@ -5,14 +5,12 @@ if (Ti.version < 1.8) {
 
 (function() {
 	new (require('ui-controller/AllData'));
+	if (Ti.Platform.osname == 'android') {
+		var home = new (require('/ui/slide_menu_android'))();
+		home.open();
+	} else {
+		var home = new (require('/ui/slide_menu'))();
+		home.open();
+	}
 
-	// var Window = new (require('ui/WindowMain'))();
-	// Window.open();
-	// var Window=new(require('ui/DangNhap'))();
-	// Window.open();
-	var home=new (require('/ui/slide_menu'))();
-	home.open();
-	// Window.open();
-	// var Window=new(require('ui/DangNhap'))();
-	// Window.open();
 })();

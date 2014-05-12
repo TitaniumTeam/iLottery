@@ -31,7 +31,13 @@ module.exports = function(style) {
 	var heighApp = 0;
 
 	pData.size = function(pSize) {
-		return (scaleScreen * pSize);
+		if(Ti.Platform.osname=='android'){
+		return ((scaleScreen * pSize)+'px');	
+		}
+		else{
+			return (scaleScreen*pSize);
+		}
+		
 	};
 
 	switch (style) {
