@@ -5,7 +5,7 @@
  * _bg:set backgroundcolor cho row child -gia tri truyen vao: true hoac false
  */
 
-module.exports = function(_top, _left, _width,_height, _conso, _visible,_border,_bg,_border2) {
+module.exports = function(_top, _left, _width, _height, _conso, _visible, _border, _bg, _border2) {
 	var sv = {};
 	sv.ui = {};
 	sv.ui.view_contain = Ti.UI.createView({
@@ -32,19 +32,20 @@ module.exports = function(_top, _left, _width,_height, _conso, _visible,_border,
 	});
 	sv.ui.view_contain.add(sv.ui.lbl_kq);
 	sv.ui.view_contain.setColor_Line = function(_color) {
-		sv.ui.line_doc.backgroundColor=_color;
+		sv.ui.line_doc.backgroundColor = _color;
 	};
-	if(_border==true){
-		sv.ui.view_contain.borderColor=Ti.App.Color.nauden;
-		sv.ui.view_contain.borderRadius=Ti.App.size(3);
+	if (_border == true) {
+		sv.ui.view_contain.borderColor = 'black';
+		sv.ui.view_contain.borderRadius = 3;
+		sv.ui.view_contain.borderWidth = 1;
 	};
-	if(_border2==true){
-		sv.ui.view_contain.borderWidth=Ti.App.size(1);
-		sv.ui.view_contain.borderColor=Ti.App.Color.nauden;
+	if (_border2 == true) {
+		sv.ui.view_contain.borderWidth = 1;
+		sv.ui.view_contain.borderColor = 'black';
 	};
-	if(_bg==true){
-		sv.ui.view_contain.backgroundColor=Ti.App.Color.red;
-		sv.ui.lbl_kq.color=Ti.App.Color.superwhite;
+	if (_bg == true) {
+		sv.ui.view_contain.backgroundColor = Ti.App.Color.red;
+		sv.ui.lbl_kq.color = Ti.App.Color.superwhite;
 	}
 	return sv.ui.view_contain;
 };

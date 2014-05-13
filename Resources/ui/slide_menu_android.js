@@ -102,7 +102,7 @@ function tao_ui(sv) {
 	sv.ui.view_info.add(sv.ui.lblID_user);
 	sv.ui.lblXu_user = Ti.UI.createLabel({
 		left : 0,
-		top : Ti.App.size(110),
+		top : Ti.App.size(100),
 		text : "Xu: 2.000.000",
 		font : {
 			fontSize : Ti.App.size(30)

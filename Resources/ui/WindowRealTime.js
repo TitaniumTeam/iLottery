@@ -43,7 +43,7 @@ function tao_ui(sv) {
 		// backgroundColor:'transparent',
 		// backgroundSelectedColor:Ti.App.Color.nauden
 		backgroundColor : Ti.App.Color.nauden,
-		borderRadius : Ti.App.size(10),
+		borderRadius : 10,
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmn = Titanium.UI.createLabel({
@@ -59,7 +59,7 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.nauden,
 		// backgroundColor:Ti.App.Color.nauden,
-		borderRadius : Ti.App.size(10),
+		borderRadius : 10,
 		textAlign : 'center'
 	});
 	sv.ui.lbl_sxmt = Titanium.UI.createLabel({
@@ -233,8 +233,8 @@ function tao_ui(sv) {
 			left : Ti.App.size(20),
 			// top : Ti.App.size(75) * i,
 			borderColor : Ti.App.Color.magenta,
-			borderWidth : Ti.App.size(1),
-			borderRadius : Ti.App.size(2)
+			borderWidth : 1,
+			borderRadius : 2
 		});
 		sv.ui.space = Ti.UI.createView({
 			width : Ti.App.size(670),
