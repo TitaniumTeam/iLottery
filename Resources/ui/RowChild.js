@@ -36,10 +36,10 @@ module.exports = function(_top, _left, _width,_height, _conso, _visible,_border,
 	};
 	if(_border==true){
 		sv.ui.view_contain.borderColor=Ti.App.Color.nauden;
-		sv.ui.view_contain.borderRadius=3;
+		sv.ui.view_contain.borderRadius=Ti.App.size(3);
 	};
 	if(_border2==true){
-		sv.ui.view_contain.borderWidth=1;
+		sv.ui.view_contain.borderWidth=Ti.App.size(1);
 		sv.ui.view_contain.borderColor=Ti.App.Color.nauden;
 	};
 	if(_bg==true){

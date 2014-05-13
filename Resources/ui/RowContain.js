@@ -21,6 +21,7 @@ module.exports = function(_height, _ten, _conso, _kt) {
 		text : _ten,font : {
 			fontSize : Ti.App.size(40)
 		},
+		color:Ti.App.Color.nauden
 	});
 	sv.ui.row1.add(sv.ui.lbl_tengiai);
 	sv.ui.line = Ti.UI.createView({

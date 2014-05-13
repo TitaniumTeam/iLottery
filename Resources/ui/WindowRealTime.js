@@ -180,15 +180,15 @@ function tao_ui(sv) {
 	sv.vari.rowchild = require('/ui/RowChild');
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
+		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
 		sv.ui.vConsove.add(sv.ui.rowc1);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc2);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75) * i, Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc3);
 	}
 	sv.ui.scrollView.add(sv.ui.vDaysove);
@@ -273,7 +273,7 @@ function setleft(j, _left) {
 	if (j == _left) {
 		return Ti.App.size(1);
 	} else
-		return Ti.App.size(74) * j;
+		return Ti.App.size(74*j);
 }
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
