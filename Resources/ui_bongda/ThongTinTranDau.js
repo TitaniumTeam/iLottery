@@ -64,7 +64,9 @@ function tao_ui(sv) {
 		showVerticalScrollIndicator : true,
 		showHorizontalScrollIndicator : false,
 		layout : 'vertical',
-		scrollType : 'vertical'
+		scrollType : 'vertical',
+		height:Ti.UI.FILL,
+		width:Ti.App.size(720)
 	});
 	// sv.ui.vChua = Ti.UI.createView({
 		// top : 0,

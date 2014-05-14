@@ -34,12 +34,13 @@ function tao_bien(sv) {
 	sv.arr.datatbl_right2 = [];
 	sv.arr.datatbl_right3 = [];
 	///cac mang menu ben trai
-	sv.arr.ten = ['XEM KẾT QUẢ SỔ XỐ', 'TƯ VẤN', 'CHỨC NĂNG VIP'];
+	sv.arr.ten = ['XEM KẾT QUẢ SỔ XỐ', 'TƯ VẤN', 'CHỨC NĂNG VIP', 'HOME'];
 	sv.arr.icon = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-1.png', '/assets/images/icon/icon-3.png'];
 	sv.arr.ten_menu = ['Lựa chọn', 'Kết quả sổ xố miền Bắc', 'Kết quả sổ xố miền Nam', 'Kết quả sổ xố miền Trung', 'Xem dãy số lâu về', 'Xem dãy số hay về', 'Cầu đang ăn', 'Xem số Vip'];
 	sv.arr.datatbl = [];
 	sv.arr.datatbl1 = [];
 	sv.arr.datatbl3 = [];
+	sv.arr.datatbl4 = [];
 }
 
 function tao_ui(sv) {
@@ -135,12 +136,12 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent'
 	});
 	sv.ui.scrollView_right.add(sv.ui.view_menulist_right);
-	sv.ui.row_slide = require('/ui_soxo/rowheader');
+	sv.ui.row_slide = require('/ui_bongda/rowheader');
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
-	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(348), sv.arr.ten_right[1], sv.arr.icon_right[1]);
+	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(330), sv.arr.ten_right[1], sv.arr.icon_right[1]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header2r);
-	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(695), sv.arr.ten_right[2], sv.arr.icon_right[2]);
+	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(680), sv.arr.ten_right[2], sv.arr.icon_right[2]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header3r);
 
 	for (var i = 0; i < 3; i++) {
@@ -173,7 +174,7 @@ function tao_ui(sv) {
 	sv.ui.tableView_r = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right1,
 		top : Ti.App.size(60),
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		height : Ti.UI.SIZE,
 		left : 0,
@@ -210,8 +211,8 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r2 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right2,
-		top : Ti.App.size(410),
-		separatorColor : Ti.App.Color.gray,
+		top : Ti.App.size(400),
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		height : Ti.UI.SIZE,
 		left : 0,
@@ -248,8 +249,8 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right3,
-		top : Ti.App.size(760),
-		separatorColor : Ti.App.Color.gray,
+		top : Ti.App.size(740),
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
 		width : Ti.App.size(500),
@@ -319,6 +320,8 @@ function tao_ui(sv) {
 	sv.ui.view_menulist.add(sv.ui.row_header2);
 	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(790), sv.arr.ten[2], sv.arr.icon[2]);
 	sv.ui.view_menulist.add(sv.ui.row_header3);
+	sv.ui.row_header4 = new sv.ui.row_slide(Ti.App.size(950), sv.arr.ten[3], sv.arr.icon[2]);
+	sv.ui.view_menulist.add(sv.ui.row_header4);
 	for (var i = 0; i < 4; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -412,8 +415,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2);
-	{
+	sv.ui.view_menulist.add(sv.ui.tableView2); {
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -458,6 +460,53 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView3);
+	////
+	{
+		sv.ui.row4 = Ti.UI.createTableViewRow({
+			height : Ti.App.size(95),
+			width : Ti.App.size(480),
+			backgroundColor : Ti.App.Color.brown,
+		});
+		sv.ui.cham4 = Ti.UI.createImageView({
+			image : '/assets/images/icon/icon-4.png',
+			width : Ti.App.size(10),
+			height : Ti.App.size(10),
+			left : Ti.App.size(25),
+			top : Ti.App.size(37)
+		});
+		sv.ui.row4.add(sv.ui.cham4);
+		sv.ui.lblgiai4 = Ti.UI.createLabel({
+			width : Ti.App.size(390),
+			left : Ti.App.size(54),
+			text : 'HOME',
+			color : Ti.App.Color.superwhite,
+			font : {
+				fontSize : Ti.App.size(30)
+			},
+			textAlign : 'left'
+		});
+		sv.ui.row4.add(sv.ui.lblgiai4);
+		sv.ui.lblrow4 = Ti.UI.createImageView({
+			width : Ti.App.size(27),
+			height : Ti.App.size(46),
+			right : Ti.App.size(25),
+			backgroundImage : '/assets/images/icon/arrow.png',
+			transform : sv.ui.matrix
+		});
+		sv.ui.row4.add(sv.ui.lblrow4);
+	}
+	sv.arr.datatbl4 = [sv.ui.row4];
+	sv.ui.tableView4 = Ti.UI.createTableView({
+		data : sv.arr.datatbl4,
+		top : Ti.App.size(1010),
+		separatorColor : Ti.App.Color.gray,
+		backgroundColor : 'transparent',
+		left : 0,
+		width : Ti.App.size(500),
+		scrollable : false,
+	});
+	sv.ui.view_menulist.add(sv.ui.tableView4);
+
 	sv.ui.win_left.add(sv.ui.scrollView);
 
 	/*
@@ -538,7 +587,8 @@ function tao_ui(sv) {
 	sv.vari.viewht = new sv.vari.windowKQSX();
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowSoXo,
-		orientationModes : [Ti.UI.PORTRAIT]
+		orientationModes : [Ti.UI.PORTRAIT],
+		statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
 	});
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
@@ -551,7 +601,7 @@ function tao_ui(sv) {
 		showShadow : true, //no shadow in iOS7
 		leftDrawerWidth : Ti.App.size(500),
 		rightDrawerWidth : Ti.App.size(480),
-		tatusBarStyle : NappDrawerModule.STATUSBAR_WHITE, // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
+		statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT, // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
 		animationMode : NappDrawerModule.ANIMATION_PARALLAX_FACTOR_7,
 		animationVelocity : 1000,
@@ -565,6 +615,7 @@ function tao_ui(sv) {
 	sv.ui.tableView.addEventListener('click', sv.fu.evt_tblview1_click);
 	sv.ui.tableView2.addEventListener('click', sv.fu.evt_tblview2_click);
 	sv.ui.tableView3.addEventListener('click', sv.fu.evt_tblview3_click);
+	sv.ui.tableView4.addEventListener('click', sv.fu.evt_home);
 	//sukien menu right
 	sv.ui.tableView_r3.addEventListener('click', sv.fu.evt_tblviewright3_click);
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
@@ -574,6 +625,8 @@ function tao_ui(sv) {
 	//su kien dong win
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
+
+	
 };
 
 ////remove event moi view
@@ -646,6 +699,16 @@ function removeAllEvent(sv) {
 /////tao event
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.evt_home = function(e) {
+		switch(e.index) {
+			case 0:
+				var home = new (require('/ui_app/ui_app'));
+				home.ui.win_app.open();
+				// sv.ui.drawer.close();
+				break;
+		}
+
+	};
 	//su kien click nut 3gach
 	sv.fu.eventSlideleft = function(e) {
 		sv.ui.scrollView.scrollTo(0, 0);

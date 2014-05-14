@@ -112,34 +112,44 @@ function tao_ui(sv) {
 function taoevent(sv) {
 	sv.fu = {};
 	sv.fu.evt_clickbongda = function(e) {
-		sv.ui.win_app.close();
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_bongda/slide_menu'))();
+			home.open();
 			Ti.App.vIndicatorWindow.openIndicator(home);
 			setTimeout(function() {
-				Ti.App.vIndicatorWindow.closeIndicator(home);
+			Ti.App.vIndicatorWindow.closeIndicator(home);
+			sv.ui.win_app.close();
 			}, 4000);
-			home.open();
 		} else {
 			if (Ti.Platform.osname == "android") {
 				var home_android = new (require('ui_bongda/slide_menu_android'))();
+				home_android.open();
 				Ti.App.vIndicatorWindow.openIndicator(home_android);
 				setTimeout(function() {
-					Ti.App.vIndicatorWindow.closeIndicator(home_android);
+				Ti.App.vIndicatorWindow.closeIndicator(home_android);
+				sv.ui.win_app.close();
 				}, 4000);
-				home_android.open();
 			}
 		}
 	};
 	sv.fu.evt_clicksoxo = function(e) {
-		sv.ui.win_app.close();
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_soxo/slide_menu'))();
 			home.open();
+			Ti.App.vIndicatorWindow.openIndicator(home);
+			setTimeout(function() {
+			Ti.App.vIndicatorWindow.closeIndicator(home);
+			sv.ui.win_app.close();
+			}, 4000);
 		} else {
 			if (Ti.Platform.osname == "android") {
 				var home_android = new (require('ui_soxo/slide_menu_android'))();
 				home_android.open();
+				Ti.App.vIndicatorWindow.openIndicator(home_android);
+				setTimeout(function() {
+				Ti.App.vIndicatorWindow.closeIndicator(home_android);
+				sv.ui.win_app.close();
+				}, 4000);
 			}
 		}
 	};

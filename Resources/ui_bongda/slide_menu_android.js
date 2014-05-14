@@ -34,12 +34,13 @@ function tao_bien(sv) {
 	sv.arr.datatbl_right2 = [];
 	sv.arr.datatbl_right3 = [];
 	//cac mang menu ben trai
-	sv.arr.ten = ['KẾT QUẢ TRẬN ĐẤU', 'XEM KÈO', 'CHỨC NĂNG VIP'];
+	sv.arr.ten = ['KẾT QUẢ TRẬN ĐẤU', 'XEM KÈO', 'CHỨC NĂNG VIP', 'HOME'];
 	sv.arr.icon = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-1.png', '/assets/images/icon/icon-3.png'];
 	sv.arr.ten_menu = ['Bảng xếp hạng', 'Các trận đấu trực tiếp', 'Thông tin bên lề', 'Trận đấu đang diễn ra', 'Trận đấu sắp diễn ra', 'Thông tin trận đấu', 'Cá cược', 'Trận ngon ăn'];
 	sv.arr.datatbl1 = [];
 	sv.arr.datatbl3 = [];
 	sv.arr.datatbl2 = [];
+	sv.arr.datatbl4 = [];
 };
 function tao_ui(sv) {
 	sv.ui = {};
@@ -325,6 +326,8 @@ function tao_ui(sv) {
 	sv.ui.view_menulist.add(sv.ui.row_header2);
 	sv.ui.row_header3 = new sv.ui.row_slide(Ti.App.size(585), sv.arr.ten[2], sv.arr.icon[2]);
 	sv.ui.view_menulist.add(sv.ui.row_header3);
+	sv.ui.row_header4 = new sv.ui.row_slide(Ti.App.size(930), sv.arr.ten[3], sv.arr.icon[2]);
+	sv.ui.view_menulist.add(sv.ui.row_header4);
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
@@ -468,7 +471,51 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView3);
+	sv.ui.view_menulist.add(sv.ui.tableView3); {
+		sv.ui.row4 = Ti.UI.createTableViewRow({
+			height : Ti.App.size(95),
+			width : Ti.App.size(480),
+			backgroundColor : Ti.App.Color.brown,
+		});
+		sv.ui.cham4 = Ti.UI.createImageView({
+			image : '/assets/images/icon/icon-4.png',
+			width : Ti.App.size(10),
+			height : Ti.App.size(10),
+			left : Ti.App.size(25),
+			top : Ti.App.size(37)
+		});
+		sv.ui.row4.add(sv.ui.cham4);
+		sv.ui.lblgiai4 = Ti.UI.createLabel({
+			width : Ti.App.size(390),
+			left : Ti.App.size(54),
+			text : 'HOME',
+			color : Ti.App.Color.superwhite,
+			font : {
+				fontSize : Ti.App.size(30)
+			},
+			textAlign : 'left'
+		});
+		sv.ui.row4.add(sv.ui.lblgiai4);
+		sv.ui.lblrow4 = Ti.UI.createImageView({
+			width : Ti.App.size(27),
+			height : Ti.App.size(46),
+			right : Ti.App.size(25),
+			backgroundImage : '/assets/images/icon/arrow.png',
+			transform : sv.ui.matrix
+		});
+		sv.ui.row4.add(sv.ui.lblrow4);
+	}
+	sv.arr.datatbl4 = [sv.ui.row4];
+	sv.ui.tableView4 = Ti.UI.createTableView({
+		data : sv.arr.datatbl4,
+		top : Ti.App.size(990),
+		separatorColor : Ti.App.Color.gray,
+		backgroundColor : 'transparent',
+		left : 0,
+		width : Ti.App.size(500),
+		scrollable : false,
+	});
+	sv.ui.view_menulist.add(sv.ui.tableView4);
 	sv.ui.win_left.add(sv.ui.scrollView);
 
 	/*
@@ -580,6 +627,7 @@ function tao_ui(sv) {
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
 	// sv.ui.WindowHome.addEventListener('open', sv.fu.eventOpenWindow);
 	// sv.ui.WindowHome.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.tableView4.addEventListener('click', sv.fu.evt_home);
 };
 function removeAllEvent(sv) {
 	sv.fu = {};
@@ -662,6 +710,14 @@ function removeAllEvent(sv) {
 
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.evt_home = function(e) {
+		switch(e.index) {
+			case 0:
+				var home = new (require('/ui_app/ui_app'));
+				home.ui.win_app.open();
+				break;
+		}
+	};
 	//su kien click nut 3gach
 	sv.fu.eventSlideleft = function(e) {
 		sv.ui.scrollView.scrollTo(0, 0);

@@ -134,11 +134,11 @@ function tao_ui(sv) {
 	});
 
 	sv.ui.rowchild = require('/ui_soxo/RowChild');
-	sv.ui.rowc1 = new sv.ui.rowchild(Ti.App.size(20), 0, Ti.App.size(220), Ti.App.size(100), 'Số nhịp', true);
+	sv.ui.rowc1 = new sv.ui.rowchild(Ti.App.size(20), 0, Ti.App.size(220), Ti.App.size(100),true);
 	sv.ui.rowc1.setColor_Line(Ti.App.Color.nauden);
-	sv.ui.rowc2 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(220), Ti.App.size(270), Ti.App.size(100), 'Về giải', true);
+	sv.ui.rowc2 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(220), Ti.App.size(270), Ti.App.size(100),true);
 	sv.ui.rowc2.setColor_Line(Ti.App.Color.nauden);
-	sv.ui.rowc3 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(490), Ti.App.size(230), Ti.App.size(100), 'Ngày', false);
+	sv.ui.rowc3 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(490), Ti.App.size(230), Ti.App.size(100),false);
 	sv.ui.rowc3.setColor_Line(Ti.App.Color.nauden);
 	sv.ui.demuc.add(sv.ui.rowc1);
 	sv.ui.demuc.add(sv.ui.rowc2);
