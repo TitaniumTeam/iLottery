@@ -41,8 +41,8 @@ function tao_ui(sv) {
 		left : 0,
 		right : 0
 	});
-	sv.vari.arrow = require('/ui/vArrow');
-	sv.vari.combobox = require('/ui/ComboBox');
+	sv.vari.arrow = require('/ui_soxo_soxo/vArrow');
+	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(90));
 	sv.ui.varrow11 = sv.ui.arrow1.getvArrow1();
 	sv.ui.varrow12 = sv.ui.arrow1.getvArrow2();
@@ -118,7 +118,7 @@ function tao_ui(sv) {
 		right : 0
 	});
 
-	sv.ui.rowchild = require('/ui/RowChild');
+	sv.ui.rowchild = require('/ui_soxo/RowChild');
 	sv.ui.rowc1 = new sv.ui.rowchild(Ti.App.size(20), 0, Ti.App.size(220), Ti.App.size(100), 'Số nhịp', true);
 	sv.ui.rowc1.setColor_Line(Ti.App.Color.nauden);
 	sv.ui.rowc2 = new sv.ui.rowchild(Ti.App.size(20), Ti.App.size(220), Ti.App.size(270), Ti.App.size(100), 'Về giải', true);

@@ -50,7 +50,7 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(50)
 		},
 	});
-	sv.vari.arrow = require('/ui/vArrow');
+	sv.vari.arrow = require('/ui_soxo/vArrow');
 	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(249));
 	sv.ui.varrow11 = sv.ui.arrow1.getvArrow1();
 	sv.ui.varrow12 = sv.ui.arrow1.getvArrow2();
@@ -59,10 +59,10 @@ function tao_ui(sv) {
 	sv.ui.varrow21 = sv.ui.arrow2.getvArrow1();
 	sv.ui.varrow22 = sv.ui.arrow2.getvArrow2();
 	///
-	sv.vari.combobox = require('/ui/ComboBox');
+	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(250), Ti.App.size(345), 'Tỉnh thành', Ti.App.size(585));
 	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(350), Ti.App.size(445), 'Ngày', Ti.App.size(585));
-	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
+	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
 	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
 	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
 	sv.ui.view_choose1.setTable(sv.arr.ngay);

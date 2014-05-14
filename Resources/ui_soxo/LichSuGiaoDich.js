@@ -50,6 +50,7 @@ function createUI(sv) {
 			fontSize : Ti.App.size(26),
 			fontFamily : 'Aria'
 		},
+		color : 'black'
 	});
 
 	sv.ui.Line1 = Ti.UI.createView({
@@ -73,6 +74,7 @@ function createUI(sv) {
 			fontSize : Ti.App.size(26),
 			fontFamily : 'Aria'
 		},
+		color : 'black'
 	});
 
 	sv.ui.Line2 = Ti.UI.createView({
@@ -96,6 +98,7 @@ function createUI(sv) {
 			fontSize : Ti.App.size(26),
 			fontFamily : 'Aria'
 		},
+		color : 'black'
 	});
 
 	sv.ui.ViewLine = Ti.UI.createView({

@@ -48,7 +48,7 @@ module.exports = function(_height, _ten, _conso, _kt) {
 		textAlign : 'center'
 	});
 	sv.ui.lblvien.add(sv.ui.lblso);
-	sv.ui.rowchild = require('/ui/RowChild');
+	sv.ui.rowchild = require('/ui_soxo/RowChild');
 	if (_ten == 'Đặc biệt') {
 		// sv.ui.lbl_tengiai.setFont({fontSize:Ti.App.size(35)});
 		if (_kt == true) {

@@ -33,7 +33,7 @@ function tao_ui(sv) {
 
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.ui.row = require('/ui/RowContain');
+	sv.ui.row = require('/ui_soxo/RowContain');
 	//row 1
 	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768', false);
 	sv.ui.scrollView.add(sv.ui.row1);

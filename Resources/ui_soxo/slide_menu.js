@@ -19,13 +19,13 @@ function tao_bien(sv) {
 	///bien view hien tai
 	sv.vari.viewht = null;
 	/////khoi tao cac file require
-	sv.vari.windowKQSX = require('/ui/WindowKQSX');
-	sv.vari.windowRealTime = require('/ui/WindowRealTime');
-	sv.vari.windowChoose = require('/ui/WindowChoose');
-	sv.vari.windowSupport = require('/ui/WindowSupport');
-	sv.vari.windowInfoUser = require('/ui/Info');
-	sv.vari.windowLichsuGD = require('/ui/LichSuGiaoDich');
-	sv.vari.windowThongtincanhan = require('/ui/ThongTinCaNhan');
+	sv.vari.windowKQSX = require('/ui_soxo/WindowKQSX');
+	sv.vari.windowRealTime = require('/ui_soxo/WindowRealTime');
+	sv.vari.windowChoose = require('/ui_soxo/WindowChoose');
+	sv.vari.windowSupport = require('/ui_soxo/WindowSupport');
+	sv.vari.windowInfoUser = require('/ui_soxo/Info');
+	sv.vari.windowLichsuGD = require('/ui_soxo/LichSuGiaoDich');
+	sv.vari.windowThongtincanhan = require('/ui_soxo/ThongTinCaNhan');
 	///cac mang menu ben phai
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
@@ -135,7 +135,7 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent'
 	});
 	sv.ui.scrollView_right.add(sv.ui.view_menulist_right);
-	sv.ui.row_slide = require('/ui/rowheader');
+	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
 	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(348), sv.arr.ten_right[1], sv.arr.icon_right[1]);
@@ -312,7 +312,7 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.view_menulist);
 	sv.ui.matrix = Titanium.UI.create2DMatrix();
 	sv.ui.matrix = sv.ui.matrix.rotate(180);
-	sv.ui.row_slide = require('/ui/rowheader');
+	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1 = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten[0], sv.arr.icon[0]);
 	sv.ui.view_menulist.add(sv.ui.row_header1);
 	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(445), sv.arr.ten[1], sv.arr.icon[1]);

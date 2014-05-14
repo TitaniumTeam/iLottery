@@ -124,7 +124,7 @@ function tao_ui(sv) {
 
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
-	sv.ui.row = require('/ui/RowContain');
+	sv.ui.row = require('/ui_soxo/RowContain');
 	//row 1
 	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768', true);
 	sv.ui.scrollView.add(sv.ui.row1);
@@ -177,7 +177,7 @@ function tao_ui(sv) {
 		right : Ti.App.size(20)
 	});
 	sv.ui.vDaysove.add(sv.ui.vConsove);
-	sv.vari.rowchild = require('/ui/RowChild');
+	sv.vari.rowchild = require('/ui_soxo/RowChild');
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
 	for (var i = 0; i < 9; i++) {
 		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
