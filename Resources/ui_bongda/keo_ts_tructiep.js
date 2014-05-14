@@ -17,7 +17,7 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
-	sv.vari.view_keo = require('/ui/view_keo');
+	sv.vari.view_keo = require('/ui_bongda/view_keo');
 	sv.arr.param1 = [{
 		tg : 55,
 		tendoi : ["Manchester", "Chealse"],

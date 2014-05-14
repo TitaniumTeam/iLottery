@@ -179,7 +179,7 @@ function createUI_Event(sv) {
 
 	for (var i = 0; i < sv.vari.SoTinTuc; i++) {
 		sv.arr.eventClickViewTinTuc[i] = function() {
-			var newWindow = new (require('ui/NewsContent'))();
+			var newWindow = new (require('/ui_bongda/NewsContent'))();
 			newWindow.open();
 		};
 	}

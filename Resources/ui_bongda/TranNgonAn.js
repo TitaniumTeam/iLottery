@@ -56,7 +56,7 @@ function tao_bien(sv) {
 	sv.vari.trans2 = sv.vari.trans.rotate(270);
 };
 function tao_ui(sv) {
-	sv.ui.vThongtinTD = require('/ui/vTranngonan');
+	sv.ui.vThongtinTD = require('/ui_bongda/vTranngonan');
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,

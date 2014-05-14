@@ -125,8 +125,8 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewThongSo = Ti.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		opacity : 0.5,
+		backgroundColor : Ti.App.Color.nauden,
+		opacity : 0.3,
 		height : Ti.App.size(120),
 		bottom : Ti.App.size(0),
 		left : Ti.App.size(0),
@@ -292,6 +292,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color:'black'
 	});
 
 	sv.ui.Row2 = Ti.UI.createView({
@@ -329,6 +330,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color:'black'
 	});
 
 	sv.ui.Row3 = Ti.UI.createView({
@@ -366,6 +368,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color:'black'
 	});
 
 	sv.ui.Row4 = Ti.UI.createView({
@@ -403,6 +406,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color:'black'
 	});
 
 	sv.ui.Row5 = Ti.UI.createView({
@@ -440,6 +444,7 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		left : Ti.App.size(100),
 		right : Ti.App.size(0),
+		color:'black'
 	});
 
 	createUI_Event(sv);
