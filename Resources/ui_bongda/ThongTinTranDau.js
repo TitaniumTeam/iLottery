@@ -79,11 +79,13 @@ function tao_ui(sv) {
 			expanded : false,
 			height : sv.vari.row_height,
 			// width : Ti.App.size(720),
-			backgroundColor : Ti.App.Color.superwhite,
+			backgroundColor : Ti.App.Color.magenta,
 			id : i,
 			backgroundSelectedColor : 'transparent',
 			backgroundFocusedColor : 'transparent',
 			backgroundFocusedImage : 'transparent',
+			className:'row',
+			touchEnabled:'true'
 			// top : 0
 		});
 
@@ -107,6 +109,7 @@ function tao_ui(sv) {
 			backgroundSelectedColor : 'transparent',
 			backgroundFocusedColor : 'transparent',
 			backgroundFocusedImage : 'transparent',
+			touchEnabled:'true'
 		});
 
 		sv.ui.lbl_tennc = Ti.UI.createLabel({
@@ -200,11 +203,12 @@ function tao_ui(sv) {
 		width : Ti.App.size(720),
 		top : 0,
 		separatorColor : 'transparent',
-		backgroundColor :'transparent',
+		backgroundColor :Ti.App.Color.magenta,
 		showVerticalScrollIndicator : true,
 		backgroundSelectedColor : 'transparent',
 		backgroundFocusedColor : 'transparent',
 		backgroundFocusedImage : 'transparent',
+		touchEnabled:'true'
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
 };
@@ -214,14 +218,14 @@ function tao_event(sv) {
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.fu.event_clickrow[i] = function(e) {
 			if (e.row.expanded) {
-				e.row.setHeight(Ti.App.size(100));
 				e.row.expanded = false;
+				e.row.setHeight(Ti.App.size(100));
 				sv.arr.arrow[e.row.id].transform = sv.vari.trans2;
 				sv.arr.arrow[e.row.id].top = Ti.App.size(25);
 
 			} else {
-				e.row.setHeight(Ti.App.size(670));
 				e.row.expanded = true;
+				e.row.setHeight(Ti.App.size(670));
 				sv.arr.arrow[e.row.id].transform = sv.vari.trans1;
 				sv.arr.arrow[e.row.id].top = Ti.App.size(20);
 			}

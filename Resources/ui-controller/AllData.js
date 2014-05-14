@@ -5,7 +5,7 @@
 function AllData() {
 	// color
 	Ti.App.Color = new (require('/ui-controller/Color'))();
-	Ti.App.loading = new (require('/ui-controller/loading'))();
+	Ti.App.vIndicatorWindow = new (require('/ui-controller/vIndicatorWindow'))();
 	// size
 	var SizeMultiScreen = new (require('ui-controller/SizeMultiScreen'))(2);
 	Ti.App.widthScreen = SizeMultiScreen.widthApp;

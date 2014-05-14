@@ -111,34 +111,38 @@ function tao_ui(sv) {
 };
 function taoevent(sv) {
 	sv.fu = {};
-	sv.fu.evt_clickbongda = function() {
+	sv.fu.evt_clickbongda = function(e) {
 		sv.ui.win_app.close();
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_bongda/slide_menu'))();
 			home.open();
+			// Ti.App.vIndicatorWindow.closeIndicator(home);
 		} else {
 			if (Ti.Platform.osname == "android") {
 				var home_android = new (require('ui_bongda/slide_menu_android'))();
 				home_android.open();
+				// Ti.App.vIndicatorWindow.closeIndicator(home);
 			}
 		}
 	};
-	sv.fu.evt_clicksoxo = function() {
+	sv.fu.evt_clicksoxo = function(e) {
 		sv.ui.win_app.close();
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_soxo/slide_menu'))();
 			home.open();
+			// Ti.App.vIndicatorWindow.closeIndicator(home);
 		} else {
 			if (Ti.Platform.osname == "android") {
 				var home_android = new (require('ui_soxo/slide_menu_android'))();
 				home_android.open();
+				// Ti.App.vIndicatorWindow.closeIndicator(home);
 			}
 		}
 	};
-	sv.fu.win_open = function() {
+	sv.fu.win_open = function(e) {
 		Ti.API.info('open window');
 	};
-	sv.fu.win_close = function() {
+	sv.fu.win_close = function(e) {
 		sv.ui.icon_bongda.removeEventListener('click', sv.fu.evt_clickbongda);
 		sv.ui.icon_soxo.removeEventListener('click', sv.fu.evt_clicksoxo);
 		sv.ui.win_app.removeEventListener('open', sv.fu.win_open);

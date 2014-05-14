@@ -1,12 +1,3 @@
-/**
- * Activity Indicator View - Titanium JS
- * @author Anthony Njuguna
- */
-/**
- * Open an Activity view anywhere in the app.
- * @param {String} text
- * @param {Object} params
- */
 var vIndicatorWindow = function(text) {
 	var message = text || 'Loading...';
 
@@ -21,11 +12,19 @@ var vIndicatorWindow = function(text) {
 
 	var textWidth = (message.length > 13 ) ? '260dp' : Ti.UI.SIZE;
 
+	// this.infoWindow = Ti.UI.createWindow({
+	// touchEnabled : true
+	// });
 	var height = Ti.Platform.displayCaps.platformWidth;
 	var width = Ti.Platform.displayCaps.platformHeight;
 	this.background1 = Ti.UI.createView({
 		height : height,
 		width : width,
+		//backgroundColor : '#000',
+		//borderRadius : 10,
+		//opacity : 0.8,
+		//touchEnabled : false,
+		///layout : 'vertical'
 	});
 	this.background = Ti.UI.createView({
 		height : Ti.UI.SIZE,
@@ -33,8 +32,10 @@ var vIndicatorWindow = function(text) {
 		backgroundColor : '#000',
 		borderRadius : 10,
 		opacity : 0.8,
+		//touchEnabled : false,
 		layout : 'vertical'
 	});
+	//this.background1.add(this.background);
 
 	if (_isAndroid || Ti.Platform.osname === 'mobileweb') {
 		_style = Ti.UI.ActivityIndicatorStyle.BIG;
@@ -47,7 +48,7 @@ var vIndicatorWindow = function(text) {
 		top : '15dp',
 		height : Ti.UI.SIZE,
 		width : Ti.UI.SIZE,
-		zIndex: 10000
+		zIndex : 10000
 	});
 
 	this.background.add(this.activityIndicator);
@@ -93,10 +94,10 @@ vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
 vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
 	if (_curWindow == null)
 		return;
-	this.activityIndicator.hide();
-	var curWindow = _curWindow || Ti.UI.currentWindow;
-	curWindow.remove(this.background1);
-	curWindow.remove(this.background);
+		this.activityIndicator.hide();
+		var curWindow = _curWindow || Ti.UI.currentWindow;
+		curWindow.remove(this.background1);
+		curWindow.remove(this.background);
 
 };
 

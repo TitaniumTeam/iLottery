@@ -115,7 +115,7 @@ function tao_ui(sv) {
 		sv.ui.lbl_tyle = Titanium.UI.createLabel({
 			width : Ti.App.size(95),
 			height : Ti.App.size(100),
-			text : 'Ty le',
+			text : 'Tỷ lệ',
 			font : {
 				fontSize : Ti.App.size(25)
 			},
@@ -168,7 +168,7 @@ function tao_ui(sv) {
 		sv.ui.ViewChua.add(sv.ui.viewRow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290) * j, sv.arr.param1[j]);
+			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290*j), sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		sv.arr.rows.push(sv.ui.row);
