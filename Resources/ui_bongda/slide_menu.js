@@ -543,7 +543,9 @@ function tao_ui(sv) {
 	////////////////view menu right
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowHome,
-		orientationModes : [Ti.UI.PORTRAIT]
+		orientationModes : [Ti.UI.PORTRAIT],
+		fullscreen:true,
+		top:0
 	});
 	/*
 	navcontroller win
@@ -561,7 +563,8 @@ function tao_ui(sv) {
 		tatusBarStyle : NappDrawerModule.STATUSBAR_WHITE, // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
 		orientationModes : [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT],
 		animationMode : NappDrawerModule.ANIMATION_PARALLAX_FACTOR_7,
-		animationVelocity : 1000
+		animationVelocity : 1000,
+		// fullscreen:true
 	});
 	///
 	tao_event(sv);
@@ -801,7 +804,6 @@ function tao_event(sv) {
 	////
 	sv.fu.eventOpenWindow = function(e) {
 		sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
-		Ti.API.info('Opened window');
 	};
 	//su kien dong slide
 	sv.fu.evt_draw_close = function(e) {

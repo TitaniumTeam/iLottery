@@ -208,7 +208,8 @@ function tao_ui(sv) {
 		backgroundSelectedColor : 'transparent',
 		backgroundFocusedColor : 'transparent',
 		backgroundFocusedImage : 'transparent',
-		touchEnabled:'true'
+		touchEnabled:'true',
+		horizontalWrap:'true'
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
 };

@@ -1,30 +1,29 @@
 var vIndicatorWindow = function(text) {
+	var SizeMultiScreen = new (require('ui-controller/SizeMultiScreen'))(2);
+	Ti.App.widthScreen = SizeMultiScreen.widthApp;
+	Ti.App.heightScreen = SizeMultiScreen.heightApp;
+	Ti.App.size = SizeMultiScreen.size;
 	var message = text || 'Loading...';
 
 	var _isAndroid = (Ti.Platform.osname === 'android' );
 	var _padding = '25dp';
-	//( _isAndroid ) ? 20 : 20;
 	var _style;
 
 	var bgWidth = '320dp';
 	var bgHeight = (_isAndroid ) ? '200dp' : '120dp';
-	// var infoWindow;
 
 	var textWidth = (message.length > 13 ) ? '260dp' : Ti.UI.SIZE;
 
-	// this.infoWindow = Ti.UI.createWindow({
-	// touchEnabled : true
-	// });
-	var height = Ti.Platform.displayCaps.platformWidth;
-	var width = Ti.Platform.displayCaps.platformHeight;
+	var height = Ti.App.size(1280);
+	var width = Ti.App.size(720);
 	this.background1 = Ti.UI.createView({
 		height : height,
 		width : width,
-		//backgroundColor : '#000',
-		//borderRadius : 10,
-		//opacity : 0.8,
-		//touchEnabled : false,
-		///layout : 'vertical'
+		backgroundColor : '#000',
+		borderRadius : 10,
+		opacity : 0.5,
+		touchEnabled : false,
+		layout : 'vertical'
 	});
 	this.background = Ti.UI.createView({
 		height : Ti.UI.SIZE,
@@ -32,10 +31,9 @@ var vIndicatorWindow = function(text) {
 		backgroundColor : '#000',
 		borderRadius : 10,
 		opacity : 0.8,
-		//touchEnabled : false,
+		touchEnabled : false,
 		layout : 'vertical'
 	});
-	//this.background1.add(this.background);
 
 	if (_isAndroid || Ti.Platform.osname === 'mobileweb') {
 		_style = Ti.UI.ActivityIndicatorStyle.BIG;
@@ -94,10 +92,10 @@ vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
 vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
 	if (_curWindow == null)
 		return;
-		this.activityIndicator.hide();
-		var curWindow = _curWindow || Ti.UI.currentWindow;
-		curWindow.remove(this.background1);
-		curWindow.remove(this.background);
+	this.activityIndicator.hide();
+	var curWindow = _curWindow || Ti.UI.currentWindow;
+	curWindow.remove(this.background1);
+	curWindow.remove(this.background);
 
 };
 

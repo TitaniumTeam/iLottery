@@ -115,13 +115,19 @@ function taoevent(sv) {
 		sv.ui.win_app.close();
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_bongda/slide_menu'))();
+			Ti.App.vIndicatorWindow.openIndicator(home);
+			setTimeout(function() {
+				Ti.App.vIndicatorWindow.closeIndicator(home);
+			}, 4000);
 			home.open();
-			// Ti.App.vIndicatorWindow.closeIndicator(home);
 		} else {
 			if (Ti.Platform.osname == "android") {
 				var home_android = new (require('ui_bongda/slide_menu_android'))();
+				Ti.App.vIndicatorWindow.openIndicator(home_android);
+				setTimeout(function() {
+					Ti.App.vIndicatorWindow.closeIndicator(home_android);
+				}, 4000);
 				home_android.open();
-				// Ti.App.vIndicatorWindow.closeIndicator(home);
 			}
 		}
 	};
@@ -130,12 +136,10 @@ function taoevent(sv) {
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_soxo/slide_menu'))();
 			home.open();
-			// Ti.App.vIndicatorWindow.closeIndicator(home);
 		} else {
 			if (Ti.Platform.osname == "android") {
 				var home_android = new (require('ui_soxo/slide_menu_android'))();
 				home_android.open();
-				// Ti.App.vIndicatorWindow.closeIndicator(home);
 			}
 		}
 	};

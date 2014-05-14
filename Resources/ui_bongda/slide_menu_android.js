@@ -140,9 +140,9 @@ function tao_ui(sv) {
 	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
-	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(330), sv.arr.ten_right[1], sv.arr.icon_right[1]);
+	sv.ui.row_header2r = new sv.ui.row_slide(Ti.App.size(348), sv.arr.ten_right[1], sv.arr.icon_right[1]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header2r);
-	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(680), sv.arr.ten_right[2], sv.arr.icon_right[2]);
+	sv.ui.row_header3r = new sv.ui.row_slide(Ti.App.size(695), sv.arr.ten_right[2], sv.arr.icon_right[2]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header3r);
 	for (var i = 0; i < 3; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -214,7 +214,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r2 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right2,
-		top : Ti.App.size(400),
+		top : Ti.App.size(410),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		height : Ti.UI.SIZE,
@@ -253,7 +253,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right3,
-		top : Ti.App.size(740),
+		top : Ti.App.size(760),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
@@ -275,14 +275,13 @@ function tao_ui(sv) {
 		left : 0
 	});
 	sv.ui.txtTimkiem = Titanium.UI.createTextField({
-		width : Ti.App.size(450),
+		width : Ti.App.size(400),
 		height : Ti.App.size(75),
 		color : Ti.App.Color.nauden,
 		hintText : 'Tìm kiếm ...',
 		textAlign : 'center',
 		top : Ti.App.size(20),
-		left : Ti.App.size(25),
-		right : Ti.App.size(25),
+		left : Ti.App.size(50),
 		backgroundColor : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(30),
@@ -827,7 +826,7 @@ function tao_event(sv) {
 	///hide action bar
 	sv.fu.onNavDrawerWinOpen = function(evt) {
 		this.removeEventListener('open', sv.fu.onNavDrawerWinOpen);
-
+		sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 		if (this.getActivity()) {
 			// need to explicitly use getXYZ methods
 			var actionBar = this.getActivity().getActionBar();
