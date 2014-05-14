@@ -5,19 +5,21 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
 };
-
+//tao bien
+function tao_bien(sv){
+	sv.arr={};
+	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
+	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
+};
 /*khoi tao UI
  */
 function tao_ui(sv) {
-	sv.vari = {};
-	sv.ui = {};
-	sv.arr = {};
-	sv.vari = {};
 	sv.ui.ViewTong = Titanium.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.SIZE,
@@ -62,8 +64,6 @@ function tao_ui(sv) {
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(250), Ti.App.size(345), 'Tỉnh thành', Ti.App.size(585));
 	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(350), Ti.App.size(445), 'Ngày', Ti.App.size(585));
-	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
-	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
 	sv.ui.view_choose.setTable(sv.arr.tinhthanh);
 	sv.ui.view_choose1.setTable(sv.arr.ngay);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();

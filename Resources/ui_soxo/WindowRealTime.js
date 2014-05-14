@@ -5,18 +5,23 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
 };
+
+///tao bien
+function tao_bien(sv) {
+	sv.arr = {};
+	sv.vari = {};
+	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
+};
 /*
  * khoi tao ui
  */
 function tao_ui(sv) {
-	sv.vari = {};
-	sv.ui = {};
-	sv.arr = {};
 	sv.ui.Viewtong = Titanium.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
@@ -150,7 +155,7 @@ function tao_ui(sv) {
 	//row 8
 	sv.ui.row8 = new sv.ui.row(sv.arr.height[0], 'Bảy');
 	sv.ui.scrollView.add(sv.ui.row8);
-	
+
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
@@ -178,17 +183,16 @@ function tao_ui(sv) {
 	});
 	sv.ui.vDaysove.add(sv.ui.vConsove);
 	sv.vari.rowchild = require('/ui_soxo/RowChild');
-	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
+		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
 		sv.ui.vConsove.add(sv.ui.rowc1);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc2);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc3);
 	}
 	sv.ui.scrollView.add(sv.ui.vDaysove);
@@ -273,8 +277,9 @@ function setleft(j, _left) {
 	if (j == _left) {
 		return Ti.App.size(1);
 	} else
-		return Ti.App.size(74*j);
+		return Ti.App.size(74 * j);
 }
+
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		Ti.API.info('remove event keo wd realtime');

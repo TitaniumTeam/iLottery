@@ -33,11 +33,10 @@ module.exports = function(_topv,_toptbl,_textlbl,_width) {
 		borderWidth:1,
 		showVerticalScrollIndicator:'true',
 		scrollable:true,
-		height:Ti.App.size(93*4)
+		height:Ti.UI.SIZE
 	});
 	view_contain.setTable = function(_tinh) {
-		sv.arr.data = [];
-		// sv.vari.dodai = _tinh.length;
+		var data=[];
 		for (var i = 0; i < _tinh.length; i++) {
 			var rowTbl = Ti.UI.createTableViewRow({
 				height : Ti.App.size(93),
@@ -57,9 +56,9 @@ module.exports = function(_topv,_toptbl,_textlbl,_width) {
 			});
 
 			rowTbl.add(tinhthanh);
-			sv.arr.data.push(rowTbl);
+			data.push(rowTbl);
 		}
-		tableview.setData(sv.arr.data);
+		tableview.setData(data);
 	};
 	view_contain.add(lblfirst);
 	view_contain.getTableView = function() {

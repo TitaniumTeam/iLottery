@@ -5,21 +5,39 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
 };
+//tao bien
+function tao_bien(sv) {
+	sv.arr = {};
+	sv.arr.ngay1 = ['6/9/2014', '1/1/2014'];
+	sv.arr.ngay2 = ['6/9/2014', '1/1/2014'];
+	sv.arr.ngay3 = ['6/9/2014', '1/1/2014'];
+	sv.arr.params = [{
+		nhip : '2',
+		giai : 'G5',
+		ngay : '1/1/2014'
+	}, {
+		nhip : '2',
+		giai : 'G5',
+		ngay : '1/1/2014'
+	}, {
+		nhip : '2',
+		giai : 'G5',
+		ngay : '1/1/2014'
+	}];
+	sv.arr.datatbl = [];
+}
 
 /*khoi tao UI
  */
 function tao_ui(sv) {
-	sv.vari = {};
-	sv.ui = {};
-	sv.arr = {};
-	sv.vari = {};
 	sv.ui.scrollView = Ti.UI.createScrollView({
-		top :0,
+		top : 0,
 		width : Ti.App.size(720),
 		left : 0,
 		right : 0,
@@ -41,7 +59,7 @@ function tao_ui(sv) {
 		left : 0,
 		right : 0
 	});
-	sv.vari.arrow = require('/ui_soxo_soxo/vArrow');
+	sv.vari.arrow = require('/ui_soxo/vArrow');
 	sv.vari.combobox = require('/ui_soxo/ComboBox');
 	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(90));
 	sv.ui.varrow11 = sv.ui.arrow1.getvArrow1();
@@ -56,9 +74,6 @@ function tao_ui(sv) {
 	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(90), Ti.App.size(185), 'Từ ngày', Ti.App.size(585));
 	sv.ui.view_choose1 = new sv.vari.combobox(Ti.App.size(200), Ti.App.size(295), 'Đến ngày', Ti.App.size(585));
 	sv.ui.view_choose2 = new sv.vari.combobox(Ti.App.size(310), Ti.App.size(405), 'Bộ số', Ti.App.size(670));
-	sv.arr.ngay1 = ['6/9/2014', '1/1/2014'];
-	sv.arr.ngay2 = ['6/9/2014', '1/1/2014'];
-	sv.arr.ngay3 = ['6/9/2014', '1/1/2014'];
 	sv.ui.view_choose.setTable(sv.arr.ngay1);
 	sv.ui.view_choose1.setTable(sv.arr.ngay2);
 	sv.ui.view_choose2.setTable(sv.arr.ngay3);
@@ -149,20 +164,7 @@ function tao_ui(sv) {
 		top : Ti.App.size(10),
 		height : Ti.UI.SIZE,
 	});
-	sv.arr.params = [{
-		nhip : '2',
-		giai : 'G5',
-		ngay : '1/1/2014'
-	}, {
-		nhip : '2',
-		giai : 'G5',
-		ngay : '1/1/2014'
-	}, {
-		nhip : '2',
-		giai : 'G5',
-		ngay : '1/1/2014'
-	}];
-	sv.arr.datatbl = [];
+
 	for (var i = 0; i < (sv.arr.params.length); i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			height : Ti.App.size(80),

@@ -5,17 +5,21 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
 };
+
+///khoi tao bien
+function tao_bien(sv){
+	sv.arr={};
+	sv.vari={};
+}
 /**khoi tao UI
  * */
 function tao_ui(sv) {
-	sv.vari = {};
-	sv.ui = {};
-	sv.arr = {};
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : 0,
 		width : Ti.App.size(720),
