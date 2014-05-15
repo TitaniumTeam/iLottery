@@ -119,7 +119,7 @@ function tao_ui(sv) {
 	////////////////
 	sv.ui.scrollView_right = Ti.UI.createScrollView({
 		top : Ti.App.size(200),
-		width : Ti.App.size(720),
+		width : Ti.App.size(480),
 		left : 0,
 		right : 0,
 		layout : 'vertical',
@@ -132,8 +132,8 @@ function tao_ui(sv) {
 		horizontalBounce : true,
 	});
 	sv.ui.view_menulist_right = Titanium.UI.createView({
-		width : Ti.App.size(500),
-		height : Ti.UI.SIZE,
+		width : Ti.App.size(480),
+		height : Ti.UI.FILL,
 		left : 0,
 		top : 0,
 		right : 0,
@@ -253,12 +253,13 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right3,
-		top : Ti.App.size(740),
+		top : Ti.App.size(760),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
+		height : Ti.UI.SIZE,
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
@@ -294,7 +295,7 @@ function tao_ui(sv) {
 	////////////////
 	sv.ui.scrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(120),
-		width : Ti.App.size(720),
+		width : Ti.App.size(500),
 		left : 0,
 		right : 0,
 		layout : 'vertical',
@@ -419,7 +420,8 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView2); {
+	sv.ui.view_menulist.add(sv.ui.tableView2);
+	{
 		sv.ui.row3 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -464,7 +466,8 @@ function tao_ui(sv) {
 		scrollable : false,
 		height : Ti.UI.FILL
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView3); {
+	sv.ui.view_menulist.add(sv.ui.tableView3);
+	{
 		sv.ui.row4 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -519,7 +522,7 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.superwhite,
 	});
 	sv.ui.View1 = Ti.UI.createView({
-		backgroundColor : 'red',
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(720),
 		height : Ti.App.size(120),
 		top : 0
