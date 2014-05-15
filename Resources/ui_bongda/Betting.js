@@ -58,7 +58,7 @@ function tao_ui(sv) {
 	for (var i = 0; i < 3; i++) {
 		sv.arr.BtCaCuoc[i] = Ti.UI.createView({
 			backgroundColor : Ti.App.Color.xanhnhat,
-			top : Ti.App.size(500) * (i) + Ti.App.size(375),
+			top : Ti.App.size(500 * i + 375),
 			height : Ti.App.size(100),
 			right : Ti.App.size(40),
 			left : Ti.App.size(40)
@@ -83,7 +83,7 @@ function tao_ui(sv) {
 
 	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < 3; i++) {
-		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(500) * (i));
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(500 * i));
 		sv.ui.vTong.setParam(sv.arr.param1[i]);
 		sv.ui.vChua.add(sv.ui.vTong);
 		sv.ui.vChua.add(sv.arr.BtCaCuoc[i]);

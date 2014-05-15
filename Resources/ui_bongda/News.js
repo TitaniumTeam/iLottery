@@ -85,7 +85,7 @@ function createUI(sv) {
 			height : sv.vari.HeightView,
 			left : 0,
 			right : 0,
-			top : i * sv.vari.HeightView,
+			top : Ti.App.size(235 * i),
 			borderWidth : Ti.App.size(1),
 			borderColor : Ti.App.Color.nauden
 		});
@@ -101,7 +101,7 @@ function createUI(sv) {
 		sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
 			text : 'Juventus vừa thông báo rằng chỉ sau một lượt đấu nữa sẽ là vô địch',
 			font : {
-				fontSize : Ti.App.size(24),
+				fontSize : Ti.App.size(22),
 				fontFamily : 'Aria',
 				fontWeight : 'bold',
 				textAlign : 'left'
@@ -143,13 +143,13 @@ function createUI(sv) {
 	}
 
 	createUI_Event(sv);
-// 
+	//
 	// var IconLeft = Win.getIconLeft();
 	// var IconRight = Win.getIconRight();
 	// var LabelHeader = Win.getLabelHeader();
 	// IconLeft.image = '/assets/images/icon/menu.png';
 	// Win.getLabelHeader().text = 'Tin Tức';
-// 
+	//
 	// IconLeft.addEventListener('click', sv.fu.eventClickIconLeft);
 	// IconRight.addEventListener('click', sv.fu.eventClickIconRight);
 
@@ -192,6 +192,6 @@ function createRemove(sv) {
 			sv.arr.ViewTinTuc[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
 			Ti.API.info('da remove xong ');
 		}
-		
+
 	};
 }

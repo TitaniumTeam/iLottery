@@ -82,7 +82,7 @@ function createUI(sv) {
 
 	sv.ui.LbNgayThang = Ti.UI.createLabel({
 		text : '23/04/2014',
-		top : Ti.App.size(145) - Ti.App.size(120),
+		top : Ti.App.size(145 - 120),
 		right : Ti.App.size(365),
 		left : Ti.App.size(245),
 		font : {
@@ -96,7 +96,7 @@ function createUI(sv) {
 
 	sv.ui.LbGioPhut = Ti.UI.createLabel({
 		text : '19:00',
-		top : Ti.App.size(145) - Ti.App.size(120),
+		top : Ti.App.size(145 - 120),
 		left : Ti.App.size(405),
 		right : 0,
 		font : {
@@ -113,12 +113,12 @@ function createUI(sv) {
 		height : Ti.App.size(30),
 		right : Ti.App.size(510),
 		left : Ti.App.size(190),
-		top : Ti.App.size(185) - Ti.App.size(120)
+		top : Ti.App.size(185 - 120)
 	});
 
 	sv.ui.LbSan = Ti.UI.createLabel({
 		text : 'Sân Oftrafox',
-		top : Ti.App.size(185) - Ti.App.size(120),
+		top : Ti.App.size(185 - 120),
 		right : Ti.App.size(355),
 		left : Ti.App.size(220),
 		font : {
@@ -135,12 +135,12 @@ function createUI(sv) {
 		height : Ti.App.size(25),
 		left : Ti.App.size(400),
 		width : Ti.App.size(25),
-		top : Ti.App.size(185) - Ti.App.size(120)
+		top : Ti.App.size(185 - 120)
 	});
 
 	sv.ui.LbThoiGian = Ti.UI.createLabel({
 		text : 'Còn 45p',
-		top : Ti.App.size(185) - Ti.App.size(120),
+		top : Ti.App.size(185 - 120),
 		right : Ti.App.size(0),
 		left : Ti.App.size(435),
 		font : {
@@ -170,7 +170,7 @@ function createUI(sv) {
 
 	sv.ui.LbVS = Ti.UI.createLabel({
 		text : 'VS',
-		top : Ti.App.size(335) - Ti.App.size(120),
+		top : Ti.App.size(335 - 120),
 		//right : Ti.App.size(0),
 		//left : Ti.App.size(0),
 		font : {
@@ -183,13 +183,13 @@ function createUI(sv) {
 	});
 
 	sv.ui.ViewTenDoiChuNha = Ti.UI.createView({
-		top : Ti.App.size(460) - Ti.App.size(120),
+		top : Ti.App.size(460 - 120),
 		width : Ti.App.size(200),
 		left : Ti.App.size(40),
 	});
 
 	sv.ui.ViewTenDoiKhach = Ti.UI.createView({
-		top : Ti.App.size(460) - Ti.App.size(120),
+		top : Ti.App.size(460 - 120),
 		width : Ti.App.size(200),
 		right : Ti.App.size(40),
 	});

@@ -237,14 +237,14 @@ function createUI(sv) {
 
 		if (i < 3) {
 			sv.arr.HinhTron[i] = Ti.UI.createView({
-				backgroundImage : 'assets/images/icon/circle-red.png',
+				backgroundImage : '/assets/images/icon/circle-red.png',
 				width : Ti.App.size(50),
 				height : Ti.App.size(50),
 				left : Ti.App.size(40),
 			});
 		} else {
 			sv.arr.HinhTron[i] = Ti.UI.createView({
-				backgroundImage : 'assets/images/icon/circle-black.png',
+				backgroundImage : '/assets/images/icon/circle-black.png',
 				left : Ti.App.size(40),
 				width : Ti.App.size(50),
 				height : Ti.App.size(50),
