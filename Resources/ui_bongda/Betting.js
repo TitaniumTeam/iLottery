@@ -19,6 +19,7 @@ function tao_bien(sv) {
 	sv.arr = {};
 	sv.vari.view_keo = require('/ui_bongda/view_keo');
 	sv.arr.BtCaCuoc = [];
+	sv.arr.LbCaCuoc = [];
 	sv.arr.eventClickBtCaCuoc = [];
 	sv.arr.param1 = [{
 		tg : 55,
@@ -62,6 +63,16 @@ function tao_ui(sv) {
 			right : Ti.App.size(40),
 			left : Ti.App.size(40)
 		});
+
+		sv.arr.LbCaCuoc[i] = Ti.UI.createLabel({
+			text : 'CÁ CƯỢC NGAY',
+			font : {
+				fontSize : Ti.App.size(35),
+				fontFamily : 'Aria',
+			},
+			color : Ti.App.Color.white,
+		});
+
 	}
 
 	createUI_Event(sv);
@@ -76,6 +87,7 @@ function tao_ui(sv) {
 		sv.ui.vTong.setParam(sv.arr.param1[i]);
 		sv.ui.vChua.add(sv.ui.vTong);
 		sv.ui.vChua.add(sv.arr.BtCaCuoc[i]);
+		sv.arr.BtCaCuoc[i].add(sv.arr.LbCaCuoc[i]);
 	};
 }
 
