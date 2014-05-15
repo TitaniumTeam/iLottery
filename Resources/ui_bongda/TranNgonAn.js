@@ -17,7 +17,6 @@ module.exports = function() {
 function tao_bien(sv) {
 	sv.vari = {};
 	sv.arr = {};
-	sv.arr.event_clickrow = [];
 	sv.arr.param1 = [{
 		thoigian : '22:10',
 		san : 'My dinh',
@@ -75,8 +74,6 @@ function tao_ui(sv) {
 			backgroundSelectedColor : 'transparent',
 			backgroundFocusedColor : 'transparent',
 			backgroundFocusedImage : 'transparent',
-			// borderWidth:1,
-			// borderColor:Ti.App.Color.xanhnhat
 		});
 
 		sv.ui.ViewChua = Ti.UI.createView({
@@ -180,7 +177,6 @@ function tao_ui(sv) {
 		};
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
-
 	}
 	tao_event(sv);
 	for (var i = 0; i < sv.arr.data.length; i++) {
@@ -188,7 +184,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
-		height : Ti.UI.FILL,
+		// height : Ti.UI.FILL,
 		width : Ti.App.size(720),
 		top : 0,
 		separatorColor : 'transparent',

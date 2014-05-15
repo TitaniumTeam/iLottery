@@ -189,7 +189,7 @@ function tao_ui(sv) {
 
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
-		height : Ti.UI.FILL,
+		// height : Ti.UI.FILL,
 		width : Ti.App.size(720),
 		top : 0,
 		separatorColor : 'transparent',

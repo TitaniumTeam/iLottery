@@ -575,7 +575,7 @@ function tao_ui(sv) {
 	sv.ui.Viewtong = Titanium.UI.createView({
 		top : Ti.App.size(120),
 		left : 0,
-		width:Ti.UI.FILL,
+		width : Ti.UI.FILL,
 		// width : Ti.App.size(720),
 		height : Ti.UI.FILL,
 		// height : Ti.UI.SIZE,
@@ -636,7 +636,6 @@ function tao_ui(sv) {
 function removeAllEvent(sv) {
 	sv.fu = {};
 	if (sv.vari.VTView == 1) {
-		// var ViewHienTai = new sv.vari.Home();
 		sv.vari.viewht.removeAllEvent();
 	}
 
@@ -645,26 +644,19 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 3) {
-		// var ViewHienTai = new sv.vari.News();
 		sv.vari.viewht.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 4) {
-		// var ViewHienTai = new sv.vari.keo_tructiep();
 		sv.vari.viewht.removeAllEvent();
-		// sv.vari.keott.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 5) {
-		// var ViewHienTai = new sv.vari.keo_saptoi();
 		sv.vari.viewht.removeAllEvent();
-		// sv.vari.keost.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 6) {
-		// var ViewHienTai = new sv.vari.ThongTinTD();
 		sv.vari.viewht.removeAllEvent();
-		// sv.vari.tttrandau.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 7) {
@@ -672,18 +664,14 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 8) {
-		// var ViewHienTai = new sv.vari.TranNgonAn();
 		sv.vari.viewht.removeAllEvent();
-		// sv.vari.tranna.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 9) {
-		// var ViewHienTai = new sv.vari.Info();
 		sv.vari.viewht.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 10) {
-		// var ViewHienTai = new sv.vari.ThongTinCaNhan();
 		sv.vari.viewht.removeAllEvent();
 	}
 
@@ -694,7 +682,6 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 13) {
-		//ViewHienTai.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 14) {
@@ -702,7 +689,6 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 15) {
-		// var ViewHienTai = new sv.vari.LichSuGiaoDich();
 		sv.vari.viewht.removeAllEvent();
 	}
 
@@ -780,11 +766,11 @@ function tao_event(sv) {
 		switch(e.index) {
 			case 0:
 				set_label(sv, "Bảng xếp hạng", 50);
-				sv.ui.drawer.toggleLeftWindow();
 				sv.vari.flag_txtfield = false;
 				sv.ui.Viewtong.removeAllChildren();
 				removeAllEvent(sv);
 				sv.vari.viewht = null;
+				sv.ui.drawer.toggleLeftWindow();
 				sv.vari.viewht = new sv.vari.Home();
 				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 				sv.vari.VTView = 1;
