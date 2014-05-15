@@ -58,10 +58,12 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 	sv.ui.vThongtinTD = require('/ui_bongda/vTranngonan');
 	sv.ui.ViewTong = Ti.UI.createScrollView({
-		backgroundColor : Ti.App.Color.magenta,
+		backgroundColor : 'transparent',
 		top : 0,
 		left : 0,
-		showVerticalScrollIndicator : 'true'
+		showVerticalScrollIndicator : 'true',
+		contentHeight : Ti.UI.FILL,
+		height : Ti.UI.FILL
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -73,6 +75,8 @@ function tao_ui(sv) {
 			backgroundSelectedColor : 'transparent',
 			backgroundFocusedColor : 'transparent',
 			backgroundFocusedImage : 'transparent',
+			// borderWidth:1,
+			// borderColor:Ti.App.Color.xanhnhat
 		});
 
 		sv.ui.ViewChua = Ti.UI.createView({
@@ -96,7 +100,7 @@ function tao_ui(sv) {
 			backgroundFocusedImage : 'transparent',
 		});
 		sv.ui.lbl_tennc = Ti.UI.createLabel({
-			height : Ti.UI.SIZE,
+			// height : Ti.UI.SIZE,
 			left : Ti.App.size(120),
 			text : sv.arr.data[i].title,
 			width : Ti.App.size(720),
@@ -115,7 +119,7 @@ function tao_ui(sv) {
 
 		sv.ui.lbl_tyle = Titanium.UI.createLabel({
 			width : Ti.App.size(95),
-			height : Ti.App.size(100),
+			// height : Ti.App.size(100),
 			text : 'Tỷ lệ',
 			font : {
 				fontSize : Ti.App.size(25)
@@ -126,7 +130,7 @@ function tao_ui(sv) {
 
 		sv.ui.lbl_ck = Titanium.UI.createLabel({
 			width : Ti.App.size(70),
-			height : Ti.App.size(100),
+			// height : Ti.App.size(100),
 			left : Ti.App.size(570),
 			text : 'C/K',
 			font : {
@@ -160,7 +164,7 @@ function tao_ui(sv) {
 					position : 0.50
 				}]
 			},
-			// bottom:1
+			bottom : 1
 		});
 		sv.ui.viewRow.add(sv.ui.lbl_tennc);
 		sv.ui.viewRow.add(sv.ui.lbl_co);
@@ -176,11 +180,9 @@ function tao_ui(sv) {
 		};
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
-		// tao_event(sv);
-		// sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 
 	}
-		tao_event(sv);
+	tao_event(sv);
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 	}
@@ -188,12 +190,9 @@ function tao_ui(sv) {
 		data : sv.arr.rows,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(720),
-		top : Ti.App.size(10),
+		top : 0,
 		separatorColor : 'transparent',
 		backgroundColor : Ti.App.Color.magenta,
-		backgroundSelectedColor : 'transparent',
-		backgroundFocusedColor : 'transparent',
-		backgroundFocusedImage : 'transparent',
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl);
 

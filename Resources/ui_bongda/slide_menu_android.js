@@ -779,12 +779,12 @@ function tao_event(sv) {
 	sv.fu.evt_tblview_click = function(e) {
 		switch(e.index) {
 			case 0:
+				set_label(sv, "Bảng xếp hạng", 50);
+				sv.ui.drawer.toggleLeftWindow();
 				sv.vari.flag_txtfield = false;
+				sv.ui.Viewtong.removeAllChildren();
 				removeAllEvent(sv);
 				sv.vari.viewht = null;
-				set_label(sv, "Bảng xếp hạng", 50);
-				sv.ui.Viewtong.removeAllChildren();
-				sv.ui.drawer.toggleLeftWindow();
 				sv.vari.viewht = new sv.vari.Home();
 				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 				sv.vari.VTView = 1;

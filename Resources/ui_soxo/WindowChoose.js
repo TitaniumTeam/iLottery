@@ -45,7 +45,7 @@ function tao_ui(sv) {
 		text : 'Xem kết quả',
 		left : Ti.App.size(25),
 		right : Ti.App.size(25),
-		top : Ti.App.size(800),
+		top : Ti.App.size(600),
 		color : Ti.App.Color.superwhite,
 		textAlign : 'center',
 		font : {

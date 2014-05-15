@@ -1,5 +1,3 @@
-
-
 module.exports = function() {
 	var sv = {};
 	sv.vari = {};
@@ -17,7 +15,7 @@ function tao_ui(sv) {
 	sv.ui.win_app = Ti.UI.createWindow({
 		backgroundColor : 'transparent',
 		orientationModes : [Ti.UI.PORTRAIT],
-		exitOnClose:true,
+		exitOnClose : true,
 		navBarHidden : true,
 		fullscreen : true,
 		// width:Ti.App.size(720),
@@ -117,42 +115,42 @@ function taoevent(sv) {
 	sv.fu.evt_clickbongda = function(e) {
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_bongda/slide_menu'))();
-			home.open();
 			Ti.App.vIndicatorWindow.openIndicator(home);
+			home.open();
 			setTimeout(function() {
-			Ti.App.vIndicatorWindow.closeIndicator(home);
-			// sv.ui.win_app.close();
+				Ti.App.vIndicatorWindow.closeIndicator(home);
+				// sv.ui.win_app.close();
 			}, 4000);
 		} else {
 			if (Ti.Platform.osname == "android") {
-				var home_android = new (require('ui_bongda/slide_menu_android'))();
+				var home_android = new (require('/ui_bongda/slide_menu_android'))();
 				home_android.open();
-				Ti.App.vIndicatorWindow.openIndicator(home_android);
-				setTimeout(function() {
-				Ti.App.vIndicatorWindow.closeIndicator(home_android);
-				// sv.ui.win_app.close();
-				}, 4000);
+				// Ti.App.vIndicatorWindow.openIndicator4AddView(home_android);
+				// setTimeout(function() {
+					// Ti.App.vIndicatorWindow.closeIndicator(home_android);
+					// // sv.ui.win_app.close();
+				// }, 4000);
 			}
 		}
 	};
 	sv.fu.evt_clicksoxo = function(e) {
 		if (Ti.Platform.osname == "iphone") {
 			var home = new (require('/ui_soxo/slide_menu'))();
-			home.open();
 			Ti.App.vIndicatorWindow.openIndicator(home);
+			home.open();
 			setTimeout(function() {
-			Ti.App.vIndicatorWindow.closeIndicator(home);
-			// sv.ui.win_app.close();
+				Ti.App.vIndicatorWindow.closeIndicator(home);
+				// sv.ui.win_app.close();
 			}, 4000);
 		} else {
 			if (Ti.Platform.osname == "android") {
-				var home_android = new (require('ui_soxo/slide_menu_android'))();
+				var home_android = new (require('/ui_soxo/slide_menu_android'))();
 				home_android.open();
-				Ti.App.vIndicatorWindow.openIndicator(home_android);
-				setTimeout(function() {
-				Ti.App.vIndicatorWindow.closeIndicator(home_android);
-				// sv.ui.win_app.close();
-				}, 4000);
+				// Ti.App.vIndicatorWindow.openIndicator4AddView(home_android);
+				// setTimeout(function() {
+					// Ti.App.vIndicatorWindow.closeIndicator(home_android);
+					// // sv.ui.win_app.close();
+				// }, 4000);
 			}
 		}
 	};

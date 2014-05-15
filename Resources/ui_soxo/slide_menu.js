@@ -18,7 +18,7 @@ function tao_bien(sv) {
 	sv.vari.VTView = 1;
 	///bien view hien tai
 	sv.vari.viewht = null;
-	sv.vari.viewoff=null;
+	sv.vari.viewoff = null;
 	/////khoi tao cac file require
 	sv.vari.windowKQSX = require('/ui_soxo/WindowKQSX');
 	sv.vari.windowRealTime = require('/ui_soxo/WindowRealTime');
@@ -27,7 +27,7 @@ function tao_bien(sv) {
 	sv.vari.windowInfoUser = require('/ui_soxo/Info');
 	sv.vari.windowLichsuGD = require('/ui_soxo/LichSuGiaoDich');
 	sv.vari.windowThongtincanhan = require('/ui_soxo/ThongTinCaNhan');
-	sv.vari.wd_offline=require('/ui_app/kq_offline');
+	sv.vari.wd_offline = require('/ui_app/kq_offline');
 	///cac mang menu ben phai
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
@@ -587,12 +587,10 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.View1);
 	sv.vari.viewht = new sv.vari.windowKQSX();
-	sv.vari.viewoff=new sv.vari.wd_offline();
-	sv.vari.viewoff.testNetwork(sv.ui.WindowSoXo);
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowSoXo,
 		orientationModes : [Ti.UI.PORTRAIT],
-		fullscreen:true,
+		fullscreen : true,
 	});
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
@@ -630,7 +628,6 @@ function tao_ui(sv) {
 	sv.ui.WindowSoXo.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.WindowSoXo.addEventListener('close', sv.fu.eventCloseWindow);
 
-	
 };
 
 ////remove event moi view
@@ -706,9 +703,9 @@ function tao_event(sv) {
 	sv.fu.evt_home = function(e) {
 		switch(e.index) {
 			case 0:
+				// sv.ui.drawer.close();
 				var home = new (require('/ui_app/ui_app'));
 				home.ui.win_app.open();
-				// sv.ui.drawer.close();
 				break;
 		}
 
@@ -787,8 +784,10 @@ function tao_event(sv) {
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewoff = new sv.vari.wd_offline();
 				sv.vari.viewht = new sv.vari.windowKQSX();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
+				// sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
 				sv.vari.VTView = 2;
 				break;
 			case 2:
@@ -798,8 +797,9 @@ function tao_event(sv) {
 				set_label(sv, "Xổ số Miền Nam", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewoff = new sv.vari.wd_offline();
 				sv.vari.viewht = new sv.vari.windowKQSX();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
 				sv.vari.VTView = 3;
 				break;
 			case 3:
@@ -809,8 +809,9 @@ function tao_event(sv) {
 				set_label(sv, "Xổ số Miền Trung", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewoff = new sv.vari.wd_offline();
 				sv.vari.viewht = new sv.vari.windowKQSX();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
 				sv.vari.VTView = 4;
 				break;
 		}
@@ -842,7 +843,8 @@ function tao_event(sv) {
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
 				sv.vari.viewht = new sv.vari.windowRealTime();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.Viewtong);
+				sv.vari.viewoff = new sv.vari.wd_offline();
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong,sv.vari.viewht.ui.Viewtong);
 				sv.vari.VTView = 8;
 				break;
 		}

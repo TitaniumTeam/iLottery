@@ -57,7 +57,7 @@ module.exports = function() {
 		color : Ti.App.Color.superwhite,
 	});
 	viewchua.add(thoat);
-	view_offline.testNetwork = function(_currView) {
+	view_offline.testNetwork = function(_currView,_viewadd) {
 		if (Titanium.Network.networkType == Titanium.Network.NETWORK_NONE) {
 			_currView.add(view_offline);
 			var evt_sms = function(e) {
@@ -71,7 +71,7 @@ module.exports = function() {
 			button.addEventListener('click', evt_sms);
 			thoat.addEventListener('click', evt_thoat);
 		} else {
-			Ti.API.info('co mang');
+			_currView.add(_viewadd);
 		}
 	};
 

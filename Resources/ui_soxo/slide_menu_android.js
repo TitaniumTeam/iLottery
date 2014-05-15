@@ -259,7 +259,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL,
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
@@ -586,10 +586,11 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_GiaiSX);
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.View1);
-	sv.vari.viewht = new sv.vari.windowKQSX();
-	sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+	// sv.vari.viewht = new sv.vari.windowKQSX();
+	// sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
 	sv.vari.viewoff = new sv.vari.wd_offline();
-	sv.vari.viewoff.testNetwork(sv.ui.WindowSoXo);
+	sv.vari.viewht = new sv.vari.windowKQSX();
+	sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
 		fullscreen : true,
@@ -779,8 +780,10 @@ function tao_event(sv) {
 				set_label(sv, "Xổ số Miền Bắc", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewoff = new sv.vari.wd_offline();
 				sv.vari.viewht = new sv.vari.windowKQSX();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
+				// sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
 				sv.vari.VTView = 2;
 				break;
 			case 2:
@@ -790,8 +793,9 @@ function tao_event(sv) {
 				set_label(sv, "Xổ số Miền Nam", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewoff = new sv.vari.wd_offline();
 				sv.vari.viewht = new sv.vari.windowKQSX();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
 				sv.vari.VTView = 3;
 				break;
 			case 3:
@@ -801,8 +805,9 @@ function tao_event(sv) {
 				set_label(sv, "Xổ số Miền Trung", true);
 				sv.ui.Viewtong.removeAllChildren();
 				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewoff = new sv.vari.wd_offline();
 				sv.vari.viewht = new sv.vari.windowKQSX();
-				sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+				sv.vari.viewoff.testNetwork(sv.ui.Viewtong, sv.vari.viewht.ui.scrollView);
 				sv.vari.VTView = 4;
 				break;
 		}
