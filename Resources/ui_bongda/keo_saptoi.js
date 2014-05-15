@@ -134,11 +134,11 @@ function tao_ui(sv) {
 		// height : Ti.UI.FILL
 	});
 	sv.ui.scrollview.add(sv.ui.vChua);
-	for (var i = 0; i < 1; i++) {
+	for (var i = 0; i < 10; i++) {
 		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i));
 		sv.ui.vChua.add(sv.ui.vTong);
 		sv.arr.dataVTong.push(sv.ui.vTong);
-		sv.arr.dataVTong[i].setParam(sv.arr.param2[i]);
+		sv.arr.dataVTong[i].setParam(sv.arr.param2[0]);
 	};
 	tao_event(sv);
 	sv.ui.lbl_hnay.addEventListener('click', sv.fu.evt_clickhnay);
@@ -151,20 +151,20 @@ function tao_event(sv) {
 	sv.fu.evt_clickhqua = function(e) {
 		set_mau(sv.ui.lbl_hqa, sv.ui.lbl_hnay, sv.ui.lbl_mai);
 		for (var i = 0; i < 1; i++) {
-			sv.arr.dataVTong[i].setParam(sv.arr.param1[i]);
+			sv.arr.dataVTong[i].setParam(sv.arr.param1[0]);
 		};
 
 	};
 	sv.fu.evt_clickhnay = function(e) {
 		set_mau(sv.ui.lbl_hnay, sv.ui.lbl_hqa, sv.ui.lbl_mai);
-		for (var i = 0; i < 1; i++) {
-			sv.arr.dataVTong[i].setParam(sv.arr.param2[i]);
+		for (var i = 0; i < 10; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param2[0]);
 		}
 	};
 	sv.fu.evt_click_mai = function(e) {
 		set_mau(sv.ui.lbl_mai, sv.ui.lbl_hnay, sv.ui.lbl_hqa);
-		for (var i = 0; i < 1; i++) {
-			sv.arr.dataVTong[i].setParam(sv.arr.param3[i]);
+		for (var i = 0; i < 10; i++) {
+			sv.arr.dataVTong[i].setParam(sv.arr.param3[0]);
 		};
 	};
 }

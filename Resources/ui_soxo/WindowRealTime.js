@@ -5,18 +5,30 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		taobien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
 };
+
+function taobien(sv) {
+	sv.vari = {};
+	sv.arr = {};
+	sv.arr.datarow = [];
+	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
+	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
+	sv.vari.currTime=new Date();
+	sv.vari.ngay=sv.vari.currTime.getDay();
+	sv.vari.thang=sv.vari.currTime.getMonth();
+	sv.vari.nam=sv.vari.currTime.getYear();
+}
+
 /*
  * khoi tao ui
  */
 function tao_ui(sv) {
-	sv.vari = {};
-	sv.ui = {};
-	sv.arr = {};
+
 	sv.ui.Viewtong = Titanium.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
@@ -90,7 +102,7 @@ function tao_ui(sv) {
 		// height : Ti.App.size(40),
 		top : Ti.App.size(10),
 		textAlign : 'center',
-		text : 'Xổ số Miền Bắc ngày 1-4-2014(Hà Nội)',
+		text : 'Xổ số Miền Bắc ngày'+sv.vari.ngay+'/'+sv.vari.thang+'/'+sv.vari.nam+'(Hà Nội)',
 		color : Ti.App.Color.red,
 		font : {
 			fontSize : Ti.App.size(30)
@@ -122,8 +134,6 @@ function tao_ui(sv) {
 		horizontalBounce : true,
 	});
 
-	sv.arr.datarow = [];
-	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.ui.row = require('/ui_soxo/RowContain');
 	//row 1
 	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768', true);
@@ -150,7 +160,7 @@ function tao_ui(sv) {
 	//row 8
 	sv.ui.row8 = new sv.ui.row(sv.arr.height[0], 'Bảy');
 	sv.ui.scrollView.add(sv.ui.row8);
-	
+
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
@@ -178,17 +188,17 @@ function tao_ui(sv) {
 	});
 	sv.ui.vDaysove.add(sv.ui.vConsove);
 	sv.vari.rowchild = require('/ui_soxo/RowChild');
-	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
+
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
+		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
 		sv.ui.vConsove.add(sv.ui.rowc1);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc2);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
+		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc3);
 	}
 	sv.ui.scrollView.add(sv.ui.vDaysove);
@@ -273,8 +283,9 @@ function setleft(j, _left) {
 	if (j == _left) {
 		return Ti.App.size(1);
 	} else
-		return Ti.App.size(74*j);
+		return Ti.App.size(74 * j);
 }
+
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		Ti.API.info('remove event keo wd realtime');
