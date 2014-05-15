@@ -268,5 +268,10 @@ function createRemove(sv) {
 		sv.ui.view_choose2.removeEventListener('click', sv.fu.event_click_view2);
 		sv.ui.table_view2.removeEventListener('click', sv.fu.event_clicktbl2);
 		Ti.API.info('remove event wd support');
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
 	};
 }

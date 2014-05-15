@@ -18,10 +18,10 @@ function taobien(sv) {
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
-	sv.vari.currTime=new Date();
-	sv.vari.ngay=sv.vari.currTime.getDate();
-	sv.vari.thang=sv.vari.currTime.getMonth()+1;
-	sv.vari.nam=sv.vari.currTime.getFullYear();
+	sv.vari.currTime = new Date();
+	sv.vari.ngay = sv.vari.currTime.getDate();
+	sv.vari.thang = sv.vari.currTime.getMonth() + 1;
+	sv.vari.nam = sv.vari.currTime.getFullYear();
 }
 
 /*
@@ -102,7 +102,7 @@ function tao_ui(sv) {
 		// height : Ti.App.size(40),
 		top : Ti.App.size(10),
 		textAlign : 'center',
-		text : 'Xổ số Miền Bắc ngày '+sv.vari.ngay+'/'+sv.vari.thang+'/'+sv.vari.nam+' (Hà Nội)',
+		text : 'Xổ số Miền Bắc ngày ' + sv.vari.ngay + '/' + sv.vari.thang + '/' + sv.vari.nam + ' (Hà Nội)',
 		color : Ti.App.Color.red,
 		font : {
 			fontSize : Ti.App.size(30)
@@ -289,5 +289,10 @@ function setleft(j, _left) {
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		Ti.API.info('remove event keo wd realtime');
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
 	};
 }

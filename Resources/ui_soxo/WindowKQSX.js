@@ -5,10 +5,15 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
+		tao_bien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
+};
+function tao_bien(sv){
+	sv.arr.datarow = [];
+	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 };
 /**khoi tao UI
  * */
@@ -28,8 +33,6 @@ function tao_ui(sv) {
 		horizontalBounce : true,
 	});
 
-	sv.arr.datarow = [];
-	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.ui.row = require('/ui_soxo/RowContain');
 	//row 1
 	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768', false);
@@ -67,5 +70,10 @@ function createUI_Event(sv) {
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		Ti.API.info('remove event kqsx');
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
 	};
 }

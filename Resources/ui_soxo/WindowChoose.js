@@ -12,9 +12,9 @@ module.exports = function() {
 	return sv;
 };
 //tao bien
-function tao_bien(sv){
-	sv.arr={};
-	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG','HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
+function tao_bien(sv) {
+	sv.arr = {};
+	sv.arr.tinhthanh = ['HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG', 'HÀ NỘI', 'HỒ CHÍ MINH', 'HẢI DƯƠNG'];
 	sv.arr.ngay = ['6/9/2014', '1/1/2014'];
 };
 /*khoi tao UI
@@ -79,6 +79,7 @@ function tao_ui(sv) {
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.view_choose1.addEventListener('click', sv.fu.event_click_view1);
 	sv.ui.table_view1.addEventListener('click', sv.fu.event_clicktbl1);
+	// sv.ui.ViewTong.addEventListener('click', sv.fu.event_clickviewtong);
 	//////
 	sv.ui.ViewTong.add(sv.ui.arrow1);
 	sv.ui.ViewTong.add(sv.ui.arrow2);
@@ -103,6 +104,9 @@ function tao_event(sv) {
 	sv.fu.event_clicktbl1 = function(e) {
 		tbl_click(e, sv.ui.lblfirst1, sv.ui.table_view1);
 	};
+	// sv.fu.event_clickviewtong = function(e) {
+// 
+	// };
 }
 
 function tbl_click(e, _lbl, _tbl) {
@@ -124,5 +128,10 @@ function createRemove(sv) {
 		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
 		sv.ui.table_view1.removeEventListener('click', sv.fu.event_clicktbl1);
 		Ti.API.info('remove event wd choose');
+		sv.vari = null;
+		sv.arr = null;
+		sv.ui = null;
+		sv.fu = null;
+		sv = null;
 	};
 }
