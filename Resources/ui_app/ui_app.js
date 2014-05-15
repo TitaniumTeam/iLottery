@@ -17,9 +17,9 @@ function tao_ui(sv) {
 	sv.ui.win_app = Ti.UI.createWindow({
 		backgroundColor : 'transparent',
 		orientationModes : [Ti.UI.PORTRAIT],
-		exitOnClose:true
-		// navBarHidden : true,
-		// fullscreen : true,
+		exitOnClose:true,
+		navBarHidden : true,
+		fullscreen : true,
 		// width:Ti.App.size(720),
 		// height:Ti.App.size(1280)
 	});
@@ -121,7 +121,7 @@ function taoevent(sv) {
 			Ti.App.vIndicatorWindow.openIndicator(home);
 			setTimeout(function() {
 			Ti.App.vIndicatorWindow.closeIndicator(home);
-			sv.ui.win_app.close();
+			// sv.ui.win_app.close();
 			}, 4000);
 		} else {
 			if (Ti.Platform.osname == "android") {
@@ -130,7 +130,7 @@ function taoevent(sv) {
 				Ti.App.vIndicatorWindow.openIndicator(home_android);
 				setTimeout(function() {
 				Ti.App.vIndicatorWindow.closeIndicator(home_android);
-				sv.ui.win_app.close();
+				// sv.ui.win_app.close();
 				}, 4000);
 			}
 		}
@@ -142,7 +142,7 @@ function taoevent(sv) {
 			Ti.App.vIndicatorWindow.openIndicator(home);
 			setTimeout(function() {
 			Ti.App.vIndicatorWindow.closeIndicator(home);
-			sv.ui.win_app.close();
+			// sv.ui.win_app.close();
 			}, 4000);
 		} else {
 			if (Ti.Platform.osname == "android") {
@@ -151,7 +151,7 @@ function taoevent(sv) {
 				Ti.App.vIndicatorWindow.openIndicator(home_android);
 				setTimeout(function() {
 				Ti.App.vIndicatorWindow.closeIndicator(home_android);
-				sv.ui.win_app.close();
+				// sv.ui.win_app.close();
 				}, 4000);
 			}
 		}

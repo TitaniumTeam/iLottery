@@ -28,7 +28,7 @@ function tao_bien(sv) {
 	sv.vari.TranNgonAn = require('/ui_bongda/TranNgonAn');
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
-	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
+	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-napxu.png', '/assets/images/icon/icon-lichsu.png'];
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.datatbl_right1 = [];
 	sv.arr.datatbl_right2 = [];
@@ -260,6 +260,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
+		height : Ti.UI.SIZE,
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
@@ -471,7 +472,8 @@ function tao_ui(sv) {
 		width : Ti.App.size(500),
 		scrollable : false,
 	});
-	sv.ui.view_menulist.add(sv.ui.tableView3); {
+	sv.ui.view_menulist.add(sv.ui.tableView3);
+	{
 		sv.ui.row4 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),

@@ -53,7 +53,7 @@ function tao_ui(sv) {
 		},
 	});
 	sv.vari.arrow = require('/ui_soxo/vArrow');
-	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(249));
+	sv.ui.arrow1 = new sv.vari.arrow(Ti.App.size(250));
 	sv.ui.varrow11 = sv.ui.arrow1.getvArrow1();
 	sv.ui.varrow12 = sv.ui.arrow1.getvArrow2();
 	///

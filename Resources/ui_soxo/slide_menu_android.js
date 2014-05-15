@@ -18,6 +18,7 @@ function tao_bien(sv) {
 	sv.vari.VTView = 1;
 	///bien view hien tai
 	sv.vari.viewht = null;
+	sv.vari.viewoff = null;
 	/////khoi tao cac file require
 	sv.vari.windowKQSX = require('/ui_soxo/WindowKQSX');
 	sv.vari.windowRealTime = require('/ui_soxo/WindowRealTime');
@@ -26,10 +27,12 @@ function tao_bien(sv) {
 	sv.vari.windowInfoUser = require('/ui_soxo/Info');
 	sv.vari.windowLichsuGD = require('/ui_soxo/LichSuGiaoDich');
 	sv.vari.windowThongtincanhan = require('/ui_soxo/ThongTinCaNhan');
+	sv.vari.wd_offline = require('/ui_app/kq_offline');
+	sv.vari.wd_offline = require('/ui_app/kq_offline');
 	///cac mang menu ben phai
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
-	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
+	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-napxu.png', '/assets/images/icon/icon-lichsu.png'];
 	sv.arr.datatbl_right1 = [];
 	sv.arr.datatbl_right2 = [];
 	sv.arr.datatbl_right3 = [];
@@ -256,6 +259,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
+		height : Ti.UI.SIZE,
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
@@ -582,7 +586,9 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.View1);
 	sv.vari.viewht = new sv.vari.windowKQSX();
-
+	sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
+	sv.vari.viewoff = new sv.vari.wd_offline();
+	sv.vari.viewoff.testNetwork(sv.ui.WindowSoXo);
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
 		fullscreen : true,
@@ -856,7 +862,6 @@ function tao_event(sv) {
 	///su kien hide action bar
 	sv.fu.onNavDrawerWinOpen = function(evt) {
 		this.removeEventListener('open', sv.fu.onNavDrawerWinOpen);
-		sv.ui.Viewtong.add(sv.vari.viewht.ui.scrollView);
 		if (this.getActivity()) {
 			// need to explicitly use getXYZ methods
 			var actionBar = this.getActivity().getActionBar();

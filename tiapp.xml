@@ -50,6 +50,7 @@
     <modules>
         <module platform="iphone">dk.napp.drawer</module>
         <module platform="android">dk.napp.drawer</module>
+        <module platform="iphone">bencoding.sms</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

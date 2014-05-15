@@ -49,7 +49,11 @@ module.exports = function(_height, _ten, _conso, _kt) {
 	});
 	sv.ui.lblvien.add(sv.ui.lblso);
 	sv.ui.rowchild = require('/ui_soxo/RowChild');
-	if (_ten == 'Đặc biệt') {
+	if (Titanium.Network.networkType == Titanium.Network.NETWORK_NONE){
+		Ti.API.info('khong co mang');
+	}
+	else{
+		if (_ten == 'Đặc biệt') {
 		// sv.ui.lbl_tengiai.setFont({fontSize:Ti.App.size(35)});
 		if (_kt == true) {
 			sv.ui.row1.add(sv.ui.lblvien);
@@ -139,5 +143,7 @@ module.exports = function(_height, _ten, _conso, _kt) {
 		sv.ui.row1.add(sv.ui.row33);
 		sv.ui.row1.add(sv.ui.row34);
 	}
+	}
+	
 	return sv.ui.row1;
 };
