@@ -26,6 +26,7 @@ function tao_bien(sv) {
 	sv.vari.keo_saptoi = require('/ui_bongda/keo_saptoi');
 	sv.vari.ThongTinTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.TranNgonAn = require('/ui_bongda/TranNgonAn');
+	sv.vari.Betting = require('/ui_bongda/Betting');
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
@@ -664,7 +665,7 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 7) {
-
+		sv.vari.viewht.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 8) {
@@ -840,6 +841,17 @@ function tao_event(sv) {
 				sv.vari.viewht = new sv.vari.ThongTinTD();
 				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 				sv.vari.VTView = 6;
+				break;
+			case 1:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "CÁ CƯỢC", 40);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewht = new sv.vari.Betting();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
+				sv.vari.VTView = 7;
 				break;
 			case 2:
 				sv.vari.flag_txtfield = false;
