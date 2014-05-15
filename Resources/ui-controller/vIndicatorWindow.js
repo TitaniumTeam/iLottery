@@ -94,7 +94,7 @@ vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
 		return;
 	this.activityIndicator.hide();
 	var curWindow = _curWindow || Ti.UI.currentWindow;
-	
+
 	curWindow.remove(this.background1);
 	curWindow.remove(this.background);
 

@@ -41,8 +41,9 @@ function createUI(sv) {
 
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
-		top :0,
-		left : 0
+		top : 0,
+		left : 0,
+		showVerticalScrollIndicator:'true'
 	});
 
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
@@ -161,7 +162,7 @@ function createUI_Event(sv) {
 
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
 		sv.arr.eventClickViewDoi[i] = function() {
-			var newWindow = new (require('ui/BangXepHang'))();
+			var newWindow = new (require('ui_bongda/BangXepHang'))();
 			newWindow.open();
 		};
 	}

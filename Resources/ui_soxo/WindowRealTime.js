@@ -5,23 +5,18 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	(function() {
-		tao_bien(sv);
 		tao_ui(sv);
 		createRemove(sv);
 	})();
 	return sv;
 };
-
-///tao bien
-function tao_bien(sv) {
-	sv.arr = {};
-	sv.vari = {};
-	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
-};
 /*
  * khoi tao ui
  */
 function tao_ui(sv) {
+	sv.vari = {};
+	sv.ui = {};
+	sv.arr = {};
 	sv.ui.Viewtong = Titanium.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
@@ -131,31 +126,31 @@ function tao_ui(sv) {
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.ui.row = require('/ui_soxo/RowContain');
 	//row 1
-	sv.ui.row1 = new sv.ui.row(sv.arr.height[0],0 ,true);
+	sv.ui.row1 = new sv.ui.row(sv.arr.height[0], 'Đặc biệt', '00768', true);
 	sv.ui.scrollView.add(sv.ui.row1);
 	///row 2
-	sv.ui.row2 = new sv.ui.row(sv.arr.height[0],1, true);
+	sv.ui.row2 = new sv.ui.row(sv.arr.height[0], 'Nhất', '12344', true);
 	sv.ui.scrollView.add(sv.ui.row2);
 	//row 3
 	sv.arr.kq_giainhi = [1213, 14122];
-	sv.ui.row3 = new sv.ui.row(sv.arr.height[0],2);
+	sv.ui.row3 = new sv.ui.row(sv.arr.height[0], 'Nhì', sv.arr.kq_giainhi);
 	sv.ui.scrollView.add(sv.ui.row3);
 	//row 4
-	sv.ui.row4 = new sv.ui.row(sv.arr.height[1],3);
+	sv.ui.row4 = new sv.ui.row(sv.arr.height[1], 'Ba');
 	sv.ui.scrollView.add(sv.ui.row4);
 	//row 5
-	sv.ui.row5 = new sv.ui.row(sv.arr.height[0],4);
+	sv.ui.row5 = new sv.ui.row(sv.arr.height[0], 'Tư');
 	sv.ui.scrollView.add(sv.ui.row5);
 	//row 6
-	sv.ui.row6 = new sv.ui.row(sv.arr.height[1],5);
+	sv.ui.row6 = new sv.ui.row(sv.arr.height[1], 'Năm');
 	sv.ui.scrollView.add(sv.ui.row6);
 	//row 7
-	sv.ui.row7 = new sv.ui.row(sv.arr.height[0],6);
+	sv.ui.row7 = new sv.ui.row(sv.arr.height[0], 'Sáu');
 	sv.ui.scrollView.add(sv.ui.row7);
 	//row 8
-	sv.ui.row8 = new sv.ui.row(sv.arr.height[0],7);
+	sv.ui.row8 = new sv.ui.row(sv.arr.height[0], 'Bảy');
 	sv.ui.scrollView.add(sv.ui.row8);
-
+	
 	sv.ui.vDaysove = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(300),
@@ -183,16 +178,17 @@ function tao_ui(sv) {
 	});
 	sv.ui.vDaysove.add(sv.ui.vConsove);
 	sv.vari.rowchild = require('/ui_soxo/RowChild');
+	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68), false, true, setbg(i, 5));
+		sv.ui.rowc1 = new sv.vari.rowchild(0, Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, setbg(i, 5));
 		sv.ui.vConsove.add(sv.ui.rowc1);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68),false, true, false);
+		sv.ui.rowc2 = new sv.vari.rowchild(Ti.App.size(75), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc2);
 	}
 	for (var i = 0; i < 9; i++) {
-		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75 * i), Ti.App.size(68), Ti.App.size(68),false, true, false);
+		sv.ui.rowc3 = new sv.vari.rowchild(Ti.App.size(150), Ti.App.size(75*i), Ti.App.size(68), Ti.App.size(68), sv.arr.dayso1[i], false, true, false);
 		sv.ui.vConsove.add(sv.ui.rowc3);
 	}
 	sv.ui.scrollView.add(sv.ui.vDaysove);
@@ -246,7 +242,7 @@ function tao_ui(sv) {
 			left : Ti.App.size(20),
 		});
 		for (var j = 0; j < 4; j++) {
-			sv.ui.rowchild_vds = new sv.vari.rowchild(Ti.App.size(1), setleft(j, 0), Ti.App.size(67), Ti.App.size(67),false, false, false, setbg(j, 0));
+			sv.ui.rowchild_vds = new sv.vari.rowchild(Ti.App.size(1), setleft(j, 0), Ti.App.size(67), Ti.App.size(67), sv.arr.dayso1[j], false, false, false, setbg(j, 0));
 			sv.ui.vds_sovesau.add(sv.ui.rowchild_vds);
 		}
 		sv.ui.scrollView.add(sv.ui.space);
@@ -277,9 +273,8 @@ function setleft(j, _left) {
 	if (j == _left) {
 		return Ti.App.size(1);
 	} else
-		return Ti.App.size(74 * j);
+		return Ti.App.size(74*j);
 }
-
 function createRemove(sv) {
 	sv.removeAllEvent = function() {
 		Ti.API.info('remove event keo wd realtime');

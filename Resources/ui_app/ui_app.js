@@ -1,3 +1,5 @@
+
+
 module.exports = function() {
 	var sv = {};
 	sv.vari = {};
@@ -15,8 +17,9 @@ function tao_ui(sv) {
 	sv.ui.win_app = Ti.UI.createWindow({
 		backgroundColor : 'transparent',
 		orientationModes : [Ti.UI.PORTRAIT],
-		navBarHidden : true,
-		fullscreen : true,
+		exitOnClose:true
+		// navBarHidden : true,
+		// fullscreen : true,
 		// width:Ti.App.size(720),
 		// height:Ti.App.size(1280)
 	});

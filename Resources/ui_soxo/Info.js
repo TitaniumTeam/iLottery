@@ -102,8 +102,9 @@ function createUI(sv) {
 			fontWeight : 'bold',
 		},
 		top : Ti.App.size(260),
-		bottom : Ti.App.size(210),
-		color : Ti.App.Color.superwhite
+		// bottom : Ti.App.size(210),
+		color : Ti.App.Color.superwhite,
+		top:Ti.App.size(20)
 	});
 
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
@@ -459,7 +460,7 @@ function createUI(sv) {
 	sv.ui.scrollview.add(sv.ui.ViewUngDung);
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.ViewTong.add(sv.ui.viewAvatar);
-	sv.ui.viewAvatar.add(sv.ui.Avatar);
+	// sv.ui.viewAvatar.add(sv.ui.Avatar);
 	sv.ui.viewAvatar.add(sv.ui.LabelName);
 	sv.ui.viewAvatar.add(sv.ui.LabelThongTin);
 	sv.ui.viewAvatar.add(sv.ui.ViewBut);
