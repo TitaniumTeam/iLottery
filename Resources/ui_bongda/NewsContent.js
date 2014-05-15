@@ -105,9 +105,8 @@ function createUI(sv) {
 
 	sv.ui.ViewDocBao = Ti.UI.createScrollView({
 		backgroundColor : Ti.App.Color.magenta,
-		right : Ti.App.size(0),
 		top : Ti.App.size(405),
-		left : 0
+		width : Ti.App.size(720)
 	});
 
 	sv.ui.LabelDocBao = Ti.UI.createLabel({
