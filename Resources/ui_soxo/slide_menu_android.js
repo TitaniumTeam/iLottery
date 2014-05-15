@@ -463,6 +463,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
+		height : Ti.UI.FILL
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView3); {
 		sv.ui.row4 = Ti.UI.createTableViewRow({
