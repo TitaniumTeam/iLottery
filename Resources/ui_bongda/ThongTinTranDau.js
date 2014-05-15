@@ -205,7 +205,7 @@ function tao_ui(sv) {
 		data : sv.arr.rows,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(720),
-		top : 0,
+		top : Ti.App.size(10),
 		separatorColor : 'transparent',
 		backgroundColor : Ti.App.Color.magenta,
 		showVerticalScrollIndicator : true,
