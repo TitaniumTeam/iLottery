@@ -47,30 +47,7 @@ function createUI(sv) {
 		showVerticalScrollIndicator : true
 	});
 
-	//tao view header
-	// sv.ui.ViewHeader = Ti.UI.createView({
-	// backgroundColor : Ti.App.Color.red,
-	// top : Ti.App.size(0),
-	// left : Ti.App.size(0),
-	// right : Ti.App.size(0),
-	// height : Ti.App.size(620),
-	// });
-	//
-	// sv.ui.IconMenu = Ti.UI.createImageView({
-	// backgroundImage : '/assets/images/icon/menu.png',
-	// top : Ti.App.size(40),
-	// left : Ti.App.size(30),
-	// right : Ti.App.size(630),
-	// bottom : Ti.App.size(540),
-	// });
-	//
-	// sv.ui.IconUser = Ti.UI.createImageView({
-	// backgroundImage : '/assets/images/icon/user.png',
-	// top : Ti.App.size(40),
-	// right : Ti.App.size(35),
-	// left : Ti.App.size(635),
-	// bottom : Ti.App.size(530),
-	// });
+	
 	sv.ui.viewAvatar = Titanium.UI.createView({
 		top : 0,
 		left : 0,
@@ -104,7 +81,6 @@ function createUI(sv) {
 		top : Ti.App.size(260),
 		// bottom : Ti.App.size(210),
 		color : Ti.App.Color.superwhite,
-		top : Ti.App.size(20)
 	});
 
 	sv.ui.LabelThongTin = Ti.UI.createLabel({
