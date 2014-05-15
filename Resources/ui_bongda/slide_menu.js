@@ -26,6 +26,7 @@ function tao_bien(sv) {
 	sv.vari.keo_saptoi = require('/ui_bongda/keo_saptoi');
 	sv.vari.ThongTinTD = require('/ui_bongda/ThongTinTranDau');
 	sv.vari.TranNgonAn = require('/ui_bongda/TranNgonAn');
+	sv.vari.Betting = require('/ui_bongda/Betting');
 	//cac mang menu ben phai
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
 	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-napxu.png', '/assets/images/icon/icon-lichsu.png'];
@@ -34,13 +35,13 @@ function tao_bien(sv) {
 	sv.arr.datatbl_right2 = [];
 	sv.arr.datatbl_right3 = [];
 	//cac mang menu ben trai
-	sv.arr.ten = ['KẾT QUẢ TRẬN ĐẤU', 'XEM KÈO', 'CHỨC NĂNG VIP','HOME'];
+	sv.arr.ten = ['KẾT QUẢ TRẬN ĐẤU', 'XEM KÈO', 'CHỨC NĂNG VIP', 'HOME'];
 	sv.arr.icon = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-1.png', '/assets/images/icon/icon-3.png'];
 	sv.arr.ten_menu = ['Bảng xếp hạng', 'Các trận đấu trực tiếp', 'Thông tin bên lề', 'Trận đấu đang diễn ra', 'Trận đấu sắp diễn ra', 'Thông tin trận đấu', 'Cá cược', 'Trận ngon ăn'];
 	sv.arr.datatbl1 = [];
 	sv.arr.datatbl3 = [];
 	sv.arr.datatbl2 = [];
-	sv.arr.datatbl4=[];
+	sv.arr.datatbl4 = [];
 };
 function tao_ui(sv) {
 	sv.ui = {};
@@ -473,7 +474,7 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView3);
-		{
+	{
 		sv.ui.row4 = Ti.UI.createTableViewRow({
 			height : Ti.App.size(95),
 			width : Ti.App.size(480),
@@ -518,7 +519,7 @@ function tao_ui(sv) {
 		scrollable : false,
 	});
 	sv.ui.view_menulist.add(sv.ui.tableView4);
-	
+
 	sv.ui.win_left.add(sv.ui.scrollView);
 
 	/*
@@ -624,7 +625,7 @@ function tao_ui(sv) {
 	sv.ui.tableView2.addEventListener('click', sv.fu.evt_tblview2_click);
 	sv.ui.tableView3.addEventListener('click', sv.fu.evt_tblview3_click);
 	sv.ui.tableView4.addEventListener('click', sv.fu.evt_home);
-	
+
 	sv.ui.tableView_r.addEventListener('click', sv.fu.evt_tblviewright1_click);
 	sv.ui.view_menu_icon.addEventListener('click', sv.fu.eventSlideleft);
 	sv.ui.view_user_icon.addEventListener('click', sv.fu.eventSlideright);
@@ -667,7 +668,7 @@ function removeAllEvent(sv) {
 	}
 
 	if (sv.vari.VTView == 7) {
-
+		sv.vari.viewht.removeAllEvent();
 	}
 
 	if (sv.vari.VTView == 8) {
@@ -848,6 +849,17 @@ function tao_event(sv) {
 				sv.vari.viewht = new sv.vari.ThongTinTD();
 				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
 				sv.vari.VTView = 6;
+				break;
+			case 1:
+				sv.vari.flag_txtfield = false;
+				removeAllEvent(sv);
+				sv.vari.viewht = null;
+				set_label(sv, "CÁ CƯỢC", 40);
+				sv.ui.Viewtong.removeAllChildren();
+				sv.ui.drawer.toggleLeftWindow();
+				sv.vari.viewht = new sv.vari.Betting();
+				sv.ui.Viewtong.add(sv.vari.viewht.ui.ViewTong);
+				sv.vari.VTView = 7;
 				break;
 			case 2:
 				sv.vari.flag_txtfield = false;
