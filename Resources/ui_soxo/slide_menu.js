@@ -18,6 +18,7 @@ function tao_bien(sv) {
 	sv.vari.VTView = 1;
 	///bien view hien tai
 	sv.vari.viewht = null;
+	sv.vari.viewoff=null;
 	/////khoi tao cac file require
 	sv.vari.windowKQSX = require('/ui_soxo/WindowKQSX');
 	sv.vari.windowRealTime = require('/ui_soxo/WindowRealTime');
@@ -26,10 +27,11 @@ function tao_bien(sv) {
 	sv.vari.windowInfoUser = require('/ui_soxo/Info');
 	sv.vari.windowLichsuGD = require('/ui_soxo/LichSuGiaoDich');
 	sv.vari.windowThongtincanhan = require('/ui_soxo/ThongTinCaNhan');
+	sv.vari.wd_offline=require('/ui_app/kq_offline');
 	///cac mang menu ben phai
 	sv.arr.ten_menu_right = ['Thông tin tài khoản', 'Thay đổi mật khẩu', 'Hòm thư', 'Nạp trực tiếp', 'Nạp bằng SMS', 'Bảng quy đổi', 'Lịch sử giao dịch', 'Con số đã chơi'];
 	sv.arr.ten_right = ['THÔNG TIN TÀI KHOẢN', 'NẠP XU', 'LỊCH SỬ'];
-	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-lichsu.png', '/assets/images/icon/icon-napxu.png'];
+	sv.arr.icon_right = ['/assets/images/icon/icon-2.png', '/assets/images/icon/icon-napxu.png', '/assets/images/icon/icon-lichsu.png'];
 	sv.arr.datatbl_right1 = [];
 	sv.arr.datatbl_right2 = [];
 	sv.arr.datatbl_right3 = [];
@@ -361,7 +363,7 @@ function tao_ui(sv) {
 	sv.ui.tableView = Ti.UI.createTableView({
 		data : sv.arr.datatbl,
 		top : Ti.App.size(60),
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		height : Ti.UI.SIZE,
 		left : 0,
@@ -408,7 +410,7 @@ function tao_ui(sv) {
 	sv.ui.tableView2 = Ti.UI.createTableView({
 		data : sv.arr.datatbl1,
 		top : Ti.App.size(505),
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		height : Ti.UI.SIZE,
 		left : 0,
@@ -453,7 +455,7 @@ function tao_ui(sv) {
 	sv.ui.tableView3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl3,
 		top : Ti.App.size(854),
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
 		width : Ti.App.size(500),
@@ -499,7 +501,7 @@ function tao_ui(sv) {
 	sv.ui.tableView4 = Ti.UI.createTableView({
 		data : sv.arr.datatbl4,
 		top : Ti.App.size(1010),
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
 		width : Ti.App.size(500),
@@ -585,10 +587,12 @@ function tao_ui(sv) {
 	sv.ui.View1.add(sv.ui.lbl_Ngay);
 	sv.ui.WindowSoXo.add(sv.ui.View1);
 	sv.vari.viewht = new sv.vari.windowKQSX();
+	sv.vari.viewoff=new sv.vari.wd_offline();
+	sv.vari.viewoff.testNetwork(sv.ui.WindowSoXo);
 	sv.ui.navController = Ti.UI.iOS.createNavigationWindow({
 		window : sv.ui.WindowSoXo,
 		orientationModes : [Ti.UI.PORTRAIT],
-		statusBarStyle : Ti.UI.iPhone.StatusBar.LIGHT_CONTENT
+		fullscreen:true,
 	});
 	////
 	sv.ui.drawer = NappDrawerModule.createDrawer({
