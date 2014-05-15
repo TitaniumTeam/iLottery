@@ -53,7 +53,7 @@ function createUI(sv) {
 			height : sv.vari.HeightView,
 			left : sv.vari.LeftView,
 			right : sv.vari.RightView,
-			top : Ti.App.size(160 + 120 * i + 30 * i), //+ Ti.App.size() +  Ti.App.size(),
+			top : Ti.App.size(40 + (120 * i) + (30 * i)), //+ Ti.App.size() +  Ti.App.size(),
 			borderWidth : 1,
 			borderColor : Ti.App.Color.magenta
 		});
