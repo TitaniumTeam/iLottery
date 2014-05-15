@@ -240,6 +240,160 @@ function createUI(sv) {
 		borderWidth : 1,
 	});
 
+	sv.ui.KeoChauA = Ti.UI.createLabel({
+		text : 'Châu Á',
+		top : Ti.App.size(40),
+		left : Ti.App.size(20),
+		font : {
+			fontSize : Ti.App.size(22)
+		},
+		color : Ti.App.Color.nauden,
+	});
+
+	sv.ui.Label11 = Ti.UI.createLabel({
+		text : '1.5',
+		top : Ti.App.size(15),
+		left : Ti.App.size(205),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.xanhnhat,
+	});
+
+	sv.ui.Label12 = Ti.UI.createLabel({
+		text : '1.09',
+		left : Ti.App.size(205),
+		top : Ti.App.size(60),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.red,
+	});
+
+	sv.ui.Label13 = Ti.UI.createLabel({
+		text : '0.83',
+		top : Ti.App.size(60),
+		left : Ti.App.size(500),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.nauden,
+	});
+
+	sv.ui.Line1 = Ti.UI.createImageView({
+		width : Ti.App.size(630),
+		height : Ti.App.size(1),
+		top : Ti.App.size(99),
+		backgroudnColor : Ti.App.Color.xanhnhat,
+	});
+
+	sv.ui.KeoTaiXiu = Ti.UI.createLabel({
+		text : 'Tài Xỉu',
+		top : Ti.App.size(140),
+		left : Ti.App.size(20),
+		font : {
+			fontSize : Ti.App.size(22)
+		},
+		color : Ti.App.Color.nauden,
+	});
+
+	sv.ui.Label21 = Ti.UI.createLabel({
+		text : '1.5',
+		top : Ti.App.size(115),
+		left : Ti.App.size(205),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.xanhnhat,
+	});
+
+	sv.ui.Label22 = Ti.UI.createLabel({
+		text : '1.00',
+		left : Ti.App.size(205),
+		top : Ti.App.size(160),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.red,
+	});
+
+	sv.ui.Label23 = Ti.UI.createLabel({
+		text : '0.90',
+		top : Ti.App.size(160),
+		left : Ti.App.size(500),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.nauden,
+	});
+
+	sv.ui.Label24 = Ti.UI.createLabel({
+		text : 'u',
+		top : Ti.App.size(115),
+		left : Ti.App.size(500),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.xanhnhat,
+	});
+
+	sv.ui.Line2 = Ti.UI.createImageView({
+		width : Ti.App.size(630),
+		height : Ti.App.size(1),
+		top : Ti.App.size(199),
+		backgroudnColor : Ti.App.Color.xanhnhat,
+	});
+
+	sv.ui.KeoChauAu = Ti.UI.createLabel({
+		text : 'Châu Âu',
+		top : Ti.App.size(240),
+		left : Ti.App.size(20),
+		font : {
+			fontSize : Ti.App.size(22),
+		},
+		color : Ti.App.Color.nauden,
+	});
+
+	sv.ui.Label11 = Ti.UI.createLabel({
+		text : '1.34',
+		top : Ti.App.size(240),
+		left : Ti.App.size(205),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.xanhnhat,
+	});
+
+	sv.ui.Label12 = Ti.UI.createLabel({
+		text : '4.56',
+		left : Ti.App.size(360),
+		top : Ti.App.size(240),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.red,
+	});
+
+	sv.ui.Label13 = Ti.UI.createLabel({
+		text : '8.69',
+		top : Ti.App.size(240),
+		left : Ti.App.size(500),
+		font : {
+			fontSize : Ti.App.size(26),
+			fontWeight : 'bold',
+		},
+		color : Ti.App.Color.nauden,
+	});
+
 	sv.ui.LbThongTinCuoc = Ti.UI.createLabel({
 		text : 'Thông tin cược',
 		top : Ti.App.size(825),
@@ -276,6 +430,15 @@ function createUI(sv) {
 		height : Ti.App.size(95),
 		right : Ti.App.size(40),
 		left : Ti.App.size(40)
+	});
+
+	sv.ui.LbXacNhan = Ti.UI.createLabel({
+		text : 'XÁC NHẬN',
+		font : {
+			fontSize : Ti.App.size(35),
+			fontFamily : 'Aria',
+		},
+		color : Ti.App.Color.white,
 	});
 
 	createUI_Event(sv);
@@ -315,6 +478,8 @@ function createUI(sv) {
 
 	sv.ui.ViewTenDoiChuNha.add(sv.ui.LbTenDoiChuNha);
 	sv.ui.ViewTenDoiKhach.add(sv.ui.LbTenDoiKhach);
+
+	sv.ui.BtXacNhan.add(sv.ui.LbXacNhan);
 }
 
 function createUI_Event(sv) {
