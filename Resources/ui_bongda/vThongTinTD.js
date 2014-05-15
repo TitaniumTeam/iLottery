@@ -51,14 +51,14 @@ module.exports = function(_top, param1) {
 			fontSize : Ti.App.size(30)
 		},
 		color : Ti.App.Color.nauden,
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		width : Ti.App.size(85),
 		textAlign : 'left',
 	});
 
 	var lbl_tendoi1 = Ti.UI.createLabel({
 		width : Ti.App.size(340),
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		left : Ti.App.size(140),
 		text : param1.tendoi1,
 		color : Ti.App.Color.nauden,
@@ -71,7 +71,7 @@ module.exports = function(_top, param1) {
 	var lbl_tyle1 = Ti.UI.createLabel({
 		width : Ti.App.size(40),
 		left : Ti.App.size(480),
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
@@ -114,14 +114,14 @@ module.exports = function(_top, param1) {
 			fontSize : Ti.App.size(30)
 		},
 		color : Ti.App.Color.nauden,
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		width : Ti.App.size(85),
 		textAlign : 'left',
 	});
 
 	var lbl_tendoi2 = Ti.UI.createLabel({
 		width : Ti.App.size(340),
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		left : Ti.App.size(140),
 		text : param1.tendoi2,
 		color : Ti.App.Color.nauden,
@@ -134,7 +134,7 @@ module.exports = function(_top, param1) {
 	var lbl_tyle2 = Ti.UI.createLabel({
 		width : Ti.App.size(40),
 		left : Ti.App.size(480),
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
@@ -147,7 +147,7 @@ module.exports = function(_top, param1) {
 	var lbl_tyle3 = Ti.UI.createLabel({
 		width : Ti.App.size(60),
 		left : Ti.App.size(540),
-		height : Ti.App.size(70),
+		// height : Ti.App.size(70),
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'

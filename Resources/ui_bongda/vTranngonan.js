@@ -37,7 +37,6 @@ module.exports = function(_top, param1) {
 			fontSize : Ti.App.size(30)
 		},
 		color : Ti.App.Color.nauden,
-		height : Ti.App.size(40),
 		width : Ti.App.size(85),
 		textAlign : 'left',
 		top : Ti.App.size(20)
@@ -53,7 +52,6 @@ module.exports = function(_top, param1) {
 
 	var lbl_diadiem = Ti.UI.createLabel({
 		left : Ti.App.size(320),
-		height : Ti.App.size(30),
 		top : Ti.App.size(60),
 		font : {
 			fontSize : Ti.App.size(25)
@@ -82,7 +80,6 @@ module.exports = function(_top, param1) {
 	var lbl_tengiai = Ti.UI.createLabel({
 		top : Ti.App.size(70),
 		width : Ti.App.size(318),
-		height : Ti.App.size(40),
 		left : Ti.App.size(200),
 		text : param1.tengiai,
 		color : Ti.App.Color.nauden,
@@ -100,7 +97,7 @@ module.exports = function(_top, param1) {
 	});
 	var lbl_tendoi1 = Ti.UI.createLabel({
 		width : Ti.App.size(275),
-		height : Ti.App.size(50),
+		// height : Ti.App.size(50),
 		left : 0,
 		text : param1.tendoi1,
 		color : Ti.App.Color.nauden,
@@ -120,7 +117,7 @@ module.exports = function(_top, param1) {
 	});
 	var ten_doi2 = Ti.UI.createLabel({
 		width : Ti.App.size(275),
-		height : Ti.App.size(50),
+		// height : Ti.App.size(50),
 		text : param1.tendoi2,
 		color : Ti.App.Color.nauden,
 		textAlign : 'center',

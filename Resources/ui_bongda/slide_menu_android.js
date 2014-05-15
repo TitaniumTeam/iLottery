@@ -261,7 +261,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
