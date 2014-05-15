@@ -45,7 +45,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < 10; i++) {
-		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i));
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400*i));
 		sv.ui.vTong.setParam(sv.arr.param1[0]);
 		sv.ui.vChua.add(sv.ui.vTong);
 	};

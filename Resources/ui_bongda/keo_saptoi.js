@@ -137,7 +137,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.scrollview.add(sv.ui.vChua);
 	for (var i = 0; i < 10; i++) {
-		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400) * (i));
+		sv.ui.vTong = new sv.vari.view_keo(Ti.App.size(400*i));
 		sv.ui.vChua.add(sv.ui.vTong);
 		sv.arr.dataVTong.push(sv.ui.vTong);
 		sv.arr.dataVTong[i].setParam(sv.arr.param2[0]);

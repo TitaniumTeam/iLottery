@@ -574,8 +574,9 @@ function tao_ui(sv) {
 	sv.ui.Viewtong = Titanium.UI.createView({
 		top : Ti.App.size(120),
 		left : 0,
-		width : Ti.App.size(720),
-		// height : Ti.UI.FILL,
+		width:Ti.UI.FILL,
+		// width : Ti.App.size(720),
+		height : Ti.UI.FILL,
 		// height : Ti.UI.SIZE,
 		backgroundColor : 'transparent'
 	});
