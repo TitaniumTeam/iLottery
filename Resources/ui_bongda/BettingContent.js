@@ -361,7 +361,7 @@ function createUI(sv) {
 		color : Ti.App.Color.nauden,
 	});
 
-	sv.ui.Label11 = Ti.UI.createLabel({
+	sv.ui.Label31 = Ti.UI.createLabel({
 		text : '1.34',
 		top : Ti.App.size(240),
 		left : Ti.App.size(205),
@@ -372,7 +372,7 @@ function createUI(sv) {
 		color : Ti.App.Color.xanhnhat,
 	});
 
-	sv.ui.Label12 = Ti.UI.createLabel({
+	sv.ui.Label32 = Ti.UI.createLabel({
 		text : '4.56',
 		left : Ti.App.size(360),
 		top : Ti.App.size(240),
@@ -383,7 +383,7 @@ function createUI(sv) {
 		color : Ti.App.Color.red,
 	});
 
-	sv.ui.Label13 = Ti.UI.createLabel({
+	sv.ui.Label33 = Ti.UI.createLabel({
 		text : '8.69',
 		top : Ti.App.size(240),
 		left : Ti.App.size(500),
@@ -478,6 +478,22 @@ function createUI(sv) {
 
 	sv.ui.ViewTenDoiChuNha.add(sv.ui.LbTenDoiChuNha);
 	sv.ui.ViewTenDoiKhach.add(sv.ui.LbTenDoiKhach);
+
+	sv.ui.ViewKeo.add(sv.ui.KeoChauA);
+	sv.ui.ViewKeo.add(sv.ui.Label11);
+	sv.ui.ViewKeo.add(sv.ui.Label12);
+	sv.ui.ViewKeo.add(sv.ui.Label13);
+	sv.ui.ViewKeo.add(sv.ui.Line1);
+	sv.ui.ViewKeo.add(sv.ui.KeoTaiXiu);
+	sv.ui.ViewKeo.add(sv.ui.Label21);
+	sv.ui.ViewKeo.add(sv.ui.Label22);
+	sv.ui.ViewKeo.add(sv.ui.Label23);
+	sv.ui.ViewKeo.add(sv.ui.Label24);
+	sv.ui.ViewKeo.add(sv.ui.Line2);
+	sv.ui.ViewKeo.add(sv.ui.KeoChauAu);
+	sv.ui.ViewKeo.add(sv.ui.Label31);
+	sv.ui.ViewKeo.add(sv.ui.Label32);
+	sv.ui.ViewKeo.add(sv.ui.Label33);
 
 	sv.ui.BtXacNhan.add(sv.ui.LbXacNhan);
 }
