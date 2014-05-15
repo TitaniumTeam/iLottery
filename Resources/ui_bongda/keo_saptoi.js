@@ -122,8 +122,9 @@ function tao_ui(sv) {
 		top : Ti.App.size(118),
 		left : 0,
 		showVerticalScrollIndicator : true,
+		layout : 'vertical',
 		height : Ti.UI.FILL,
-		layout:'vertical'
+		width : Ti.UI.FILL
 	});
 	sv.ui.ViewTong.add(sv.ui.scrollview);
 	sv.ui.vChua = Ti.UI.createView({
@@ -131,7 +132,8 @@ function tao_ui(sv) {
 		left : 0,
 		right : 0,
 		backgroundColor : 'transparent',
-		height : Ti.UI.FILL
+		height : Ti.UI.FILL,
+		width : Ti.UI.FILL
 	});
 	sv.ui.scrollview.add(sv.ui.vChua);
 	for (var i = 0; i < 10; i++) {

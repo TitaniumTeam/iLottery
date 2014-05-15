@@ -31,14 +31,17 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
 		left : 0,
-		showVerticalScrollIndicator:'true'
+		showVerticalScrollIndicator : 'true',
+		height : Ti.UI.FILL,
+		width : Ti.UI.FILL
 	});
 	sv.ui.vChua = Ti.UI.createView({
 		top : Ti.App.size(20),
 		left : 0,
 		right : 0,
 		backgroundColor : 'transparent',
-		height : Ti.UI.FILL
+		height : Ti.UI.FILL,
+		width : Ti.UI.FILL
 	});
 	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < 10; i++) {

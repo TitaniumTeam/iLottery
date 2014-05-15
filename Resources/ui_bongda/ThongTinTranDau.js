@@ -66,7 +66,7 @@ function tao_ui(sv) {
 		layout : 'vertical',
 		scrollType : 'vertical',
 		height:Ti.UI.FILL,
-		width:Ti.App.size(720)
+		width:Ti.UI.FILL
 	});
 	// sv.ui.vChua = Ti.UI.createView({
 		// top : 0,
@@ -80,7 +80,7 @@ function tao_ui(sv) {
 		sv.ui.row = Ti.UI.createTableViewRow({
 			expanded : false,
 			height : sv.vari.row_height,
-			// width : Ti.App.size(720),
+			width : Ti.App.size(720),
 			backgroundColor : Ti.App.Color.magenta,
 			id : i,
 			backgroundSelectedColor : 'transparent',
