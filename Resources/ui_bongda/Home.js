@@ -43,7 +43,8 @@ function createUI(sv) {
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
 		left : 0,
-		showVerticalScrollIndicator:'true'
+		showVerticalScrollIndicator : 'true',
+		height : Ti.UI.FILL
 	});
 
 	for (var i = 0; i < sv.vari.SoGiai; i++) {
@@ -52,13 +53,13 @@ function createUI(sv) {
 			height : sv.vari.HeightView,
 			left : sv.vari.LeftView,
 			right : sv.vari.RightView,
-			top : sv.vari.TopView + i * sv.vari.HeightView + i * Ti.App.size(30) - Ti.App.size(120),
-			borderWidth : Ti.App.size(1),
+			top : Ti.App.size(160 + 120 * i + 30 * i), //+ Ti.App.size() +  Ti.App.size(),
+			borderWidth : 1,
 			borderColor : Ti.App.Color.magenta
 		});
 
 		sv.arr.LogoDoi[i] = Ti.UI.createImageView({
-			borderWidth : Ti.App.size(1),
+			borderWidth : 1,
 			borderColor : Ti.App.Color.magenta,
 			image : '/assets/images/icon/0' + (i + 1) + '.png',
 			//backgroundImage : '/assets/images/icon/0' + i + 1 + '.png',
@@ -72,7 +73,7 @@ function createUI(sv) {
 			top : Ti.App.size(0),
 			right : Ti.App.size(0),
 			left : sv.vari.HeightView,
-			height : sv.vari.HeightView / 2
+			height : Ti.App.size(120 / 2)
 		});
 
 		sv.arr.LbTenNuoc[i] = Ti.UI.createLabel({
@@ -90,7 +91,7 @@ function createUI(sv) {
 			bottom : Ti.App.size(0),
 			right : Ti.App.size(0),
 			left : sv.vari.HeightView,
-			height : sv.vari.HeightView / 2
+			height : Ti.App.size(120 / 2)
 		});
 
 		sv.arr.LbTenGiai[i] = Ti.UI.createLabel({
@@ -130,27 +131,27 @@ function createUI(sv) {
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 		if (i == 1) {
-			sv.arr.LbTenNuoc[i].text = 'Anh';
+			sv.arr.LbTenNuoc[i].text = 'Anh1';
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 		if (i == 2) {
-			sv.arr.LbTenNuoc[i].text = 'Anh';
+			sv.arr.LbTenNuoc[i].text = 'Anh2';
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 		if (i == 3) {
-			sv.arr.LbTenNuoc[i].text = 'Anh';
+			sv.arr.LbTenNuoc[i].text = 'Anh3';
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 		if (i == 4) {
-			sv.arr.LbTenNuoc[i].text = 'Anh';
+			sv.arr.LbTenNuoc[i].text = 'Anh4';
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 		if (i == 5) {
-			sv.arr.LbTenNuoc[i].text = 'Anh';
+			sv.arr.LbTenNuoc[i].text = 'Anh5';
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 		if (i == 6) {
-			sv.arr.LbTenNuoc[i].text = 'Anh';
+			sv.arr.LbTenNuoc[i].text = 'Anh6';
 			sv.arr.LbTenGiai[i].text = 'Premier League';
 		}
 	}

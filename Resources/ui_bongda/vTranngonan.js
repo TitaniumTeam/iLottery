@@ -70,7 +70,7 @@ module.exports = function(_top, param1) {
 	var lbl_vs = Ti.UI.createLabel({
 		top : Ti.App.size(30),
 		width : Ti.App.size(318),
-		height : Ti.App.size(40),
+		// height : Ti.App.size(40),
 		left : Ti.App.size(200),
 		text : 'VS',
 		color : Ti.App.Color.nauden,

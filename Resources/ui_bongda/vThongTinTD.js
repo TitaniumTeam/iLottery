@@ -26,7 +26,7 @@ module.exports = function(_top, param1) {
 	});
 	var hang2 = Ti.UI.createLabel({
 		width : Ti.App.size(340),
-		height : Ti.App.size(50),
+		// height : Ti.App.size(50),
 		left : Ti.App.size(140),
 		text : 'VS',
 		font : {

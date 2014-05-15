@@ -61,7 +61,7 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.magenta,
 		top : 0,
 		left : 0,
-		showVerticalScrollIndicator:'true'
+		showVerticalScrollIndicator : 'true'
 	});
 	for (var i = 0; i < sv.arr.data.length; i++) {
 		sv.ui.row = Ti.UI.createTableViewRow({
@@ -84,7 +84,7 @@ function tao_ui(sv) {
 		});
 
 		sv.ui.viewRow = Ti.UI.createView({
-			height : sv.vari.row_height - 2,
+			height : sv.vari.row_height,
 			top : 0,
 			width : Ti.App.size(720),
 			borderColor : Ti.App.Color.xanhnhat,
@@ -102,7 +102,8 @@ function tao_ui(sv) {
 			width : Ti.App.size(720),
 			font : {
 				fontSize : Ti.App.size(30)
-			}
+			},
+			color : 'black'
 		});
 
 		sv.ui.lbl_co = Titanium.UI.createImageView({
@@ -119,7 +120,8 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(25)
 			},
-			left : Ti.App.size(475)
+			left : Ti.App.size(475),
+			color : 'black'
 		});
 
 		sv.ui.lbl_ck = Titanium.UI.createLabel({
@@ -130,6 +132,7 @@ function tao_ui(sv) {
 			font : {
 				fontSize : Ti.App.size(25)
 			},
+			color : 'black'
 		});
 
 		sv.ui.arrow = Titanium.UI.createImageView({
@@ -168,18 +171,22 @@ function tao_ui(sv) {
 		sv.ui.ViewChua.add(sv.ui.viewRow);
 		sv.ui.ViewChua.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
-			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290*j), sv.arr.param1[j]);
+			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290 * j), sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);
 		};
 		sv.arr.rows.push(sv.ui.row);
 		sv.arr.arrow.push(sv.ui.arrow);
-		tao_event(sv);
-		sv.arr.rows[i].addEventListener('click', sv.arr.event_clickrow[i]);
+		// tao_event(sv);
+		// sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 
+	}
+		tao_event(sv);
+	for (var i = 0; i < sv.arr.data.length; i++) {
+		sv.arr.rows[i].addEventListener('click', sv.fu.event_clickrow[i]);
 	}
 	sv.ui.tbl = Ti.UI.createTableView({
 		data : sv.arr.rows,
-		height : Ti.UI.FILL,
+		// height : Ti.UI.FILL,
 		width : Ti.App.size(720),
 		top : 0,
 		separatorColor : 'transparent',
@@ -196,8 +203,9 @@ function tao_ui(sv) {
 };
 function tao_event(sv) {
 	sv.fu = {};
+	sv.fu.event_clickrow = [];
 	for (var i = 0; i < sv.arr.data.length; i++) {
-		sv.arr.event_clickrow[i] = function(e) {
+		sv.fu.event_clickrow[i] = function(e) {
 			if (e.row.expanded) {
 				e.row.setHeight(Ti.App.size(100));
 				e.row.expanded = false;
@@ -228,7 +236,7 @@ function createRemove(sv) {
 			sv.arr.arrow[i].transform = sv.vari.trans2;
 			sv.arr.arrow[i].top = Ti.App.size(25);
 			sv.arr.rows[i].setHeight(Ti.App.size(100));
-			sv.arr.rows[i].removeEventListener('click', sv.arr.event_clickrow[i]);
+			sv.arr.rows[i].removeEventListener('click', sv.fu.event_clickrow[i]);
 		}
 		Ti.API.info('remove event tran ngon an');
 		sv.vari = null;
