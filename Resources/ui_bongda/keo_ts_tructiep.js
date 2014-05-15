@@ -38,7 +38,7 @@ function tao_ui(sv) {
 		left : 0,
 		right : 0,
 		backgroundColor : 'transparent',
-		height : Ti.UI.SIZE
+		height : Ti.UI.FILL
 	});
 	sv.ui.ViewTong.add(sv.ui.vChua);
 	for (var i = 0; i < 10; i++) {
