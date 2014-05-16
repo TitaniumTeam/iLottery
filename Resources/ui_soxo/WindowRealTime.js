@@ -18,10 +18,8 @@ function taobien(sv) {
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.dayso1 = ['12', '12', '12', '12', '12', '12', '12', '12', '12'];
-	sv.vari.currTime = new Date();
-	sv.vari.ngay = sv.vari.currTime.getDate();
-	sv.vari.thang = sv.vari.currTime.getMonth() + 1;
-	sv.vari.nam = sv.vari.currTime.getFullYear();
+	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435'
+	, '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
 }
 
 /*
@@ -102,7 +100,7 @@ function tao_ui(sv) {
 		// height : Ti.App.size(40),
 		top : Ti.App.size(10),
 		textAlign : 'center',
-		text : 'Xổ số Miền Bắc ngày ' + sv.vari.ngay + '/' + sv.vari.thang + '/' + sv.vari.nam + ' (Hà Nội)',
+		text : 'Xổ số Miền Bắc ngày ' + currDate() + ' (Hà Nội)',
 		color : Ti.App.Color.red,
 		font : {
 			fontSize : Ti.App.size(30)
@@ -610,3 +608,11 @@ function lblketqua(_left, _top) {
 	lbl.top = _top;
 	return lbl;
 };
+function currDate(){
+	var currTime = new Date();
+	var ngay = sv.vari.currTime.getDate();
+	var thang = sv.vari.currTime.getMonth() + 1;
+	var nam = sv.vari.currTime.getFullYear();
+	var currdate=ngay+'/'+thang+'/'+nam;
+	return currdate;
+}

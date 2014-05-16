@@ -259,7 +259,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(500),
 		scrollable : false,
-		height : Ti.UI.SIZE,
+		// height : Ti.App.size(95*2),
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
@@ -564,7 +564,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.lbl_Ngay = Ti.UI.createLabel({
 		width : Ti.App.size(220),
-		text : '(12/4/2014)',
+		text : currDate(),
 		color : Ti.App.Color.white,
 		top : Ti.App.size(60),
 		font : {
@@ -911,4 +911,12 @@ function set_label(sv, _ten, _false) {
 		sv.ui.lbl_Ngay.left = Ti.App.size(260);
 	}
 
+}
+function currDate(){
+	var currTime = new Date();
+	var ngay = sv.vari.currTime.getDate();
+	var thang = sv.vari.currTime.getMonth() + 1;
+	var nam = sv.vari.currTime.getFullYear();
+	var currdate=ngay+'/'+thang+'/'+nam;
+	return currdate;
 }

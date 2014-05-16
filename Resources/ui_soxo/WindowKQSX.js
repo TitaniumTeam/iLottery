@@ -11,12 +11,12 @@ module.exports = function() {
 	})();
 	return sv;
 };
+
 function tao_bien(sv) {
 	sv.arr.datarow = [];
 	sv.arr.height = [Ti.App.size(120), Ti.App.size(200)];
 	sv.arr.param = ['09808', '09808', '09808', '09808', '09808', '09990', '09788', '04358', '09899', '09111', '0978', '0435'
 	, '0981', '0911', '0978', '0435', '0981', '0911', '0978', '0435', '091', '091', '097', '04', '09', '01', '09'];
-	sv.arr.datalbl=[];
 };
 /**khoi tao UI
  * */
@@ -395,3 +395,4 @@ function lblketqua(_left, _top) {
 	lbl.top = _top;
 	return lbl;
 };
+
