@@ -519,7 +519,7 @@ function tao_ui(sv) {
 		navBarHidden : true
 	});
 	sv.ui.View1 = Ti.UI.createView({
-		backgroundColor : 'red',
+		backgroundColor : Ti.App.Color.red,
 		width : Ti.App.size(720),
 		height : Ti.App.size(120),
 		top : 0

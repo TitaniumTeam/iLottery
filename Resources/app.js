@@ -6,7 +6,8 @@ if (Ti.version < 1.8) {
 new (require('ui-controller/AllData'));
 var home=new (require('ui_app/ui_app'));
 home.ui.win_app.open();
-
+// var home=new (require('ui_soxo/viewkqsx'));
+// home.open();
 function isiOS4Plus() {
 	if (Titanium.Platform.name == 'iPhone OS') {
 		var version = Titanium.Platform.version.split(".");

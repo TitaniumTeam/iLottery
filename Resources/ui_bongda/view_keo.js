@@ -19,12 +19,6 @@ module.exports = function(_top) {
 		});
 		view_keo.add(line);
 	}
-	// var hang1 = Ti.UI.createView({
-	// top : 0,
-	// width : Ti.App.size(640),
-	// height : Ti.App.size(75),
-	// backgroundColor : 'transparent'
-	// });
 
 	var lbldongho = Ti.UI.createImageView({
 		image : '/assets/images/icon/icon-time.png',
@@ -60,16 +54,9 @@ module.exports = function(_top) {
 		left : Ti.App.size(80),
 		textAlign : 'center',
 		width : Ti.App.size(560),
-		top : Ti.App.size(25)
+		top : Ti.App.size(25),color : Ti.App.Color.nauden
 	});
 	view_keo.add(lbl_tendoi);
-	// view_keo.add(hang1);
-	//
-	// var hang2 = Ti.UI.createView({
-	// width : Ti.App.size(640),
-	// height : Ti.App.size(100),
-	// top : Ti.App.size(75)
-	// });
 	var lbl_nc1 = Ti.UI.createLabel({
 		text : 'Châu Á',
 		left : Ti.App.size(20),
@@ -110,13 +97,6 @@ module.exports = function(_top) {
 		top : Ti.App.size(135),
 	});
 	view_keo.add(tyle13);
-	// view_keo.add(hang2);
-	//
-	// var hang3 = Ti.UI.createView({
-	// width : Ti.App.size(640),
-	// height : Ti.App.size(100),
-	// top : Ti.App.size(175)
-	// });
 	var lbl_nc2 = Ti.UI.createLabel({
 		text : "Tài Xỉu",
 		left : Ti.App.size(20),
@@ -167,13 +147,6 @@ module.exports = function(_top) {
 		top : Ti.App.size(185)
 	});
 	view_keo.add(tyle24);
-	// view_keo.add(hang3);
-	//
-	// var hang4 = Ti.UI.createView({
-	// width : Ti.App.size(640),
-	// height : Ti.App.size(100),
-	// top : Ti.App.size(275)
-	// });
 	var lbl_nc3 = Ti.UI.createLabel({
 		text : "Châu Âu",
 		left : Ti.App.size(20),
