@@ -283,7 +283,7 @@ function bangketqua() {
 	var viewchua = Ti.UI.createScrollView({
 		width : Ti.App.size(720),
 		height : Ti.UI.FILL,
-		top : 0,
+		// top : 0,
 		backgroundColor : Ti.App.Color.superwhite,
 		left : 0
 	});
