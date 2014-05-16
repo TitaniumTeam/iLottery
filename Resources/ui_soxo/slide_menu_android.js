@@ -133,7 +133,7 @@ function tao_ui(sv) {
 	});
 	sv.ui.view_menulist_right = Titanium.UI.createView({
 		width : Ti.App.size(480),
-		height : Ti.UI.FILL,
+		height : Ti.UI.SIZE,
 		left : 0,
 		top : 0,
 		right : 0,
@@ -253,7 +253,7 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right3,
-		top : Ti.App.size(760),
+		top : Ti.App.size(750),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
@@ -318,7 +318,6 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.view_menulist);
 	sv.ui.matrix = Titanium.UI.create2DMatrix();
 	sv.ui.matrix = sv.ui.matrix.rotate(180);
-	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1 = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten[0], sv.arr.icon[0]);
 	sv.ui.view_menulist.add(sv.ui.row_header1);
 	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(445), sv.arr.ten[1], sv.arr.icon[1]);

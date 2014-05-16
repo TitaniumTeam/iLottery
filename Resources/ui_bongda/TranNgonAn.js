@@ -163,14 +163,13 @@ function tao_ui(sv) {
 			},
 			bottom : 1
 		});
+		sv.ui.row.add(sv.ui.viewRow);
 		sv.ui.viewRow.add(sv.ui.lbl_tennc);
 		sv.ui.viewRow.add(sv.ui.lbl_co);
 		sv.ui.viewRow.add(sv.ui.lbl_tyle);
 		sv.ui.viewRow.add(sv.ui.lbl_ck);
 		sv.ui.viewRow.add(sv.ui.arrow);
-		sv.ui.row.add(sv.ui.ViewChua);
-		sv.ui.ViewChua.add(sv.ui.viewRow);
-		sv.ui.ViewChua.add(sv.ui.viewBack);
+		sv.ui.row.add(sv.ui.viewBack);
 		for ( j = 0; j < 3; j++) {
 			sv.ui.vThongtin = new sv.ui.vThongtinTD(Ti.App.size(290 * j), sv.arr.param1[j]);
 			sv.ui.viewBack.add(sv.ui.vThongtin);

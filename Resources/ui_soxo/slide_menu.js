@@ -315,7 +315,6 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.view_menulist);
 	sv.ui.matrix = Titanium.UI.create2DMatrix();
 	sv.ui.matrix = sv.ui.matrix.rotate(180);
-	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1 = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten[0], sv.arr.icon[0]);
 	sv.ui.view_menulist.add(sv.ui.row_header1);
 	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(445), sv.arr.ten[1], sv.arr.icon[1]);

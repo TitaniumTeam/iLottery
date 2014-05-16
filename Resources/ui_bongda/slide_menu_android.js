@@ -116,29 +116,23 @@ function tao_ui(sv) {
 	////////////////
 	sv.ui.scrollView_right = Ti.UI.createScrollView({
 		top : Ti.App.size(200),
-		width : Ti.App.size(720),
+		width : Ti.App.size(480),
 		left : 0,
-		right : 0,
-		bottom : 0,
 		layout : 'vertical',
-		horizontalWrap : false,
 		scrollType : 'vertical',
 		backgroundColor : 'transparent',
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
-		disableBounce : true,
-		scrollsToTop : true,
-		horizontalBounce : true,
+		contentHeight:Ti.UI.SIZE,
+		height:Ti.UI.FILL,
+		// top:0
 	});
 	sv.ui.view_menulist_right = Titanium.UI.createView({
-		width : Ti.App.size(500),
-		height : Ti.UI.FILL,
-		left : 0,
+		width : Ti.App.size(480),
+		height : Ti.UI.SIZE,
 		top : 0,
-		right : 0,
 		backgroundColor : 'transparent'
 	});
-	sv.ui.scrollView_right.add(sv.ui.view_menulist_right);
 	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1r = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten_right[0], sv.arr.icon_right[0]);
 	sv.ui.view_menulist_right.add(sv.ui.row_header1r);
@@ -255,15 +249,16 @@ function tao_ui(sv) {
 	}
 	sv.ui.tableView_r3 = Ti.UI.createTableView({
 		data : sv.arr.datatbl_right3,
-		top : Ti.App.size(760),
+		top : Ti.App.size(750),
 		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
 		width : Ti.App.size(480),
 		scrollable : false,
-		height : Ti.UI.SIZE
+		height : Ti.App.size(95*2),
 	});
 	sv.ui.view_menulist_right.add(sv.ui.tableView_r3);
+	sv.ui.scrollView_right.add(sv.ui.view_menulist_right);
 	sv.ui.win_right.add(sv.ui.scrollView_right);
 	/*win left
 	 */
@@ -321,7 +316,6 @@ function tao_ui(sv) {
 	sv.ui.scrollView.add(sv.ui.view_menulist);
 	sv.ui.matrix = Titanium.UI.create2DMatrix();
 	sv.ui.matrix = sv.ui.matrix.rotate(180);
-	sv.ui.row_slide = require('/ui_soxo/rowheader');
 	sv.ui.row_header1 = new sv.ui.row_slide(Ti.App.size(0), sv.arr.ten[0], sv.arr.icon[0]);
 	sv.ui.view_menulist.add(sv.ui.row_header1);
 	sv.ui.row_header2 = new sv.ui.row_slide(Ti.App.size(340), sv.arr.ten[1], sv.arr.icon[1]);
@@ -511,7 +505,7 @@ function tao_ui(sv) {
 	sv.ui.tableView4 = Ti.UI.createTableView({
 		data : sv.arr.datatbl4,
 		top : Ti.App.size(990),
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.xanhnhat,
 		backgroundColor : 'transparent',
 		left : 0,
 		width : Ti.App.size(500),
