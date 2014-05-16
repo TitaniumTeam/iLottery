@@ -610,9 +610,9 @@ function lblketqua(_left, _top) {
 };
 function currDate(){
 	var currTime = new Date();
-	var ngay = sv.vari.currTime.getDate();
-	var thang = sv.vari.currTime.getMonth() + 1;
-	var nam = sv.vari.currTime.getFullYear();
+	var ngay =currTime.getDate();
+	var thang = currTime.getMonth() + 1;
+	var nam = currTime.getFullYear();
 	var currdate=ngay+'/'+thang+'/'+nam;
 	return currdate;
 }
