@@ -1,105 +1,96 @@
-var vIndicatorWindow = function(text) {
-	var SizeMultiScreen = new (require('ui-controller/SizeMultiScreen'))(2);
-	Ti.App.widthScreen = SizeMultiScreen.widthApp;
-	Ti.App.heightScreen = SizeMultiScreen.heightApp;
-	Ti.App.size = SizeMultiScreen.size;
-	var message = text || 'Loading...';
+/**
+ * Indicator window with a spinner and a label
+ *
+ * @param {Object} args
+ */
+function createIndicatorWindow(args) {
+	var width = 180, height = 50;
 
-	var _isAndroid = (Ti.Platform.osname === 'android' );
-	var _padding = '25dp';
-	var _style;
+	var args = args || {};
+	var top = args.top || 140;
+	var text = args.text || 'Đang tải ...';
 
-	var bgWidth = '320dp';
-	var bgHeight = (_isAndroid ) ? '200dp' : '120dp';
-
-	var textWidth = (message.length > 13 ) ? '260dp' : Ti.UI.SIZE;
-
-	var height = Ti.App.size(1280);
-	var width = Ti.App.size(720);
-	this.background1 = Ti.UI.createView({
+	var win = Titanium.UI.createWindow({
 		height : height,
 		width : width,
-		backgroundColor : '#000',
-		borderRadius : 10,
-		opacity : 0.5,
+		top : top,
+		// borderRadius : 10,
 		touchEnabled : false,
-		layout : 'vertical'
+		backgroundColor : 'transparent',
+		navBarHidden:true,
+		tabBarHidden:true,
 	});
-	this.background = Ti.UI.createView({
-		height : Ti.UI.SIZE,
-		width : Ti.UI.SIZE,
-		backgroundColor : '#000',
-		borderRadius : 10,
-		opacity : 0.8,
-		touchEnabled : false,
-		layout : 'vertical'
+	win.add(Ti.UI.createView({
+		backgroundColor:'black',
+		opacity:0.5,
+		width:"100%",
+		height:"100%"
+	}));
+	var view = Ti.UI.createView({
+		height : height,
+		width : width,
+		center : {
+			x : (width / 2),
+			y : (height / 2)
+		},
+		layout : 'horizontal',
+		zIndex:2
 	});
 
-	if (_isAndroid || Ti.Platform.osname === 'mobileweb') {
-		_style = Ti.UI.ActivityIndicatorStyle.BIG;
-	} else {
-		_style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
+	function osIndicatorStyle() {
+		style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
+
+		if ('iPhone OS' !== Ti.Platform.name) {
+			style = Ti.UI.ActivityIndicatorStyle.BIG;
+		}
+
+		return style;
 	}
 
-	this.activityIndicator = Ti.UI.createActivityIndicator({
-		style : _style,
-		top : '15dp',
-		height : Ti.UI.SIZE,
-		width : Ti.UI.SIZE,
-		zIndex : 10000
+	var activityIndicator = Ti.UI.createActivityIndicator({
+		style : osIndicatorStyle(),
+		left : 20,
+		height : Ti.UI.FILL,
+		width : 30,
 	});
 
-	this.background.add(this.activityIndicator);
-
-	this.message = Ti.UI.createLabel({
-		text : message,
-		top : '10dp',
-		left : _padding,
-		right : _padding,
-		color : '#fff',
-		textAlign : 'center',
+	var label = Titanium.UI.createLabel({
+		left : 10,
+		width : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		text : text,
+		color : 'white',
 		font : {
-			fontFamily : (_isAndroid) ? 'Droid Sans' : 'Helvetica Neue',
-			fontSize : '18dp',
+			fontFamily : 'Helvetica Neue',
+			fontSize : 16,
 			fontWeight : 'bold'
-		},
-		wordwrap : false,
-		height : '44dp',
-		width : textWidth
+		}
 	});
-	this.background.add(this.message);
 
-	// this.infoWindow.add(this.background);
-};
+	view.add(activityIndicator);
+	view.add(label);
+	win.add(view);
 
-vIndicatorWindow.prototype.openIndicator = function(_curWindow) {
-	if (_curWindow == null)
-		return;
-	var curWindow = _curWindow || Ti.UI.currentWindow;
-	this.activityIndicator.show();
-	curWindow.add(this.background1);
-	curWindow.add(this.background);
-	curWindow.touchEnabled = false;
-};
-vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
-	if (_curWindow == null)
-		return;
-	var curWindow = _curWindow || Ti.UI.getCurrentWindow();
-	this.activityIndicator.show();
-	curWindow.add(this.background1);
-	curWindow.add(this.background);
-	curWindow.touchEnabled = false;
-};
+	function openIndicator() {
+		win.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+		activityIndicator.show();
+	}
 
-vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
-	if (_curWindow == null)
-		return;
-	this.activityIndicator.hide();
-	var curWindow = _curWindow || Ti.UI.currentWindow;
-	curWindow.touchEnabled = true;
-	curWindow.remove(this.background1);
-	curWindow.remove(this.background);
 
-};
+	win.openIndicator = openIndicator;
 
-module.exports = vIndicatorWindow;
+	function closeIndicator() {
+		activityIndicator.hide();
+		win.close();
+	}
+
+
+	win.closeIndicator = closeIndicator;
+
+	return win;
+}
+
+// Public interface
+exports.createIndicatorWindow = createIndicatorWindow;

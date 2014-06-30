@@ -13,7 +13,7 @@ module.exports = function(style) {
 	var pData = {};
 
 	// kích cỡ chuẩn theo chuẩn thiết kế
-	var widthRequire = 720, heightRequire = 1280;
+	var widthRequire = 640, heightRequire = 1095;
 
 	// màn hình thiết bị
 	var widthScreen = Ti.Platform.displayCaps.platformWidth, heightScreen = Ti.Platform.displayCaps.platformHeight;
