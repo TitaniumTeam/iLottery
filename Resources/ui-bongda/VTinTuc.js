@@ -114,7 +114,7 @@ function createUI(sv) {
 				left : Ti.App.size(20),
 				top : Ti.App.size(10),
 				height : Ti.UI.SIZE,
-				right:Ti.App.size(10)
+				right : Ti.App.size(10)
 				// width:Ti.App.size(470)
 				// bottom : Ti.App.size(130)
 			});
@@ -129,7 +129,7 @@ function createUI(sv) {
 				color : Ti.App.Color.superwhite,
 				right : 0,
 				top : Ti.App.size(10),
-				width:Ti.App.size(150)
+				width : Ti.App.size(150)
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
@@ -141,10 +141,10 @@ function createUI(sv) {
 				},
 				color : Ti.App.Color.superwhite,
 				left : Ti.App.size(20),
-				width:Ti.UI.SIZE,
-				height:Ti.UI.SIZE,
-				right:Ti.App.size(10),
-				top:Ti.App.size(70)
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE,
+				right : Ti.App.size(10),
+				top : Ti.App.size(70)
 				// bottom:Ti.App.size(10)
 			});
 
@@ -162,7 +162,7 @@ function createUI(sv) {
 			left : 0,
 			right : 0,
 			data : sv.arr.ViewTinTuc,
-			separatorColor :Ti.App.Color.nauden,
+			separatorColor : Ti.App.Color.nauden,
 			width : Ti.App.size(640),
 			showVerticalScrollIndicator : 'true'
 		});
@@ -188,8 +188,9 @@ function createUI_Event(sv) {
 	for (var i = 0; i < sv.arr.linkbai.length; i++) {
 		sv.arr.eventClickViewTinTuc[i] = function(e) {
 			Ti.API.info('link bai:' + sv.arr.linkbai[e.row.id]);
-			sv.vari.wdtintuc = new sv.vari.wdnew(sv.arr.linkbai[e.row.id]);
-			sv.vari.wdtintuc.open();
+			sv.vari.wdtintuc = new sv.vari.wdnew();
+			sv.vari.wdtintuc.setLink(sv.arr.linkbai[e.row.id]);
+			sv.vari.wdtintuc.ui.winBXH.open();
 		};
 	}
 }

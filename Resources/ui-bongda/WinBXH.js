@@ -1,4 +1,4 @@
-module.exports = function(tourid, season) {
+module.exports = function(tourid, season, logo) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(tourid, season) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, tourid, season);
+		createUI(sv, tourid, season, logo);
 	})();
 
 	return sv.ui.winBXH;
@@ -40,16 +40,17 @@ function createVariable(sv) {
 	sv.arr.ViewDiem = [];
 	sv.arr.LabelDiem = [];
 	sv.arr.line_row = [];
+	sv.arr.rows=[];
 	sv.vari.combobox = require('/ui-controller/ComboBox');
 }
 
-function createUI(sv, tourid, season) {
+function createUI(sv, tourid, season, logo) {
 	sv.ui.winBXH = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
-		navBarHidden : true,
-		// exitOnClose : true,
-		orientationModes : [Ti.UI.PORTRAIT],
+		exitOnClose : false,
 		keepScreenOn : true,
+		navBarHidden : true,
+		fullscreen : false,
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(640),
@@ -63,7 +64,7 @@ function createUI(sv, tourid, season) {
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
 		color : Ti.App.Color.superwhite,
-		text : (tourid.toString().split('-'))[0], //+ season,
+		text : "Bảng Xếp Hạng", //+ season,
 		textAlign : 'center',
 		font : {
 			fontSize : Ti.App.size(30),
@@ -121,39 +122,50 @@ function createUI(sv, tourid, season) {
 		top : 0,
 		left : 0
 	});
-	sv.ui.line_season=Titanium.UI.createView({
-		bottom:Ti.App.size(5),
-		height:Ti.App.size(2),
-		width:Ti.App.size(600),
-		backgroundColor:Ti.App.Color.red
+	sv.ui.line_season = Titanium.UI.createView({
+		height : Ti.App.size(2),
+		width : Ti.App.size(640),
+		backgroundColor : Ti.App.Color.red,
+		left : 0,
+		bottom:Ti.App.size(20)
 	});
-	sv.ui.LabelSeason = Ti.UI.createLabel({
+	sv.ui.IconGD = Titanium.UI.createImageView({
+		width : Ti.App.size(50),
+		height : Ti.App.size(33),
 		left : Ti.App.size(20),
-		text : "SEASON:",
+		touchEnabled : false,
+		image : logo,
+		top : Ti.App.size(20)
+	});
+	sv.ui.TenGD = Ti.UI.createLabel({
+		left : Ti.App.size(95),
+		text : (tourid.toString().split('-'))[0],
 		color : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(30)
 		},
-		textAlign : "center"
+		textAlign : "center",
+		touchEnabled : false,
+		top : Ti.App.size(20),
+		height:Ti.UI.SIZE
 	});
-	sv.ui.view_choose = new sv.vari.combobox(0, season, Ti.App.size(400), Ti.App.size(244), Ti.App.size(85));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(-10), season, Ti.App.size(400), Ti.App.size(244), Ti.App.size(85));
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.view_choose.setTable(cacnam());
 	sv.ui.ViewSeason.add(sv.ui.line_season);
 	sv.ui.ViewSeason.add(sv.ui.view_choose);
-	sv.ui.ViewSeason.add(sv.ui.LabelSeason);
+	sv.ui.ViewSeason.add(sv.ui.TenGD);
+	sv.ui.ViewSeason.add(sv.ui.IconGD);
 	sv.ui.ViewTong.add(sv.ui.ViewSeason);
 	sv.ui.ViewTong.add(sv.ui.table_view);
 	////
 	sv.ui.ViewToolBar = Ti.UI.createView({
 		width : Ti.App.WidthScreen,
 		height : Ti.App.size(50),
-		top : Ti.App.size(88),
+		top : Ti.App.size(110),
 		left : Ti.App.size(0),
-		borderWidth : Ti.App.size(1),
-		borderColor : Ti.App.Color.magenta,
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : Ti.App.Color.brown
 	});
 
 	sv.ui.ViewToolBarDiem = Ti.UI.createView({
@@ -272,7 +284,7 @@ function createUI(sv, tourid, season) {
 	/////
 	sv.ui.ViewListTeam = Ti.UI.createTableView({
 		backgroundColor : 'transparent',
-		top : Ti.App.size(160),
+		top : Ti.App.size(180),
 		left : 0,
 		width : Ti.App.size(640),
 		separatorColor : 'transparent',
@@ -350,12 +362,17 @@ function createUI_Event(sv, tourid) {
 }
 
 function set_bg(i) {
-	if (i == 0) {
+	if (i == 0)
 		return Ti.App.Color.red_press;
-	} else {
-		return 'transparent';
+	if (i == 1) {
+		return Ti.App.Color.green;
 	}
 
+	if (i == 2)
+		return Ti.App.Color.brown;
+	else {
+		return "transparent";
+	}
 };
 function BXH(sv, tourid, season) {
 	var xhr = Titanium.Network.createHTTPClient();
@@ -385,7 +402,7 @@ function BXH(sv, tourid, season) {
 
 			sv.vari.STTDoiBong = i % 3;
 
-			var row = Ti.UI.createTableViewRow({
+			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
 				height : Ti.App.size(75),
 				left : 0,
@@ -400,7 +417,7 @@ function BXH(sv, tourid, season) {
 				backgroundColor : Ti.App.Color.red,
 				left : 0
 			});
-			row.add(sv.arr.line_row[i]);
+			sv.arr.rows[i].add(sv.arr.line_row[i]);
 			sv.arr.STT[i] = Ti.UI.createLabel({
 				text : jsonResuilt.ratetable[i].vitri,
 				font : {
@@ -412,7 +429,7 @@ function BXH(sv, tourid, season) {
 				width : Ti.App.size(50),
 			});
 
-			row.add(sv.arr.STT[i]);
+			sv.arr.rows[i].add(sv.arr.STT[i]);
 
 			sv.arr.ViewTenDoi[i] = Ti.UI.createView({
 				left : Ti.App.size(55),
@@ -433,7 +450,7 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewTenDoi[i].add(sv.arr.LabelTenDoi[i]);
-			row.add(sv.arr.ViewTenDoi[i]);
+			sv.arr.rows[i].add(sv.arr.ViewTenDoi[i]);
 
 			sv.arr.ViewST[i] = Ti.UI.createView({
 				right : Ti.App.size(310),
@@ -451,7 +468,7 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewST[i].add(sv.arr.LabelST[i]);
-			row.add(sv.arr.ViewST[i]);
+			sv.arr.rows[i].add(sv.arr.ViewST[i]);
 
 			sv.arr.ViewT[i] = Ti.UI.createView({
 				right : Ti.App.size(260),
@@ -469,7 +486,7 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewT[i].add(sv.arr.LabelT[i]);
-			row.add(sv.arr.ViewT[i]);
+			sv.arr.rows[i].add(sv.arr.ViewT[i]);
 
 			sv.arr.ViewH[i] = Ti.UI.createView({
 				right : Ti.App.size(210),
@@ -487,7 +504,7 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewH[i].add(sv.arr.LabelH[i]);
-			row.add(sv.arr.ViewH[i]);
+			sv.arr.rows[i].add(sv.arr.ViewH[i]);
 
 			sv.arr.ViewB[i] = Ti.UI.createView({
 				right : Ti.App.size(160),
@@ -505,7 +522,7 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewB[i].add(sv.arr.LabelB[i]);
-			row.add(sv.arr.ViewB[i]);
+			sv.arr.rows[i].add(sv.arr.ViewB[i]);
 
 			sv.arr.ViewHS[i] = Ti.UI.createView({
 				right : Ti.App.size(110),
@@ -523,7 +540,7 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewHS[i].add(sv.arr.LabelHS[i]);
-			row.add(sv.arr.ViewHS[i]);
+			sv.arr.rows[i].add(sv.arr.ViewHS[i]);
 
 			sv.arr.ViewDiem[i] = Ti.UI.createView({
 				right : Ti.App.size(20),
@@ -541,11 +558,10 @@ function BXH(sv, tourid, season) {
 			});
 
 			sv.arr.ViewDiem[i].add(sv.arr.LabelDiem[i]);
-			row.add(sv.arr.ViewDiem[i]);
+			sv.arr.rows[i].add(sv.arr.ViewDiem[i]);
 
-			sv.arr.data.push(row);
 		};
-		sv.ui.ViewListTeam.setData(sv.arr.data);
+		sv.ui.ViewListTeam.setData(sv.arr.rows);
 	};
 
 }

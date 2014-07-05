@@ -20,12 +20,12 @@ function createVariable(sv) {
 
 function createUI(sv) {
 
-	sv.ui.winBXH = Titanium.UI.createWindow({
+	sv.ui.winTuVan = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
-		navBarHidden : true,
-		// exitOnClose : true,
-		orientationModes : [Ti.UI.PORTRAIT],
+		exitOnClose : false,
 		keepScreenOn : true,
+		navBarHidden : true,
+		fullscreen : false,
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
@@ -34,7 +34,7 @@ function createUI(sv) {
 		top : 0,
 		left : 0
 	});
-	sv.ui.winBXH.add(sv.ui.ViewHeader);
+	sv.ui.winTuVan.add(sv.ui.ViewHeader);
 	sv.ui.lbl_Header = Titanium.UI.createLabel({
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
@@ -74,15 +74,15 @@ function createUI(sv) {
 		touchEnabled : true,
 		enableZoomControls : false,
 		top : Ti.App.size(100),
-		
 	});
-	sv.ui.winBXH.add(sv.ui.webview);
+
+	sv.ui.winTuVan.add(sv.ui.webview);
 
 	createUI_Event(sv);
 	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
-	sv.ui.winBXH.addEventListener('open', sv.fu.eventOpenWindow);
-	sv.ui.winBXH.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.winBXH.addEventListener('android:back', sv.fu.event_androidback);
+	sv.ui.winTuVan.addEventListener('open', sv.fu.eventOpenWindow);
+	sv.ui.winTuVan.addEventListener('close', sv.fu.eventCloseWindow);
+	sv.ui.winTuVan.addEventListener('android:back', sv.fu.event_androidback);
 	// sv.ui.ViewTong.add(sv.ui.ViewToolBar);
 	// sv.ui.ViewTong.add(sv.ui.ViewListTeam);
 }
@@ -90,10 +90,10 @@ function createUI(sv) {
 function createUI_Event(sv) {
 
 	sv.fu.event_androidback = function(e) {
-		sv.ui.winBXH.close();
+		sv.ui.winTuVan.close();
 	};
 	sv.fu.eventClickIconLeft = function(e) {
-		sv.ui.winBXH.close();
+		sv.ui.winTuVan.close();
 	};
 
 	sv.fu.eventOpenWindow = function() {
@@ -101,10 +101,10 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.winBXH.removeEventListener('open', sv.fu.eventOpenWindow);
-		sv.ui.winBXH.removeEventListener('close', sv.fu.eventCloseWindow);
+		sv.ui.winTuVan.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.winTuVan.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.btn_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
-		sv.ui.winBXH.removeEventListener('android:back', sv.fu.event_androidback);
+		sv.ui.winTuVan.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -118,6 +118,6 @@ function createUI_Event(sv) {
 }
 function setURL(sv){
 	sv.setLink=function(url){
-		sv.ui.webview.setUrl(url);
+		sv.ui.webview.setHtml(url);
 	};
 };

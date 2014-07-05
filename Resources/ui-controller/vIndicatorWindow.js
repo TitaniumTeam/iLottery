@@ -1,96 +1,111 @@
 /**
- * Indicator window with a spinner and a label
- *
- * @param {Object} args
+ * Activity Indicator View - Titanium JS
+ * @author Anthony Njuguna
  */
-function createIndicatorWindow(args) {
-	var width = 180, height = 50;
+/**
+ * Open an Activity view anywhere in the app.
+ * @param {String} text
+ * @param {Object} params
+ */
+var vIndicatorWindow = function(text) {
+	var message = text || 'Loading...';
 
-	var args = args || {};
-	var top = args.top || 140;
-	var text = args.text || 'Đang tải ...';
+	var _isAndroid = (Ti.Platform.osname === 'android' );
+	var _padding = '25dp';
+	//( _isAndroid ) ? 20 : 20;
+	var _style;
 
-	var win = Titanium.UI.createWindow({
-		height : height,
-		width : width,
-		top : top,
-		// borderRadius : 10,
-		touchEnabled : false,
-		backgroundColor : 'transparent',
-		navBarHidden:true,
-		tabBarHidden:true,
+	var bgWidth = '320dp';
+	var bgHeight = (_isAndroid ) ? '200dp' : '120dp';
+	// var infoWindow;
+
+	var textWidth = (message.length > 13 ) ? '260dp' : Ti.UI.SIZE;
+
+	// this.infoWindow = Ti.UI.createWindow({
+		// touchEnabled : true
+	// });
+	this.background1 = Ti.UI.createView({
+		height : "500dp",
+		width : "500dp",
+		//backgroundColor : '#000',
+		//borderRadius : 10,
+		//opacity : 0.8,
+		//touchEnabled : false,
+		///layout : 'vertical'
 	});
-	win.add(Ti.UI.createView({
-		backgroundColor:'black',
-		opacity:0.5,
-		width:"100%",
-		height:"100%"
-	}));
-	var view = Ti.UI.createView({
-		height : height,
-		width : width,
-		center : {
-			x : (width / 2),
-			y : (height / 2)
-		},
-		layout : 'horizontal',
-		zIndex:2
+	this.background = Ti.UI.createView({
+		height : Ti.UI.SIZE,
+		width : Ti.UI.SIZE,
+		backgroundColor : '#000',
+		borderRadius : 10,
+		opacity : 0.8,
+		//touchEnabled : false,
+		layout : 'vertical'
 	});
+	//this.background1.add(this.background);
 
-	function osIndicatorStyle() {
-		style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
-
-		if ('iPhone OS' !== Ti.Platform.name) {
-			style = Ti.UI.ActivityIndicatorStyle.BIG;
-		}
-
-		return style;
+	if (_isAndroid || Ti.Platform.osname === 'mobileweb') {
+		_style = Ti.UI.ActivityIndicatorStyle.BIG;
+	} else {
+		_style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
 	}
 
-	var activityIndicator = Ti.UI.createActivityIndicator({
-		style : osIndicatorStyle(),
-		left : 20,
-		height : Ti.UI.FILL,
-		width : 30,
+	this.activityIndicator = Ti.UI.createActivityIndicator({
+		style : _style,
+		top : '15dp',
+		height : Ti.UI.SIZE,
+		width : Ti.UI.SIZE,
+		zIndex: 10000
 	});
 
-	var label = Titanium.UI.createLabel({
-		left : 10,
-		width : Ti.UI.FILL,
-		height : Ti.UI.FILL,
-		text : text,
-		color : 'white',
+	this.background.add(this.activityIndicator);
+
+	this.message = Ti.UI.createLabel({
+		text : message,
+		top : '10dp',
+		left : _padding,
+		right : _padding,
+		color : '#fff',
+		textAlign : 'center',
 		font : {
-			fontFamily : 'Helvetica Neue',
-			fontSize : 16,
+			fontFamily : (_isAndroid) ? 'Droid Sans' : 'Helvetica Neue',
+			fontSize : '18dp',
 			fontWeight : 'bold'
-		}
+		},
+		wordwrap : false,
+		height : '44dp',
+		width : textWidth
 	});
+	this.background.add(this.message);
 
-	view.add(activityIndicator);
-	view.add(label);
-	win.add(view);
+	// this.infoWindow.add(this.background);
+};
 
-	function openIndicator() {
-		win.open({
-			modal : Ti.Platform.osname == 'android' ? true : false
-		});
-		activityIndicator.show();
-	}
+vIndicatorWindow.prototype.openIndicator = function(_curWindow) {
+	if (_curWindow == null)
+		return;
+	var curWindow = _curWindow || Ti.UI.currentWindow;
+	this.activityIndicator.show();
+	curWindow.add(this.background1);
+	curWindow.add(this.background);
+};
+vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
+	if (_curWindow == null)
+		return;
+	var curWindow = _curWindow || Ti.UI.getCurrentWindow();
+	this.activityIndicator.show();
+	curWindow.add(this.background1);
+	curWindow.add(this.background);
+};
 
+vIndicatorWindow.prototype.closeIndicator = function(_curWindow) {
+	if (_curWindow == null)
+		return;
+	this.activityIndicator.hide();
+	var curWindow = _curWindow || Ti.UI.currentWindow;
+	curWindow.remove(this.background1);
+	curWindow.remove(this.background);
 
-	win.openIndicator = openIndicator;
+};
 
-	function closeIndicator() {
-		activityIndicator.hide();
-		win.close();
-	}
-
-
-	win.closeIndicator = closeIndicator;
-
-	return win;
-}
-
-// Public interface
-exports.createIndicatorWindow = createIndicatorWindow;
+module.exports = vIndicatorWindow;

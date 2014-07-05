@@ -16,8 +16,8 @@ function tao_bien(sv) {
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
-	sv.arr.TenChucNang = ["Lịch TD", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
+	sv.vari.ViewHT;
 }
 
 ////
@@ -50,7 +50,8 @@ function tao_ui(sv) {
 		image : '/assets/images/icon/arrow.png',
 		touchEnabled : false,
 		width : Ti.App.size(22),
-		height : Ti.App.size(42)
+		height : Ti.App.size(42),
+		touchEnabled:false
 	});
 
 	sv.ui.ViewIconUser = Ti.UI.createView({
@@ -107,10 +108,11 @@ function tao_ui(sv) {
 		sv.arr.LabelChucNang[i] = Ti.UI.createLabel({
 			text : sv.arr.TenChucNang[i],
 			font : {
-				fontSize : Ti.App.size(30),
+				fontSize : Ti.App.size(25),
 				fontWeight : 'bold'
 			},
-			color : Ti.App.Color.superwhite,
+			color:set_color(i),
+			// color : Ti.App.Color.superwhite,
 			width : Ti.App.size(160),
 			height : Ti.App.size(72),
 			//touchEnabled : false,
@@ -184,7 +186,11 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].backgroundColor = "transparent";
 					}
 				}
-				Ti.API.info('tu van');
+				sv.vari.ViewHT.removeAllEvent();
+				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+				sv.vari.ViewHT = null;
+				sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 		if (i == 3) {
@@ -207,3 +213,9 @@ function tao_sukien(sv) {
 	};
 };
 
+function set_color(i){
+	if(i==3)
+	return "yellow";
+	else
+	return Ti.App.Color.superwhite;
+};

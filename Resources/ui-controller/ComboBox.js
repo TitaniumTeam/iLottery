@@ -1,4 +1,4 @@
-module.exports = function(_top, _textlbl, _left, _width, _toptbl, check) {
+module.exports = function(_top, _textlbl, _left, _width, _toptbl) {
 	var view_contain = Titanium.UI.createView({
 		top : _top,
 		width : _width,
@@ -17,32 +17,30 @@ module.exports = function(_top, _textlbl, _left, _width, _toptbl, check) {
 		touchEnabled : false
 	});
 	view_contain.add(arrow_right);
-	if (check == true) {
-		var arrow_left = Ti.UI.createImageView({
-			left : Ti.App.size(20),
-			image : '/assets/images/icon/arrow-left.png',
-			width : Ti.App.size(18),
-			height : Ti.App.size(30),
-			touchEnabled : false
-		});
-		view_contain.add(arrow_left);
-		var line_view = Ti.UI.createView({
-			backgroundColor : Ti.App.Color.red,
-			height : Ti.App.size(50),
-			width : Ti.App.size(2),
-			left : Ti.App.size(52),
-			touchEnabled : false
-		});
-		view_contain.add(line_view);
-		var line_view_right = Ti.UI.createView({
-			backgroundColor : Ti.App.Color.red,
-			height : Ti.App.size(50),
-			width : Ti.App.size(2),
-			left : Ti.App.size(190),
-			touchEnabled : false
-		});
-		view_contain.add(line_view_right);
-	}
+	var arrow_left = Ti.UI.createImageView({
+		left : Ti.App.size(20),
+		image : '/assets/images/icon/arrow-left.png',
+		width : Ti.App.size(18),
+		height : Ti.App.size(30),
+		touchEnabled : false
+	});
+	view_contain.add(arrow_left);
+	var line_view = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		height : Ti.App.size(50),
+		width : Ti.App.size(2),
+		left : Ti.App.size(52),
+		touchEnabled : false
+	});
+	view_contain.add(line_view);
+	var line_view_right = Ti.UI.createView({
+		backgroundColor : Ti.App.Color.red,
+		height : Ti.App.size(50),
+		width : Ti.App.size(2),
+		left : Ti.App.size(190),
+		touchEnabled : false
+	});
+	view_contain.add(line_view_right);
 
 	var lblfirst = Titanium.UI.createLabel({
 		color : Ti.App.Color.superwhite,

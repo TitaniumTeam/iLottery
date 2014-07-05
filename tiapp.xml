@@ -14,7 +14,7 @@
     <description>not specified</description>
     <copyright>2014 by thanhhv</copyright>
     <icon>appicon.png</icon>
-    <fullscreen>true</fullscreen>
+    <fullscreen>false</fullscreen>
     <navbar-hidden>true</navbar-hidden>
     <analytics>true</analytics>
     <guid>b5553cbc-0b42-4ac7-9c6d-6fe96150a303</guid>
