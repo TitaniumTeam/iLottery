@@ -3,5 +3,5 @@ if (Ti.version < 1.8) {
 }
 new (require('/ui-controller/AllData'));
 
-var win = new (require('/ui-bongda/WinBongDa'));
-win.open();
+var home=new (require('ui-app/WinHome'))();
+home.open();

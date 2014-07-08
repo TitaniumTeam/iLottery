@@ -16,7 +16,7 @@ function tao_bien(sv) {
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
-	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
+	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
 	sv.vari.ViewHT;
 }
 
@@ -70,13 +70,13 @@ function tao_ui(sv) {
 
 	sv.ui.LabelHeader = Ti.UI.createLabel({
 		width : Ti.App.size(360),
-		text : "BÓNG ĐÁ",
+		text : "SỔ XỐ",
 		font : {
 			fontSize : Ti.App.size(40),
 			fontWeight : 'bold'
 		},
 		textAlign : 'center',
-		height : Ti.App.size(90),
+		height : Ti.App.size(88),
 		backgroundColor : 'transparent',
 		touchEnabled : false,
 		color : Ti.App.Color.superwhite
@@ -106,7 +106,7 @@ function tao_ui(sv) {
 			height : Ti.App.size(75),
 			backgroundSelectedColor : Ti.App.Color.red,
 			backgroundColor : "transparent",
-			top:0
+			top : 0
 		});
 		sv.arr.LabelChucNang[i] = Ti.UI.createLabel({
 			text : sv.arr.TenChucNang[i],
@@ -172,7 +172,7 @@ function tao_sukien(sv) {
 				sv.vari.ViewHT.removeAllEvent();
 				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
 				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
+				sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
 				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
@@ -189,7 +189,7 @@ function tao_sukien(sv) {
 				sv.vari.ViewHT.removeAllEvent();
 				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
 				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VTinTuc'))();
+				sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
 				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
@@ -205,7 +205,7 @@ function tao_sukien(sv) {
 				sv.vari.ViewHT.removeAllEvent();
 				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
 				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+				sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
 				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
@@ -221,14 +221,14 @@ function tao_sukien(sv) {
 				sv.vari.ViewHT.removeAllEvent();
 				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
 				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+				sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
 				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 	}
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
-		sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
+		sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
 		sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 	};
 	sv.fu.evtIconBack = function(e) {
@@ -248,7 +248,7 @@ function tao_sukien(sv) {
 		sv.test = null;
 		sv = null;
 
-		Ti.API.info('Closed window Bong Da, sv=' + sv);
+		Ti.API.info('Closed window So xo, sv=' + sv);
 	};
 };
 

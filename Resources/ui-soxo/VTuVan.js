@@ -88,7 +88,7 @@ function get_menu(sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	data = {
 		"username" : "",
-		type : "1"
+		type : "0"
 	};
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;

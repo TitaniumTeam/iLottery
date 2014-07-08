@@ -40,7 +40,7 @@ function createVariable(sv) {
 	sv.arr.ViewDiem = [];
 	sv.arr.LabelDiem = [];
 	sv.arr.line_row = [];
-	sv.arr.rows=[];
+	sv.arr.rows = [];
 	sv.vari.combobox = require('/ui-controller/ComboBox');
 }
 
@@ -55,7 +55,7 @@ function createUI(sv, tourid, season, logo) {
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.App.size(100),
-		backgroundColor : Ti.App.Color.red,
+		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
 		left : 0
 	});
@@ -64,7 +64,7 @@ function createUI(sv, tourid, season, logo) {
 		width : Ti.UI.SIZE,
 		height : Ti.UI.SIZE,
 		color : Ti.App.Color.superwhite,
-		text : "Bảng Xếp Hạng", //+ season,
+		text : "BẢNG XẾP HẠNG", //+ season,
 		textAlign : 'center',
 		font : {
 			fontSize : Ti.App.size(30),
@@ -84,10 +84,10 @@ function createUI(sv, tourid, season, logo) {
 	});
 
 	sv.ui.btn_Back = Titanium.UI.createImageView({
-		image : "/assets/images/icon/arrow.png",
-		width : Ti.App.size(22),
-		height : Ti.App.size(42),
-		// selectedColor : Ti.App.Color.superwhite,
+		image : '/assets/icon/icon_back.png',
+		touchEnabled : false,
+		width : Ti.App.size(60),
+		height : Ti.App.size(60),
 		touchEnabled : false
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
@@ -110,8 +110,10 @@ function createUI(sv, tourid, season, logo) {
 	///////
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
-		top : Ti.App.size(100),
-		left : 0
+		top : Ti.App.size(90),
+		left : 0,
+		width:Ti.App.size(640),
+		height:Ti.UI.FILL
 	});
 	sv.ui.winBXH.add(sv.ui.ViewTong);
 	/////
@@ -127,7 +129,7 @@ function createUI(sv, tourid, season, logo) {
 		width : Ti.App.size(640),
 		backgroundColor : Ti.App.Color.red,
 		left : 0,
-		bottom:Ti.App.size(20)
+		bottom : Ti.App.size(20)
 	});
 	sv.ui.IconGD = Titanium.UI.createImageView({
 		width : Ti.App.size(50),
@@ -147,7 +149,7 @@ function createUI(sv, tourid, season, logo) {
 		textAlign : "center",
 		touchEnabled : false,
 		top : Ti.App.size(20),
-		height:Ti.UI.SIZE
+		height : Ti.UI.SIZE
 	});
 	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(-10), season, Ti.App.size(400), Ti.App.size(244), Ti.App.size(85));
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
@@ -370,6 +372,8 @@ function set_bg(i) {
 
 	if (i == 2)
 		return Ti.App.Color.brown;
+	if (i == 3)
+		return Ti.App.Color.gray;
 	else {
 		return "transparent";
 	}
@@ -526,7 +530,7 @@ function BXH(sv, tourid, season) {
 
 			sv.arr.ViewHS[i] = Ti.UI.createView({
 				right : Ti.App.size(110),
-				width : Ti.App.size(35),
+				width : Ti.App.size(40),
 				height : Ti.App.size(50),
 			});
 

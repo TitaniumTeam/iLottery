@@ -21,7 +21,7 @@ function tao_bien(sv) {
 	sv.arr.viewRow = [];
 	sv.arr.arrow = [];
 	sv.arr.trandau = [];
-	sv.arr.ViewChua = [];
+	sv.arr.ViewChe = [];
 	sv.arr.viewBack = [];
 	sv.arr.viewGD = [];
 	sv.arr.lbl_tennc = [];
@@ -50,7 +50,7 @@ function tao_bien(sv) {
 };
 function tao_ui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
-		top : Ti.App.size(163),
+		top : Ti.App.size(165),
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
@@ -58,16 +58,22 @@ function tao_ui(sv) {
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		top : 0,
-		backgroundColor : 'transparent',
 		width : Ti.App.size(640),
 		height : Ti.App.size(85),
-
+		backgroundImage : "/assets/icon/bg_tabbar.png"
 	});
-	sv.ui.LabelAll = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.red,
-		width : Ti.App.size(180),
+	sv.ui.ViewSwitch = Titanium.UI.createView({
+		width : Ti.App.size(325),
 		height : Ti.App.size(50),
 		left : Ti.App.size(20),
+		backgroundImage : "/assets/icon/switch_left.png"
+	});
+
+	sv.ui.LabelAll = Ti.UI.createLabel({
+		backgroundColor : "transparent",
+		width : Ti.App.size(162),
+		height : Ti.App.size(50),
+		left : 0,
 		textAlign : 'center',
 		color : Ti.App.Color.superwhite,
 		text : "Lịch",
@@ -80,9 +86,10 @@ function tao_ui(sv) {
 	});
 	sv.ui.LabelLive = Ti.UI.createLabel({
 		backgroundColor : 'transparent',
-		width : Ti.App.size(180),
+		width : Ti.App.size(162),
 		height : Ti.App.size(50),
-		left : Ti.App.size(200),
+		right : 0,
+		// left : Ti.App.size(170),
 		textAlign : 'center',
 		color : Ti.App.Color.superwhite,
 		text : "Đã Đấu",
@@ -97,13 +104,6 @@ function tao_ui(sv) {
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.view_choose.setTable(season());
-	sv.ui.line_tab = Titanium.UI.createView({
-		backgroundColor : Ti.App.Color.red,
-		left : 0,
-		width : Ti.App.size(640),
-		height : Ti.App.size(2),
-		top : sv.vari.row_height
-	});
 
 	sv.ui.ViewChua = Ti.UI.createScrollView({
 		backgroundColor : 'transparent',
@@ -117,20 +117,21 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640),
 		top : 0,
-		separatorColor : Ti.App.Color.red,
+		separatorColor : 'transparent',
 		backgroundColor : 'transparent',
+
 	});
 	GetTour(sv, "gettour", {
 		"season" : "2013-2014"
 	});
 	//////////
+	sv.ui.ViewSwitch.add(sv.ui.LabelAll);
+	sv.ui.ViewSwitch.add(sv.ui.LabelLive);
+	sv.ui.ViewHeader.add(sv.ui.ViewSwitch);
 	sv.ui.ViewHeader.add(sv.ui.view_choose);
-	sv.ui.ViewHeader.add(sv.ui.LabelAll);
-	sv.ui.ViewHeader.add(sv.ui.LabelLive);
 	sv.ui.ViewTong.add(sv.ui.ViewHeader);
 	sv.ui.ViewTong.add(sv.ui.table_view);
 	///
-	sv.ui.ViewTong.add(sv.ui.line_tab);
 	///
 	sv.ui.ViewChua.add(sv.ui.tbl);
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
@@ -181,12 +182,7 @@ function GetTour(sv, _cmd, data) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				height : sv.vari.row_height,
 				width : Ti.App.size(640),
-				backgroundColor : 'transparent',
-			});
-
-			sv.arr.ViewChua[i] = Ti.UI.createView({
-				height : Ti.UI.FILL,
-				width : Ti.App.size(640),
+				backgroundImage : "/assets/icon/bg_tabbar.png"
 			});
 
 			sv.arr.viewRow[i] = Ti.UI.createView({
@@ -240,11 +236,11 @@ function GetTour(sv, _cmd, data) {
 				// transform : sv.vari.trans2
 			});
 
-			sv.arr.arrow[i] = Titanium.UI.createView({
+			sv.arr.arrow[i] = Titanium.UI.createImageView({
 				width : Ti.App.size(20),
-				height : Ti.App.size(14),
+				height : Ti.App.size(20),
 				touchEnabled : false,
-				backgroundImage : '/assets/images/icon/arrow-bottom_white.png'
+				image : '/assets/icon/icon_downarrow.png'
 			});
 			sv.arr.viewBack[i] = Ti.UI.createView({
 				left : 0,
@@ -253,15 +249,33 @@ function GetTour(sv, _cmd, data) {
 				backgroundGradient : {
 					type : 'linear',
 					colors : [{
-						color : Ti.App.Color.brown,
+						color : "#413839",
 						position : 0.5
 					}, {
-						color : Ti.App.Color.brown,
+						color : "#413839",
 						position : 0.5
 					}]
 				},
+				visible : false
 
 			});
+			sv.arr.ViewChe[i] = Ti.UI.createView({
+				left : 0,
+				top : sv.vari.row_height,
+				width : Ti.App.size(640),
+				backgroundGradient : {
+					type : 'linear',
+					colors : [{
+						color : "#413839",
+						position : 0.5
+					}, {
+						color : "#413839",
+						position : 0.5
+					}]
+				},
+				height : Ti.App.size(200)
+			});
+			sv.arr.rows[i].add(sv.arr.ViewChe[i]);
 			sv.arr.rows[i].add(sv.arr.viewBack[i]);
 			sv.arr.rows[i].add(sv.arr.viewRow[i]);
 
@@ -285,7 +299,6 @@ function GetTour(sv, _cmd, data) {
 				sv.ui.tbl.setTouchEnabled(false);
 				Ti.API.info('thu tu ' + e.source.id);
 				// sv.arr.viewBack[e.source.id].visible=false;
-				// Ti.App.g_IndicatorWindow.openIndicator(sv.arr.viewBack[e.source.id]);
 				sv.vari.data1 = {
 					"tourid" : sv.arr.TourId[e.source.id],
 					// "startdate" : "01/06/2014",
@@ -323,54 +336,60 @@ function GetTour(sv, _cmd, data) {
 						}
 					}
 					Ti.API.info('so tran' + sv.vari.sotran.length);
-					sv.arr.viewBack[e.source.id].setHeight(height_viewback(sv.vari.sotran));
-					// sv.vari.timeout = setTimeout(function() {
-						for ( j = 0; j < sv.vari.sotran.length; j++) {
-							// sv.ui.vThongtinTD = new sv.vari.viewTTTD(j);
-							sv.ui.vThongTinTD[j] = thongtin_cuthe(j);
-							sv.ui.vThongTinTD[j].setKQ("live", Ti.App.size(100 * j), sv.vari.sotran[j]);
-							sv.arr.viewBack[e.source.id].add(sv.ui.vThongTinTD[j]);
-						};
-						for (var j = 0; j < (sv.vari.sotran.length); j++) {
-							sv.ui.vThongTinTD[j].addEventListener('click', function(k) {
-								if (sv.arr.MangDL.id[k.source.idKeo]) {
-									Ti.API.info('id tran dau:' + sv.vari.sotran[k.source.idKeo].id);
-									sv.ui.TTTD = new sv.vari.TTTD_cuthe();
-									sv.ui.TTTD.setThongTinTD(sv.vari.sotran[k.source.idKeo], sv.arr.data[e.source.id], sv.arr.logo[e.source.id]);
-									sv.ui.TTTD.ui.winKeo.open();
-								}
+					if (e.source.expanded) {
+						e.source.expanded = false;
+						sv.arr.rows[e.source.id].setHeight(Ti.App.size(88));
+						sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_downarrow.png');
+						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
+							if (j != (e.source.id)) {
+								sv.arr.rows[j].expanded = false;
+								sv.arr.rows[j].setHeight(Ti.App.size(88));
+								sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');
+							}
+						}
+					} else {
+						e.source.expanded = true;
+						sv.arr.rows[e.source.id].setHeight(Ti.App.size((sv.vari.sotran.length) * 100 + 88));
+						sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_uparrow.png');
+						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
+							if (j != (e.source.id)) {
+								sv.arr.rows[j].expanded = false;
+								sv.arr.rows[j].setHeight(Ti.App.size(88));
+								sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');
+							}
+						}
+					}
+					sv.arr.ViewChe[e.source.id].setHeight(height_viewback(sv.vari.sotran));
+					Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id], 0);
+					for ( j = 0; j < sv.vari.sotran.length; j++) {
+						// sv.ui.vThongtinTD = new sv.vari.viewTTTD(j);
+						sv.ui.vThongTinTD[j] = thongtin_cuthe(j);
+						sv.ui.vThongTinTD[j].setKQ("live", Ti.App.size(100 * j), sv.vari.sotran[j]);
+						sv.arr.viewBack[e.source.id].add(sv.ui.vThongTinTD[j]);
+					};
+					sv.vari.timeout = setTimeout(function() {
+						Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
+						sv.arr.viewBack[e.source.id].visible = true;
+						sv.arr.ViewChe[e.source.id].visible = false;
+					}, 1000);
 
-							});
-						}
-						// sv.arr.viewBack[e.source.id].addEventListener('postlayout', function() {
-						// Ti.API.info('load view');
-						// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.viewBack[e.source.id]);
-						// });
-						if (e.source.expanded) {
-							e.source.expanded = false;
-							sv.arr.rows[e.source.id].setHeight(Ti.App.size(88));
-							sv.arr.arrow[e.source.id].setBackgroundImage('/assets/images/icon/arrow-bottom_white.png');
-							for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
-								if (j != (e.source.id)) {
-									sv.arr.rows[j].expanded = false;
-									sv.arr.rows[j].setHeight(Ti.App.size(88));
-									sv.arr.arrow[j].setBackgroundImage('/assets/images/icon/arrow-bottom_white.png');
-								}
+					for (var j = 0; j < (sv.vari.sotran.length); j++) {
+						sv.ui.vThongTinTD[j].addEventListener('click', function(k) {
+							if (sv.arr.MangDL.id[k.source.idKeo]) {
+								Ti.API.info('id tran dau:' + sv.vari.sotran[k.source.idKeo].id);
+								sv.ui.TTTD = new sv.vari.TTTD_cuthe();
+								sv.ui.TTTD.setThongTinTD(sv.vari.sotran[k.source.idKeo], sv.arr.data[e.source.id], sv.arr.logo[e.source.id]);
+								sv.ui.TTTD.ui.winKeo.open();
 							}
-						} else {
-							e.source.expanded = true;
-							sv.arr.rows[e.source.id].setHeight(Ti.App.size((sv.vari.sotran.length) * 100 + 88));
-							sv.arr.arrow[e.source.id].setBackgroundImage('/assets/images/icon/arrow-top_white.png');
-							for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
-								if (j != (e.source.id)) {
-									sv.arr.rows[j].expanded = false;
-									sv.arr.rows[j].setHeight(Ti.App.size(88));
-									sv.arr.arrow[j].setBackgroundImage('/assets/images/icon/arrow-bottom_white.png');
-								}
-							}
-						}
-						sv.ui.tbl.setData(sv.arr.rows);
-						sv.ui.tbl.setTouchEnabled(true);
+
+						});
+					}
+					// sv.arr.viewBack[e.source.id].addEventListener('postlayout', function() {
+					// Ti.API.info('load view');
+					// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.viewBack[e.source.id]);
+					// });
+					sv.ui.tbl.setData(sv.arr.rows);
+					sv.ui.tbl.setTouchEnabled(true);
 					// }, 1000);
 				};
 			});
@@ -400,14 +419,16 @@ function removeSK(sv) {
 ////
 function tao_sukien(sv) {
 	sv.fu.event_clickLabelLive = function(e) {
-		setBGLabel(sv.ui.LabelLive, sv.ui.LabelAll);
+		// setBGLabel(sv.ui.LabelLive, sv.ui.LabelAll);
+		sv.ui.ViewSwitch.setBackgroundImage("/assets/icon/switch_right.png");
 		sv.ui.tbl.scrollToTop(0, 0);
 		// GetTour(sv, "gettour", {
 		// "season" : "2013-2014"
 		// });
 	};
 	sv.fu.event_clickLabelAll = function(e) {
-		setBGLabel(sv.ui.LabelAll, sv.ui.LabelLive);
+		sv.ui.ViewSwitch.setBackgroundImage("/assets/icon/switch_left.png");
+		// setBGLabel(sv.ui.LabelAll, sv.ui.LabelLive);
 		sv.ui.tbl.scrollToTop(0, 0);
 		// GetTour(sv, "gettour", {
 		// "season" : "2013-2014"
@@ -513,46 +534,70 @@ function thongtin_cuthe(_id) {
 	var TySo = Ti.UI.createLabel({
 		color : Ti.App.Color.superwhite,
 		font : {
-			fontSize : Ti.App.size(25)
+			fontSize : Ti.App.size(25),
+			fontWeight : "bold"
 		},
 		top : Ti.App.size(40)
+	});
+	var VThoiGian = Ti.UI.createView({
+		width : Ti.App.size(640),
+		height : Ti.App.size(25),
+		left : 0,
+		top : 0,
+		backgroundGradient : {
+			type : 'linear',
+			colors : [{
+				color : Ti.App.Color.gray,
+				position : 0.5
+			}, {
+				color : Ti.App.Color.gray,
+				position : 0.5
+			}]
+		},
 	});
 	var ThoiGian = Titanium.UI.createLabel({
 		color : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(20)
 		},
-		top : Ti.App.size(0),
-		width : Ti.App.size(640),
-		height : Ti.App.size(25),
+
 		textAlign : 'center',
-		left : 0,
-		backgroundGradient : {
-			type : 'linear',
-			colors : [{
-				color : Ti.App.Color.green,
-				position : 0.5
-			}, {
-				color : Ti.App.Color.green,
-				position : 0.5
-			}]
-		},
+		width : Ti.UI.SIZE,
+		left : Ti.App.size(260)
 	});
-	// var lineView=Titanium.UI.createView({
-	// width : Ti.App.size(640),
-	// height : Ti.App.size(3),
-	// left : 0,
-	// // backgroundColor : Ti.App.Color.brown,
-	// backgroundColor :Ti.App.Color.blue,
-	// bottom:Ti.App.size(2),
-	// zIndex:10
-	// });
+	var IconThoiGian = Ti.UI.createImageView({
+		width : Ti.App.size(24),
+		height : Ti.App.size(24),
+		left : Ti.App.size(230),
+		image : "/assets/icon/icon-time.png"
+	});
+	var lineView1 = Titanium.UI.createImageView({
+		width : Ti.App.size(1),
+		height : Ti.App.size(60),
+		left : Ti.App.size(250),
+		image : "/assets/icon/100c_devider.png",
+		touchEnabled : "false",
+		top : Ti.App.size(35)
+		// backgroundColor : Ti.App.Color.brown,
+	});
+	var lineView2 = Titanium.UI.createImageView({
+		width : Ti.App.size(1),
+		height : Ti.App.size(60),
+		right : Ti.App.size(250),
+		image : "assets/icon/100c_devider.png",
+		touchEnabled : "false",
+		top : Ti.App.size(35)
+		// backgroundColor : Ti.App.Color.brown,
+	});
 	// // ThoiGian.visible=false;
-	// ViewChua.add(lineView);
+	ViewChua.add(lineView1);
+	ViewChua.add(lineView2);
 	ViewChua.add(IconDoi1);
 	ViewChua.add(IconDoi2);
 	ViewChua.add(TySo);
-	ViewChua.add(ThoiGian);
+	VThoiGian.add(IconThoiGian);
+	VThoiGian.add(ThoiGian);
+	ViewChua.add(VThoiGian);
 	ViewChua.add(TenDoi1);
 	ViewChua.add(TenDoi2);
 	ViewChua.setKQ = function(_state, _top, param) {

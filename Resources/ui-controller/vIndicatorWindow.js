@@ -8,7 +8,7 @@
  * @param {Object} params
  */
 var vIndicatorWindow = function(text) {
-	var message = text || 'Loading...';
+	var message = text || 'Đang tải dữ liệu';
 
 	var _isAndroid = (Ti.Platform.osname === 'android' );
 	var _padding = '25dp';
@@ -36,7 +36,7 @@ var vIndicatorWindow = function(text) {
 	this.background = Ti.UI.createView({
 		height : Ti.UI.SIZE,
 		width : Ti.UI.SIZE,
-		backgroundColor : '#000',
+		backgroundColor : 'transparent',
 		borderRadius : 10,
 		opacity : 0.8,
 		//touchEnabled : false,
@@ -89,11 +89,12 @@ vIndicatorWindow.prototype.openIndicator = function(_curWindow) {
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
 };
-vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
+vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow,_top) {
 	if (_curWindow == null)
 		return;
 	var curWindow = _curWindow || Ti.UI.getCurrentWindow();
 	this.activityIndicator.show();
+	this.background1.setTop(_top);
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
 };

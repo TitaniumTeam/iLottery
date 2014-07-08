@@ -43,7 +43,7 @@ function createUI(sv) {
 	createUI_Event(sv);
 
 	sv.ui.ViewTong = Ti.UI.createView({
-		top : Ti.App.size(163),
+		top : Ti.App.size(165),
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
@@ -78,7 +78,7 @@ function createUI(sv) {
 				top : Ti.App.size(500 * i),
 				id : i
 			});
-
+			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewTinTuc[i],Ti.App.size(20));
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
 				image : jsonResuilt.news[i].image,
 				top : 0,
@@ -149,7 +149,6 @@ function createUI(sv) {
 			});
 
 			// sv.ui.ViewListTinTuc.add(sv.arr.ViewTinTuc[i]);
-
 			sv.arr.ViewTinTuc[i].add(sv.arr.AnhTinTuc[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.ViewContent[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.ViewCover[i]);
@@ -169,6 +168,9 @@ function createUI(sv) {
 		createUI_Event(sv);
 		for (var i = 0; i < sv.arr.linkbai.length; i++) {
 			sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+			sv.arr.ViewTinTuc[i].addEventListener('postlayout', function(e) {
+				Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewTinTuc[e.row]);
+			});
 		}
 		sv.ui.ViewTong.add(sv.ui.ViewListTinTuc);
 

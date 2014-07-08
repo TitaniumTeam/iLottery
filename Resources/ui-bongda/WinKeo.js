@@ -31,8 +31,8 @@ function createUI(sv) {
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(640),
-		height : Ti.App.size(88),
-		backgroundColor : Ti.App.Color.red,
+		height : Ti.App.size(90),
+		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
 		left : 0
 	});
@@ -61,10 +61,10 @@ function createUI(sv) {
 	});
 
 	sv.ui.btn_Back = Titanium.UI.createImageView({
-		image : "/assets/images/icon/arrow.png",
-		width : Ti.App.size(22),
-		height : Ti.App.size(42),
-		// selectedColor : Ti.App.Color.superwhite,
+		image : '/assets/icon/icon_back.png',
+		touchEnabled : false,
+		width : Ti.App.size(60),
+		height : Ti.App.size(60),
 		touchEnabled : false
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
@@ -87,7 +87,7 @@ function createUI(sv) {
 	///////
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
-		top : Ti.App.size(88),
+		top : Ti.App.size(86),
 		left : 0,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640)
@@ -98,15 +98,29 @@ function createUI(sv) {
 		width : Ti.App.size(640),
 		height : Ti.App.size(240),
 		left : 0,
-		backgroundColor : 'green',
-		top : 0
+		top : 0,
+		backgroundImage : "/assets/icon/bg_bet_info.png"
 	});
 	sv.ui.ViewTranDau = Ti.UI.createView({
 		width : Ti.App.size(610),
 		height : Ti.App.size(220),
-		backgroundColor : Ti.App.Color.nauden,
+		backgroundColor : "transparent",
 		top : Ti.App.size(10)
 	});
+	// sv.ui.ViewNen=Ti.UI.createView({
+	// width : Ti.App.size(610),
+	// height : Ti.App.size(220),
+	// backgroundColor : "tans",
+	// top : 0,
+	// zIndex:10
+	// });
+	sv.ui.ViewTranDau.add(Ti.UI.createView({
+		width : "100%",
+		height : "100%",
+		zIndex : 0,
+		opacity : 0.8,
+		backgroundColor : "black"
+	}));
 	////
 	sv.ui.IconGiaiDau = Titanium.UI.createImageView({
 		width : Ti.App.size(50),
@@ -225,7 +239,7 @@ function createUI_Event(sv) {
 		sv.test = null;
 		sv = null;
 
-		Ti.API.info('Closed window, sv=' + sv);
+		Ti.API.info('Closed window keo, sv=' + sv);
 	};
 
 }
@@ -249,15 +263,16 @@ function ViewKeo() {
 		height : Ti.App.size(305),
 		left : Ti.App.size(10),
 		borderRadius : Ti.App.size(5),
-		backgroundColor : 'brown',
-		top : Ti.App.size(18)
+		// backgroundColor : 'brown',
+		top : Ti.App.size(18),
+		backgroundImage : "/assets/icon/bet_bg1.png"
 	});
 	var VHeader = Ti.UI.createView({
 		width : Ti.App.size(620),
 		height : Ti.App.size(80),
 		left : 0,
 		top : 0,
-		backgroundColor : Ti.App.Color.red
+		backgroundColor : "transparent"
 	});
 	VKeo.add(VHeader);
 	var TenKeo = Ti.UI.createLabel({
@@ -270,11 +285,19 @@ function ViewKeo() {
 		}
 	});
 	VHeader.add(TenKeo);
-	var arrow = Ti.UI.createImageView({
-		width : Ti.App.size(20),
+	var bet_icon = Ti.UI.createImageView({
+		width : Ti.App.size(14),
 		height : Ti.App.size(14),
 		touchEnabled : false,
-		backgroundImage : '/assets/images/icon/arrow-top_white.png',
+		backgroundImage : '/assets/icon/icon_bet_open.png',
+		left : Ti.App.size(10)
+	});
+	VHeader.add(bet_icon);
+	var arrow = Ti.UI.createImageView({
+		width : Ti.App.size(40),
+		height : Ti.App.size(40),
+		touchEnabled : false,
+		backgroundImage : '/assets/icon/icon_up_arrow.png',
 		right : Ti.App.size(50)
 	});
 	VHeader.add(arrow);
@@ -293,14 +316,14 @@ function ViewKeo() {
 		right : Ti.App.size(20),
 		color : "yellow",
 	});
-	var lineRow1 = Ti.UI.createView({
-		left : 0,
-		bottom : 0,
-		width : Ti.App.size(620),
-		height : Ti.App.size(2),
-		backgroundColor : Ti.App.Color.superwhite
-	});
-	Row1.add(lineRow1);
+	// var lineRow1 = Ti.UI.createView({
+		// left : 0,
+		// bottom : 0,
+		// width : Ti.App.size(620),
+		// height : Ti.App.size(2),
+		// backgroundColor : Ti.App.Color.superwhite
+	// });
+	// Row1.add(lineRow1);
 	Row1.add(tyle1);
 	Row1.add(TenDoi1);
 	VKeo.add(Row1);
@@ -320,14 +343,14 @@ function ViewKeo() {
 		right : Ti.App.size(20),
 		color : "yellow",
 	});
-	var lineRow2 = Ti.UI.createView({
-		left : 0,
-		bottom : 0,
-		width : Ti.App.size(620),
-		height : Ti.App.size(2),
-		backgroundColor : Ti.App.Color.superwhite
-	});
-	Row2.add(lineRow2);
+	// var lineRow2 = Ti.UI.createView({
+		// left : 0,
+		// bottom : 0,
+		// width : Ti.App.size(620),
+		// height : Ti.App.size(2),
+		// backgroundColor : Ti.App.Color.superwhite
+	// });
+	// Row2.add(lineRow2);
 	Row2.add(tyle2);
 	Row2.add(TyLe);
 	VKeo.add(Row2);
@@ -347,14 +370,14 @@ function ViewKeo() {
 		right : Ti.App.size(20),
 		color : "yellow",
 	});
-	var lineRow3 = Ti.UI.createView({
-		left : 0,
-		bottom : 0,
-		width : Ti.App.size(620),
-		height : Ti.App.size(2),
-		backgroundColor : Ti.App.Color.superwhite
-	});
-	Row3.add(lineRow3);
+	// var lineRow3 = Ti.UI.createView({
+		// left : 0,
+		// bottom : 0,
+		// width : Ti.App.size(620),
+		// height : Ti.App.size(2),
+		// backgroundColor : Ti.App.Color.superwhite
+	// });
+	// Row3.add(lineRow3);
 	Row3.add(tyle3);
 	Row3.add(TenDoi2);
 	VKeo.add(Row3);
@@ -375,15 +398,16 @@ function ViewTySo() {
 		height : Ti.App.size(530),
 		left : Ti.App.size(10),
 		borderRadius : Ti.App.size(5),
-		backgroundColor : 'brown',
-		top : Ti.App.size(18)
+		backgroundColor : "#413839",
+		top : Ti.App.size(18),
+		// borderColor:Ti.App.Color.superwhite
 	});
 	var VHeader = Ti.UI.createView({
 		width : Ti.App.size(620),
 		height : Ti.App.size(80),
 		left : 0,
 		top : 0,
-		backgroundColor : Ti.App.Color.red
+		backgroundImage:"/assets/icon/bet_bar.png"
 	});
 	VTySo.add(VHeader);
 	var TenKeo = Ti.UI.createLabel({
@@ -394,21 +418,29 @@ function ViewTySo() {
 			fontWeight : 'bold',
 			fontSize : Ti.App.size(30)
 		},
-		text : "KÈO TỶ SỐ"
+		text:"KÈO TỶ SỐ"
 	});
 	VHeader.add(TenKeo);
-	var arrow = Ti.UI.createImageView({
-		width : Ti.App.size(20),
+	var bet_icon = Ti.UI.createImageView({
+		width : Ti.App.size(14),
 		height : Ti.App.size(14),
 		touchEnabled : false,
-		backgroundImage : '/assets/images/icon/arrow-top_white.png',
+		backgroundImage : '/assets/icon/icon_bet_open.png',
+		left : Ti.App.size(10)
+	});
+	VHeader.add(bet_icon);
+	var arrow = Ti.UI.createImageView({
+		width : Ti.App.size(40),
+		height : Ti.App.size(40),
+		touchEnabled : false,
+		backgroundImage : '/assets/icon/icon_up_arrow.png',
 		right : Ti.App.size(50)
 	});
 	VHeader.add(arrow);
 	var tableView = Ti.UI.createTableView({
 		top : Ti.App.size(80),
 		backgroundColor : 'transparent',
-		separatorColor : Ti.App.Color.superwhite,
+		separatorColor : Ti.App.Color.nauden,
 		left : 0,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640),
@@ -417,9 +449,9 @@ function ViewTySo() {
 	VTySo.add(tableView);
 	var rows = [];
 	////
-	VHeader.addEventListener('click', function(e) {
-		VTySo.setHeight(Ti.UI.FILL);
-	});
+	// VHeader.addEventListener('click', function(e) {
+		// VTySo.setHeight(Ti.UI.FILL);
+	// });
 	VTySo.setTyLe = function(param) {
 		// VTySo.setTop(_top);
 		for (var i = 0; i < (param.length); i++) {

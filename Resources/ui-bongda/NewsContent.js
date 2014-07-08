@@ -30,7 +30,7 @@ function createUI(sv) {
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(100),
-		backgroundColor : Ti.App.Color.red,
+		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
 		left : 0
 	});
@@ -59,10 +59,10 @@ function createUI(sv) {
 	});
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
 	sv.ui.btn_Back = Titanium.UI.createImageView({
-		image : "/assets/images/icon/arrow.png",
-		width : Ti.App.size(22),
-		height : Ti.App.size(42),
-		// selectedColor : Ti.App.Color.superwhite,
+		image : '/assets/icon/icon_back.png',
+		touchEnabled : false,
+		width : Ti.App.size(60),
+		height : Ti.App.size(60),
 		touchEnabled : false
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
