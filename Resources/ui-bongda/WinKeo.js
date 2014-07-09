@@ -23,6 +23,7 @@ function createVariable(sv) {
 
 ////tao ui
 function createUI(sv) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.winKeo = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -51,13 +52,12 @@ function createUI(sv) {
 	sv.ui.ViewHeader.add(sv.ui.lbl_Header1);
 
 	/////
-	sv.ui.View_Back = Titanium.UI.createView({
-		width : Ti.App.size(100),
-		height : Ti.App.size(88),
-		top : 0,
-		left : 0,
+	sv.ui.View_Back = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		left : 0,
+		width : Ti.App.size(140),
+		height : Ti.App.size(90),
 	});
 
 	sv.ui.btn_Back = Titanium.UI.createImageView({
@@ -69,15 +69,15 @@ function createUI(sv) {
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
-	sv.ui.ViewIconUser = Ti.UI.createView({
+	sv.ui.ViewIconUser = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		right : 0,
 		width : Ti.App.size(140),
-		height : Ti.App.size(88),
+		height : Ti.App.size(90),
 	});
 	sv.ui.IconUser = Ti.UI.createImageView({
-		image : '/assets/images/icon/avatar-defaut.png',
+		image : '/assets/icon/avatar-defaut.png',
 		touchEnabled : false,
 		width : Ti.App.size(54),
 		height : Ti.App.size(54)

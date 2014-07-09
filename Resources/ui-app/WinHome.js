@@ -1,30 +1,68 @@
 module.exports = function() {
+	var db = Ti.Database.open('userinfo');
+	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo(tendv TEXT PRIMARY KEY,action TEXT,servicenumber TEXT,params TEXT,price INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda(tendv TEXT PRIMARY KEY,dauso TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo_free(tendv TEXT PRIMARY KEY,action TEXT,servicenumber TEXT,params TEXT,price INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda_free(tendv TEXT PRIMARY KEY,dauso TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	var userinfo = db.execute("SELECT * FROM SaveInfo");
+	var dvsoxo = db.execute("SELECT * FROM DV_Soxo");
+	Ti.API.info('du lieu user:' + userinfo.getRowCount());
+	Ti.API.info('du lieu dichvu:' + dvsoxo.getRowCount());
+
 	var win = Ti.UI.createWindow({
-		backgroundColor : "black"
+		backgroundImage : "/assets/icon/100_Main_screen.png",
+		exitOnClose : false,
+		keepScreenOn : true,
+		navBarHidden : true,
+		fullscreen : false,
 	});
 	// Create a Button.
 	var aButton = Ti.UI.createButton({
 		title : 'Bong da',
 		height : Ti.UI.SIZE,
 		width : Ti.UI.SIZE,
-		color : "white"
+		color : "white",
+		top : Ti.App.size(702),
+		left : Ti.App.size(125)
 	});
 	var bButton = Ti.UI.createButton({
 		title : 'So xo',
 		height : Ti.UI.SIZE,
 		width : Ti.UI.SIZE,
 		color : "white",
-		bottom : "100dp"
+		top : Ti.App.size(702),
+		right : Ti.App.size(125)
+
 	});
-	aButton.addEventListener('click', function() {
+	var evt_btnBongda = function(e) {
+		userinfo.close();
+		dvsoxo.close();
+		db.close();
 		var win = new (require('/ui-bongda/WinBongDa'));
 		win.open();
-	});
-	bButton.addEventListener('click', function() {
+	};
+	var evt_btnSoxo = function(e) {
+		userinfo.close();
+		dvsoxo.close();
+		db.close();
 		var win = new (require('/ui-soxo/WinSoXo'));
 		win.open();
-	});
-
+	};
+	var evt_openWin = function(e) {
+		Ti.API.info('open window home');
+	};
+	var evt_closeWin = function(e) {
+		win.removeEventListener('open', evt_openWin);
+		aButton.removeEventListener('click', evt_btnBongda);
+		bButton.removeEventListener('click', evt_btnSoxo);
+		win.removeEventListener('close', evt_closeWin);
+		Ti.API.info('remove su kien win home');
+	};
+	aButton.addEventListener('click', evt_btnBongda);
+	bButton.addEventListener('click', evt_btnSoxo);
+	win.addEventListener('open', evt_openWin);
+	win.addEventListener('close', evt_closeWin);
 	win.add(aButton);
 	win.add(bButton);
 

@@ -13,7 +13,7 @@
     <url>http://appcelerator.com</url>
     <description>not specified</description>
     <copyright>2014 by thanhhv</copyright>
-    <icon>appicon.png</icon>
+    <icon>app_icon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>true</navbar-hidden>
     <analytics>true</analytics>
@@ -30,15 +30,13 @@
                 <array>
                     <string>UIInterfaceOrientationPortrait</string>
                     <string>UIInterfaceOrientationPortraitUpsideDown</string>
-                    <string>UIInterfaceOrientationLandscapeLeft</string>
-                    <string>UIInterfaceOrientationLandscapeRight</string>
                 </array>
                 <key>UIRequiresPersistentWiFi</key>
                 <false/>
                 <key>UIPrerenderedIcon</key>
                 <false/>
                 <key>UIStatusBarHidden</key>
-                <false/>
+                <true/>
                 <key>UIStatusBarStyle</key>
                 <string>UIStatusBarStyleDefault</string>
             </dict>

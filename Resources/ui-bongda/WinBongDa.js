@@ -17,11 +17,12 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT;
+	sv.vari.ViewHT
 }
 
 ////
 function tao_ui(sv) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.Win = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -38,7 +39,7 @@ function tao_ui(sv) {
 		left : 0,
 	});
 
-	sv.ui.ViewIconBack = Ti.UI.createView({
+	sv.ui.ViewIconBack = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		left : 0,
@@ -54,7 +55,7 @@ function tao_ui(sv) {
 		touchEnabled : false
 	});
 
-	sv.ui.ViewIconUser = Ti.UI.createView({
+	sv.ui.ViewIconUser = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		right : 0,
@@ -106,7 +107,7 @@ function tao_ui(sv) {
 			height : Ti.App.size(75),
 			backgroundSelectedColor : Ti.App.Color.red,
 			backgroundColor : "transparent",
-			top:0
+			top : 0
 		});
 		sv.arr.LabelChucNang[i] = Ti.UI.createLabel({
 			text : sv.arr.TenChucNang[i],
@@ -150,6 +151,7 @@ function tao_ui(sv) {
 	sv.ui.Win.add(sv.ui.ViewTab);
 	tao_sukien(sv);
 	sv.ui.ViewIconBack.addEventListener('click', sv.fu.evtIconBack);
+	sv.ui.ViewIconUser.addEventListener('click', sv.fu.evtOpenWinUser);
 	sv.ui.Win.addEventListener('open', sv.fu.evtOpenWin);
 	for (var i = 0; i < 4; i++) {
 		sv.arr.ViewChucNang[i].addEventListener('click', sv.arr.evtChucNang[i]);
@@ -226,6 +228,26 @@ function tao_sukien(sv) {
 			};
 		}
 	}
+	////
+	sv.fu.evtOpenWinUser = function(e) {
+		sv.vari.database = Titanium.Database.open('userinfo');
+		sv.vari.userinfo = sv.vari.database.execute("SELECT * FROM SaveInfo");
+		if (sv.vari.userinfo.isValidRow()) {
+			sv.vari.userinfo.close();
+			sv.vari.database.close();
+			sv.vari.WinUser = new (require('/ui-user/WinUser'))();
+			sv.vari.WinUser.open();
+		} else {
+			sv.vari.userinfo.close();
+			sv.vari.database.close();
+			sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))(sv.ui.Win);
+			sv.vari.WinPopUpDangNhap.open({
+				modal : Ti.Platform.osname == 'android' ? true : false
+			});
+		}
+
+	};
+	///
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
 		sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
@@ -241,6 +263,7 @@ function tao_sukien(sv) {
 			sv.arr.ViewChucNang[i].removeEventListener('click', sv.arr.evtChucNang[i]);
 		}
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
+		sv.ui.ViewIconUser.removeEventListener('click', sv.fu.evtOpenWinUser);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

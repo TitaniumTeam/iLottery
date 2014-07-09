@@ -13,7 +13,8 @@ module.exports = function() {
 	return sv;
 };
 function taobien(sv) {
-	sv.arr.rows = [];
+	// sv.arr.rows = [];
+	sv.vari.datarow=null;
 	// sv.arr.LabelTenGiai=[];
 	// sv.arr.LabelKetQua=[];
 	sv.vari.combobox = require('/ui-soxo/ComboBox');
@@ -127,7 +128,7 @@ function createUI_Event(sv) {
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
 		soketqua("getprovide", {
-			"startdate" : "8/6/2014"
+			"startdate" : currDate()
 		}, sv);
 		sv.ui.table_view.visible = true;
 		sv.ui.ViewPicker.visible = false;
@@ -141,7 +142,7 @@ function createUI_Event(sv) {
 		sv.ui.ViewPicker.visible = false;
 		soketqua("searchlottery", {
 			"provideid" : sv.ui.lblfirst.id,
-			"startdate" : "8/6/2014"
+			"startdate" : sv.ui.lblfirst1.text
 		}, sv);
 	};
 	sv.fu.event_click_view1 = function(e) {
@@ -198,10 +199,14 @@ function soketqua(_cmd, data, sv) {
 					dodai = ketqua.length;
 					Ti.API.info('do dai ket qua' + dodai);
 					if (dodai == 9) {
-						sv.ui.TableView.setData(rows(ketqua));
+						sv.vari.datarow=rows();
+						sv.vari.datarow.setParam(ketqua);
+						sv.ui.TableView.setData(sv.vari.datarow);
 					}
 					if (dodai == 8) {
-						sv.ui.TableView.setData(rows(ketqua));
+						sv.vari.datarow=rows();
+						sv.vari.datarow.setParam(ketqua);
+						sv.ui.TableView.setData(sv.vari.datarow);
 					}
 
 				}
@@ -271,69 +276,71 @@ function set_lbl() {
 		return getYesterdaysDate();
 	}
 };
-function rows(param) {
-	var TenGiaiMB = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy"];
+function rows() {
 	var TenGiaiMN = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy", "Giải Tám"];
 	var rowsdata = [];
 	var lblTenGiai = [];
 	var lblKQ = [];
 	var viewchua = [];
 	// sv.ui.ViewTong.add(sv.ui.TableView);
-	for (var i = 0; i < param.length; i++) {
-		rowsdata[i] = Ti.UI.createTableViewRow({
-			width : Ti.App.size(640),
-			height : setRow(param, i),
-			backgroundColor : "transparent",
-			left : 0,
-			// top:setTop(i)
-			// borderColor : "yellow",
-			// borderWidth : Ti.App.size(10),
-		});
-		lblTenGiai[i] = Ti.UI.createLabel({
-			left : Ti.App.size(10),
-			width : Ti.App.size(160),
-			height : setHeightRow(param, i),
-			backgroundColor : Ti.App.Color.nauden,
-			text : TenGiaiMN[i] || TenGiaiMB[i],
-			textAlign : "center",
-			color : setColor(i),
-			font : setFont(i)
-		});
-		viewchua[i] = Titanium.UI.createView({
-			left : Ti.App.size(180),
-			width : Ti.App.size(450),
-			right : Ti.App.size(10),
-			height : setHeightRow(param, i),
-			backgroundColor : Ti.App.Color.nauden,
-		});
-		if (param.length != 0) {
-			lblKQ[i] = Ti.UI.createLabel({
-				left : Ti.App.size(20),
+	rowsdata.setParam = function(param) {
+		for (var i = 0; i < param.length; i++) {
+			rowsdata[i] = Ti.UI.createTableViewRow({
+				width : Ti.App.size(640),
+				height : setRow(param, i),
+				backgroundColor : "transparent",
+				left : 0,
+				// top:setTop(i)
+				// borderColor : "yellow",
+				// borderWidth : Ti.App.size(10),
+			});
+			lblTenGiai[i] = Ti.UI.createLabel({
+				left : Ti.App.size(10),
+				width : Ti.App.size(160),
+				height : setHeightRow(param, i),
+				backgroundColor : Ti.App.Color.nauden,
+				text : TenGiaiMN[i],
+				textAlign : "center",
 				color : setColor(i),
-				font : setFont(i),
-				text : param[i].toString(),
-				textAlign : "center",
-				height : Ti.UI.FILL,
-				width : Ti.App.size(400),
-				right : Ti.App.size(30)
+				font : setFont(i)
 			});
-		} else {
-			lblKQ[i] = Ti.UI.createLabel({
-				left : Ti.App.size(20),
-				color : "white",
-				font : {
-					fontSize : Ti.App.size(25)
-				},
-				text : "",
-				textAlign : "center",
-				height : Ti.UI.FILL,
-				width : Ti.App.size(430),
+			viewchua[i] = Titanium.UI.createView({
+				left : Ti.App.size(180),
+				width : Ti.App.size(450),
+				right : Ti.App.size(10),
+				height : setHeightRow(param, i),
+				backgroundColor : Ti.App.Color.nauden,
 			});
+			if (param.length != 0) {
+				lblKQ[i] = Ti.UI.createLabel({
+					left : Ti.App.size(20),
+					color : setColor(i),
+					font : setFont(i),
+					text : param[i].toString(),
+					textAlign : "center",
+					height : Ti.UI.FILL,
+					width : Ti.App.size(400),
+					right : Ti.App.size(30)
+				});
+			} else {
+				lblKQ[i] = Ti.UI.createLabel({
+					left : Ti.App.size(20),
+					color : "white",
+					font : {
+						fontSize : Ti.App.size(25)
+					},
+					text : "",
+					textAlign : "center",
+					height : Ti.UI.FILL,
+					width : Ti.App.size(430),
+				});
+			}
+			viewchua[i].add(lblKQ[i]);
+			rowsdata[i].add(viewchua[i]);
+			rowsdata[i].add(lblTenGiai[i]);
 		}
-		viewchua[i].add(lblKQ[i]);
-		rowsdata[i].add(viewchua[i]);
-		rowsdata[i].add(lblTenGiai[i]);
 	};
+
 	return rowsdata;
 };
 function setHeightRow(param, i) {

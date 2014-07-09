@@ -22,6 +22,7 @@ function tao_bien(sv) {
 
 ////
 function tao_ui(sv) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.Win = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -38,7 +39,7 @@ function tao_ui(sv) {
 		left : 0,
 	});
 
-	sv.ui.ViewIconBack = Ti.UI.createView({
+	sv.ui.ViewIconBack = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		left : 0,
@@ -54,7 +55,7 @@ function tao_ui(sv) {
 		touchEnabled : false
 	});
 
-	sv.ui.ViewIconUser = Ti.UI.createView({
+	sv.ui.ViewIconUser = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		right : 0,
@@ -150,6 +151,7 @@ function tao_ui(sv) {
 	sv.ui.Win.add(sv.ui.ViewTab);
 	tao_sukien(sv);
 	sv.ui.ViewIconBack.addEventListener('click', sv.fu.evtIconBack);
+	sv.ui.ViewIconUser.addEventListener('click',sv.fu.evtOpenWinUser);
 	sv.ui.Win.addEventListener('open', sv.fu.evtOpenWin);
 	for (var i = 0; i < 4; i++) {
 		sv.arr.ViewChucNang[i].addEventListener('click', sv.arr.evtChucNang[i]);
@@ -226,6 +228,10 @@ function tao_sukien(sv) {
 			};
 		}
 	}
+	sv.fu.evtOpenWinUser=function(e){
+		sv.vari.WinUser=new (require('/ui-user/WinUser'))();
+		sv.vari.WinUser.open();
+	};
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
 		sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
@@ -241,6 +247,7 @@ function tao_sukien(sv) {
 			sv.arr.ViewChucNang[i].removeEventListener('click', sv.arr.evtChucNang[i]);
 		}
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
+		sv.ui.ViewIconUser.removeEventListener('click',sv.fu.evtOpenWinUser);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

@@ -76,7 +76,8 @@ function createUI(sv) {
 				left : 0,
 				right : 0,
 				top : Ti.App.size(500 * i),
-				id : i
+				id : i,
+				backgroundSelectedColor:Ti.App.Color.xanhnhat
 			});
 			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewTinTuc[i],Ti.App.size(20));
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({

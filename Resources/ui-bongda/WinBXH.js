@@ -45,6 +45,7 @@ function createVariable(sv) {
 }
 
 function createUI(sv, tourid, season, logo) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.winBXH = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		exitOnClose : false,
@@ -74,7 +75,7 @@ function createUI(sv, tourid, season, logo) {
 	sv.ui.ViewHeader.add(sv.ui.lbl_Header1);
 
 	/////
-	sv.ui.View_Back = Titanium.UI.createView({
+	sv.ui.View_Back = customButton({
 		width : Ti.App.size(100),
 		height : Ti.App.size(100),
 		top : 0,
@@ -92,7 +93,7 @@ function createUI(sv, tourid, season, logo) {
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
-	sv.ui.ViewIconUser = Ti.UI.createView({
+	sv.ui.ViewIconUser = customButton({
 		backgroundColor : 'transparent',
 		backgroundSelectedColor : Ti.App.Color.xanhnhat,
 		right : 0,
@@ -100,7 +101,7 @@ function createUI(sv, tourid, season, logo) {
 		height : Ti.App.size(88),
 	});
 	sv.ui.IconUser = Ti.UI.createImageView({
-		image : '/assets/images/icon/avatar-defaut.png',
+		image : '/assets/icon/avatar-defaut.png',
 		touchEnabled : false,
 		width : Ti.App.size(54),
 		height : Ti.App.size(54)
@@ -112,24 +113,17 @@ function createUI(sv, tourid, season, logo) {
 		backgroundColor : Ti.App.Color.nauden,
 		top : Ti.App.size(90),
 		left : 0,
-		width:Ti.App.size(640),
-		height:Ti.UI.FILL
+		width : Ti.App.size(640),
+		height : Ti.UI.FILL
 	});
 	sv.ui.winBXH.add(sv.ui.ViewTong);
 	/////
 	sv.ui.ViewSeason = Titanium.UI.createView({
 		width : Ti.App.size(640),
-		height : Ti.App.size(110),
-		backgroundColor : 'transparent',
+		height : Ti.App.size(90),
 		top : 0,
-		left : 0
-	});
-	sv.ui.line_season = Titanium.UI.createView({
-		height : Ti.App.size(2),
-		width : Ti.App.size(640),
-		backgroundColor : Ti.App.Color.red,
 		left : 0,
-		bottom : Ti.App.size(20)
+		backgroundImage : "/assets/icon/bg_tabbar.png"
 	});
 	sv.ui.IconGD = Titanium.UI.createImageView({
 		width : Ti.App.size(50),
@@ -155,7 +149,6 @@ function createUI(sv, tourid, season, logo) {
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.view_choose.setTable(cacnam());
-	sv.ui.ViewSeason.add(sv.ui.line_season);
 	sv.ui.ViewSeason.add(sv.ui.view_choose);
 	sv.ui.ViewSeason.add(sv.ui.TenGD);
 	sv.ui.ViewSeason.add(sv.ui.IconGD);
@@ -418,7 +411,7 @@ function BXH(sv, tourid, season) {
 				width : Ti.App.size(640),
 				height : Ti.App.size(2),
 				bottom : 0,
-				backgroundColor : Ti.App.Color.red,
+				backgroundColor : Ti.App.Color.red_press,
 				left : 0
 			});
 			sv.arr.rows[i].add(sv.arr.line_row[i]);

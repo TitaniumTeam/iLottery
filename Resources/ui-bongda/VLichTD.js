@@ -121,6 +121,7 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent',
 
 	});
+	
 	GetTour(sv, "gettour", {
 		"season" : "2013-2014"
 	});
@@ -296,8 +297,8 @@ function GetTour(sv, _cmd, data) {
 		}
 		for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
 			sv.arr.viewArow[i].addEventListener('click', function(e) {
-				sv.ui.tbl.setTouchEnabled(false);
-				Ti.API.info('thu tu ' + e.source.id);
+				sv.ui.ViewChua.setTouchEnabled(false);
+				// Ti.API.info('thu tu ' + e.source.id);
 				// sv.arr.viewBack[e.source.id].visible=false;
 				sv.vari.data1 = {
 					"tourid" : sv.arr.TourId[e.source.id],
@@ -326,6 +327,7 @@ function GetTour(sv, _cmd, data) {
 
 					if (jsonResuilt1.matchs.length == 0) {
 						sv.vari.sotran = [];
+						Ti.App.customToast.showToast("Không có trận nào",1000);
 					} else {
 						for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
 							sv.vari.sotran[j] = jsonResuilt1.matchs[j];
@@ -389,7 +391,7 @@ function GetTour(sv, _cmd, data) {
 					// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.viewBack[e.source.id]);
 					// });
 					sv.ui.tbl.setData(sv.arr.rows);
-					sv.ui.tbl.setTouchEnabled(true);
+					sv.ui.ViewChua.setTouchEnabled(true);
 					// }, 1000);
 				};
 			});
@@ -572,7 +574,7 @@ function thongtin_cuthe(_id) {
 		image : "/assets/icon/icon-time.png"
 	});
 	var lineView1 = Titanium.UI.createImageView({
-		width : Ti.App.size(1),
+		width : Ti.App.size(3),
 		height : Ti.App.size(60),
 		left : Ti.App.size(250),
 		image : "/assets/icon/100c_devider.png",
@@ -581,10 +583,10 @@ function thongtin_cuthe(_id) {
 		// backgroundColor : Ti.App.Color.brown,
 	});
 	var lineView2 = Titanium.UI.createImageView({
-		width : Ti.App.size(1),
+		width : Ti.App.size(3),
 		height : Ti.App.size(60),
 		right : Ti.App.size(250),
-		image : "assets/icon/100c_devider.png",
+		image : "/assets/icon/100c_devider.png",
 		touchEnabled : "false",
 		top : Ti.App.size(35)
 		// backgroundColor : Ti.App.Color.brown,

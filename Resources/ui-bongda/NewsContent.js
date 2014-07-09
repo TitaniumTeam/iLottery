@@ -19,7 +19,7 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-
+var customButton = require('ui-controller/customButton');
 	sv.ui.winBXH = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		navBarHidden : true,
@@ -29,7 +29,7 @@ function createUI(sv) {
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
-		height : Ti.App.size(100),
+		height : Ti.App.size(90),
 		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
 		left : 0
@@ -49,9 +49,9 @@ function createUI(sv) {
 	sv.ui.ViewHeader.add(sv.ui.lbl_Header);
 
 	/////
-	sv.ui.View_Back = Titanium.UI.createView({
+	sv.ui.View_Back = customButton({
 		width : Ti.App.size(100),
-		height : Ti.App.size(100),
+		height : Ti.App.size(90),
 		top : 0,
 		left : 0,
 		backgroundColor : 'transparent',
@@ -73,7 +73,7 @@ function createUI(sv) {
 		scalesPageToFit : true,
 		touchEnabled : true,
 		enableZoomControls : false,
-		top : Ti.App.size(100),
+		top : Ti.App.size(86),
 		
 	});
 	sv.ui.winBXH.add(sv.ui.webview);
