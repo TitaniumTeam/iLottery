@@ -13,6 +13,15 @@ module.exports = function() {
 	return sv.ui.Win;
 };
 function tao_bien(sv) {
+	///thong tin database
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+	sv.vari.ten_user = sv.vari.user_info.fieldByName("username");
+	sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
+	sv.vari.tien_user = sv.vari.user_info.fieldByName("balance");
+	sv.vari.user_info.close();
+	sv.vari.db.close();
+	////
 	sv.vari.rowChucNang1 = [];
 	sv.vari.IconChucNang1 = [];
 	sv.vari.LabelChucNang1 = [];
@@ -24,6 +33,7 @@ function tao_bien(sv) {
 	sv.vari.lineRow1 = [];
 	sv.vari.lineRow2 = [];
 	sv.arr.naptien = ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms", "Thoát"];
+	sv.arr.edit_info = ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"];
 };
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
@@ -33,11 +43,16 @@ function tao_ui(sv) {
 		navBarHidden : true,
 		fullscreen : false,
 		backgroundColor : Ti.App.Color.nauden,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	///
 	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
 		title : "Lựa chọn cách thức",
 		options : sv.arr.naptien
+	});
+	sv.ui.opt_dialog_edit_info = Titanium.UI.createOptionDialog({
+		title : "Lựa chọn thông tin mà bạn muốn đổi",
+		options : sv.arr.edit_info
 	});
 	//////header
 	sv.ui.ViewHeader = Ti.UI.createView({
@@ -109,13 +124,14 @@ function tao_ui(sv) {
 		top : Ti.App.size(20),
 		left : Ti.App.size(10),
 		backgroundColor : 'transparent',
-		text : "test",
+		// text : "test",
 		font : {
 			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
 		color : Ti.App.Color.superwhite,
 		touchEnabled : false,
+		text : sv.vari.ten_user
 	});
 	sv.ui.IconTK = Ti.UI.createImageView({
 		left : Ti.App.size(0),
@@ -133,9 +149,10 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(20)
 		},
 		color : Ti.App.Color.superwhite,
-		text : "TK thuong",
+		// text : "TK thuong",
 		backgroundColor : "transparent",
 		touchEnabled : false,
+		text : sv.vari.tk_user == 0 ? "Thường" : "VIP"
 	});
 
 	sv.ui.IconTien = Ti.UI.createImageView({
@@ -154,7 +171,7 @@ function tao_ui(sv) {
 			fontSize : Ti.App.size(20)
 		},
 		color : Ti.App.Color.superwhite,
-		text : "Số tiền trong tài khoản: 1 tr VND",
+		text : "Số tiền trong tài khoản: " + sv.vari.tien_user,
 		backgroundColor : "transparent",
 		touchEnabled : false,
 	});
@@ -292,6 +309,8 @@ function tao_ui(sv) {
 	sv.ui.Win.addEventListener('open', sv.fu.evtOpenWin);
 	sv.ui.TableChucNang1.addEventListener('click', sv.fu.evtClickTableView1);
 	sv.ui.opt_dialog.addEventListener('click', sv.fu.event_optiondialog);
+	sv.ui.ViewIconEdit.addEventListener('click', sv.fu.evtClickEditInfo);
+	sv.ui.opt_dialog_edit_info.addEventListener('click', sv.fu.evt_opt_edit_info);
 	/////
 	sv.ui.ViewIconBack.add(sv.ui.IconBack);
 	sv.ui.ViewHeader.add(sv.ui.ViewIconBack);
@@ -320,6 +339,23 @@ function tao_ui(sv) {
 	////
 };
 function tao_sukien(sv) {
+	///event edit user info
+	sv.fu.evtClickEditInfo = function(e) {
+		sv.ui.opt_dialog_edit_info.show();
+	};
+	sv.fu.evt_opt_edit_info = function(e) {
+		if (e.index == 0) {
+			sv.vari.wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
+			sv.vari.wdEditInfo.open();
+		}
+		if (e.index == 1) {
+			sv.vari.wdEditPass = new (require('ui-user/WinThayPass'))();
+			sv.vari.wdEditPass.open();
+		}
+		if (e.index == 2) {
+			sv.ui.opt_dialog_edit_info.hide();
+		}
+	};
 	////
 	sv.fu.evtClickTableView1 = function(e) {
 		if (e.row.id == 0) {
@@ -327,7 +363,8 @@ function tao_sukien(sv) {
 		}
 		if (e.row.id == 1) {
 			sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
-			sv.vari.wdNangCap.open({
+			sv.vari.wdNangCap.setThongBao("Nâng cấp cho tài khoản của bạn để có thể sử dụng đầy đủ những tính năng đa dạng và hấp dẫn hơn");
+			sv.vari.wdNangCap.ui.Window.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
 		}
@@ -360,6 +397,8 @@ function tao_sukien(sv) {
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
 		sv.ui.TableChucNang1.removeEventListener('click', sv.fu.evtClickTableView1);
 		sv.ui.opt_dialog.removeEventListener('click', sv.fu.event_optiondialog);
+		sv.ui.ViewIconEdit.removeEventListener('click', sv.fu.evtClickEditInfo);
+		sv.ui.opt_dialog_edit_info.removeEventListener('click', sv.fu.evt_opt_edit_info);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -370,3 +409,9 @@ function tao_sukien(sv) {
 		Ti.API.info('Closed window User, sv=' + sv);
 	};
 }
+
+function setThongTin(sv) {
+	sv.setUserInfo() = function() {
+
+	};
+};

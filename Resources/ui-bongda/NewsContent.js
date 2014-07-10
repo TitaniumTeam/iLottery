@@ -21,11 +21,12 @@ function createVariable(sv) {
 function createUI(sv) {
 var customButton = require('ui-controller/customButton');
 	sv.ui.winBXH = Titanium.UI.createWindow({
-		backgroundColor : Ti.App.Color.superwhite,
-		navBarHidden : true,
-		// exitOnClose : true,
-		orientationModes : [Ti.UI.PORTRAIT],
+		exitOnClose : false,
 		keepScreenOn : true,
+		navBarHidden : true,
+		fullscreen : false,
+		backgroundColor : Ti.App.Color.nauden,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),

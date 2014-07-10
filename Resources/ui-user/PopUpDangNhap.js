@@ -1,4 +1,4 @@
-module.exports = function(_currWin) {
+module.exports = function() {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,23 +8,23 @@ module.exports = function(_currWin) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, _currWin);
+		createUI(sv);
 	})();
 
 	return sv.ui.Window;
 };
 
 function createVariable(sv) {
-	// sv.vari.dangki = require('/ui_user/WindowDK');
-	// sv.vari.wd_dn = require('/ui_user/DangNhap');
 }
 
-function createUI(sv, _currWin) {
+function createUI(sv) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 
 	sv.ui.Window.add(Ti.UI.createView({
@@ -34,129 +34,99 @@ function createUI(sv, _currWin) {
 		height : "100%"
 	}));
 	sv.ui.ViewPopUp = Ti.UI.createView({
-		height : Ti.App.size(700),
-		backgroundColor : Ti.App.Color.superwhite,
-		width : Ti.App.size(560)
+		height : Ti.App.size(486),
+		backgroundColor : Ti.App.Color.magenta,
+		width : Ti.App.size(590),
+		borderRadius : 5,
+		top : Ti.App.size(200),
+		left : Ti.App.size(25)
 	});
-
-	sv.ui.ViewIcon = Ti.UI.createView({
-		top : Ti.App.size(0),
-		height : Ti.App.size(215),
-		left : Ti.App.size(0),
-		right : Ti.App.size(0),
-		backgroundColor : Ti.App.Color.red,
-
+	sv.ui.IconNap = Titanium.UI.createImageView({
+		width : Ti.App.size(158),
+		height : Ti.App.size(158),
+		top : Ti.App.size(30),
+		image : "/assets/icon/icon_giao_dich_that_bai.png"
 	});
-
+	sv.ui.ViewIconClose = customButton({
+		width : Ti.App.size(100),
+		height : Ti.App.size(90),
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		top : Ti.App.size(150),
+		right : 0,
+		zIndex : 10
+	});
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
-		top : Ti.App.size(45),
-		left : Ti.App.size(215),
-		right : Ti.App.size(215),
-		bottom : Ti.App.size(45),
-		backgroundSelectedColor : Ti.App.Color.nauden
+		width : Ti.App.size(45),
+		height : Ti.App.size(45),
+		right:0,
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
-		text : 'CHỨC NĂNG BỊ KHÓA',
-		top : Ti.App.size(230),
 		font : {
-			fontSize : Ti.App.size(40),
-			fontWeight : 'bold',
+			fontSize : Ti.App.size(35),
+			fontWeight : 'bold'
 		},
-		textAlign : 'center'
-	});
-
-	sv.ui.ThongBao2 = Ti.UI.createLabel({
-		text : 'Bạn chưa đăng nhập!',
-		font : {
-			fontSize : Ti.App.size(30)
-		},
+		textAlign : 'center',
 		color : Ti.App.Color.nauden,
-		width : Ti.UI.SIZE,
-		top : Ti.App.size(330),
-		textAlign : 'center'
+		// left : Ti.App.size(80),
+		top : Ti.App.size(240),
+		text : "CHỨC NĂNG BỊ KHÓA"
 	});
-	sv.ui.button_dk = Ti.UI.createLabel({
-		backgroundColor : Ti.App.Color.nauden,
-		width : Ti.App.size(300),
-		height : Ti.App.size(95),
-		text : "ĐĂNG KÝ",
+	sv.ui.Note = Titanium.UI.createLabel({
+		width : Ti.App.size(525),
+		height : Ti.UI.SIZE,
+		top : Ti.App.size(300),
+		color : Ti.App.Color.nauden,
 		textAlign : "center",
-		bottom : Ti.App.size(150),
 		font : {
-			fontSize : Ti.App.size(30)
+			fontSize : Ti.App.size(25),
 		},
-		borderRadius : Ti.App.size(5),
-		color : Ti.App.Color.superwhite,
-		backgroundSelectedColor : Ti.App.Color.xanhnhat
-	});
-
-	sv.ui.button_dn = Ti.UI.createLabel({
-		width : Ti.App.size(300),
-		height : Ti.App.size(95),
-		text : "ĐĂNG NHẬP",
 		textAlign : "center",
-		bottom : Ti.App.size(30),
-		font : {
-			fontSize : Ti.App.size(30)
-		},
-		borderRadius : Ti.App.size(5),
-		backgroundColor : Ti.App.Color.gray,
-		backgroundSelectedColor : Ti.App.Color.magenta,
-		color : Ti.App.Color.superwhite
+		text : "Vui lòng đăng nhập để sử dụng dịch vụ"
 	});
-
-	createUI_Event(sv, _currWin);
+	sv.ui.btnDangNhap = Ti.UI.createButton({
+		bottom : Ti.App.size(28),
+		backgroundImage : "/assets/icon/btn_dang_nhap2.png",
+		width : Ti.App.size(526),
+		height : Ti.App.size(96),
+		backgroundSelectedImage:"/assets/icon/btn_dang_nhap2_select.png"
+	});
+	createUI_Event(sv);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
-	sv.ui.button_dk.addEventListener('click', sv.fu.evt_dangki);
-	sv.ui.button_dn.addEventListener('click', sv.fu.evt_dangnhap);
+	sv.ui.ViewIconClose.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.btnDangNhap.addEventListener('click', sv.fu.eventBtnDangNhap);
 
-	sv.ui.Window.add(sv.ui.ViewPopUp);
-
-	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
-
-	sv.ui.ViewIcon.add(sv.ui.Icon);
-	sv.ui.ViewPopUp.add(sv.ui.button_dk);
-	sv.ui.ViewPopUp.add(sv.ui.button_dn);
+	sv.ui.ViewIconClose.add(sv.ui.Icon);
+	sv.ui.Window.add(sv.ui.ViewIconClose);
+	sv.ui.ViewPopUp.add(sv.ui.Note);
+	sv.ui.ViewPopUp.add(sv.ui.IconNap);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
-	sv.ui.ViewPopUp.add(sv.ui.ThongBao2);
-
-	sv.ui.ViewPopUp.add(sv.ui.ThongBao2);
-
+	sv.ui.ViewPopUp.add(sv.ui.btnDangNhap);
+	sv.ui.Window.add(sv.ui.ViewPopUp);
 }
 
-function createUI_Event(sv, _currWin) {
-	sv.fu.evt_dangki = function(e) {
-		var winDangnhap = new (require('/ui-user/WinDangNhap'))(_currWin);
-		winDangnhap.open();
-		sv.ui.Window.close();
-		// _currWin.close();
-
-	};
-	sv.fu.evt_dangnhap = function(e) {
-		var winDangnhap = new (require('/ui-user/WinDangNhap'))(_currWin);
-		winDangnhap.open();
-		sv.ui.Window.close();
-		// _currWin.close();
-	};
-	sv.fu.eventClickIcon = function() {
+function createUI_Event(sv) {
+	sv.fu.eventClickIcon = function(e) {
 		sv.ui.Window.close();
 	};
-
-	sv.fu.eventOpenWindow = function() {
+	sv.fu.eventBtnDangNhap = function(e) {
+		var WinDangNhap = new (require('/ui-user/WinDangNhap'))();
+		WinDangNhap.open();
+		sv.ui.Window.close();
+	};
+	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
-		sv.ui.button_dk.removeEventListener('click', sv.fu.evt_dangki);
-		sv.ui.button_dn.removeEventListener('click', sv.fu.evt_dangnhap);
+		sv.ui.ViewIconClose.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.btnDangNhap.removeEventListener('click', sv.fu.eventBtnDangNhap);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -164,7 +134,6 @@ function createUI_Event(sv, _currWin) {
 		sv.test = null;
 		sv = null;
 
-		Ti.API.info('Closed window popup dang nhap');
+		Ti.API.info('Closed window pop up dangnhap, sv=' + sv);
 	};
 }
-

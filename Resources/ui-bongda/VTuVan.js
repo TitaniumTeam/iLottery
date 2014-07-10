@@ -29,7 +29,7 @@ function taoui(sv) {
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-		backgroundImage:"/assets/icon/bg_tuvan.png"
+		backgroundImage : "/assets/icon/bg_tuvan.png"
 	});
 	get_menu(sv);
 	// }
@@ -47,8 +47,11 @@ function taoui(sv) {
 };
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
-		sv.ui.tbl1.removeEventListener('click', sv.fu.evt_tblrow_click);
-		Ti.API.info('remove su kien tu van');
+		if (sv.fu.evt_tblrow_click != null && sv.fu.evt_tblrow_click != undefined) {
+			sv.ui.tbl1.removeEventListener('click', sv.fu.evt_tblrow_click);
+			Ti.API.info('remove su kien tu van');
+		}
+
 	};
 };
 function tao_sukien(sv) {
@@ -86,10 +89,25 @@ function tao_sukien(sv) {
 };
 function get_menu(sv) {
 	var xhr = Titanium.Network.createHTTPClient();
-	data = {
-		"username" : "",
-		type : "1"
-	};
+	var data = null;
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+	if (sv.vari.user_info.isValidRow()) {
+		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
+		sv.vari.user_info.close();
+		sv.vari.db.close();
+		data = {
+			"username" : sv.vari.user_name,
+			type : "1"
+		};
+	} else {
+		sv.vari.user_info.close();
+		sv.vari.db.close();
+		data = {
+			"username" : "",
+			type : "1"
+		};
+	}
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -107,7 +125,8 @@ function get_menu(sv) {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
-		// Ti.API.info('du lieu' + jsonResuilt.menus);
+		var db = Ti.Database.open("userinfo");
+		var user = db.execute("SELECT * FROM SaveInfo");
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
 			sv.arr.cacdichvu.id.push(jsonResuilt.menus[i].id);
 			sv.arr.cacdichvu.name.push(jsonResuilt.menus[i].name);
@@ -121,6 +140,17 @@ function get_menu(sv) {
 			}
 
 		}
+		if (user.isValidRow()) {
+			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				db.execute('INSERT INTO DV_Bongda (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+			}
+		} else {
+			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				db.execute('INSERT INTO DV_Bongda_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+			}
+		}
+		user.close();
+		db.close();
 		for (var i = 0; i < (sv.arr.cacdichvu.id.length); i++) {
 			Ti.API.info('****id:' + sv.arr.cacdichvu.id[i]);
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
@@ -135,7 +165,7 @@ function get_menu(sv) {
 				font : {
 					fontSize : Ti.App.size(30)
 				},
-				backgroundImage:"/assets/icon/btn_tuvan.png"
+				backgroundImage : "/assets/icon/btn_tuvan.png"
 			});
 		}
 		sv.ui.tbl1.setData(sv.arr.rows);
@@ -171,9 +201,6 @@ function tuvan_soxo(_cmd, data, sv) {
 				sv.vari.wdTuVan = new sv.vari.winTuVan();
 				sv.vari.wdTuVan.setLink(jsonResuilt.advisor);
 				sv.vari.wdTuVan.ui.winTuVan.open();
-				// sv.ui.ViewTong.removeAllChildren();
-				// sv.ui.ViewTong.add(sv.ui.webview);
-				// sv.ui.webview.html = jsonResuilt.advisor;
 			} else {
 				Ti.API.info('khong co link');
 			}

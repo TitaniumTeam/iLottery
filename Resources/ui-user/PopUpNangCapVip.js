@@ -9,20 +9,30 @@ module.exports = function() {
 	(function() {
 		createVariable(sv);
 		createUI(sv);
+		setText(sv);
+		check_state(sv);
 	})();
 
-	return sv.ui.Window;
+	return sv;
 };
 
 function createVariable(sv) {
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
+	sv.vari.username = sv.vari.sql.fieldByName("username");
+	sv.vari.type = sv.vari.sql.fieldByName("type");
+	////co kiem tra trang thai update vip thanh cong hay khong
+	sv.vari.flag_state = false;
 }
 
 function createUI(sv) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 
 	sv.ui.Window.add(Ti.UI.createView({
@@ -36,7 +46,7 @@ function createUI(sv) {
 		backgroundColor : Ti.App.Color.magenta,
 		width : Ti.App.size(590),
 		borderRadius : 5,
-		top : Ti.App.size(400),
+		top : Ti.App.size(200),
 		left : Ti.App.size(25)
 	});
 	sv.ui.ViewIcon = Ti.UI.createView({
@@ -52,13 +62,20 @@ function createUI(sv) {
 		width : Ti.App.size(60),
 		height : Ti.App.size(60),
 	});
-	sv.ui.Icon = Ti.UI.createButton({
-		backgroundImage : '/assets/icon/btn_cancel.png',
+	sv.ui.ViewIconClose = customButton({
+		width : Ti.App.size(100),
+		height : Ti.App.size(90),
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		top : Ti.App.size(150),
+		right : 0,
+		zIndex : 10
+	});
+	sv.ui.Icon = Ti.UI.createImageView({
+		image : '/assets/icon/btn_cancel.png',
 		width : Ti.App.size(45),
 		height : Ti.App.size(45),
-		top : Ti.App.size(375),
-		right : Ti.App.size(5),
-		zIndex : 10
+		right : 0,
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -82,7 +99,7 @@ function createUI(sv) {
 		top : Ti.App.size(130),
 		color : Ti.App.Color.nauden,
 		textAlign : "left",
-		text : "Nâng cấp cho tài khoản của bạn để có thể sử dụng đầy đủ những tính năng đa dạng và hấp dẫn hơn",
+		//text : "Nâng cấp cho tài khoản của bạn để có thể sử dụng đầy đủ những tính năng đa dạng và hấp dẫn hơn",
 		font : {
 			fontSize : Ti.App.size(30),
 		},
@@ -99,10 +116,11 @@ function createUI(sv) {
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.ViewIconClose.addEventListener('click', sv.fu.eventClickIcon);
 	sv.ui.btn_nap.addEventListener('click', sv.fu.eventClicknaptien);
 
-	sv.ui.Window.add(sv.ui.Icon);
+	sv.ui.ViewIconClose.add(sv.ui.Icon);
+	sv.ui.Window.add(sv.ui.ViewIconClose);
 	sv.ui.ViewPopUp.add(sv.ui.Note);
 	sv.ui.ViewPopUp.add(sv.ui.line);
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
@@ -114,12 +132,8 @@ function createUI(sv) {
 
 function createUI_Event(sv) {
 	sv.fu.eventClicknaptien = function(e) {
-		// sv.vari.db = Ti.Database.open('userinfo');
-		// sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
-		// sv.vari.username = sv.vari.sql.fieldByName("username");
-		// sv.vari.type = sv.vari.sql.fieldByName("type");
 		nangcapvip({
-			"username" : "minh17",
+			"username" : sv.vari.username,
 			"type" : "1"
 		}, sv);
 	};
@@ -134,7 +148,7 @@ function createUI_Event(sv) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.ViewIconClose.removeEventListener('click', sv.fu.eventClickIcon);
 		sv.ui.btn_nap.removeEventListener('click', sv.fu.eventClicknaptien);
 		sv.vari = null;
 		sv.arr = null;
@@ -147,6 +161,11 @@ function createUI_Event(sv) {
 	};
 }
 
+function setText(sv) {
+	sv.setThongBao = function(_text) {
+		sv.ui.Note.setText(_text);
+	};
+};
 function nangcapvip(data, sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
@@ -173,6 +192,9 @@ function nangcapvip(data, sv) {
 			wdPopUPThanhCong.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
+			sv.vari.db.execute('UPDATE SaveInfo SET type=? WHERE username=?', 1, sv.vari.username);
+			sv.vari.sql.close();
+			sv.vari.db.close();
 			sv.ui.Window.close();
 		} else {
 			var wdPopUpThatBai = new (require('/ui-user/PopUpThatBai'))(1);
@@ -183,4 +205,9 @@ function nangcapvip(data, sv) {
 		}
 	};
 
+};
+function check_state(sv) {
+	sv.getState=function() {
+		return sv.vari.flag_state;
+	};
 };

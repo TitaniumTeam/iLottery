@@ -51,7 +51,7 @@ function createUI(sv, tourid, season, logo) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : false,orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(640),

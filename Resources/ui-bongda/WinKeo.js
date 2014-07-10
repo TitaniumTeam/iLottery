@@ -69,21 +69,21 @@ function createUI(sv) {
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
-	sv.ui.ViewIconUser = customButton({
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		right : 0,
-		width : Ti.App.size(140),
-		height : Ti.App.size(90),
-	});
-	sv.ui.IconUser = Ti.UI.createImageView({
-		image : '/assets/icon/avatar-defaut.png',
-		touchEnabled : false,
-		width : Ti.App.size(54),
-		height : Ti.App.size(54)
-	});
-	sv.ui.ViewIconUser.add(sv.ui.IconUser);
-	sv.ui.ViewHeader.add(sv.ui.ViewIconUser);
+	// sv.ui.ViewIconUser = customButton({
+		// backgroundColor : 'transparent',
+		// backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		// right : 0,
+		// width : Ti.App.size(140),
+		// height : Ti.App.size(90),
+	// });
+	// sv.ui.IconUser = Ti.UI.createImageView({
+		// image : '/assets/icon/icon_account.png',
+		// touchEnabled : false,
+		// width : Ti.App.size(54),
+		// height : Ti.App.size(54)
+	// });
+	// sv.ui.ViewIconUser.add(sv.ui.IconUser);
+	// sv.ui.ViewHeader.add(sv.ui.ViewIconUser);
 	///////
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
@@ -145,7 +145,7 @@ function createUI(sv) {
 	});
 	sv.ui.TenDoi1 = Ti.UI.createLabel({
 		left : Ti.App.size(70),
-		width : Ti.App.size(180),
+		width : Ti.UI.SIZE,
 		font : {
 			fontSize : Ti.App.size(25)
 		},
@@ -159,7 +159,7 @@ function createUI(sv) {
 		right : Ti.App.size(10)
 	});
 	sv.ui.TenDoi2 = Ti.UI.createLabel({
-		width : Ti.App.size(180),
+		width : Ti.UI.SIZE,
 		font : {
 			fontSize : Ti.App.size(25)
 		},
@@ -311,19 +311,19 @@ function ViewKeo() {
 	var TenDoi1 = Ti.UI.createLabel({
 		left : Ti.App.size(20),
 		color : Ti.App.Color.superwhite,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
 	});
 	var tyle1 = Ti.UI.createLabel({
 		right : Ti.App.size(20),
 		color : "yellow",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
 	});
-	// var lineRow1 = Ti.UI.createView({
-		// left : 0,
-		// bottom : 0,
-		// width : Ti.App.size(620),
-		// height : Ti.App.size(2),
-		// backgroundColor : Ti.App.Color.superwhite
-	// });
-	// Row1.add(lineRow1);
 	Row1.add(tyle1);
 	Row1.add(TenDoi1);
 	VKeo.add(Row1);
@@ -336,21 +336,21 @@ function ViewKeo() {
 	});
 	var TyLe = Ti.UI.createLabel({
 		left : Ti.App.size(20),
+		text : "Tỷ lệ",
 		color : Ti.App.Color.superwhite,
-		text : "Tỷ lệ"
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
 	});
 	var tyle2 = Ti.UI.createLabel({
 		right : Ti.App.size(20),
 		color : "yellow",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
 	});
-	// var lineRow2 = Ti.UI.createView({
-		// left : 0,
-		// bottom : 0,
-		// width : Ti.App.size(620),
-		// height : Ti.App.size(2),
-		// backgroundColor : Ti.App.Color.superwhite
-	// });
-	// Row2.add(lineRow2);
 	Row2.add(tyle2);
 	Row2.add(TyLe);
 	VKeo.add(Row2);
@@ -364,20 +364,19 @@ function ViewKeo() {
 	var TenDoi2 = Ti.UI.createLabel({
 		left : Ti.App.size(20),
 		color : Ti.App.Color.superwhite,
-		text : "Ty le"
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
 	});
 	var tyle3 = Ti.UI.createLabel({
 		right : Ti.App.size(20),
 		color : "yellow",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
 	});
-	// var lineRow3 = Ti.UI.createView({
-		// left : 0,
-		// bottom : 0,
-		// width : Ti.App.size(620),
-		// height : Ti.App.size(2),
-		// backgroundColor : Ti.App.Color.superwhite
-	// });
-	// Row3.add(lineRow3);
 	Row3.add(tyle3);
 	Row3.add(TenDoi2);
 	VKeo.add(Row3);
@@ -407,7 +406,7 @@ function ViewTySo() {
 		height : Ti.App.size(80),
 		left : 0,
 		top : 0,
-		backgroundImage:"/assets/icon/bet_bar.png"
+		backgroundImage : "/assets/icon/bet_bar.png"
 	});
 	VTySo.add(VHeader);
 	var TenKeo = Ti.UI.createLabel({
@@ -418,7 +417,7 @@ function ViewTySo() {
 			fontWeight : 'bold',
 			fontSize : Ti.App.size(30)
 		},
-		text:"KÈO TỶ SỐ"
+		text : "Kèo Tỷ Số"
 	});
 	VHeader.add(TenKeo);
 	var bet_icon = Ti.UI.createImageView({
@@ -440,7 +439,7 @@ function ViewTySo() {
 	var tableView = Ti.UI.createTableView({
 		top : Ti.App.size(80),
 		backgroundColor : 'transparent',
-		separatorColor : Ti.App.Color.nauden,
+		separatorColor : Ti.App.Color.gray,
 		left : 0,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640),
@@ -448,10 +447,6 @@ function ViewTySo() {
 	});
 	VTySo.add(tableView);
 	var rows = [];
-	////
-	// VHeader.addEventListener('click', function(e) {
-		// VTySo.setHeight(Ti.UI.FILL);
-	// });
 	VTySo.setTyLe = function(param) {
 		// VTySo.setTop(_top);
 		for (var i = 0; i < (param.length); i++) {
@@ -462,9 +457,9 @@ function ViewTySo() {
 				font : {
 					fontSize : Ti.App.size(25)
 				},
-				title : "Tỷ lệ: " + param[i].ti_le + "-" + "Tỉ số: " + param[i].ti_so,
+				title : "Tỷ lệ: " + param[i].ti_le + " - " + "Tỉ số: " + param[i].ti_so,
 				center : "true",
-				left : Ti.App.size(50)
+				left : Ti.App.size(20)
 
 			});
 		}

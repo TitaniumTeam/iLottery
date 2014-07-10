@@ -1,4 +1,4 @@
-module.exports = function(_currWin) {
+module.exports = function(_winDK) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(_currWin) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, _currWin);
+		createUI(sv, _winDK);
 	})();
 
 	return sv.ui.winDangNhap;
@@ -17,14 +17,14 @@ module.exports = function(_currWin) {
 function createVariable(sv) {
 }
 
-function createUI(sv, _currWin) {
+function createUI(sv, _winDK) {
 	var customButton = require('ui-controller/customButton');
 	sv.ui.winDangNhap = Titanium.UI.createWindow({
-		backgroundColor : Ti.App.Color.superwhite,
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
@@ -68,7 +68,7 @@ function createUI(sv, _currWin) {
 	sv.ui.ViewTong = Ti.UI.createScrollView({
 		top : Ti.App.size(80),
 		width : Ti.App.size(640),
-		backgroundImage : "/assets/icon/bg_sokq.png",
+		backgroundImage : "/assets/icon/bg_login.png",
 		left : 0,
 		layout : "vertical",
 		showVerticalScrollIndicator : "true",
@@ -110,7 +110,7 @@ function createUI(sv, _currWin) {
 		width : Ti.App.size(400),
 		height : Ti.App.size(93),
 		backgroundImage : "/assets/icon/btn_loginfb.png",
-		backgroundSelectedImage : "assets/icon/btn_loginfb_select.png"
+		backgroundSelectedImage : "/assets/icon/btn_loginfb_select.png"
 	});
 	sv.ui.btnGmail = Ti.UI.createButton({
 		top : 0,
@@ -118,7 +118,7 @@ function createUI(sv, _currWin) {
 		width : Ti.App.size(214),
 		height : Ti.App.size(93),
 		backgroundImage : "/assets/icon/btn_logingmail.png",
-		backgroundSelectedImage : "assets/icon/btn_logingmail_select.png"
+		backgroundSelectedImage : "/assets/icon/btn_logingmail_select.png"
 	});
 	sv.ui.ViewHoac = Ti.UI.createImageView({
 		top : Ti.App.size(20),
@@ -149,7 +149,11 @@ function createUI(sv, _currWin) {
 		hintText : "Nhập tài khoản",
 		textAlign : "left",
 		maxLength : 30,
-		color : Ti.App.Color.nauden
+		color : Ti.App.Color.nauden,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		autocorrect : false
 	});
 	////
 	sv.ui.ViewTxtMK = Ti.UI.createView({
@@ -176,7 +180,11 @@ function createUI(sv, _currWin) {
 		textAlign : "left",
 		maxLength : 30,
 		color : Ti.App.Color.nauden,
-		passwordMask : true
+		passwordMask : true,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		autocorrect : false
 	});
 	///
 	sv.ui.ViewBtn2 = Titanium.UI.createView({
@@ -200,7 +208,11 @@ function createUI(sv, _currWin) {
 		top : 0,
 		left : Ti.App.size(25),
 		title : "Quên mật khẩu?",
-		color : Ti.App.Color.superwhite
+		color : Ti.App.Color.superwhite,
+		backgroundColor : "transparent",
+		font : {
+			fontSize : Ti.App.size(25)
+		}
 	});
 	///
 	sv.ui.ViewDK = Titanium.UI.createView({
@@ -234,12 +246,13 @@ function createUI(sv, _currWin) {
 
 	});
 	///////
-	createUI_Event(sv, _currWin);
+	createUI_Event(sv, _winDK);
 	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
 	sv.ui.winDangNhap.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.winDangNhap.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.winDangNhap.addEventListener('android:back', sv.fu.event_androidback);
 	sv.ui.btnDangNhap.addEventListener('click', sv.fu.evt_btnDangNhap);
+	sv.ui.btnDangKy.addEventListener('click', sv.fu.evt_btnDangKy);
 	///
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
 	sv.ui.View_Back.add(sv.ui.btn_Back);
@@ -275,7 +288,7 @@ function createUI(sv, _currWin) {
 	sv.ui.winDangNhap.add(sv.ui.ViewTong);
 }
 
-function createUI_Event(sv, _currWin) {
+function createUI_Event(sv, _winDK) {
 
 	sv.fu.event_androidback = function(e) {
 		sv.ui.winDangNhap.close();
@@ -295,14 +308,21 @@ function createUI_Event(sv, _currWin) {
 			dangnhap({
 				"username" : sv.ui.txtTK.value,
 				"password" : sv.ui.txtMK.value
-			}, sv, _currWin);
+			}, sv, _winDK);
 		}
+	};
+	sv.fu.evt_btnDangKy = function(e) {
+		var WinDangKy = new (require('ui-user/WinDangKi'))();
+		WinDangKy.open();
+		sv.ui.winDangNhap.close();
 	};
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.winDangNhap.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.winDangNhap.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.btn_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
 		sv.ui.winDangNhap.removeEventListener('android:back', sv.fu.event_androidback);
+		sv.ui.btnDangKy.removeEventListener('click', sv.fu.evt_btnDangKy);
+		sv.ui.btnDangNhap.removeEventListener('click', sv.fu.evt_btnDangNhap);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -315,7 +335,7 @@ function createUI_Event(sv, _currWin) {
 
 }
 
-function dangnhap(data, sv, _currWin) {
+function dangnhap(data, sv, _winDK) {
 
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		alert('Kiểm tra kết nối mạng');
@@ -341,7 +361,10 @@ function dangnhap(data, sv, _currWin) {
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.result.code);
 			if (jsonResuilt.result.code == "0") {
-				_currWin.close();
+				if ((_winDK != null) || (_winDK != undefined)) {
+					_winDK.close();
+				}
+
 				var db = Ti.Database.open('userinfo');
 				var sql = db.execute("SELECT * FROM SaveInfo");
 
@@ -349,9 +372,12 @@ function dangnhap(data, sv, _currWin) {
 				var type = jsonResuilt.info.type;
 				var balance = jsonResuilt.info.balance;
 				Ti.API.info('dang nhap thanh cong');
-				// db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
+				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
 				sql.close();
 				db.close();
+				sv.ui.winDangNhap.close();
+				var WinUser = new (require('/ui-user/WinUser'))();
+				WinUser.open();
 			} else {
 				alert('Sai username hoặc password');
 			}

@@ -121,7 +121,7 @@ function tao_ui(sv) {
 		backgroundColor : 'transparent',
 
 	});
-	
+
 	GetTour(sv, "gettour", {
 		"season" : "2013-2014"
 	});
@@ -178,12 +178,19 @@ function GetTour(sv, _cmd, data) {
 
 		}
 		/////////do du lieu vao tableview
-
+		sv.ui.tbl.visible = false;
+		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
+		sv.vari.timee_out2 = setTimeout(function() {
+			sv.ui.tbl.visible = true;
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua,Ti.App.size(20));
+			clearTimeout(sv.vari.timee_out2);
+		}, 1000);
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				height : sv.vari.row_height,
 				width : Ti.App.size(640),
-				backgroundImage : "/assets/icon/bg_tabbar.png"
+				backgroundImage : "/assets/icon/bg_tabbar.png",
+
 			});
 
 			sv.arr.viewRow[i] = Ti.UI.createView({
@@ -257,8 +264,8 @@ function GetTour(sv, _cmd, data) {
 						position : 0.5
 					}]
 				},
-				visible : false
-
+				visible : false,
+				backgroundSelectedImage : "/assets/icon/bg_login.png"
 			});
 			sv.arr.ViewChe[i] = Ti.UI.createView({
 				left : 0,
@@ -297,13 +304,11 @@ function GetTour(sv, _cmd, data) {
 		}
 		for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
 			sv.arr.viewArow[i].addEventListener('click', function(e) {
-				sv.ui.ViewChua.setTouchEnabled(false);
+				// sv.arr.rows[e.source.id].setTouchEnabled(false);
 				// Ti.API.info('thu tu ' + e.source.id);
 				// sv.arr.viewBack[e.source.id].visible=false;
 				sv.vari.data1 = {
 					"tourid" : sv.arr.TourId[e.source.id],
-					// "startdate" : "01/06/2014",
-					// "enddate" : "12/06/2014"
 				};
 				var xhr1 = Titanium.Network.createHTTPClient();
 				xhr1.onsendstream = function(e) {
@@ -327,7 +332,7 @@ function GetTour(sv, _cmd, data) {
 
 					if (jsonResuilt1.matchs.length == 0) {
 						sv.vari.sotran = [];
-						Ti.App.customToast.showToast("Không có trận nào",1000);
+						Ti.App.customToast.showToast("Không có trận nào", 1000);
 					} else {
 						for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
 							sv.vari.sotran[j] = jsonResuilt1.matchs[j];
@@ -373,6 +378,7 @@ function GetTour(sv, _cmd, data) {
 						Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
 						sv.arr.viewBack[e.source.id].visible = true;
 						sv.arr.ViewChe[e.source.id].visible = false;
+						// sv.arr.rows[e.source.id].setTouchEnabled(true);
 					}, 1000);
 
 					for (var j = 0; j < (sv.vari.sotran.length); j++) {
@@ -386,12 +392,9 @@ function GetTour(sv, _cmd, data) {
 
 						});
 					}
-					// sv.arr.viewBack[e.source.id].addEventListener('postlayout', function() {
-					// Ti.API.info('load view');
-					// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.viewBack[e.source.id]);
-					// });
 					sv.ui.tbl.setData(sv.arr.rows);
-					sv.ui.ViewChua.setTouchEnabled(true);
+					// sv.ui.ViewChua.setTouchEnabled(true);
+					
 					// }, 1000);
 				};
 			});

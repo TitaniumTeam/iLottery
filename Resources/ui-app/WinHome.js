@@ -1,21 +1,21 @@
 module.exports = function() {
 	var db = Ti.Database.open('userinfo');
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo(tendv TEXT PRIMARY KEY,action TEXT,servicenumber TEXT,params TEXT,price INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda(tendv TEXT PRIMARY KEY,dauso TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo_free(tendv TEXT PRIMARY KEY,action TEXT,servicenumber TEXT,params TEXT,price INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda_free(tendv TEXT PRIMARY KEY,dauso TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo_free(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda_free(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
 	var userinfo = db.execute("SELECT * FROM SaveInfo");
-	var dvsoxo = db.execute("SELECT * FROM DV_Soxo");
-	Ti.API.info('du lieu user:' + userinfo.getRowCount());
-	Ti.API.info('du lieu dichvu:' + dvsoxo.getRowCount());
-
+	if (userinfo.isValidRow()) {
+		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));
+	}
 	var win = Ti.UI.createWindow({
 		backgroundImage : "/assets/icon/100_Main_screen.png",
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	// Create a Button.
 	var aButton = Ti.UI.createButton({
@@ -37,14 +37,12 @@ module.exports = function() {
 	});
 	var evt_btnBongda = function(e) {
 		userinfo.close();
-		dvsoxo.close();
 		db.close();
 		var win = new (require('/ui-bongda/WinBongDa'));
 		win.open();
 	};
 	var evt_btnSoxo = function(e) {
 		userinfo.close();
-		dvsoxo.close();
 		db.close();
 		var win = new (require('/ui-soxo/WinSoXo'));
 		win.open();

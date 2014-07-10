@@ -1,4 +1,4 @@
-module.exports = function(winParent) {
+module.exports = function(_type) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(winParent) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, winParent);
+		createUI(sv, _type);
 	})();
 
 	return sv.ui.Window;
@@ -17,7 +17,7 @@ module.exports = function(winParent) {
 function createVariable(sv) {
 }
 
-function createUI(sv, winParent) {
+function createUI(sv, _type) {
 	var customButton = require('ui-controller/customButton');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
@@ -34,7 +34,7 @@ function createUI(sv, winParent) {
 		height : "100%"
 	}));
 	sv.ui.ViewPopUp = Ti.UI.createView({
-		height : Ti.App.size(486),
+		height : Ti.App.size(406),
 		backgroundColor : Ti.App.Color.magenta,
 		width : Ti.App.size(590),
 		borderRadius : 5,
@@ -42,10 +42,10 @@ function createUI(sv, winParent) {
 		left : Ti.App.size(25)
 	});
 	sv.ui.IconNap = Titanium.UI.createImageView({
-		width : Ti.App.size(158),
-		height : Ti.App.size(158),
+		width : Ti.App.size(178),
+		height : Ti.App.size(119),
 		top : Ti.App.size(30),
-		image : "/assets/icon/icon_giao_dich_that_bai.png"
+		image : "/assets/icon/icon_no_internet.png"
 	});
 	sv.ui.ViewIconClose = customButton({
 		width : Ti.App.size(100),
@@ -60,7 +60,7 @@ function createUI(sv, winParent) {
 		image : '/assets/icon/btn_cancel.png',
 		width : Ti.App.size(45),
 		height : Ti.App.size(45),
-		right:0
+		right : 0,
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -70,76 +70,54 @@ function createUI(sv, winParent) {
 		},
 		textAlign : 'center',
 		color : Ti.App.Color.nauden,
-		// left : Ti.App.size(80),
+		left : Ti.App.size(80),
 		top : Ti.App.size(240),
-		text : "GIAO DỊCH THẤT BẠI"
+		text : "Không có kết nối mạng"
 	});
 	sv.ui.Note = Titanium.UI.createLabel({
 		width : Ti.App.size(525),
 		height : Ti.UI.SIZE,
-		top : Ti.App.size(300),
+		top : Ti.App.size(308),
 		color : Ti.App.Color.nauden,
 		textAlign : "center",
 		font : {
-			fontSize : Ti.App.size(25),
+			fontSize : Ti.App.size(30),
 		},
 		textAlign : "center",
-		text : "Rất tiếc giao dịch của bạn đã bị thất bại"
+		text : _type == 0 ? "Chúng tôi sẽ gửi SMS offline kết quả các trận bóng cho quý khách hàng" : "Chúng tôi sẽ gửi SMS offline kết quả sổ xố trực tiếp cho quý khách hàng"
 	});
-	sv.ui.btnThuLai = Ti.UI.createButton({
-		bottom : Ti.App.size(28),
-		backgroundImage : "/assets/icon/btn_thu_lai.png",
-		backgroundSelectedImage : "/assets/icon/btn_thu_lai_select.png",
-		width : Ti.App.size(526),
-		height : Ti.App.size(96)
-	});
-	createUI_Event(sv, winParent);
+	createUI_Event(sv, _type);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.ViewIconClose.addEventListener('click', sv.fu.eventClickIcon);
-	sv.ui.btnThuLai.addEventListener('click', sv.fu.eventBtnThuLai);
+	sv.ui.ViewPopUp.addEventListener('click', sv.fu.evt_sms);
+
 	sv.ui.ViewIconClose.add(sv.ui.Icon);
 	sv.ui.Window.add(sv.ui.ViewIconClose);
 	sv.ui.ViewPopUp.add(sv.ui.Note);
 	sv.ui.ViewPopUp.add(sv.ui.IconNap);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
-	sv.ui.ViewPopUp.add(sv.ui.btnThuLai);
 	sv.ui.Window.add(sv.ui.ViewPopUp);
 }
 
-function createUI_Event(sv, winParent) {
+function createUI_Event(sv, _type) {
 	sv.fu.eventClickIcon = function(e) {
 		sv.ui.Window.close();
 	};
-	sv.fu.eventBtnThuLai = function(e) {
 
-		if (winParent == 0) {
-			var wdNapTien = new (require('/ui-user/PopUpNapTien'))();
-			wdNapTien.open({
-				modal : Ti.Platform.osname == 'android' ? true : false
-			});
-			sv.ui.Window.close();
-		}
-		if (winParent == 1) {
-			var wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
-			wdNangCap.open({
-				modal : Ti.Platform.osname == 'android' ? true : false
-			});
-			sv.ui.Window.close();
-		} else {
-			Ti.API.info('Khong co window nay');
-		}
-	};
 	sv.fu.eventOpenWindow = function(e) {
 		Ti.API.info('Opened window');
 	};
-
+	sv.fu.evt_sms = function(e) {
+		sv.ui.Window.close();
+		var sms = new (require('/ui-controller/showSmsDialog'))(_type);
+	};
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.ViewIconClose.removeEventListener('click', sv.fu.eventClickIcon);
-		sv.ui.btnThuLai.removeEventListener('click', sv.fu.eventBtnThuLai);
+		sv.ui.ViewPopUp.removeEventListener('click', sv.fu.evt_sms);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -147,6 +125,6 @@ function createUI_Event(sv, winParent) {
 		sv.test = null;
 		sv = null;
 
-		Ti.API.info('Closed window pop up that bai, sv=' + sv);
+		Ti.API.info('Closed window pop up thanh cong, sv=' + sv);
 	};
 }

@@ -14,7 +14,7 @@ module.exports = function() {
 };
 function taobien(sv) {
 	// sv.arr.rows = [];
-	sv.vari.datarow=null;
+	sv.vari.datarow = null;
 	// sv.arr.LabelTenGiai=[];
 	// sv.arr.LabelKetQua=[];
 	sv.vari.combobox = require('/ui-soxo/ComboBox');
@@ -83,7 +83,7 @@ function taoui(sv) {
 		top : Ti.App.size(180),
 		left : 0,
 		backgroundColor : "transparent",
-		separatorColor : "transparent"
+		separatorColor : "transparent",
 	});
 	sv.ui.ViewTong.add(sv.ui.TableView);
 	///
@@ -199,12 +199,12 @@ function soketqua(_cmd, data, sv) {
 					dodai = ketqua.length;
 					Ti.API.info('do dai ket qua' + dodai);
 					if (dodai == 9) {
-						sv.vari.datarow=rows();
+						sv.vari.datarow = rows();
 						sv.vari.datarow.setParam(ketqua);
 						sv.ui.TableView.setData(sv.vari.datarow);
 					}
 					if (dodai == 8) {
-						sv.vari.datarow=rows();
+						sv.vari.datarow = rows();
 						sv.vari.datarow.setParam(ketqua);
 						sv.ui.TableView.setData(sv.vari.datarow);
 					}
@@ -279,6 +279,7 @@ function set_lbl() {
 function rows() {
 	var TenGiaiMN = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy", "Giải Tám"];
 	var rowsdata = [];
+	var viewTenGiai = [];
 	var lblTenGiai = [];
 	var lblKQ = [];
 	var viewchua = [];
@@ -288,29 +289,50 @@ function rows() {
 			rowsdata[i] = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
 				height : setRow(param, i),
-				backgroundColor : "transparent",
+				// backgroundColor : "transparent",
 				left : 0,
 				// top:setTop(i)
 				// borderColor : "yellow",
 				// borderWidth : Ti.App.size(10),
 			});
-			lblTenGiai[i] = Ti.UI.createLabel({
-				left : Ti.App.size(10),
+			viewTenGiai[i] = Titanium.UI.createView({
 				width : Ti.App.size(160),
 				height : setHeightRow(param, i),
-				backgroundColor : Ti.App.Color.nauden,
+				left : Ti.App.size(10),
+				width : Ti.App.size(160),
+				backgroundColor:"transparent"
+			});
+			viewTenGiai[i].add(Ti.UI.createView({
+				width : "100%",
+				height:"100%",
+				opacity : 0.2,
+				zIndex : 0,
+				backgroundColor:Ti.App.Color.nauden
+			}));
+			lblTenGiai[i] = Ti.UI.createLabel({
+				height : Ti.UI.FILL,
 				text : TenGiaiMN[i],
 				textAlign : "center",
 				color : setColor(i),
-				font : setFont(i)
+				font : setFont(i),
+				left : 0,
+				width : Ti.App.size(160),
+				zIndex : 1
 			});
 			viewchua[i] = Titanium.UI.createView({
 				left : Ti.App.size(180),
 				width : Ti.App.size(450),
 				right : Ti.App.size(10),
 				height : setHeightRow(param, i),
-				backgroundColor : Ti.App.Color.nauden,
+				backgroundColor:"transparent"
 			});
+			viewchua[i].add(Ti.UI.createView({
+				width : "100%",
+				height:"100%",
+				backgroundColor : Ti.App.Color.nauden,
+				opacity : 0.2,
+				zIndex : 0
+			}));
 			if (param.length != 0) {
 				lblKQ[i] = Ti.UI.createLabel({
 					left : Ti.App.size(20),
@@ -320,7 +342,8 @@ function rows() {
 					textAlign : "center",
 					height : Ti.UI.FILL,
 					width : Ti.App.size(400),
-					right : Ti.App.size(30)
+					right : Ti.App.size(30),
+					zIndex : 1
 				});
 			} else {
 				lblKQ[i] = Ti.UI.createLabel({
@@ -333,11 +356,13 @@ function rows() {
 					textAlign : "center",
 					height : Ti.UI.FILL,
 					width : Ti.App.size(430),
+					zIndex : 1
 				});
 			}
+			viewTenGiai[i].add(lblTenGiai[i]);
 			viewchua[i].add(lblKQ[i]);
 			rowsdata[i].add(viewchua[i]);
-			rowsdata[i].add(lblTenGiai[i]);
+			rowsdata[i].add(viewTenGiai[i]);
 		}
 	};
 
@@ -346,12 +371,12 @@ function rows() {
 function setHeightRow(param, i) {
 	if (param.length == 8) {
 		if (i == 3 || i == 5)
-			return Ti.App.size(85);
+			return Ti.App.size(95);
 		else
 			return Ti.App.size(75);
 	} else {
 		if (i == 4)
-			return Ti.App.size(85);
+			return Ti.App.size(95);
 		else
 			return Ti.App.size(75);
 	}
@@ -360,12 +385,12 @@ function setHeightRow(param, i) {
 function setRow(param, i) {
 	if (param.length == 8) {
 		if (i == 3 || i == 5)
-			return Ti.App.size(95);
+			return Ti.App.size(105);
 		else
 			return Ti.App.size(85);
 	} else {
 		if (i == 4)
-			return Ti.App.size(95);
+			return Ti.App.size(105);
 		else
 			return Ti.App.size(85);
 	}

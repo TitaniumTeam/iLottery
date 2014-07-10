@@ -23,6 +23,7 @@ function createUI(sv) {
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 
 	sv.ui.Window.add(Ti.UI.createView({

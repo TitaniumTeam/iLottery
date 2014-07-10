@@ -29,6 +29,7 @@ function tao_ui(sv) {
 		navBarHidden : true,
 		fullscreen : false,
 		backgroundColor : Ti.App.Color.nauden,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	//////header
 	sv.ui.ViewHeader = Ti.UI.createView({
@@ -63,7 +64,7 @@ function tao_ui(sv) {
 		height : Ti.App.size(90),
 	});
 	sv.ui.IconUser = Ti.UI.createImageView({
-		image : '/assets/icon/avatar-defaut.png',
+		image : '/assets/icon/icon_account.png',
 		touchEnabled : false,
 		width : Ti.App.size(54),
 		height : Ti.App.size(54)
@@ -213,18 +214,44 @@ function tao_sukien(sv) {
 		}
 		if (i == 3) {
 			sv.arr.evtChucNang[i] = function(e) {
-				for (var j = 0; j < 4; j++) {
-					if (j == 3)
-						sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
-					else {
-						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+				sv.vari.db = Ti.Database.open('userinfo');
+				sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+				sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
+				if (sv.vari.tk_user == 0) {
+					sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
+					sv.vari.wdNangCap.setThongBao("Bạn phải nâng cấp VIP mới sử dụng được chức năng này");
+					sv.vari.wdNangCap.ui.Window.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+					Ti.API.info('state'+sv.vari.wdNangCap.getState());
+					sv.vari.user_info.close();
+					sv.vari.db.close();
+				} else {
+					if (sv.vari.tk_user == 1) {
+						sv.vari.user_info.close();
+						sv.vari.db.close();
+						for (var j = 0; j < 4; j++) {
+							if (j == 3)
+								sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
+							else {
+								sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+							}
+
+						}
+						sv.vari.ViewHT.removeAllEvent();
+						sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+						sv.vari.ViewHT = null;
+						sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+						sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+					} else {
+						sv.vari.user_info.close();
+						sv.vari.db.close();
+						sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))();
+						sv.vari.WinPopUpDangNhap.open({
+							modal : Ti.Platform.osname == 'android' ? true : false
+						});
 					}
 				}
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 	}
@@ -240,7 +267,7 @@ function tao_sukien(sv) {
 		} else {
 			sv.vari.userinfo.close();
 			sv.vari.database.close();
-			sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))(sv.ui.Win);
+			sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))();
 			sv.vari.WinPopUpDangNhap.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});

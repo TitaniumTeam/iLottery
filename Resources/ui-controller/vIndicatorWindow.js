@@ -27,11 +27,7 @@ var vIndicatorWindow = function(text) {
 	this.background1 = Ti.UI.createView({
 		height : "500dp",
 		width : "500dp",
-		//backgroundColor : '#000',
-		//borderRadius : 10,
-		//opacity : 0.8,
-		//touchEnabled : false,
-		///layout : 'vertical'
+		center:true
 	});
 	this.background = Ti.UI.createView({
 		height : Ti.UI.SIZE,
