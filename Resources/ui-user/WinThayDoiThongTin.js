@@ -114,7 +114,7 @@ function createUI(sv) {
 				fontWeight : 'bold',
 				fontSize : Ti.App.size(30)
 			},
-			width : Ti.App.size(260),
+			width : Ti.App.size(200),
 			textAlign : "left",
 		});
 
@@ -122,7 +122,7 @@ function createUI(sv) {
 			width : Ti.App.size(330),
 			top : 0,
 			height : Ti.App.size(90),
-			left : Ti.App.size(260),
+			left : Ti.App.size(230),
 			backgroundColor : Ti.App.Color.superwhite,
 			maxLength : 30,
 			hintText : sv.arr.HintText[i],
@@ -132,6 +132,7 @@ function createUI(sv) {
 				fontSize : Ti.App.size(25)
 			},
 			autocorrect : false,
+			keyboardToolbarColor:Ti.App.Color.blue
 		});
 		sv.vari.rowChucNang1[i].add(sv.vari.txtChucNang1[i]);
 

@@ -18,14 +18,9 @@ function tao_bien(sv) {
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
 	sv.vari.ViewHT
-	sv.vari.db = Ti.Database.open('userinfo');
-	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	if (sv.vari.user_info.isValidRow()) {
-		sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
-	}
-
-	sv.vari.user_info.close();
-	sv.vari.db.close();
+	sv.vari.db = null;
+	sv.vari.user_info = null;
+	sv.vari.tk_user = null;
 	///
 	sv.vari.popup_offline = null;
 }
@@ -82,7 +77,7 @@ function tao_ui(sv) {
 
 	sv.ui.LabelHeader = Ti.UI.createLabel({
 		width : Ti.App.size(360),
-		text : "SỔ XỐ",
+		text : "XỔ SỐ",
 		font : {
 			fontSize : Ti.App.size(40),
 			fontWeight : 'bold'
@@ -181,19 +176,19 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				// if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-				// sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
-				// sv.vari.popup_offline.open({
-				// modal : Ti.Platform.osname == 'android' ? true : false
-				// });
-				// } else {
-				Ti.API.info('click 0');
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-				// }
+				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(0);
+					sv.vari.popup_offline.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					Ti.API.info('click 0');
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				}
 
 			};
 		}
@@ -206,18 +201,18 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				// if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-				// sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
-				// sv.vari.popup_offline.open({
-				// modal : Ti.Platform.osname == 'android' ? true : false
-				// });
-				// } else {
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-				// }
+				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(0);
+					sv.vari.popup_offline.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				}
 			};
 		}
 		if (i == 2) {
@@ -229,29 +224,36 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				// if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-				// sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
-				// sv.vari.popup_offline.open({
-				// modal : Ti.Platform.osname == 'android' ? true : false
-				// });
-				// } else {
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-				// }
+				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(0);
+					sv.vari.popup_offline.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				}
 			};
 		}
 		if (i == 3) {
 			sv.arr.evtChucNang[i] = function(e) {
+				sv.vari.db = Ti.Database.open('userinfo');
+				sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+				if (sv.vari.user_info.isValidRow()) {
+					sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
+				}
+				sv.vari.user_info.close();
+				sv.vari.db.close();
 				if (sv.vari.tk_user == 0) {
 					sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
 					sv.vari.wdNangCap.setThongBao("Bạn phải nâng cấp VIP mới sử dụng được chức năng này");
 					sv.vari.wdNangCap.ui.Window.open({
 						modal : Ti.Platform.osname == 'android' ? true : false
 					});
-					Ti.API.info('state' + sv.vari.wdNangCap.getState());
+					// Ti.API.info('state' + sv.vari.wdNangCap.getState());
 					sv.vari.user_info.close();
 					sv.vari.db.close();
 				} else {
@@ -269,7 +271,7 @@ function tao_sukien(sv) {
 						sv.vari.ViewHT.removeAllEvent();
 						sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
 						sv.vari.ViewHT = null;
-						sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+						sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
 						sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 					} else {
 						sv.vari.user_info.close();
@@ -303,8 +305,15 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
-		sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
-		sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+		if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+			sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
+			sv.vari.popup_offline.open({
+				modal : Ti.Platform.osname == 'android' ? true : false
+			});
+		} else {
+			sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
+			sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+		}
 	};
 	sv.fu.evtIconBack = function(e) {
 		sv.ui.Win.close();

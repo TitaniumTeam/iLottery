@@ -17,15 +17,7 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT;
-	sv.vari.db = Ti.Database.open('userinfo');
-	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	if (sv.vari.user_info.isValidRow()) {
-		sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
-	}
-
-	sv.vari.user_info.close();
-	sv.vari.db.close();
+	sv.vari.ViewHT
 }
 
 ////
@@ -179,12 +171,18 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				Ti.API.info('click 0');
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
+					sv.vari.popup_offline.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				}
 			};
 		}
 		if (i == 1) {
@@ -196,12 +194,18 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				Ti.API.info('click 1');
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VTinTuc'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
+					sv.vari.popup_offline.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-bongda/VTinTuc'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				}
 			};
 		}
 		if (i == 2) {
@@ -213,22 +217,36 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
+					sv.vari.popup_offline.open({
+						modal : Ti.Platform.osname == 'android' ? true : false
+					});
+				} else {
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				}
 			};
 		}
 		if (i == 3) {
 			sv.arr.evtChucNang[i] = function(e) {
+				sv.vari.db = Ti.Database.open('userinfo');
+				sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+				if (sv.vari.user_info.isValidRow()) {
+					sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
+				}
+				sv.vari.user_info.close();
+				sv.vari.db.close();
 				if (sv.vari.tk_user == 0) {
 					sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
 					sv.vari.wdNangCap.setThongBao("Bạn phải nâng cấp VIP mới sử dụng được chức năng này");
 					sv.vari.wdNangCap.ui.Window.open({
 						modal : Ti.Platform.osname == 'android' ? true : false
 					});
-					Ti.API.info('state' + sv.vari.wdNangCap.getState());
+					// Ti.API.info('state' + sv.vari.wdNangCap.getState());
 					sv.vari.user_info.close();
 					sv.vari.db.close();
 				} else {
@@ -282,8 +300,15 @@ function tao_sukien(sv) {
 	///
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
-		sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
-		sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+		if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+			sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
+			sv.vari.popup_offline.open({
+				modal : Ti.Platform.osname == 'android' ? true : false
+			});
+		} else {
+			sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
+			sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+		}
 	};
 	sv.fu.evtIconBack = function(e) {
 		sv.ui.Win.close();

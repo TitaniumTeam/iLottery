@@ -68,13 +68,14 @@ function createUI(sv) {
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.webview = Titanium.UI.createWebView({
-		width : Ti.UI.FILL,
-		height : Ti.UI.FILL,
+		width : Ti.App.size(640),
+		height : Ti.App.size(1136),
 		showScrollbars : false,
-		scalesPageToFit : true,
+		scalesPageToFit : false,
 		touchEnabled : true,
-		enableZoomControls : false,
+		enableZoomControls : true,
 		top : Ti.App.size(86),
+		loading:true,
 	});
 
 	sv.ui.winTuVan.add(sv.ui.webview);

@@ -141,17 +141,17 @@ function get_menu(sv) {
 			}
 
 		}
-		// if (sv.vari.user_info.isValidRow()) {
-			// for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				// sv.vari.db.execute('INSERT INTO DV_Bongda (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
-			// }
-		// } else {
-			// for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				// sv.vari.db.execute('INSERT INTO DV_Bongda_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
-			// }
-		// }
-		// Ti.API.info('row dich vu bong da'+sv.vari.dv1.getRowCount());
-		// Ti.API.info('row dich vu bong da'+sv.vari.dv2.getRowCount());
+		if (sv.vari.user_info.isValidRow()) {
+			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				sv.vari.db.execute('INSERT OR IGNORE INTO DV_Bongda (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+			}
+		} else {
+			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				sv.vari.db.execute('INSERT OR IGNORE INTO DV_Bongda_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+			}
+		}
+		Ti.API.info('row dich vu bong da'+sv.vari.dv1.getRowCount());
+		Ti.API.info('row dich vu bong da'+sv.vari.dv2.getRowCount());
 		sv.vari.user_info.close();
 		sv.vari.db.close();
 		for (var i = 0; i < (sv.arr.cacdichvu.id.length); i++) {

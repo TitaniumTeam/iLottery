@@ -281,15 +281,14 @@ function createUI(sv, tourid, season, logo) {
 		separatorColor : 'transparent',
 		zIndex : 0
 	});
-	sv.ui.ViewCheat = Ti.UI.createScrollView({
+	sv.ui.ViewCheat = Ti.UI.createView({
 		backgroundColor : 'transparent',
 		top : Ti.App.size(90),
 		left : 0,
-		showVerticalScrollIndicator : 'false',
-		contentHeight : Ti.UI.FILL,
-		height : Ti.UI.FILL,
+		height : Ti.App.size(1136),
 		zIndex : 10,
-		visible : false
+		visible : false,
+		width:Ti.App.size(640)
 	});
 	///
 	BXH(sv, tourid, season);

@@ -42,7 +42,7 @@ module.exports = function() {
 	var tableview = Ti.UI.createTableView({
 		separatorColor : Ti.App.Color.red_press,
 		right : Ti.App.size(25),
-		visible : false,
+		// visible : false,
 		backgroundColor : Ti.App.Color.nauden,
 		zIndex : 10,
 		showVerticalScrollIndicator : 'true',

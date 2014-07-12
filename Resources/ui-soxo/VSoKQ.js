@@ -18,6 +18,8 @@ function taobien(sv) {
 	// sv.arr.LabelTenGiai=[];
 	// sv.arr.LabelKetQua=[];
 	sv.vari.combobox = require('/ui-soxo/ComboBox');
+	sv.ui.view_choose = new sv.vari.combobox();
+	sv.ui.view_choose1 = new sv.vari.combobox();
 };
 function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -27,7 +29,7 @@ function taoui(sv) {
 		height : Ti.UI.FILL,
 		backgroundImage : "/assets/icon/bg_sokq.png",
 	});
-	
+
 	////view lua chon
 	sv.ui.ViewLuaChon = Titanium.UI.createView({
 		width : Ti.App.size(640),
@@ -36,29 +38,29 @@ function taoui(sv) {
 		top : 0,
 		backgroundImage : "/assets/icon/bg_picker1.png"
 	});
-	sv.ui.view_choose = new sv.vari.combobox();
-	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(320), Ti.App.size(95), 1);
-	sv.ui.view_choose1 = new sv.vari.combobox();
+	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(320), 0, 1);
 	sv.ui.view_choose1.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), Ti.App.size(95), 2);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.ViewPicker = Titanium.UI.createView({
-		width : Ti.UI.SIZE,
-		height : Ti.UI.SIZE,
+		width : Ti.App.size(640),
+		height : Ti.App.size(713),
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
+		backgroundColor : "transparent",
 	});
 
 	sv.ui.picker = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
 		minDate : new Date(2014, 0, 1),
 		maxDate : new Date(),
-		top : Ti.App.size(100),
+		// top : Ti.App.size(100),
 		value : new Date(),
 		backgroundColor : Ti.App.Color.nauden,
-		width : Ti.App.size(720),
+		width : Ti.App.size(640),
+		bottom : 0,
 	});
 	sv.ui.ViewPicker.add(sv.ui.picker);
 	/////
@@ -78,6 +80,15 @@ function taoui(sv) {
 		text : "Kết quả xổ số Miền Bắc " + currDate(),
 		backgroundImage : "/assets/icon/title_bar.png"
 	});
+	sv.ui.ViewCheat = Titanium.UI.createView({
+		backgroundColor : 'transparent',
+		top : Ti.App.size(90),
+		left : 0,
+		height : Ti.App.size(1136),
+		zIndex : 10,
+		visible : false,
+		width : Ti.App.size(640)
+	});
 	sv.ui.TableView = Ti.UI.createTableView({
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
@@ -86,7 +97,6 @@ function taoui(sv) {
 		backgroundColor : "transparent",
 		separatorColor : "transparent",
 	});
-	sv.ui.ViewTong.add(sv.ui.TableView);
 	///
 	soketqua("searchlottery", {
 		"provideid" : sv.ui.lblfirst.id,
@@ -98,16 +108,23 @@ function taoui(sv) {
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.view_choose1.addEventListener('click', sv.fu.event_click_view1);
+	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
+	sv.ui.ViewPicker.addEventListener('click', sv.fu.evt_hidePicker);
 	/////
 	sv.ui.ViewTong.add(sv.ui.ViewLuaChon);
 	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose1);
-	sv.ui.ViewTong.add(sv.ui.table_view);
+	sv.ui.ViewCheat.add(sv.ui.table_view);
+	sv.ui.ViewTong.add(sv.ui.ViewCheat);
 	sv.ui.ViewTong.add(sv.ui.ViewPicker);
+	sv.ui.ViewTong.add(sv.ui.TableView);
 };
 ////
 function createUI_Event(sv) {
+	sv.fu.evt_hidePicker = function(e) {
+		sv.ui.ViewPicker.visible = false;
+	};
 	////
 	sv.fu.event_picker = function(e) {
 		sv.vari.date = e.value;
@@ -119,27 +136,29 @@ function createUI_Event(sv) {
 	};
 
 	////
-	sv.fu.event_clickscrollview = function(e) {
-		sv.vari.flag = false;
-		if (sv.vari.flag == false) {
-			sv.ui.table_view.visible = false;
-			sv.ui.ViewPicker.visible = false;
-		};
-	};
-	sv.fu.event_click_view = function(e) {
-		sv.vari.flag = true;
-		soketqua("getprovide", {
-			"startdate" : currDate()
-		}, sv);
-		sv.ui.table_view.visible = true;
+	sv.fu.event_clickViewCheat = function(e) {
+		sv.ui.ViewCheat.visible = false;
+		sv.ui.TableView.touchEnabled = true;
 		sv.ui.ViewPicker.visible = false;
 	};
-	sv.fu.event_clicktbl = function(e) {
-		sv.vari.flag = true;
+	sv.fu.event_click_view = function(e) {
+		// sv.vari.flag = true;
+		soketqua("getprovide", {
+			"startdate" : "8/6/2014"
+		}, sv);
+		sv.ui.ViewPicker.visible = false;
 		sv.ui.TableView.scrollToTop(0, 0);
-		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
+		sv.ui.ViewCheat.visible = true;
+		sv.ui.TableView.touchEnabled = false;
+	};
+	sv.fu.event_clicktbl = function(e) {
+		// sv.vari.flag = true;
+		sv.ui.TableView.scrollToTop(0, 0);
+		sv.ui.TableView.touchEnabled = true;
+		sv.ui.lblfirst.text = e.row.tenrow;
+		sv.ui.lblfirst.id=e.row.id;
+		sv.ui.ViewCheat.visible = false;
 		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + ' ' + sv.ui.lblfirst1.text;
-		sv.ui.table_view.visible = false;
 		sv.ui.ViewPicker.visible = false;
 		soketqua("searchlottery", {
 			"provideid" : sv.ui.lblfirst.id,
@@ -147,9 +166,9 @@ function createUI_Event(sv) {
 		}, sv);
 	};
 	sv.fu.event_click_view1 = function(e) {
-		sv.vari.flag = true;
 		sv.ui.ViewPicker.visible = true;
-		sv.ui.table_view.visible = false;
+		sv.ui.ViewCheat.visible = false;
+		sv.ui.TableView.touchEnabled = false;
 	};
 };
 
@@ -160,7 +179,8 @@ function removeSK(sv) {
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
 		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_click_view1);
-		sv.ui.ViewTong.removeEventListener('click', sv.fu.event_clickscrollview);
+		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
+		sv.ui.ViewPicker.removeEventListener('click', sv.fu.evt_hidePicker);
 		Ti.API.info('remove so ket qua');
 	};
 };

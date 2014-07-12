@@ -30,7 +30,7 @@ function tao_bien(sv) {
 	sv.arr.TourId = [];
 	sv.arr.TourName = [];
 	sv.vari.SoLuongGiaiDau = 0;
-	sv.vari.row_height = Ti.App.size(88);
+	sv.vari.row_height = Ti.App.size(90);
 	///
 	sv.vari.combobox = require('/ui-controller/ComboBox');
 	sv.vari.bxh = require('/ui-bongda/WinBXH');
@@ -114,15 +114,14 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		zIndex : 0
 	});
-	sv.ui.ViewCheat = Titanium.UI.createScrollView({
+	sv.ui.ViewCheat = Titanium.UI.createView({
 		backgroundColor : 'transparent',
 		top : Ti.App.size(90),
 		left : 0,
-		showVerticalScrollIndicator : 'false',
-		contentHeight : Ti.UI.FILL,
-		height : Ti.UI.FILL,
+		height : Ti.App.size(1136),
 		zIndex : 10,
-		visible : false
+		visible : false,
+		width : Ti.App.size(640)
 	});
 	sv.ui.tbl = Ti.UI.createTableView({
 		height : Ti.UI.FILL,
@@ -133,7 +132,7 @@ function tao_ui(sv) {
 
 	});
 
-	GetTour(sv, "gettour", {
+	GetTour(sv, {
 		"season" : "2013-2014"
 	});
 	//////////
@@ -156,13 +155,13 @@ function tao_ui(sv) {
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
 };
-function GetTour(sv, _cmd, data) {
+function GetTour(sv, data) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=gettour');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -196,7 +195,7 @@ function GetTour(sv, _cmd, data) {
 			sv.ui.tbl.visible = true;
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua, Ti.App.size(20));
 			clearTimeout(sv.vari.timee_out2);
-		}, 1000);
+		}, 1500);
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				height : sv.vari.row_height,
@@ -238,7 +237,7 @@ function GetTour(sv, _cmd, data) {
 			//
 			sv.arr.lbl_co[i] = Titanium.UI.createImageView({
 				width : Ti.App.size(50),
-				height : Ti.App.size(33),
+				height : Ti.App.size(45),
 				image : sv.arr.logo[i],
 				left : Ti.App.size(20),
 				touchEnabled : false,
@@ -277,7 +276,6 @@ function GetTour(sv, _cmd, data) {
 					}]
 				},
 				visible : false,
-				backgroundSelectedImage : "/assets/icon/bg_login.png"
 			});
 			sv.arr.ViewChe[i] = Ti.UI.createView({
 				left : 0,
@@ -286,14 +284,13 @@ function GetTour(sv, _cmd, data) {
 				backgroundGradient : {
 					type : 'linear',
 					colors : [{
-						color : "#382526",
+						color : "#413839",
 						position : 0.5
 					}, {
-						color : "#382526",
+						color : "#413839",
 						position : 0.5
 					}]
 				},
-				height : Ti.App.size(200)
 			});
 			sv.arr.rows[i].add(sv.arr.ViewChe[i]);
 			sv.arr.rows[i].add(sv.arr.viewBack[i]);
@@ -335,8 +332,6 @@ function GetTour(sv, _cmd, data) {
 				xhr1.onload = function() {
 					var dl1 = JSON.parse(this.responseText);
 					var jsonResuilt1 = JSON.parse(dl1);
-					var dl1 = JSON.parse(this.responseText);
-					var jsonResuilt1 = JSON.parse(dl1);
 					Ti.API.info('cac tran dau: ', jsonResuilt1.matchs);
 
 					if (jsonResuilt1.matchs.length == 0) {
@@ -354,42 +349,41 @@ function GetTour(sv, _cmd, data) {
 					Ti.API.info('so tran' + sv.vari.sotran.length);
 					if (e.source.expanded) {
 						e.source.expanded = false;
-						sv.arr.rows[e.source.id].setHeight(Ti.App.size(88));
+						sv.arr.rows[e.source.id].setHeight(Ti.App.size(90));
 						sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_downarrow.png');
 						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 							if (j != (e.source.id)) {
 								sv.arr.rows[j].expanded = false;
-								sv.arr.rows[j].setHeight(Ti.App.size(88));
+								sv.arr.rows[j].setHeight(Ti.App.size(90));
 								sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');
 							}
 						}
 					} else {
 						e.source.expanded = true;
-						sv.arr.rows[e.source.id].setHeight(Ti.App.size((sv.vari.sotran.length) * 100 + 88));
+						sv.arr.rows[e.source.id].setHeight(Ti.App.size((sv.vari.sotran.length) * 100 + 90));
 						sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_uparrow.png');
 						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 							if (j != (e.source.id)) {
 								sv.arr.rows[j].expanded = false;
-								sv.arr.rows[j].setHeight(Ti.App.size(88));
+								sv.arr.rows[j].setHeight(Ti.App.size(90));
 								sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');
 							}
 						}
 					}
-					sv.arr.ViewChe[e.source.id].setHeight(height_viewback(sv.vari.sotran));
+					sv.arr.ViewChe[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length*100));
 					Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id], 0);
-					for ( j = 0; j < sv.vari.sotran.length; j++) {
-						// sv.ui.vThongtinTD = new sv.vari.viewTTTD(j);
-						sv.ui.vThongTinTD[j] = thongtin_cuthe(j);
-						sv.ui.vThongTinTD[j].setKQ("live", Ti.App.size(100 * j), sv.vari.sotran[j]);
-						sv.arr.viewBack[e.source.id].add(sv.ui.vThongTinTD[j]);
-					};
 					sv.vari.timeout = setTimeout(function() {
 						Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
 						sv.arr.viewBack[e.source.id].visible = true;
 						sv.arr.ViewChe[e.source.id].visible = false;
 						// sv.arr.rows[e.source.id].setTouchEnabled(true);
 					}, 1000);
-
+					for ( j = 0; j < sv.vari.sotran.length; j++) {
+						// sv.ui.vThongtinTD = new sv.vari.viewTTTD(j);
+						sv.ui.vThongTinTD[j] = thongtin_cuthe(j);
+						sv.ui.vThongTinTD[j].setKQ("live", Ti.App.size(100 * j), sv.vari.sotran[j]);
+						sv.arr.viewBack[e.source.id].add(sv.ui.vThongTinTD[j]);
+					};
 					for (var j = 0; j < (sv.vari.sotran.length); j++) {
 						sv.ui.vThongTinTD[j].addEventListener('click', function(k) {
 							if (sv.arr.MangDL.id[k.source.idKeo]) {
@@ -443,23 +437,24 @@ function tao_sukien(sv) {
 	};
 	sv.fu.event_click_view = function(e) {
 		sv.ui.tbl.scrollToTop(0, 0);
-		sv.ui.ViewCheat.visible=true;
+		sv.ui.ViewCheat.visible = true;
 		sv.ui.ViewChua.touchEnabled = false;
 
 	};
 	sv.fu.event_clickViewCheat = function(e) {
-		sv.ui.ViewCheat.visible=false;
+		sv.ui.ViewCheat.visible = false;
 		sv.ui.ViewChua.touchEnabled = true;
 		//};
 	};
 	sv.fu.event_clicktbl = function(e) {
 		sv.ui.ViewChua.touchEnabled = true;
-		sv.ui.lblfirst.text=e.row.tenrow;
-		sv.ui.ViewCheat.visible=false;
-		GetTour(sv, "gettour", {
-			"season" : sv.ui.lblfirst.text
-			//"matchid" : "1"
-		});
+		sv.ui.lblfirst.text = e.row.tenrow;
+		sv.ui.ViewCheat.visible = false;
+		/*
+		 GetTour(sv, "gettour", {
+		 "season" : sv.ui.lblfirst.text
+		 //"matchid" : "1"
+		 });*/
 	};
 
 };
@@ -487,8 +482,8 @@ function season() {
 }
 
 function tbl_click(e, _lbl, sv) {
-		_lbl.text = e.row.tenrow;
-		//_tbl.visible = false;
+	_lbl.text = e.row.tenrow;
+	//_tbl.visible = false;
 }
 
 function set_border(i, sv) {
@@ -512,7 +507,17 @@ function thongtin_cuthe(_id) {
 		left : 0,
 		bottom : 0,
 		zIndex : 10,
-		backgroundColor : Ti.App.Color.nauden
+		opacity : 0.5,
+		backgroundGradient : {
+			type : 'linear',
+			colors : [{
+				color : Ti.App.Color.nauden,
+				position : 0.5
+			}, {
+				color : Ti.App.Color.nauden,
+				position : 0.5
+			}]
+		},
 	});
 	////
 	var IconDoi1 = Ti.UI.createImageView({
@@ -630,17 +635,17 @@ function thongtin_cuthe(_id) {
 	};
 	return ViewChua;
 };
-function height_viewback(sotran) {
-	if ((sotran.length) == 1) {
-		return Ti.App.size(100);
-	} else {
-		if (sotran.length > 1) {
-			return Ti.App.size((sotran.length) * 100);
-		}
-
-	}
-
-};
+// function height_viewback(sotran) {
+	// if ((sotran.length) == 1) {
+		// return Ti.App.size(100);
+	// } else {
+		// if (sotran.length > 1) {
+			// return Ti.App.size((sotran.length) * 100);
+		// }
+// 
+	// }
+// 
+// };
 function setBGLabel(l1, l2) {
 	l1.setBackgroundColor(Ti.App.Color.red);
 	l2.setBackgroundColor("transparent");

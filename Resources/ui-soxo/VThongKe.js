@@ -17,6 +17,7 @@ function taobien(sv) {
 	// sv.arr.LabelTenGiai=[];
 	// sv.arr.LabelKetQua=[];
 	sv.vari.combobox = require('/ui-soxo/ComboBox');
+	sv.ui.view_choose = new sv.vari.combobox();
 	sv.vari.viewRaLienTiep = null;
 	sv.vari.viewXuatHienNhieu = null;
 	sv.vari.viewLauChuaRa = null;
@@ -38,7 +39,7 @@ function taoui(sv) {
 		backgroundColor : Ti.App.Color.nauden
 		// backgroundImage : "/assets/icon/nav_bar.png"
 	});
-	sv.ui.view_choose = new sv.vari.combobox();
+
 	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), Ti.App.size(95), 1);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
@@ -106,7 +107,7 @@ function createUI_Event(sv) {
 	sv.fu.event_click_view = function(e) {
 		sv.vari.flag = true;
 		thongke("getprovide", {
-			"startdate" : "8/6/2014"
+			"startdate" : currDate()
 		}, sv);
 		sv.ui.table_view.visible = true;
 	};
@@ -116,7 +117,7 @@ function createUI_Event(sv) {
 		sv.ui.View_header.text = "Thống kê " + sv.ui.lblfirst.text;
 		thongke("getlotterystat", {
 			"provideid" : sv.ui.lblfirst.text,
-			"startdate" : "8/6/2014"
+			"startdate" : currDate()
 			//currDate()
 		}, sv);
 	};
@@ -131,6 +132,7 @@ function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
+		sv.ui.ScrollView.removeEventListener('click', sv.fu.event_clickscrollview);
 		Ti.API.info('remove event thong ke');
 	};
 };

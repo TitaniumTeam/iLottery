@@ -124,7 +124,7 @@ function createUI(sv) {
 	////
 	sv.ui.IconGiaiDau = Titanium.UI.createImageView({
 		width : Ti.App.size(50),
-		height : Ti.App.size(33),
+		height : Ti.App.size(45),
 		left : Ti.App.size(20),
 		touchEnabled : false,
 		top : Ti.App.size(10),
@@ -225,6 +225,12 @@ function createUI_Event(sv) {
 
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window');
+		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
+		sv.ui.ViewChuaKeo.visible=false;
+		setTimeout(function(){
+			sv.ui.ViewChuaKeo.visible=true;
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
+		},1000);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
@@ -439,15 +445,16 @@ function ViewTySo() {
 	var tableView = Ti.UI.createTableView({
 		top : Ti.App.size(80),
 		backgroundColor : 'transparent',
-		separatorColor : Ti.App.Color.gray,
+		separatorColor : Ti.App.Color.brown,
 		left : 0,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640),
-		showVerticalScrollIndicator : 'true'
+		showVerticalScrollIndicator : 'true',
 	});
 	VTySo.add(tableView);
 	var rows = [];
 	VTySo.setTyLe = function(param) {
+		// VTySo.setHeight(Ti.App.size(param.length*75));
 		// VTySo.setTop(_top);
 		for (var i = 0; i < (param.length); i++) {
 			rows[i] = Ti.UI.createTableViewRow({
@@ -498,6 +505,12 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 			sv.vari.ViewKeoChauA.setPos("Kèo Châu Âu", jsonResuilt.match.euro_betting[0], tendoi1, tendoi2);
 			sv.ui.ViewChuaKeo.add(sv.vari.ViewKeoChauA);
 		}
+		if (jsonResuilt.match.taixiu.length>0) {
+			sv.vari.ViewTaiXiu = ViewKeo();
+			sv.vari.ViewTaiXiu.setPos("Tài xỉu", jsonResuilt.match.taixiu[0], tendoi1, tendoi2);
+			sv.ui.ViewChuaKeo.add(sv.vari.ViewTaiXiu);
+		}
+		// Ti.API.info('length tai xiu'+jsonResuilt.match.taixiu.length);
 		if (jsonResuilt.match.resultbet[0]) {
 			sv.vari.ViewTySo = ViewTySo();
 			sv.vari.ViewTySo.setTyLe(jsonResuilt.match.resultbet);
