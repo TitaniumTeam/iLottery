@@ -18,6 +18,7 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
+	var customButton = require('ui-controller/customButton');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -53,15 +54,21 @@ function createUI(sv) {
 		width : Ti.App.size(60),
 		height : Ti.App.size(60),
 	});
-	sv.ui.Icon = Ti.UI.createButton({
-		backgroundImage : '/assets/icon/btn_cancel.png',
-		width : Ti.App.size(45),
-		height : Ti.App.size(45),
-		top : Ti.App.size(175),
-		right : Ti.App.size(5),
+	sv.ui.ViewIconClose = customButton({
+		width : Ti.App.size(100),
+		height : Ti.App.size(90),
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		top : Ti.App.size(150),
+		right : 0,
 		zIndex : 10
 	});
-
+	sv.ui.Icon = Ti.UI.createImageView({
+		image : '/assets/icon/btn_cancel.png',
+		width : Ti.App.size(45),
+		height : Ti.App.size(45),
+		right : 0,
+	});
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
 		text : 'Nạp xu bằng mã thẻ',
 		font : {
@@ -122,9 +129,9 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
 	sv.ui.btn_nap.addEventListener('click', sv.fu.eventClicknaptien);
-
-	sv.ui.Window.add(sv.ui.Icon);
-
+	
+	sv.ui.ViewIconClose.add(sv.ui.Icon);
+	sv.ui.Window.add(sv.ui.ViewIconClose);
 	sv.ui.ViewPopUp.add(sv.ui.line);
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
 	sv.ui.ViewPopUp.add(sv.ui.txt_soseri);
@@ -197,7 +204,7 @@ function naptien(data, sv) {
 			});
 			sv.ui.Window.close();
 		} else {
-			var wdPopUpThatBai=new (require('/ui-user/PopUpThatBai'))(0);
+			var wdPopUpThatBai = new (require('/ui-user/PopUpThatBai'))(0);
 			wdPopUpThatBai.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});

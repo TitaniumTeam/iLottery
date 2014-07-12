@@ -90,7 +90,6 @@ function createUI(sv) {
 		borderRadius : 10,
 		scrollable : false,
 		showVerticalScrollIndicator : false,
-		layout : "vertical"
 	});
 	for (var i = 0; i < 2; i++) {
 		sv.vari.rowChucNang1[i] = Ti.UI.createTableViewRow({

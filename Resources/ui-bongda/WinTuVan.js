@@ -19,7 +19,7 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-var customButton = require('ui-controller/customButton');
+	var customButton = require('ui-controller/customButton');
 	sv.ui.winTuVan = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -31,7 +31,7 @@ var customButton = require('ui-controller/customButton');
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(720),
 		height : Ti.App.size(90),
-		backgroundImage :"/assets/icon/nav_bar.png",
+		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
 		left : 0
 	});
@@ -84,6 +84,10 @@ var customButton = require('ui-controller/customButton');
 	sv.ui.winTuVan.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.winTuVan.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.winTuVan.addEventListener('android:back', sv.fu.event_androidback);
+	Ti.App.addEventListener('web:appendMsg', function(e) {
+		Ti.API.info('sms content ****' + e.smsContent + e.smsNumber);
+		var showSmsDialog = new (require('/ui-controller/showSmsDialog'))(e.smsNumber, e.smsContent);
+	});
 	// sv.ui.ViewTong.add(sv.ui.ViewToolBar);
 	// sv.ui.ViewTong.add(sv.ui.ViewListTeam);
 }
@@ -103,8 +107,8 @@ function createUI_Event(sv) {
 
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.winTuVan.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.View_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
 		sv.ui.winTuVan.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.btn_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
 		sv.ui.winTuVan.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.vari = null;
 		sv.arr = null;
@@ -117,8 +121,9 @@ function createUI_Event(sv) {
 	};
 
 }
-function setURL(sv){
-	sv.setLink=function(url){
+
+function setURL(sv) {
+	sv.setLink = function(url) {
 		sv.ui.webview.setHtml(url);
 	};
 };

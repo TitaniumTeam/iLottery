@@ -47,8 +47,10 @@ function taoui(sv) {
 };
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
-		sv.ui.tbl1.removeEventListener('click', sv.fu.evt_tblrow_click);
-		Ti.API.info('remove su kien tu van');
+		if (sv.fu.evt_tblrow_click != null && sv.fu.evt_tblrow_click != undefined) {
+			sv.ui.tbl1.removeEventListener('click', sv.fu.evt_tblrow_click);
+			Ti.API.info('remove su kien tu van');
+		}
 	};
 };
 function tao_sukien(sv) {
@@ -91,15 +93,14 @@ function get_menu(sv) {
 	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
 	if (sv.vari.user_info.isValidRow()) {
 		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
-		sv.vari.user_info.close();
-		sv.vari.db.close();
+
 		data = {
 			"username" : sv.vari.user_name,
 			type : "0"
 		};
 	} else {
-		sv.vari.user_info.close();
-		sv.vari.db.close();
+		// sv.vari.user_info.close();
+		// sv.vari.db.close();
 		data = {
 			"username" : "",
 			type : "0"
@@ -122,8 +123,8 @@ function get_menu(sv) {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
-		var db = Ti.Database.open("userinfo");
-		var user = db.execute("SELECT * FROM SaveInfo");
+		// var db = Ti.Database.open("userinfo");
+		// var user = db.execute("SELECT * FROM SaveInfo");
 		// Ti.API.info('du lieu' + jsonResuilt.menus);
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
 			sv.arr.cacdichvu.id.push(jsonResuilt.menus[i].id);
@@ -138,17 +139,19 @@ function get_menu(sv) {
 			}
 
 		}
-		if (user.isValidRow()) {
+		if (sv.vari.user_info.isValidRow()) {
+			sv.vari.db.execute('DELETE FROM DV_Soxo');
 			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				db.execute('INSERT INTO DV_Soxo (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+				sv.vari.db.execute('INSERT INTO DV_Soxo (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			}
 		} else {
+			sv.vari.db.execute('DELETE FROM DV_Soxo_free');
 			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				db.execute('INSERT INTO DV_Soxo_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+				sv.vari.db.execute('INSERT INTO DV_Soxo_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			}
 		}
-		user.close();
-		db.close();
+		sv.vari.user_info.close();
+		sv.vari.db.close();
 		for (var i = 0; i < (sv.arr.cacdichvu.id.length); i++) {
 			Ti.API.info('****id:' + sv.arr.cacdichvu.id[i]);
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
@@ -196,8 +199,9 @@ function tuvan_soxo(_cmd, data, sv) {
 			// var link = jsonResuilt.advisor;
 			Ti.API.info('nhay vao day******');
 			if (jsonResuilt.advisor) {
+				Ti.API.info('ket qua tu van'+JSON.parse(jsonResuilt.advisor));
 				sv.vari.wdTuVan = new sv.vari.winTuVan();
-				sv.vari.wdTuVan.setLink(jsonResuilt.advisor);
+				sv.vari.wdTuVan.setLink(JSON.parse(jsonResuilt.advisor));
 				sv.vari.wdTuVan.ui.winTuVan.open();
 				// sv.ui.ViewTong.removeAllChildren();
 				// sv.ui.ViewTong.add(sv.ui.webview);

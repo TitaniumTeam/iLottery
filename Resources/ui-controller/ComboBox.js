@@ -50,7 +50,7 @@ module.exports = function(_top, _textlbl, _left, _width, _toptbl) {
 		width : _width,
 		left : _left,
 		right : Ti.App.size(25),
-		visible : false,
+		// visible : false,
 		backgroundColor : Ti.App.Color.nauden,
 		zIndex : 10,
 		borderColor : Ti.App.Color.nauden,

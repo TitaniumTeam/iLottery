@@ -92,17 +92,19 @@ function get_menu(sv) {
 	var data = null;
 	sv.vari.db = Ti.Database.open('userinfo');
 	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+	sv.vari.dv1=sv.vari.db.execute("SELECT * FROM DV_Bongda");
+	sv.vari.dv2=sv.vari.db.execute("SELECT * FROM DV_Bongda_free");
 	if (sv.vari.user_info.isValidRow()) {
 		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
-		sv.vari.user_info.close();
-		sv.vari.db.close();
+		// sv.vari.user_info.close();
+		// sv.vari.db.close();
 		data = {
 			"username" : sv.vari.user_name,
 			type : "1"
 		};
 	} else {
-		sv.vari.user_info.close();
-		sv.vari.db.close();
+		// sv.vari.user_info.close();
+		// sv.vari.db.close();
 		data = {
 			"username" : "",
 			type : "1"
@@ -122,11 +124,10 @@ function get_menu(sv) {
 
 	};
 	xhr.onload = function() {
+		sv.vari.user_info.getRowCount();
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
-		var db = Ti.Database.open("userinfo");
-		var user = db.execute("SELECT * FROM SaveInfo");
 		for (var i = 0; i < (jsonResuilt.menus.length); i++) {
 			sv.arr.cacdichvu.id.push(jsonResuilt.menus[i].id);
 			sv.arr.cacdichvu.name.push(jsonResuilt.menus[i].name);
@@ -140,17 +141,19 @@ function get_menu(sv) {
 			}
 
 		}
-		if (user.isValidRow()) {
-			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				db.execute('INSERT INTO DV_Bongda (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
-			}
-		} else {
-			for (var i = 0; i < (jsonResuilt.menus.length); i++) {
-				db.execute('INSERT INTO DV_Bongda_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
-			}
-		}
-		user.close();
-		db.close();
+		// if (sv.vari.user_info.isValidRow()) {
+			// for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				// sv.vari.db.execute('INSERT INTO DV_Bongda (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+			// }
+		// } else {
+			// for (var i = 0; i < (jsonResuilt.menus.length); i++) {
+				// sv.vari.db.execute('INSERT INTO DV_Bongda_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
+			// }
+		// }
+		// Ti.API.info('row dich vu bong da'+sv.vari.dv1.getRowCount());
+		// Ti.API.info('row dich vu bong da'+sv.vari.dv2.getRowCount());
+		sv.vari.user_info.close();
+		sv.vari.db.close();
 		for (var i = 0; i < (sv.arr.cacdichvu.id.length); i++) {
 			Ti.API.info('****id:' + sv.arr.cacdichvu.id[i]);
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({

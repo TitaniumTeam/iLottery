@@ -17,7 +17,15 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.vari.ViewHT;
+	sv.vari.db = Ti.Database.open('userinfo');
+	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
+	if (sv.vari.user_info.isValidRow()) {
+		sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
+	}
+
+	sv.vari.user_info.close();
+	sv.vari.db.close();
 }
 
 ////
@@ -214,16 +222,13 @@ function tao_sukien(sv) {
 		}
 		if (i == 3) {
 			sv.arr.evtChucNang[i] = function(e) {
-				sv.vari.db = Ti.Database.open('userinfo');
-				sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-				sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
 				if (sv.vari.tk_user == 0) {
 					sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
 					sv.vari.wdNangCap.setThongBao("Bạn phải nâng cấp VIP mới sử dụng được chức năng này");
 					sv.vari.wdNangCap.ui.Window.open({
 						modal : Ti.Platform.osname == 'android' ? true : false
 					});
-					Ti.API.info('state'+sv.vari.wdNangCap.getState());
+					Ti.API.info('state' + sv.vari.wdNangCap.getState());
 					sv.vari.user_info.close();
 					sv.vari.db.close();
 				} else {

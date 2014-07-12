@@ -25,8 +25,9 @@ function taoui(sv) {
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-		backgroundImage : "/assets/icon/bg_sokq.png"
+		backgroundImage : "/assets/icon/bg_sokq.png",
 	});
+	
 	////view lua chon
 	sv.ui.ViewLuaChon = Titanium.UI.createView({
 		width : Ti.App.size(640),
@@ -300,14 +301,14 @@ function rows() {
 				height : setHeightRow(param, i),
 				left : Ti.App.size(10),
 				width : Ti.App.size(160),
-				backgroundColor:"transparent"
+				backgroundColor : "transparent"
 			});
 			viewTenGiai[i].add(Ti.UI.createView({
 				width : "100%",
-				height:"100%",
+				height : "100%",
 				opacity : 0.2,
 				zIndex : 0,
-				backgroundColor:Ti.App.Color.nauden
+				backgroundColor : Ti.App.Color.nauden
 			}));
 			lblTenGiai[i] = Ti.UI.createLabel({
 				height : Ti.UI.FILL,
@@ -324,11 +325,11 @@ function rows() {
 				width : Ti.App.size(450),
 				right : Ti.App.size(10),
 				height : setHeightRow(param, i),
-				backgroundColor:"transparent"
+				backgroundColor : "transparent"
 			});
 			viewchua[i].add(Ti.UI.createView({
 				width : "100%",
-				height:"100%",
+				height : "100%",
 				backgroundColor : Ti.App.Color.nauden,
 				opacity : 0.2,
 				zIndex : 0

@@ -35,7 +35,7 @@ function createUI(sv, _type) {
 	}));
 	sv.ui.ViewPopUp = Ti.UI.createView({
 		height : Ti.App.size(406),
-		backgroundColor : Ti.App.Color.magenta,
+		backgroundColor : Ti.App.Color.superwhite,
 		width : Ti.App.size(590),
 		borderRadius : 5,
 		top : Ti.App.size(200),

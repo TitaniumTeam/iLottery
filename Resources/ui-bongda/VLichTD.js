@@ -54,7 +54,7 @@ function tao_ui(sv) {
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-		backgroundColor : 'transparent'
+		backgroundColor : 'transparent',
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		top : 0,
@@ -66,7 +66,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(325),
 		height : Ti.App.size(50),
 		left : Ti.App.size(20),
-		backgroundImage : "/assets/icon/switch_left.png"
+		backgroundImage : "/assets/icon/switch_right.png"
 	});
 
 	sv.ui.LabelAll = Ti.UI.createLabel({
@@ -100,7 +100,7 @@ function tao_ui(sv) {
 			fontWeight : 'bold'
 		}
 	});
-	sv.ui.view_choose = new sv.vari.combobox(0, "2013-2014", Ti.App.size(400), Ti.App.size(244), Ti.App.size(85));
+	sv.ui.view_choose = new sv.vari.combobox(0, "2013-2014", Ti.App.size(400), Ti.App.size(244), 0);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.view_choose.setTable(season());
@@ -111,7 +111,18 @@ function tao_ui(sv) {
 		left : 0,
 		showVerticalScrollIndicator : 'true',
 		contentHeight : Ti.UI.FILL,
-		height : Ti.UI.FILL
+		height : Ti.UI.FILL,
+		zIndex : 0
+	});
+	sv.ui.ViewCheat = Titanium.UI.createScrollView({
+		backgroundColor : 'transparent',
+		top : Ti.App.size(90),
+		left : 0,
+		showVerticalScrollIndicator : 'false',
+		contentHeight : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		zIndex : 10,
+		visible : false
 	});
 	sv.ui.tbl = Ti.UI.createTableView({
 		height : Ti.UI.FILL,
@@ -131,10 +142,11 @@ function tao_ui(sv) {
 	sv.ui.ViewHeader.add(sv.ui.ViewSwitch);
 	sv.ui.ViewHeader.add(sv.ui.view_choose);
 	sv.ui.ViewTong.add(sv.ui.ViewHeader);
-	sv.ui.ViewTong.add(sv.ui.table_view);
+	sv.ui.ViewCheat.add(sv.ui.table_view);
 	///
 	///
 	sv.ui.ViewChua.add(sv.ui.tbl);
+	sv.ui.ViewTong.add(sv.ui.ViewCheat);
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
 	// tao_sukien(sv);
 	tao_sukien(sv);
@@ -142,7 +154,7 @@ function tao_ui(sv) {
 	sv.ui.LabelAll.addEventListener('click', sv.fu.event_clickLabelAll);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
-
+	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
 };
 function GetTour(sv, _cmd, data) {
 	var xhr = Titanium.Network.createHTTPClient();
@@ -182,7 +194,7 @@ function GetTour(sv, _cmd, data) {
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
 		sv.vari.timee_out2 = setTimeout(function() {
 			sv.ui.tbl.visible = true;
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua,Ti.App.size(20));
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua, Ti.App.size(20));
 			clearTimeout(sv.vari.timee_out2);
 		}, 1000);
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
@@ -274,10 +286,10 @@ function GetTour(sv, _cmd, data) {
 				backgroundGradient : {
 					type : 'linear',
 					colors : [{
-						color : "#413839",
+						color : "#382526",
 						position : 0.5
 					}, {
-						color : "#413839",
+						color : "#382526",
 						position : 0.5
 					}]
 				},
@@ -304,9 +316,6 @@ function GetTour(sv, _cmd, data) {
 		}
 		for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
 			sv.arr.viewArow[i].addEventListener('click', function(e) {
-				// sv.arr.rows[e.source.id].setTouchEnabled(false);
-				// Ti.API.info('thu tu ' + e.source.id);
-				// sv.arr.viewBack[e.source.id].visible=false;
 				sv.vari.data1 = {
 					"tourid" : sv.arr.TourId[e.source.id],
 				};
@@ -315,7 +324,7 @@ function GetTour(sv, _cmd, data) {
 					//ind.value = e.progress;
 					Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 				};
-				xhr1.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getmatchschedule");
+				xhr1.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getmatchended");
 				xhr1.setRequestHeader("Content-Type", "application/json-rpc");
 				Ti.API.info(JSON.stringify(sv.vari.data1));
 				xhr1.send(JSON.stringify(sv.vari.data1));
@@ -332,7 +341,7 @@ function GetTour(sv, _cmd, data) {
 
 					if (jsonResuilt1.matchs.length == 0) {
 						sv.vari.sotran = [];
-						Ti.App.customToast.showToast("Không có trận nào", 1000);
+						//Ti.App.customToast.showToast("Không có trận nào", 1000);
 					} else {
 						for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
 							sv.vari.sotran[j] = jsonResuilt1.matchs[j];
@@ -394,7 +403,7 @@ function GetTour(sv, _cmd, data) {
 					}
 					sv.ui.tbl.setData(sv.arr.rows);
 					// sv.ui.ViewChua.setTouchEnabled(true);
-					
+
 					// }, 1000);
 				};
 			});
@@ -406,18 +415,11 @@ function GetTour(sv, _cmd, data) {
 };
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
-		// for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
-		// sv.arr.viewGD[i].removeEventListener('click', sv.arr.evt_bxh[i]);
-		// }
-		// for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
-		// sv.arr.viewArow[i].removeEventListener('click', sv.arr.evt_thongtinTD[i]);
-		//
-		// }
-
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
 		sv.ui.LabelLive.removeEventListener('click', sv.fu.event_clickLabelLive);
 		sv.ui.LabelAll.removeEventListener('click', sv.fu.event_clickLabelAll);
+		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
 		Ti.API.info('remove su kien lich thi dau');
 	};
 };
@@ -440,22 +442,20 @@ function tao_sukien(sv) {
 		// });
 	};
 	sv.fu.event_click_view = function(e) {
-		sv.vari.dem++;
-
-		if (sv.vari.dem >= 2) {
-			sv.vari.flag = false;
-			sv.ui.table_view.visible = false;
-			sv.vari.dem = 0;
-		} else {
-			sv.ui.tbl.scrollToTop(0, 0);
-			sv.vari.flag = true;
-			sv.ui.table_view.visible = true;
-		}
+		sv.ui.tbl.scrollToTop(0, 0);
+		sv.ui.ViewCheat.visible=true;
+		sv.ui.ViewChua.touchEnabled = false;
 
 	};
+	sv.fu.event_clickViewCheat = function(e) {
+		sv.ui.ViewCheat.visible=false;
+		sv.ui.ViewChua.touchEnabled = true;
+		//};
+	};
 	sv.fu.event_clicktbl = function(e) {
-		sv.vari.flag = true;
-		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
+		sv.ui.ViewChua.touchEnabled = true;
+		sv.ui.lblfirst.text=e.row.tenrow;
+		sv.ui.ViewCheat.visible=false;
 		GetTour(sv, "gettour", {
 			"season" : sv.ui.lblfirst.text
 			//"matchid" : "1"
@@ -486,11 +486,9 @@ function season() {
 	return data;
 }
 
-function tbl_click(e, _lbl, _tbl, sv) {
-	if (sv.vari.flag == true) {
+function tbl_click(e, _lbl, sv) {
 		_lbl.text = e.row.tenrow;
-		_tbl.visible = false;
-	}
+		//_tbl.visible = false;
 }
 
 function set_border(i, sv) {
@@ -507,6 +505,14 @@ function thongtin_cuthe(_id) {
 		left : 0,
 		backgroundColor : 'transparent',
 		idKeo : _id
+	});
+	var line_viewchua = Ti.UI.createView({
+		width : Ti.App.size(640),
+		height : Ti.App.size(3),
+		left : 0,
+		bottom : 0,
+		zIndex : 10,
+		backgroundColor : Ti.App.Color.nauden
 	});
 	////
 	var IconDoi1 = Ti.UI.createImageView({
@@ -552,10 +558,10 @@ function thongtin_cuthe(_id) {
 		backgroundGradient : {
 			type : 'linear',
 			colors : [{
-				color : Ti.App.Color.gray,
+				color : Ti.App.Color.brown,
 				position : 0.5
 			}, {
-				color : Ti.App.Color.gray,
+				color : Ti.App.Color.brown,
 				position : 0.5
 			}]
 		},
@@ -577,8 +583,8 @@ function thongtin_cuthe(_id) {
 		image : "/assets/icon/icon-time.png"
 	});
 	var lineView1 = Titanium.UI.createImageView({
-		width : Ti.App.size(3),
-		height : Ti.App.size(60),
+		width : Ti.App.size(2),
+		height : Ti.App.size(50),
 		left : Ti.App.size(250),
 		image : "/assets/icon/100c_devider.png",
 		touchEnabled : "false",
@@ -586,8 +592,8 @@ function thongtin_cuthe(_id) {
 		// backgroundColor : Ti.App.Color.brown,
 	});
 	var lineView2 = Titanium.UI.createImageView({
-		width : Ti.App.size(3),
-		height : Ti.App.size(60),
+		width : Ti.App.size(2),
+		height : Ti.App.size(50),
 		right : Ti.App.size(250),
 		image : "/assets/icon/100c_devider.png",
 		touchEnabled : "false",
@@ -595,6 +601,7 @@ function thongtin_cuthe(_id) {
 		// backgroundColor : Ti.App.Color.brown,
 	});
 	// // ThoiGian.visible=false;
+	ViewChua.add(line_viewchua);
 	ViewChua.add(lineView1);
 	ViewChua.add(lineView2);
 	ViewChua.add(IconDoi1);

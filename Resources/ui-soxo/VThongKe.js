@@ -84,7 +84,7 @@ function taoui(sv) {
 	createUI_Event(sv);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
-
+	sv.ui.ScrollView.addEventListener('click', sv.fu.event_clickscrollview);
 	/////
 	sv.ui.ViewTong.add(sv.ui.ViewLuaChon);
 	sv.ui.ViewTong.add(sv.ui.View_header);

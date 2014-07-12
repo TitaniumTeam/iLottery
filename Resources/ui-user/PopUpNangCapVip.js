@@ -207,7 +207,7 @@ function nangcapvip(data, sv) {
 
 };
 function check_state(sv) {
-	sv.getState=function() {
+	sv.getState = function() {
 		return sv.vari.flag_state;
 	};
 };

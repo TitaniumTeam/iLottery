@@ -51,7 +51,8 @@ function createUI(sv, tourid, season, logo) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,orientationModes : [Ti.UI.PORTRAIT],
+		fullscreen : false,
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(640),
@@ -145,15 +146,10 @@ function createUI(sv, tourid, season, logo) {
 		top : Ti.App.size(20),
 		height : Ti.UI.SIZE
 	});
-	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(-10), season, Ti.App.size(400), Ti.App.size(244), Ti.App.size(85));
+	sv.ui.view_choose = new sv.vari.combobox(Ti.App.size(-10), season, Ti.App.size(400), Ti.App.size(244), 0);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 	sv.ui.view_choose.setTable(cacnam());
-	sv.ui.ViewSeason.add(sv.ui.view_choose);
-	sv.ui.ViewSeason.add(sv.ui.TenGD);
-	sv.ui.ViewSeason.add(sv.ui.IconGD);
-	sv.ui.ViewTong.add(sv.ui.ViewSeason);
-	sv.ui.ViewTong.add(sv.ui.table_view);
 	////
 	sv.ui.ViewToolBar = Ti.UI.createView({
 		width : Ti.App.WidthScreen,
@@ -283,6 +279,17 @@ function createUI(sv, tourid, season, logo) {
 		left : 0,
 		width : Ti.App.size(640),
 		separatorColor : 'transparent',
+		zIndex : 0
+	});
+	sv.ui.ViewCheat = Ti.UI.createScrollView({
+		backgroundColor : 'transparent',
+		top : Ti.App.size(90),
+		left : 0,
+		showVerticalScrollIndicator : 'false',
+		contentHeight : Ti.UI.FILL,
+		height : Ti.UI.FILL,
+		zIndex : 10,
+		visible : false
 	});
 	///
 	BXH(sv, tourid, season);
@@ -294,7 +301,15 @@ function createUI(sv, tourid, season, logo) {
 	sv.ui.winBXH.addEventListener('android:back', sv.fu.event_androidback);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
+	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
 	////////
+	sv.ui.ViewSeason.add(sv.ui.view_choose);
+	sv.ui.ViewSeason.add(sv.ui.TenGD);
+	sv.ui.ViewSeason.add(sv.ui.IconGD);
+	sv.ui.ViewTong.add(sv.ui.ViewSeason);
+	sv.ui.ViewCheat.add(sv.ui.table_view);
+	sv.ui.ViewTong.add(sv.ui.ViewCheat);
+	/////
 	sv.ui.ViewTong.add(sv.ui.ViewToolBar);
 	sv.ui.ViewTong.add(sv.ui.ViewListTeam);
 
@@ -317,14 +332,21 @@ function createUI(sv, tourid, season, logo) {
 
 function createUI_Event(sv, tourid) {
 	sv.fu.event_click_view = function(e) {
-		sv.vari.flag = true;
-		sv.ui.table_view.visible = true;
+		sv.ui.ViewListTeam.scrollToTop(0, 0);
+		sv.ui.ViewCheat.visible = true;
+		sv.ui.ViewListTeam.touchEnabled = false;
 	};
 	sv.fu.event_clicktbl = function(e) {
-		sv.vari.flag = true;
-		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
+		sv.ui.ViewListTeam.touchEnabled = true;
+		sv.ui.lblfirst.text = e.row.tenrow;
+		sv.ui.ViewCheat.visible = false;
 		BXH(sv, tourid, sv.ui.lblfirst.text);
 
+	};
+	sv.fu.event_clickViewCheat = function(e) {
+		sv.ui.ViewCheat.visible = false;
+		sv.ui.ViewListTeam.touchEnabled = true;
+		//};
 	};
 	sv.fu.event_androidback = function(e) {
 		sv.ui.winBXH.close();
@@ -339,11 +361,12 @@ function createUI_Event(sv, tourid) {
 
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.winBXH.removeEventListener('open', sv.fu.eventOpenWindow);
+		sv.ui.View_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
 		sv.ui.winBXH.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.btn_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
 		sv.ui.winBXH.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
+		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
@@ -588,9 +611,3 @@ function cacnam() {
 	return data;
 }
 
-function tbl_click(e, _lbl, _tbl, sv) {
-	if (sv.vari.flag == true) {
-		_lbl.text = e.row.tenrow;
-		_tbl.visible = false;
-	}
-}
