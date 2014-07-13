@@ -7,6 +7,7 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
+		kt_mang();
 		createVariable(sv);
 		createUI(sv);
 		removeSK(sv);
@@ -80,7 +81,7 @@ function createUI(sv) {
 				id : i,
 				backgroundSelectedColor : Ti.App.Color.xanhnhat
 			});
-			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewTinTuc[i], Ti.App.size(20));
+			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewTinTuc[i]);
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
 				image : jsonResuilt.news[i].image,
 				top : 0,
@@ -203,4 +204,11 @@ function createUI_Event(sv) {
 		};
 	}
 }
-
+function kt_mang() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(1);
+		pop_upsms.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+	}
+};

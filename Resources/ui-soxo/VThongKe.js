@@ -5,6 +5,7 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
+		kt_mang();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -28,7 +29,7 @@ function taoui(sv) {
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-
+		backgroundImage : "/assets/icon/bg_sokq.png",
 	});
 	////view lua chon
 	sv.ui.ViewLuaChon = Titanium.UI.createView({
@@ -65,15 +66,16 @@ function taoui(sv) {
 	sv.ui.ScrollView = Ti.UI.createScrollView({
 		width : Ti.App.size(640),
 		top : Ti.App.size(175),
-		backgroundImage : "/assets/icon/bg_sokq.png",
 		layout : 'vertical',
-		horizontalWrap : false,
+		// horizontalWrap : false,
 		scrollType : 'vertical',
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		horizontalBounce : true,
+		// horizontalBounce : true,
 		height : Ti.UI.FILL,
+		bottom:Ti.App.size(25),
+		contentHeight:Ti.UI.FILL
 	});
 	////
 	thongke("getlotterystat", {
@@ -386,4 +388,12 @@ function bang_kq() {
 	};
 
 	return viewchua;
+};
+function kt_mang() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
+		pop_upsms.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+	}
 };

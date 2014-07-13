@@ -5,6 +5,7 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
+		kt_mang();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -75,14 +76,19 @@ function tao_sukien(sv) {
 			sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
 				title : "Lựa chọn tỉnh thành",
 				options : sv.vari.param,
+				cancel : 1,
 			});
 			sv.ui.opt_dialog.show();
 			sv.ui.opt_dialog.addEventListener('click', function(e) {
-				tuvan_soxo("menuaction", {
-					"command" : sv.vari.action,
-					"param" : sv.vari.param[e.index],
-					"price" : sv.vari.price
-				}, sv);
+				if (e.index === e.source.cancel) {
+					Ti.API.info('The cancel button was clicked');
+				} else {
+					tuvan_soxo("menuaction", {
+						"command" : sv.vari.action,
+						"param" : sv.vari.param[e.index],
+						"price" : sv.vari.price
+					}, sv);
+				}
 			});
 		};
 	};
@@ -92,8 +98,8 @@ function get_menu(sv) {
 	var data = null;
 	sv.vari.db = Ti.Database.open('userinfo');
 	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	sv.vari.dv1=sv.vari.db.execute("SELECT * FROM DV_Bongda");
-	sv.vari.dv2=sv.vari.db.execute("SELECT * FROM DV_Bongda_free");
+	sv.vari.dv1 = sv.vari.db.execute("SELECT * FROM DV_Bongda");
+	sv.vari.dv2 = sv.vari.db.execute("SELECT * FROM DV_Bongda_free");
 	if (sv.vari.user_info.isValidRow()) {
 		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
 		// sv.vari.user_info.close();
@@ -150,8 +156,8 @@ function get_menu(sv) {
 				sv.vari.db.execute('INSERT OR IGNORE INTO DV_Bongda_free (tendv,noidung,servicenumber,thamso,gia) VALUES(?,?,?,?,?)', jsonResuilt.menus[i].name, jsonResuilt.menus[i].action, jsonResuilt.menus[i].servicenumber, jsonResuilt.menus[i].params, jsonResuilt.menus[i].price);
 			}
 		}
-		Ti.API.info('row dich vu bong da'+sv.vari.dv1.getRowCount());
-		Ti.API.info('row dich vu bong da'+sv.vari.dv2.getRowCount());
+		Ti.API.info('row dich vu bong da' + sv.vari.dv1.getRowCount());
+		Ti.API.info('row dich vu bong da' + sv.vari.dv2.getRowCount());
 		sv.vari.user_info.close();
 		sv.vari.db.close();
 		for (var i = 0; i < (sv.arr.cacdichvu.id.length); i++) {
@@ -211,4 +217,13 @@ function tuvan_soxo(_cmd, data, sv) {
 
 	};
 
+};
+
+function kt_mang() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(1);
+		pop_upsms.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+	}
 };

@@ -227,7 +227,9 @@ function createUI_Event(sv) {
 		Ti.API.info('Opened window');
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
 		sv.ui.ViewChuaKeo.visible=false;
+		sv.ui.ViewChuaKeo.touchEnabled=false;
 		setTimeout(function(){
+			sv.ui.ViewChuaKeo.touchEnabled=true;
 			sv.ui.ViewChuaKeo.visible=true;
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
 		},1000);

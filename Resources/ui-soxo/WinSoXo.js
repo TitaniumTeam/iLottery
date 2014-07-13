@@ -17,7 +17,7 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.vari.ViewHT;
 	sv.vari.db = null;
 	sv.vari.user_info = null;
 	sv.vari.tk_user = null;
@@ -176,19 +176,11 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(0);
-					sv.vari.popup_offline.open({
-						modal : Ti.Platform.osname == 'android' ? true : false
-					});
-				} else {
-					Ti.API.info('click 0');
-					sv.vari.ViewHT.removeAllEvent();
-					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-					sv.vari.ViewHT = null;
-					sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
-					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-				}
+				sv.vari.ViewHT.removeAllEvent();
+				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+				sv.vari.ViewHT = null;
+				sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
+				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 
 			};
 		}
@@ -201,18 +193,11 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(0);
-					sv.vari.popup_offline.open({
-						modal : Ti.Platform.osname == 'android' ? true : false
-					});
-				} else {
-					sv.vari.ViewHT.removeAllEvent();
-					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-					sv.vari.ViewHT = null;
-					sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
-					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-				}
+				sv.vari.ViewHT.removeAllEvent();
+				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+				sv.vari.ViewHT = null;
+				sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
+				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 		if (i == 2) {
@@ -224,18 +209,12 @@ function tao_sukien(sv) {
 						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 					}
 				}
-				if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-					sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(0);
-					sv.vari.popup_offline.open({
-						modal : Ti.Platform.osname == 'android' ? true : false
-					});
-				} else {
-					sv.vari.ViewHT.removeAllEvent();
-					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-					sv.vari.ViewHT = null;
-					sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
-					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-				}
+
+				sv.vari.ViewHT.removeAllEvent();
+				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+				sv.vari.ViewHT = null;
+				sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
+				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 		if (i == 3) {
@@ -305,15 +284,8 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
-		if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-			sv.vari.popup_offline = new (require('/ui-user/PopUpSmsOff'))(1);
-			sv.vari.popup_offline.open({
-				modal : Ti.Platform.osname == 'android' ? true : false
-			});
-		} else {
-			sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
-			sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-		}
+		sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
+		sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 	};
 	sv.fu.evtIconBack = function(e) {
 		sv.ui.Win.close();

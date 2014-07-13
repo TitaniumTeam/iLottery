@@ -5,6 +5,7 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
+		kt_mang();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -62,7 +63,7 @@ function taoui(sv) {
 		width : Ti.App.size(640),
 		bottom : 0,
 	});
-	sv.ui.ViewPicker.add(sv.ui.picker);
+
 	/////
 	sv.ui.View_header = Titanium.UI.createLabel({
 		height : Ti.App.size(80),
@@ -73,7 +74,6 @@ function taoui(sv) {
 		font : {
 			fontSize : Ti.App.size(35),
 			fontWeight : 'bold',
-			fontFamily : 'Helvetica Neue'
 		},
 		textAlign : 'center',
 		backgroundColor : Ti.App.Color.red,
@@ -91,11 +91,13 @@ function taoui(sv) {
 	});
 	sv.ui.TableView = Ti.UI.createTableView({
 		width : Ti.App.size(640),
-		height : Ti.UI.FILL,
-		top : Ti.App.size(180),
+		height : Ti.UI.SIZE,
+		top : 0,
 		left : 0,
 		backgroundColor : "transparent",
 		separatorColor : "transparent",
+		top : Ti.App.size(180),
+		showVerticalScrollIndicator : "true"
 	});
 	///
 	soketqua("searchlottery", {
@@ -117,8 +119,10 @@ function taoui(sv) {
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose1);
 	sv.ui.ViewCheat.add(sv.ui.table_view);
 	sv.ui.ViewTong.add(sv.ui.ViewCheat);
+	sv.ui.ViewPicker.add(sv.ui.picker);
 	sv.ui.ViewTong.add(sv.ui.ViewPicker);
 	sv.ui.ViewTong.add(sv.ui.TableView);
+	// sv.ui.ViewTong.add(sv.ui.ViewScroll);
 };
 ////
 function createUI_Event(sv) {
@@ -156,7 +160,7 @@ function createUI_Event(sv) {
 		sv.ui.TableView.scrollToTop(0, 0);
 		sv.ui.TableView.touchEnabled = true;
 		sv.ui.lblfirst.text = e.row.tenrow;
-		sv.ui.lblfirst.id=e.row.id;
+		sv.ui.lblfirst.id = e.row.id;
 		sv.ui.ViewCheat.visible = false;
 		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + ' ' + sv.ui.lblfirst1.text;
 		sv.ui.ViewPicker.visible = false;
@@ -434,5 +438,13 @@ function setFont(i) {
 		return {
 			fontSize : Ti.App.size(25)
 		};
+	}
+};
+function kt_mang() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
+		pop_upsms.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
 	}
 };

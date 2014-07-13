@@ -5,6 +5,7 @@ module.exports = function() {
 	sv.vari = {};
 	sv.arr = {};
 	(function() {
+		kt_mang();
 		tao_bien(sv);
 		tao_ui(sv);
 		removeSK(sv);
@@ -112,7 +113,8 @@ function tao_ui(sv) {
 		showVerticalScrollIndicator : 'true',
 		contentHeight : Ti.UI.FILL,
 		height : Ti.UI.FILL,
-		zIndex : 0
+		zIndex : 0,
+		// layout:"vertical"
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
 		backgroundColor : 'transparent',
@@ -123,13 +125,23 @@ function tao_ui(sv) {
 		visible : false,
 		width : Ti.App.size(640)
 	});
+	sv.ui.ViewCheat2 = Titanium.UI.createView({
+		backgroundColor : 'transparent',
+		top : Ti.App.size(90),
+		left : 0,
+		height : Ti.App.size(1136),
+		zIndex : 100,
+		visible : false,
+		width : Ti.App.size(640),
+		touchEnabled : false
+	});
 	sv.ui.tbl = Ti.UI.createTableView({
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640),
 		top : 0,
 		separatorColor : 'transparent',
 		backgroundColor : 'transparent',
-
+		left : 0,
 	});
 
 	GetTour(sv, {
@@ -144,6 +156,7 @@ function tao_ui(sv) {
 	sv.ui.ViewCheat.add(sv.ui.table_view);
 	///
 	///
+	sv.ui.ViewTong.add(sv.ui.ViewCheat2);
 	sv.ui.ViewChua.add(sv.ui.tbl);
 	sv.ui.ViewTong.add(sv.ui.ViewCheat);
 	sv.ui.ViewTong.add(sv.ui.ViewChua);
@@ -193,9 +206,10 @@ function GetTour(sv, data) {
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
 		sv.vari.timee_out2 = setTimeout(function() {
 			sv.ui.tbl.visible = true;
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua, Ti.App.size(20));
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
 			clearTimeout(sv.vari.timee_out2);
 		}, 1500);
+
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				height : sv.vari.row_height,
@@ -265,32 +279,24 @@ function GetTour(sv, data) {
 				left : 0,
 				top : sv.vari.row_height,
 				width : Ti.App.size(640),
-				backgroundGradient : {
-					type : 'linear',
-					colors : [{
-						color : "#413839",
-						position : 0.5
-					}, {
-						color : "#413839",
-						position : 0.5
-					}]
-				},
 				visible : false,
+				// backgroundColor:"yellow",
+
 			});
 			sv.arr.ViewChe[i] = Ti.UI.createView({
 				left : 0,
 				top : sv.vari.row_height,
 				width : Ti.App.size(640),
-				backgroundGradient : {
-					type : 'linear',
-					colors : [{
-						color : "#413839",
-						position : 0.5
-					}, {
-						color : "#413839",
-						position : 0.5
-					}]
-				},
+				// backgroundGradient : {
+				// type : 'linear',
+				// colors : [{
+				// color : "#413839",
+				// position : 0.5
+				// }, {
+				// color : "#413839",
+				// position : 0.5
+				// }]
+				// },
 			});
 			sv.arr.rows[i].add(sv.arr.ViewChe[i]);
 			sv.arr.rows[i].add(sv.arr.viewBack[i]);
@@ -370,13 +376,17 @@ function GetTour(sv, data) {
 							}
 						}
 					}
-					sv.arr.ViewChe[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length*100));
-					Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id], 0);
+					sv.ui.ViewCheat2.visible = true;
+					sv.arr.ViewChe[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length * 100));
+					Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewCheat2);
+					// Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id], 0);
 					sv.vari.timeout = setTimeout(function() {
-						Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
+						sv.ui.ViewCheat2.visible = false;
+						// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
+						Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewCheat2);
 						sv.arr.viewBack[e.source.id].visible = true;
 						sv.arr.ViewChe[e.source.id].visible = false;
-						// sv.arr.rows[e.source.id].setTouchEnabled(true);
+						clearTimeout(sv.vari.timeout);
 					}, 1000);
 					for ( j = 0; j < sv.vari.sotran.length; j++) {
 						// sv.ui.vThongtinTD = new sv.vari.viewTTTD(j);
@@ -396,9 +406,7 @@ function GetTour(sv, data) {
 						});
 					}
 					sv.ui.tbl.setData(sv.arr.rows);
-					// sv.ui.ViewChua.setTouchEnabled(true);
 
-					// }, 1000);
 				};
 			});
 
@@ -494,12 +502,33 @@ function set_border(i, sv) {
 	}
 };
 function thongtin_cuthe(_id) {
-	var ViewChua = Ti.UI.createView({
+	var customRow = require('ui-controller/customRow');
+	var ViewChua = customRow({
 		width : Ti.App.size(640),
 		height : Ti.App.size(100),
 		left : 0,
-		backgroundColor : 'transparent',
-		idKeo : _id
+		// backgroundColor : 'transparent',
+		idKeo : _id,
+		backgroundGradient : {
+			type : 'linear',
+			colors : [{
+				color : "#413839",
+				position : 0.5
+			}, {
+				color : "#413839",
+				position : 0.5
+			}]
+		},
+		backgroundSelectedColor : {
+			type : 'linear',
+			colors : [{
+				color : "yellow",
+				position : 0.5
+			}, {
+				color : "yellow",
+				position : 0.5
+			}]
+		},
 	});
 	var line_viewchua = Ti.UI.createView({
 		width : Ti.App.size(640),
@@ -518,12 +547,14 @@ function thongtin_cuthe(_id) {
 				position : 0.5
 			}]
 		},
+		touchEnabled : false
 	});
 	////
 	var IconDoi1 = Ti.UI.createImageView({
 		width : Ti.App.size(53),
 		height : Ti.App.size(53),
-		left : Ti.App.size(10)
+		left : Ti.App.size(10),
+		touchEnabled : false
 	});
 	var TenDoi1 = Ti.UI.createLabel({
 		left : Ti.App.size(70),
@@ -531,13 +562,15 @@ function thongtin_cuthe(_id) {
 		font : {
 			fontSize : Ti.App.size(25)
 		},
-		color : Ti.App.Color.superwhite
+		color : Ti.App.Color.superwhite,
+		touchEnabled : false
 	});
 	////
 	var IconDoi2 = Ti.UI.createImageView({
 		width : Ti.App.size(53),
 		height : Ti.App.size(53),
-		right : Ti.App.size(10)
+		right : Ti.App.size(10),
+		touchEnabled : false
 	});
 	var TenDoi2 = Ti.UI.createLabel({
 		width : Ti.App.size(180),
@@ -545,7 +578,8 @@ function thongtin_cuthe(_id) {
 			fontSize : Ti.App.size(25)
 		},
 		color : Ti.App.Color.superwhite,
-		left : Ti.App.size(480)
+		left : Ti.App.size(480),
+		touchEnabled : false
 	});
 	var TySo = Ti.UI.createLabel({
 		color : Ti.App.Color.superwhite,
@@ -553,7 +587,8 @@ function thongtin_cuthe(_id) {
 			fontSize : Ti.App.size(25),
 			fontWeight : "bold"
 		},
-		top : Ti.App.size(40)
+		top : Ti.App.size(40),
+		touchEnabled : false
 	});
 	var VThoiGian = Ti.UI.createView({
 		width : Ti.App.size(640),
@@ -570,6 +605,7 @@ function thongtin_cuthe(_id) {
 				position : 0.5
 			}]
 		},
+		touchEnabled : false
 	});
 	var ThoiGian = Titanium.UI.createLabel({
 		color : Ti.App.Color.superwhite,
@@ -579,13 +615,15 @@ function thongtin_cuthe(_id) {
 
 		textAlign : 'center',
 		width : Ti.UI.SIZE,
-		left : Ti.App.size(260)
+		left : Ti.App.size(260),
+		touchEnabled : false
 	});
 	var IconThoiGian = Ti.UI.createImageView({
 		width : Ti.App.size(24),
 		height : Ti.App.size(24),
 		left : Ti.App.size(230),
-		image : "/assets/icon/icon-time.png"
+		image : "/assets/icon/icon-time.png",
+		touchEnabled : false
 	});
 	var lineView1 = Titanium.UI.createImageView({
 		width : Ti.App.size(2),
@@ -593,7 +631,7 @@ function thongtin_cuthe(_id) {
 		left : Ti.App.size(250),
 		image : "/assets/icon/100c_devider.png",
 		touchEnabled : "false",
-		top : Ti.App.size(35)
+		top : Ti.App.size(35),
 		// backgroundColor : Ti.App.Color.brown,
 	});
 	var lineView2 = Titanium.UI.createImageView({
@@ -635,18 +673,16 @@ function thongtin_cuthe(_id) {
 	};
 	return ViewChua;
 };
-// function height_viewback(sotran) {
-	// if ((sotran.length) == 1) {
-		// return Ti.App.size(100);
-	// } else {
-		// if (sotran.length > 1) {
-			// return Ti.App.size((sotran.length) * 100);
-		// }
-// 
-	// }
-// 
-// };
 function setBGLabel(l1, l2) {
 	l1.setBackgroundColor(Ti.App.Color.red);
 	l2.setBackgroundColor("transparent");
 }
+
+function kt_mang() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(1);
+		pop_upsms.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+	}
+};

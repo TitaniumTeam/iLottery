@@ -71,6 +71,8 @@ module.exports = function() {
 		return false;
 	};
 	var evt_closeWin = function(e) {
+		userinfo.close();
+		db.close();
 		win.removeEventListener('open', evt_openWin);
 		aButton.removeEventListener('click', evt_btnBongda);
 		bButton.removeEventListener('click', evt_btnSoxo);

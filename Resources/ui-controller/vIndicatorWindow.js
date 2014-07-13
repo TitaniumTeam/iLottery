@@ -36,7 +36,7 @@ var vIndicatorWindow = function(text) {
 		borderRadius : 10,
 		opacity : 0.8,
 		//touchEnabled : false,
-		layout : 'vertical'
+		layout : 'vertical',
 	});
 	//this.background1.add(this.background);
 
@@ -85,12 +85,12 @@ vIndicatorWindow.prototype.openIndicator = function(_curWindow) {
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
 };
-vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow,_top) {
+vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
 	if (_curWindow == null)
 		return;
 	var curWindow = _curWindow || Ti.UI.getCurrentWindow();
 	this.activityIndicator.show();
-	this.background1.setTop(_top);
+	// this.background1.setTop(_top);
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
 };
