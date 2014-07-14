@@ -67,15 +67,15 @@ function taoui(sv) {
 		width : Ti.App.size(640),
 		top : Ti.App.size(175),
 		layout : 'vertical',
-		// horizontalWrap : false,
+		horizontalWrap : false,
 		scrollType : 'vertical',
 		showHorizontalScrollIndicator : false,
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
-		// horizontalBounce : true,
+		horizontalBounce : true,
 		height : Ti.UI.FILL,
 		bottom:Ti.App.size(25),
-		contentHeight:Ti.UI.FILL
+		// contentHeight:Ti.UI.FILL
 	});
 	////
 	thongke("getlotterystat", {

@@ -16,6 +16,9 @@ module.exports = function() {
 function taobien(sv) {
 	// sv.arr.rows = [];
 	sv.vari.datarow = null;
+	sv.vari.no_result = Ti.UI.createTableViewRow({
+		title:"Chưa có kết quả"
+	});
 	// sv.arr.LabelTenGiai=[];
 	// sv.arr.LabelKetQua=[];
 	sv.vari.combobox = require('/ui-soxo/ComboBox');
@@ -77,7 +80,7 @@ function taoui(sv) {
 		},
 		textAlign : 'center',
 		backgroundColor : Ti.App.Color.red,
-		text : "Kết quả xổ số Miền Bắc " + currDate(),
+		text : "Kết quả xổ số Miền Bắc 8/6/2014",
 		backgroundImage : "/assets/icon/title_bar.png"
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
@@ -148,7 +151,7 @@ function createUI_Event(sv) {
 	sv.fu.event_click_view = function(e) {
 		// sv.vari.flag = true;
 		soketqua("getprovide", {
-			"startdate" : "8/6/2014"
+			"startdate" : getYesterdaysDate()
 		}, sv);
 		sv.ui.ViewPicker.visible = false;
 		sv.ui.TableView.scrollToTop(0, 0);
@@ -233,7 +236,8 @@ function soketqua(_cmd, data, sv) {
 						sv.vari.datarow.setParam(ketqua);
 						sv.ui.TableView.setData(sv.vari.datarow);
 					}
-
+				} else {
+					sv.ui.TableView.setData(null);
 				}
 
 			}

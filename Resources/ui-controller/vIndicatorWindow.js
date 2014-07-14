@@ -25,8 +25,8 @@ var vIndicatorWindow = function(text) {
 		// touchEnabled : true
 	// });
 	this.background1 = Ti.UI.createView({
-		height : "500dp",
-		width : "500dp",
+		height : "200dp",
+		width : "200dp",
 		center:true
 	});
 	this.background = Ti.UI.createView({

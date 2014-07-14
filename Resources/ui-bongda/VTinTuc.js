@@ -79,7 +79,8 @@ function createUI(sv) {
 				right : 0,
 				top : Ti.App.size(500 * i),
 				id : i,
-				backgroundSelectedColor : Ti.App.Color.xanhnhat
+				backgroundSelectedColor : Ti.App.Color.xanhnhat,
+				backgroundColor:"transparent"
 			});
 			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewTinTuc[i]);
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
@@ -87,7 +88,8 @@ function createUI(sv) {
 				top : 0,
 				width : Ti.App.size(640),
 				height : Ti.App.size(500),
-				left : 0
+				left : 0,
+				touchEnabled : false
 			});
 			sv.arr.ViewCover[i] = Titanium.UI.createView({
 				backgroundColor : Ti.App.Color.nauden,
@@ -96,14 +98,16 @@ function createUI(sv) {
 				width : Ti.App.size(640),
 				height : Ti.App.size(170),
 				left : 0,
-				zIndex : 0
+				zIndex : 0,
+				touchEnabled : false
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,
 				width : Ti.App.size(640),
 				height : Ti.App.size(170),
 				left : 0,
-				zIndex : 10
+				zIndex : 10,
+				touchEnabled : false
 			});
 			sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
 				text : jsonResuilt.news[i].title.toString(),
@@ -117,7 +121,8 @@ function createUI(sv) {
 				left : Ti.App.size(20),
 				top : Ti.App.size(10),
 				height : Ti.UI.SIZE,
-				right : Ti.App.size(10)
+				right : Ti.App.size(10),
+				touchEnabled : false
 				// width:Ti.App.size(470)
 				// bottom : Ti.App.size(130)
 			});
@@ -132,7 +137,8 @@ function createUI(sv) {
 				color : Ti.App.Color.superwhite,
 				right : 0,
 				top : Ti.App.size(10),
-				width : Ti.App.size(150)
+				width : Ti.App.size(150),
+				touchEnabled : false
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
@@ -147,7 +153,8 @@ function createUI(sv) {
 				width : Ti.UI.SIZE,
 				height : Ti.UI.SIZE,
 				right : Ti.App.size(10),
-				top : Ti.App.size(70)
+				top : Ti.App.size(70),
+				touchEnabled : false
 				// bottom:Ti.App.size(10)
 			});
 
@@ -204,6 +211,7 @@ function createUI_Event(sv) {
 		};
 	}
 }
+
 function kt_mang() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(1);

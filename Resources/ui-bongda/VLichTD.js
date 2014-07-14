@@ -13,9 +13,6 @@ module.exports = function() {
 	return sv;
 };
 function tao_bien(sv) {
-	sv.vari.flag = false;
-	//co kiem tra trang thai tableview hien thi nam - visible:true hoac false;
-	sv.vari.dem = 0;
 	////data trong table view chua ds cac giai dau
 	sv.arr.rows = [];
 	sv.arr.viewArow = [];
@@ -37,9 +34,6 @@ function tao_bien(sv) {
 	sv.vari.bxh = require('/ui-bongda/WinBXH');
 	sv.vari.TTTD_cuthe = require('/ui-bongda/WinKeo');
 	/////cac mang bien su kien
-	sv.arr.evt_bxh = [];
-	sv.arr.evt_thongtinTD = [];
-	sv.arr.evt_thongtinKeo = [];
 	sv.vari.sotran = [];
 	sv.ui.vThongTinTD = [];
 	////
@@ -48,6 +42,10 @@ function tao_bien(sv) {
 	sv.arr.MangDL.khach = [];
 	sv.arr.MangDL.chunha = [];
 	sv.arr.MangDL.date = [];
+	////bien timeout
+	sv.vari.time_out1=null;
+	sv.vari.time_out2=null;
+	sv.vari.time_out3=null;
 };
 function tao_ui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -188,6 +186,7 @@ function GetTour(sv, data) {
 		Ti.API.info('cac giai dau  : ', jsonResuilt.tournaments);
 		sv.arr.data = [];
 		sv.arr.logo = [];
+		var customButton = require('ui-controller/customButton');
 		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
 
 			sv.vari.SoLuongGiaiDau = (jsonResuilt.tournaments).length;
@@ -204,10 +203,10 @@ function GetTour(sv, data) {
 		/////////do du lieu vao tableview
 		sv.ui.tbl.visible = false;
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
-		sv.vari.timee_out2 = setTimeout(function() {
+		sv.vari.time_out1 = setTimeout(function() {
 			sv.ui.tbl.visible = true;
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
-			clearTimeout(sv.vari.timee_out2);
+			clearTimeout(sv.vari.time_out1);
 		}, 1500);
 
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
@@ -217,7 +216,6 @@ function GetTour(sv, data) {
 				backgroundImage : "/assets/icon/bg_tabbar.png",
 
 			});
-
 			sv.arr.viewRow[i] = Ti.UI.createView({
 				height : sv.vari.row_height,
 				top : 0,
@@ -227,10 +225,10 @@ function GetTour(sv, data) {
 				left : 0,
 			});
 
-			sv.arr.viewGD[i] = Titanium.UI.createView({
+			sv.arr.viewGD[i] = customButton({
 				height : sv.vari.row_height,
 				top : 0,
-				width : Ti.App.size(500),
+				width : Ti.App.size(80),
 				left : 0,
 				backgroundColor : 'transparent',
 				backgroundSelectedColor : Ti.App.Color.xanhnhat,
@@ -238,9 +236,9 @@ function GetTour(sv, data) {
 			});
 
 			sv.arr.lbl_tennc[i] = Ti.UI.createLabel({
-				left : Ti.App.size(80),
+				left : 0,
 				text : sv.arr.data[i],
-				width : Ti.App.size(420),
+				width : Ti.App.size(530),
 				font : {
 					fontSize : Ti.App.size(30),
 					fontWeight : 'bold'
@@ -257,8 +255,8 @@ function GetTour(sv, data) {
 				touchEnabled : false,
 			});
 
-			sv.arr.viewArow[i] = Titanium.UI.createView({
-				width : Ti.App.size(110),
+			sv.arr.viewArow[i] = customButton({
+				width : Ti.App.size(560),
 				height : sv.vari.row_height,
 				backgroundColor : 'transparent',
 				backgroundSelectedColor : Ti.App.Color.xanhnhat,
@@ -273,7 +271,8 @@ function GetTour(sv, data) {
 				width : Ti.App.size(20),
 				height : Ti.App.size(20),
 				touchEnabled : false,
-				image : '/assets/icon/icon_downarrow.png'
+				image : '/assets/icon/icon_downarrow.png',
+				right : Ti.App.size(20)
 			});
 			sv.arr.viewBack[i] = Ti.UI.createView({
 				left : 0,
@@ -287,22 +286,24 @@ function GetTour(sv, data) {
 				left : 0,
 				top : sv.vari.row_height,
 				width : Ti.App.size(640),
-				// backgroundGradient : {
-				// type : 'linear',
-				// colors : [{
-				// color : "#413839",
-				// position : 0.5
-				// }, {
-				// color : "#413839",
-				// position : 0.5
-				// }]
-				// },
+				backgroundGradient : {
+					type : 'linear',
+					colors : [{
+						color : "#413839",
+						position : 0.5
+					}, {
+						color : "#413839",
+						position : 0.5
+					}]
+				},
+				touchEnabled : false
+
 			});
 			sv.arr.rows[i].add(sv.arr.ViewChe[i]);
 			sv.arr.rows[i].add(sv.arr.viewBack[i]);
 			sv.arr.rows[i].add(sv.arr.viewRow[i]);
 
-			sv.arr.viewGD[i].add(sv.arr.lbl_tennc[i]);
+			sv.arr.viewArow[i].add(sv.arr.lbl_tennc[i]);
 			sv.arr.viewGD[i].add(sv.arr.lbl_co[i]);
 
 			sv.arr.viewArow[i].add(sv.arr.arrow[i]);
@@ -311,8 +312,6 @@ function GetTour(sv, data) {
 		}
 		for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
 			sv.arr.viewGD[i].addEventListener('click', function(e) {
-				Ti.API.info('thu tu ' + e.source.idGD);
-				Ti.API.info('tourid : ', sv.arr.TourName[e.source.idGD]);
 				sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourName[e.source.idGD], sv.ui.lblfirst.text, sv.arr.logo[e.source.idGD]);
 				sv.vari.view_bxh.open();
 			});
@@ -378,15 +377,15 @@ function GetTour(sv, data) {
 					}
 					sv.ui.ViewCheat2.visible = true;
 					sv.arr.ViewChe[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length * 100));
-					Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewCheat2);
+					Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id]);
 					// Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id], 0);
-					sv.vari.timeout = setTimeout(function() {
+					sv.vari.time_out2 = setTimeout(function() {
 						sv.ui.ViewCheat2.visible = false;
 						// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
 						Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewCheat2);
 						sv.arr.viewBack[e.source.id].visible = true;
 						sv.arr.ViewChe[e.source.id].visible = false;
-						clearTimeout(sv.vari.timeout);
+						clearTimeout(sv.vari.time_out2);
 					}, 1000);
 					for ( j = 0; j < sv.vari.sotran.length; j++) {
 						// sv.ui.vThongtinTD = new sv.vari.viewTTTD(j);
@@ -396,6 +395,11 @@ function GetTour(sv, data) {
 					};
 					for (var j = 0; j < (sv.vari.sotran.length); j++) {
 						sv.ui.vThongTinTD[j].addEventListener('click', function(k) {
+							sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(false);
+							sv.vari.time_out3 = setTimeout(function() {
+								sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(true);
+								clearTimeout(sv.vari.time_out3);
+							}, 1000);
 							if (sv.arr.MangDL.id[k.source.idKeo]) {
 								Ti.API.info('id tran dau:' + sv.vari.sotran[k.source.idKeo].id);
 								sv.ui.TTTD = new sv.vari.TTTD_cuthe();
@@ -464,6 +468,14 @@ function tao_sukien(sv) {
 		 //"matchid" : "1"
 		 });*/
 	};
+	for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
+		sv.arr.evt_bxh[i] = function(e) {
+			Ti.API.info('thu tu ' + e.source.idGD);
+			Ti.API.info('tourid : ', sv.arr.TourName[e.source.idGD]);
+			sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourName[e.source.idGD], sv.ui.lblfirst.text, sv.arr.logo[e.source.idGD]);
+			sv.vari.view_bxh.open();
+		};
+	}
 
 };
 ////
@@ -522,10 +534,10 @@ function thongtin_cuthe(_id) {
 		backgroundSelectedColor : {
 			type : 'linear',
 			colors : [{
-				color : "yellow",
+				color : Ti.App.Color.magenta,
 				position : 0.5
 			}, {
-				color : "yellow",
+				color : Ti.App.Color.magenta,
 				position : 0.5
 			}]
 		},
