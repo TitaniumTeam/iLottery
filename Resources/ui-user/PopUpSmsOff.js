@@ -101,22 +101,14 @@ function createUI(sv, _type) {
 		top : Ti.App.size(30),
 		image : "/assets/icon/icon_no_internet.png"
 	});
-	sv.ui.ViewIconClose = customButton({
-		width : Ti.App.size(100),
-		height : Ti.App.size(90),
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		top : Ti.App.size(150),
-		right : 0,
-		zIndex : 10
-	});
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
-		width : Ti.App.size(45),
-		height : Ti.App.size(45),
+		width : Ti.App.size(90),
+		height : Ti.App.size(90),
 		right : 0,
+		top : Ti.App.size(150),
+		zIndex : 10
 	});
-
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
 		font : {
 			fontSize : Ti.App.size(35),
@@ -144,11 +136,10 @@ function createUI(sv, _type) {
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.ViewIconClose.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
 	sv.ui.ViewPopUp.addEventListener('click', sv.fu.evt_sms);
 
-	sv.ui.ViewIconClose.add(sv.ui.Icon);
-	sv.ui.Window.add(sv.ui.ViewIconClose);
+	sv.ui.Window.add(sv.ui.Icon);
 	sv.ui.ViewPopUp.add(sv.ui.Note);
 	sv.ui.ViewPopUp.add(sv.ui.IconNap);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
@@ -170,7 +161,7 @@ function createUI_Event(sv) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.ViewIconClose.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
 		sv.ui.ViewPopUp.removeEventListener('click', sv.fu.evt_sms);
 		sv.vari = null;
 		sv.arr = null;

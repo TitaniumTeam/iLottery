@@ -19,6 +19,7 @@ function createVariable(sv) {
 
 function createUI(sv, _winDK) {
 	var customButton = require('ui-controller/customButton');
+	var customView=require('ui-controller/customView');
 	sv.ui.winDangNhap = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -27,7 +28,7 @@ function createUI(sv, _winDK) {
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
-		width : Ti.App.size(720),
+		width : Ti.App.size(640),
 		height : Ti.App.size(90),
 		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
@@ -104,7 +105,7 @@ function createUI(sv, _winDK) {
 		backgroundColor : "transparent",
 		left : 0
 	});
-	sv.ui.btnFaceBook = Ti.UI.createButton({
+	sv.ui.btnFaceBook = customView({
 		top : 0,
 		left : Ti.App.size(25),
 		width : Ti.App.size(400),
@@ -112,7 +113,7 @@ function createUI(sv, _winDK) {
 		backgroundImage : "/assets/icon/btn_loginfb.png",
 		backgroundSelectedImage : "/assets/icon/btn_loginfb_select.png"
 	});
-	sv.ui.btnGmail = Ti.UI.createButton({
+	sv.ui.btnGmail =customView({
 		top : 0,
 		right : Ti.App.size(25),
 		width : Ti.App.size(214),
@@ -194,7 +195,7 @@ function createUI(sv, _winDK) {
 		backgroundColor : "transparent",
 		left : 0
 	});
-	sv.ui.btnDangNhap = Ti.UI.createButton({
+	sv.ui.btnDangNhap = customView({
 		width : Ti.App.size(285),
 		height : Ti.App.size(93),
 		backgroundImage : "/assets/icon/btn_dang_nhap.png",

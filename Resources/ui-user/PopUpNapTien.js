@@ -19,6 +19,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
+	var customView=require('ui-controller/customView');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -54,20 +55,13 @@ function createUI(sv) {
 		width : Ti.App.size(60),
 		height : Ti.App.size(60),
 	});
-	sv.ui.ViewIconClose = customButton({
-		width : Ti.App.size(100),
-		height : Ti.App.size(90),
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		top : Ti.App.size(150),
-		right : 0,
-		zIndex : 10
-	});
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
-		width : Ti.App.size(45),
-		height : Ti.App.size(45),
+		width : Ti.App.size(90),
+		height : Ti.App.size(90),
 		right : 0,
+		top : Ti.App.size(150),
+		zIndex : 10
 	});
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
 		text : 'Nạp xu bằng mã thẻ',
@@ -116,7 +110,7 @@ function createUI(sv) {
 		autocorrect : false,
 		keyboardToolbarHeight : Ti.App.size(30)
 	});
-	sv.ui.btn_nap = Ti.UI.createButton({
+	sv.ui.btn_nap = customView({
 		width : Ti.App.size(526),
 		height : Ti.App.size(96),
 		bottom : Ti.App.size(30),
@@ -129,9 +123,8 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
 	sv.ui.btn_nap.addEventListener('click', sv.fu.eventClicknaptien);
-	
-	sv.ui.ViewIconClose.add(sv.ui.Icon);
-	sv.ui.Window.add(sv.ui.ViewIconClose);
+
+	sv.ui.Window.add(sv.ui.Icon);
 	sv.ui.ViewPopUp.add(sv.ui.line);
 	sv.ui.ViewPopUp.add(sv.ui.ViewIcon);
 	sv.ui.ViewPopUp.add(sv.ui.txt_soseri);

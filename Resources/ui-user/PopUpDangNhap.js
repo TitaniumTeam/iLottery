@@ -19,6 +19,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
+	var customView=require('ui-controller/customView');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -47,20 +48,22 @@ function createUI(sv) {
 		top : Ti.App.size(30),
 		image : "/assets/icon/icon_giao_dich_that_bai.png"
 	});
-	sv.ui.ViewIconClose = customButton({
-		width : Ti.App.size(100),
-		height : Ti.App.size(90),
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		top : Ti.App.size(150),
-		right : 0,
-		zIndex : 10
-	});
+	// sv.ui.ViewIconClose = customButton({
+		// width : Ti.App.size(100),
+		// height : Ti.App.size(90),
+		// backgroundColor : 'transparent',
+		// backgroundSelectedColor : Ti.App.Color.xanhnhat,
+		// top : Ti.App.size(150),
+		// right : 0,
+		// zIndex : 10
+	// });
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
-		width : Ti.App.size(45),
-		height : Ti.App.size(45),
+		width : Ti.App.size(90),
+		height : Ti.App.size(90),
 		right:0,
+		top : Ti.App.size(150),
+		zIndex : 10
 	});
 
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
@@ -86,7 +89,7 @@ function createUI(sv) {
 		textAlign : "center",
 		text : "Vui lòng đăng nhập để sử dụng dịch vụ"
 	});
-	sv.ui.btnDangNhap = Ti.UI.createButton({
+	sv.ui.btnDangNhap = customView({
 		bottom : Ti.App.size(28),
 		backgroundImage : "/assets/icon/btn_dang_nhap2.png",
 		width : Ti.App.size(526),
@@ -97,11 +100,11 @@ function createUI(sv) {
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.ViewIconClose.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
 	sv.ui.btnDangNhap.addEventListener('click', sv.fu.eventBtnDangNhap);
 
-	sv.ui.ViewIconClose.add(sv.ui.Icon);
-	sv.ui.Window.add(sv.ui.ViewIconClose);
+	// sv.ui.ViewIconClose.add(sv.ui.Icon);
+	sv.ui.Window.add(sv.ui.Icon);
 	sv.ui.ViewPopUp.add(sv.ui.Note);
 	sv.ui.ViewPopUp.add(sv.ui.IconNap);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
@@ -125,7 +128,7 @@ function createUI_Event(sv) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.ViewIconClose.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
 		sv.ui.btnDangNhap.removeEventListener('click', sv.fu.eventBtnDangNhap);
 		sv.vari = null;
 		sv.arr = null;

@@ -19,6 +19,7 @@ function createVariable(sv) {
 
 function createUI(sv, winParent) {
 	var customButton = require('ui-controller/customButton');
+	var customView = require('ui-controller/customView');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -47,22 +48,14 @@ function createUI(sv, winParent) {
 		top : Ti.App.size(30),
 		image : "/assets/icon/icon_giao_dich_that_bai.png"
 	});
-	sv.ui.ViewIconClose = customButton({
-		width : Ti.App.size(100),
-		height : Ti.App.size(90),
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		top : Ti.App.size(150),
-		right : 0,
-		zIndex : 10
-	});
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
-		width : Ti.App.size(45),
-		height : Ti.App.size(45),
-		right:0
+		width : Ti.App.size(90),
+		height : Ti.App.size(90),
+		right : 0,
+		top : Ti.App.size(150),
+		zIndex : 10
 	});
-
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
 		font : {
 			fontSize : Ti.App.size(35),
@@ -86,7 +79,7 @@ function createUI(sv, winParent) {
 		textAlign : "center",
 		text : "Rất tiếc giao dịch của bạn đã bị thất bại"
 	});
-	sv.ui.btnThuLai = Ti.UI.createButton({
+	sv.ui.btnThuLai = customView({
 		bottom : Ti.App.size(28),
 		backgroundImage : "/assets/icon/btn_thu_lai.png",
 		backgroundSelectedImage : "/assets/icon/btn_thu_lai_select.png",
@@ -97,10 +90,10 @@ function createUI(sv, winParent) {
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
-	sv.ui.ViewIconClose.addEventListener('click', sv.fu.eventClickIcon);
+	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
 	sv.ui.btnThuLai.addEventListener('click', sv.fu.eventBtnThuLai);
-	sv.ui.ViewIconClose.add(sv.ui.Icon);
-	sv.ui.Window.add(sv.ui.ViewIconClose);
+	
+	sv.ui.Window.add(sv.ui.Icon);
 	sv.ui.ViewPopUp.add(sv.ui.Note);
 	sv.ui.ViewPopUp.add(sv.ui.IconNap);
 	sv.ui.ViewPopUp.add(sv.ui.ThongBao1);
@@ -138,7 +131,7 @@ function createUI_Event(sv, winParent) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.ViewIconClose.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
 		sv.ui.btnThuLai.removeEventListener('click', sv.fu.eventBtnThuLai);
 		sv.vari = null;
 		sv.arr = null;

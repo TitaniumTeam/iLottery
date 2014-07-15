@@ -77,7 +77,7 @@ function createUI(sv) {
 				height : Ti.App.size(500),
 				left : 0,
 				right : 0,
-				top : Ti.App.size(500 * i),
+				// top : Ti.App.size(500 * i),
 				id : i,
 				backgroundSelectedColor : Ti.App.Color.xanhnhat,
 				backgroundColor:"transparent"
@@ -89,7 +89,7 @@ function createUI(sv) {
 				width : Ti.App.size(640),
 				height : Ti.App.size(500),
 				left : 0,
-				touchEnabled : false
+				backgroundSelectedColor:"red"
 			});
 			sv.arr.ViewCover[i] = Titanium.UI.createView({
 				backgroundColor : Ti.App.Color.nauden,
@@ -99,7 +99,7 @@ function createUI(sv) {
 				height : Ti.App.size(170),
 				left : 0,
 				zIndex : 0,
-				touchEnabled : false
+				backgroundSelectedColor:"red"
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,
@@ -107,7 +107,8 @@ function createUI(sv) {
 				height : Ti.App.size(170),
 				left : 0,
 				zIndex : 10,
-				touchEnabled : false
+				backgroundColor:"transparent",
+				backgroundSelectedColor:"red"
 			});
 			sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
 				text : jsonResuilt.news[i].title.toString(),
@@ -122,7 +123,7 @@ function createUI(sv) {
 				top : Ti.App.size(10),
 				height : Ti.UI.SIZE,
 				right : Ti.App.size(10),
-				touchEnabled : false
+				touchEnabled:false
 				// width:Ti.App.size(470)
 				// bottom : Ti.App.size(130)
 			});
@@ -138,7 +139,6 @@ function createUI(sv) {
 				right : 0,
 				top : Ti.App.size(10),
 				width : Ti.App.size(150),
-				touchEnabled : false
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({
@@ -154,7 +154,7 @@ function createUI(sv) {
 				height : Ti.UI.SIZE,
 				right : Ti.App.size(10),
 				top : Ti.App.size(70),
-				touchEnabled : false
+				touchEnabled:false
 				// bottom:Ti.App.size(10)
 			});
 

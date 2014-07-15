@@ -29,7 +29,7 @@ var customButton = require('ui-controller/customButton');
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
-		width : Ti.App.size(720),
+		width : Ti.App.size(640),
 		height : Ti.App.size(90),
 		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,

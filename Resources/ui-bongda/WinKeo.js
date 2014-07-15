@@ -70,17 +70,17 @@ function createUI(sv) {
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
 	// sv.ui.ViewIconUser = customButton({
-		// backgroundColor : 'transparent',
-		// backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		// right : 0,
-		// width : Ti.App.size(140),
-		// height : Ti.App.size(90),
+	// backgroundColor : 'transparent',
+	// backgroundSelectedColor : Ti.App.Color.xanhnhat,
+	// right : 0,
+	// width : Ti.App.size(140),
+	// height : Ti.App.size(90),
 	// });
 	// sv.ui.IconUser = Ti.UI.createImageView({
-		// image : '/assets/icon/icon_account.png',
-		// touchEnabled : false,
-		// width : Ti.App.size(54),
-		// height : Ti.App.size(54)
+	// image : '/assets/icon/icon_account.png',
+	// touchEnabled : false,
+	// width : Ti.App.size(54),
+	// height : Ti.App.size(54)
 	// });
 	// sv.ui.ViewIconUser.add(sv.ui.IconUser);
 	// sv.ui.ViewHeader.add(sv.ui.ViewIconUser);
@@ -226,13 +226,9 @@ function createUI_Event(sv) {
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window');
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
-		sv.ui.ViewChuaKeo.visible=false;
-		sv.ui.ViewChuaKeo.touchEnabled=false;
-		setTimeout(function(){
-			sv.ui.ViewChuaKeo.touchEnabled=true;
-			sv.ui.ViewChuaKeo.visible=true;
+		setTimeout(function() {
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
-		},1000);
+		}, 1000);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
@@ -507,7 +503,7 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 			sv.vari.ViewKeoChauA.setPos("Kèo Châu Âu", jsonResuilt.match.euro_betting[0], tendoi1, tendoi2);
 			sv.ui.ViewChuaKeo.add(sv.vari.ViewKeoChauA);
 		}
-		if (jsonResuilt.match.taixiu.length>0) {
+		if (jsonResuilt.match.taixiu.length > 0) {
 			sv.vari.ViewTaiXiu = ViewKeo();
 			sv.vari.ViewTaiXiu.setPos("Tài xỉu", jsonResuilt.match.taixiu[0], tendoi1, tendoi2);
 			sv.ui.ViewChuaKeo.add(sv.vari.ViewTaiXiu);

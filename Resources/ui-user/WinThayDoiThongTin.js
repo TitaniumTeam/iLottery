@@ -25,6 +25,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
+	var customView=require('ui-controller/customView');
 	sv.ui.winThayDoiThongTin = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -33,7 +34,7 @@ function createUI(sv) {
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
-		width : Ti.App.size(720),
+		width : Ti.App.size(640),
 		height : Ti.App.size(90),
 		backgroundImage : "/assets/icon/nav_bar.png",
 		top : 0,
@@ -144,7 +145,7 @@ function createUI(sv) {
 
 	////
 	//
-	sv.ui.btnXacNhan = Ti.UI.createButton({
+	sv.ui.btnXacNhan = customView({
 		width : Ti.App.size(590),
 		height : Ti.App.size(96),
 		backgroundImage : "/assets/icon/btn_xac_nhan.png",

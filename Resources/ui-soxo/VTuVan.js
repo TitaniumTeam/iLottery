@@ -23,7 +23,6 @@ function taobien(sv) {
 	sv.arr.cacdichvu.params = [];
 	sv.arr.cacdichvu.servicenumber = [];
 	sv.arr.cacdichvu.price = [];
-	sv.ui.opt_dialog = null;
 };
 function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
