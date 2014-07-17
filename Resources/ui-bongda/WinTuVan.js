@@ -71,11 +71,10 @@ function createUI(sv) {
 		width : Ti.App.size(640),
 		height : Ti.App.size(1136),
 		showScrollbars : false,
-		scalesPageToFit : false,
+		scalesPageToFit : true,
 		touchEnabled : true,
 		enableZoomControls : true,
 		top : Ti.App.size(86),
-		loading:true,
 	});
 
 	sv.ui.winTuVan.add(sv.ui.webview);

@@ -19,7 +19,7 @@ function createVariable(sv) {
 }
 
 function createUI(sv) {
-var customButton = require('ui-controller/customButton');
+	var customButton = require('ui-controller/customButton');
 	sv.ui.winBXH = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -75,7 +75,7 @@ var customButton = require('ui-controller/customButton');
 		touchEnabled : true,
 		enableZoomControls : false,
 		top : Ti.App.size(86),
-		
+
 	});
 	sv.ui.winBXH.add(sv.ui.webview);
 
@@ -98,7 +98,15 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventOpenWindow = function() {
-		Ti.API.info('Opened window');
+		Ti.API.info('Opened window tin tuc');
+		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winBXH);
+		sv.ui.webview.setVisible(false);
+		sv.ui.webview.setTouchEnabled(false);
+		setTimeout(function() {
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winBXH);
+			sv.ui.webview.setVisible(true);
+			sv.ui.webview.setTouchEnabled(true);
+		}, 1000);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
@@ -117,8 +125,9 @@ function createUI_Event(sv) {
 	};
 
 }
-function setURL(sv){
-	sv.setLink=function(url){
+
+function setURL(sv) {
+	sv.setLink = function(url) {
 		sv.ui.webview.setUrl(url);
 	};
 };

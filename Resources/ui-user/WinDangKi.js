@@ -19,7 +19,7 @@ function createVariable(sv) {
 	sv.vari.txtChucNang1 = [];
 	sv.vari.LabelChucNang1 = [];
 	sv.arr.TenChucNang = ["Tên tài khoản", "Mật khẩu", "Họ và tên", "Email", "Số điện thoại", "Hình đại diện"];
-	sv.arr.HintText = ["Nhập tài khoản", "Nhập mật khẩu", "Không bắt buộc"];
+	sv.arr.HintText = ["Nhập tài khoản", "Nhập mật khẩu", "Không bắt buộc", "Thông tin để lấy lại MK", "Thông tin để lấy lại MK"];
 	sv.vari.rowChucNang2 = [];
 	sv.vari.txtChucNang2 = [];
 	sv.vari.LabelChucNang2 = [];
@@ -29,7 +29,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
-	var customView=require('ui-controller/customView');
+	var customView = require('ui-controller/customView');
 	sv.ui.winDangKi = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -206,7 +206,7 @@ function createUI(sv) {
 				left : Ti.App.size(260),
 				backgroundColor : Ti.App.Color.superwhite,
 				maxLength : 30,
-				hintText : sv.arr.HintText[2],
+				hintText : sv.arr.HintText[i + 2],
 				color : Ti.App.Color.nauden,
 				textAlign : "left",
 				font : {

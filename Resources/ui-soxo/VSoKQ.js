@@ -17,7 +17,7 @@ function taobien(sv) {
 	// sv.arr.rows = [];
 	sv.vari.datarow = null;
 	sv.vari.no_result = Ti.UI.createTableViewRow({
-		title:"Chưa có kết quả"
+		title : "Chưa có kết quả"
 	});
 	// sv.arr.LabelTenGiai=[];
 	// sv.arr.LabelKetQua=[];
@@ -105,7 +105,7 @@ function taoui(sv) {
 	///
 	soketqua("searchlottery", {
 		"provideid" : sv.ui.lblfirst.id,
-		"startdate" : "8/6/2014"
+		"startdate" : currDate()
 	}, sv);
 	/////
 	createUI_Event(sv);
@@ -131,6 +131,11 @@ function taoui(sv) {
 function createUI_Event(sv) {
 	sv.fu.evt_hidePicker = function(e) {
 		sv.ui.ViewPicker.visible = false;
+		sv.ui.View_header.text = "Kết quả sổ xố " + sv.ui.lblfirst.text + ' ' + sv.ui.lblfirst1.text;
+		soketqua("searchlottery", {
+			"provideid" : sv.ui.lblfirst.id,
+			"startdate" : sv.ui.lblfirst1.text
+		}, sv);
 	};
 	////
 	sv.fu.event_picker = function(e) {
@@ -211,6 +216,13 @@ function soketqua(_cmd, data, sv) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
 		if (_cmd == "searchlottery") {
+			sv.ui.TableView.visible = false;
+			Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
+			sv.vari.time_out1 = setTimeout(function() {
+				sv.ui.TableView.visible = true;
+				Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
+				clearTimeout(sv.vari.time_out1);
+			}, 1500);
 			var ketqua = [];
 			var mangstring;
 			var mangkq = [];

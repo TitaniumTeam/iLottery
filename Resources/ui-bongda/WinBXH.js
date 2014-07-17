@@ -94,21 +94,6 @@ function createUI(sv, tourid, season, logo) {
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
-	sv.ui.ViewIconUser = customButton({
-		backgroundColor : 'transparent',
-		backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		right : 0,
-		width : Ti.App.size(140),
-		height : Ti.App.size(88),
-	});
-	sv.ui.IconUser = Ti.UI.createImageView({
-		image : '/assets/icon/avatar-defaut.png',
-		touchEnabled : false,
-		width : Ti.App.size(54),
-		height : Ti.App.size(54)
-	});
-	sv.ui.ViewIconUser.add(sv.ui.IconUser);
-	sv.ui.ViewHeader.add(sv.ui.ViewIconUser);
 	///////
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
@@ -139,7 +124,8 @@ function createUI(sv, tourid, season, logo) {
 		text : (tourid.toString().split('-'))[0],
 		color : Ti.App.Color.superwhite,
 		font : {
-			fontSize : Ti.App.size(30)
+			fontSize : Ti.App.size(30),
+			fontWeight : "bold"
 		},
 		textAlign : "center",
 		touchEnabled : false,
@@ -288,7 +274,7 @@ function createUI(sv, tourid, season, logo) {
 		height : Ti.App.size(1136),
 		zIndex : 10,
 		visible : false,
-		width:Ti.App.size(640)
+		width : Ti.App.size(640)
 	});
 	///
 	BXH(sv, tourid, season);
@@ -355,7 +341,15 @@ function createUI_Event(sv, tourid) {
 	};
 
 	sv.fu.eventOpenWindow = function() {
-		Ti.API.info('Opened window');
+		Ti.API.info('Opened window bang xh');
+		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
+		sv.ui.ViewListTeam.setVisible(false);
+		sv.ui.ViewListTeam.setTouchEnabled(false);
+		setTimeout(function() {
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
+			sv.ui.ViewListTeam.setVisible(true);
+			sv.ui.ViewListTeam.setTouchEnabled(true);
+		}, 1000);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
@@ -380,15 +374,15 @@ function createUI_Event(sv, tourid) {
 
 function set_bg(i) {
 	if (i == 0)
-		return Ti.App.Color.red_press;
+		return "#6a0819";
 	if (i == 1) {
-		return Ti.App.Color.green;
+		return "#cc8600";
 	}
 
 	if (i == 2)
-		return Ti.App.Color.brown;
+		return "#393939";
 	if (i == 3)
-		return Ti.App.Color.gray;
+		return "#2e2e2e";
 	else {
 		return "transparent";
 	}
@@ -415,7 +409,7 @@ function BXH(sv, tourid, season) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt;
 		jsonResuilt = JSON.parse(dl);
-		Ti.API.info('du lieu la : ', jsonResuilt.ratetable);
+		Ti.API.info('du lieu la : ', jsonResuilt.ratetable.length);
 
 		for (var i = 0; i < (jsonResuilt.ratetable.length); i++) {
 
@@ -433,10 +427,13 @@ function BXH(sv, tourid, season) {
 				width : Ti.App.size(640),
 				height : Ti.App.size(2),
 				bottom : 0,
-				backgroundColor : Ti.App.Color.red_press,
+				backgroundColor : "#393939",
 				left : 0
 			});
-			sv.arr.rows[i].add(sv.arr.line_row[i]);
+			if (i > 3) {
+				sv.arr.rows[i].add(sv.arr.line_row[i]);
+			}
+
 			sv.arr.STT[i] = Ti.UI.createLabel({
 				text : jsonResuilt.ratetable[i].vitri,
 				font : {
@@ -592,7 +589,6 @@ function cacnam() {
 	var data = [];
 	var kq;
 	for (var i = (minyear); i < (maxyear + 1); i++) {
-		Ti.API.info('cac nam:' + i);
 		cacnam.push(i);
 	}
 	for (var i = 0; i < (cacnam.length); i++) {
@@ -604,9 +600,6 @@ function cacnam() {
 		data.push(cacnam[i]);
 	}
 	data.sort();
-	for (var i = 0; i < (data.length); i++) {
-		Ti.API.info('data thu:' + i + ": " + data[i]);
-	}
 	return data;
 }
 

@@ -74,7 +74,7 @@ function taoui(sv) {
 		disableBounce : true,
 		horizontalBounce : true,
 		height : Ti.UI.FILL,
-		bottom:Ti.App.size(25),
+		bottom : Ti.App.size(25),
 		// contentHeight:Ti.UI.FILL
 	});
 	////
@@ -158,6 +158,13 @@ function thongke(_cmd, data, sv) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
 		if (_cmd == "getlotterystat") {
+			sv.ui.ScrollView.visible = false;
+			Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
+			sv.vari.time_out1 = setTimeout(function() {
+				sv.ui.ScrollView.visible = true;
+				Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
+				clearTimeout(sv.vari.time_out1);
+			}, 1500);
 			sv.ui.ScrollView.removeAllChildren();
 			// if (jsonResuilt.thongke.lauchuara.length > 0) {
 			sv.vari.viewLauChuaRa = bang_kq();

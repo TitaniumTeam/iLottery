@@ -19,7 +19,7 @@ function createVariable(sv) {
 
 function createUI(sv, _winDK) {
 	var customButton = require('ui-controller/customButton');
-	var customView=require('ui-controller/customView');
+	var customView = require('ui-controller/customView');
 	sv.ui.winDangNhap = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -113,7 +113,7 @@ function createUI(sv, _winDK) {
 		backgroundImage : "/assets/icon/btn_loginfb.png",
 		backgroundSelectedImage : "/assets/icon/btn_loginfb_select.png"
 	});
-	sv.ui.btnGmail =customView({
+	sv.ui.btnGmail = customView({
 		top : 0,
 		right : Ti.App.size(25),
 		width : Ti.App.size(214),
@@ -203,6 +203,14 @@ function createUI(sv, _winDK) {
 		top : 0,
 		right : Ti.App.size(25)
 	});
+	/////
+	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
+		// cancel : 1,
+		options : ["Bằng Email", "Bằng SMS", "Thoát"],
+		// opaquebackground : true,
+		title : "Lấy lại mật khẩu"
+	});
+
 	sv.ui.btnQuenMatKhau = Ti.UI.createButton({
 		width : Ti.App.size(285),
 		height : Ti.App.size(93),
@@ -246,14 +254,26 @@ function createUI(sv, _winDK) {
 		height : Ti.App.size(120)
 
 	});
+	/////facebook
+	sv.ui.fb = require('facebook');
+	sv.ui.fb.appid = "134793934930";
+	sv.ui.fb.permissions = ['publish_stream', 'read_stream'];
+	sv.ui.fb.forceDialogAuth = false;
+
+
 	///////
 	createUI_Event(sv, _winDK);
+	sv.ui.fb.addEventListener('login',sv.fu.event_fb);
 	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
 	sv.ui.winDangNhap.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.winDangNhap.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.winDangNhap.addEventListener('android:back', sv.fu.event_androidback);
 	sv.ui.btnDangNhap.addEventListener('click', sv.fu.evt_btnDangNhap);
 	sv.ui.btnDangKy.addEventListener('click', sv.fu.evt_btnDangKy);
+	sv.ui.btnQuenMatKhau.addEventListener('click', sv.fu.event_quenmatkhau);
+	sv.ui.opt_dialog.addEventListener('click', sv.fu.event_optiondialog);
+	sv.ui.btnFaceBook.addEventListener('click', sv.fu.event_loginFB);
+
 	///
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
 	sv.ui.View_Back.add(sv.ui.btn_Back);
@@ -290,7 +310,50 @@ function createUI(sv, _winDK) {
 }
 
 function createUI_Event(sv, _winDK) {
-
+	sv.fu.event_loginFB = function(e) {
+		// var winFB = new (require('ui-user/PopUpFB'))();
+		// winFB.open();
+		sv.ui.fb.authorize();
+	};
+	sv.fu.event_fb = function(e) {
+		if (e.success) {
+			Ti.API.info('******* thanh cong');
+			sv.ui.fb.requestWithGraphPath('me', {}, 'GET', function(e) {
+				if (e.success) {
+					Ti.API.info('nhay vao day ********');
+					var data = JSON.parse(e.result);
+					Ti.API.info("Name:" + data.name);
+					Ti.API.info("facebook Id:" + data.id);
+				} else if (e.error) {
+					alert(e.error);
+				} else {
+					alert('Unknown response.');
+				}
+			});
+		} else {
+			if (e.error) {
+				alert(e.error);
+			} else {
+				alert("Unkown error while trying to login to facebook.");
+			}
+		}
+	};
+	sv.fu.event_quenmatkhau = function(e) {
+		sv.ui.opt_dialog.show();
+	};
+	sv.fu.event_optiondialog = function(e) {
+		if (e.index == 0) {
+			var winRSEmail = new (require('/ui-user/WinResetPassEmail'))();
+			winRSEmail.open();
+		}
+		if (e.index == 1) {
+			var winRSSms = new (require('/ui-user/WinResetPassSms'))();
+			winRSSms.open();
+		}
+		if (e.index == 2) {
+			sv.ui.opt_dialog.hide();
+		}
+	};
 	sv.fu.event_androidback = function(e) {
 		sv.ui.winDangNhap.close();
 	};

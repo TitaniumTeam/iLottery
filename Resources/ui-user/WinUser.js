@@ -37,13 +37,14 @@ function tao_bien(sv) {
 };
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
+	var customView = require('ui-controller/customView');
 	sv.ui.Win = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
-		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
+		backgroundColor:Ti.App.Color.magenta,
 	});
 	///
 	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
@@ -97,7 +98,7 @@ function tao_ui(sv) {
 		width : Ti.App.size(640),
 		height : Ti.App.size(190),
 		backgroundColor : Ti.App.Color.nauden,
-		top : Ti.App.size(90),
+		top : Ti.App.size(80),
 		left : 0
 	});
 	sv.ui.ViewAvartar = Ti.UI.createView({
@@ -193,13 +194,14 @@ function tao_ui(sv) {
 	});
 	////
 	sv.ui.ViewChucNang = Ti.UI.createScrollView({
-		top : Ti.App.size(280),
-		backgroundColor : Ti.App.Color.magenta,
+		top : Ti.App.size(270),
+		backgroundColor : "transparent",
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
 		layout : "vertical",
-		showVerticalScrollIndicator : "true"
+		showVerticalScrollIndicator : "true",
+		bottom:Ti.App.size(25)
 	});
 	sv.ui.TableChucNang1 = Ti.UI.createTableView({
 		top : Ti.App.size(25),
@@ -303,7 +305,17 @@ function tao_ui(sv) {
 	});
 	sv.ui.TableChucNang2.setData(sv.vari.rowChucNang2);
 	////
+	sv.ui.btn_LogOut=customView({
+		width:Ti.App.size(590),
+		height:Ti.App.size(96),
+		backgroundImage:"/assets/icon/btn_logout.png",
+		backgroundSelectedImage:"/assets/icon/btn_logout_select.png",
+		top:Ti.App.size(25)
+	});
+	
+	////
 	tao_sukien(sv);
+	sv.ui.btn_LogOut.addEventListener('click',sv.fu.evt_logout);
 	sv.ui.ViewIconBack.addEventListener('click', sv.fu.evtIconBack);
 	sv.ui.Win.addEventListener('close', sv.fu.evtCloseWin);
 	sv.ui.Win.addEventListener('open', sv.fu.evtOpenWin);
@@ -335,6 +347,7 @@ function tao_ui(sv) {
 	///
 	sv.ui.ViewChucNang.add(sv.ui.TableChucNang1);
 	sv.ui.ViewChucNang.add(sv.ui.TableChucNang2);
+	sv.ui.ViewChucNang.add(sv.ui.btn_LogOut);
 	sv.ui.Win.add(sv.ui.ViewChucNang);
 	////
 };
@@ -342,6 +355,12 @@ function tao_sukien(sv) {
 	///event edit user info
 	sv.fu.evtClickEditInfo = function(e) {
 		sv.ui.opt_dialog_edit_info.show();
+	};
+	sv.fu.evt_logout=function(e){
+		var db=Ti.Database.open("userinfo");
+		db.execute("DELETE FROM SaveInfo");
+		db.close();
+		sv.ui.Win.close();
 	};
 	sv.fu.evt_opt_edit_info = function(e) {
 		if (e.index == 0) {

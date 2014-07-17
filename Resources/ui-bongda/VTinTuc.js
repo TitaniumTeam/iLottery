@@ -19,14 +19,13 @@ module.exports = function() {
  * Khởi tạo biến
  */
 function createVariable(sv) {
-	sv.vari = {};
-	sv.arr = {};
 	sv.vari.wdnew = require('/ui-bongda/NewsContent');
 	//sv.vari.SoTinTuc = 7;
 	sv.arr.linkbai = [];
 	sv.vari.TopView = Ti.App.size(235);
 	sv.vari.HeightView = Ti.App.size(235);
 	sv.arr.ViewTinTuc = [];
+	sv.arr.ViewRow = [];
 	sv.arr.AnhTinTuc = [];
 	sv.arr.TenTinTuc = [];
 	sv.arr.ThoiGianTinTuc = [];
@@ -73,23 +72,30 @@ function createUI(sv) {
 
 		for (var i = 0; i < sv.vari.SoTinTuc; i++) {
 			sv.arr.linkbai.push(jsonResuilt.news[i].content);
-			sv.arr.ViewTinTuc[i] = Ti.UI.createTableViewRow({
+			sv.arr.ViewRow[i] = Ti.UI.createTableViewRow({
 				height : Ti.App.size(500),
 				left : 0,
-				right : 0,
 				// top : Ti.App.size(500 * i),
+				backgroundColor : Ti.App.Color.nauden,
+				width : Ti.App.size(640),
 				id : i,
-				backgroundSelectedColor : Ti.App.Color.xanhnhat,
-				backgroundColor:"transparent"
 			});
-			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewTinTuc[i]);
+			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewRow[i]);
+			sv.arr.ViewTinTuc[i] = Ti.UI.createView({
+				height : Ti.App.size(465),
+				left : 0,
+				backgroundColor : "transparent",
+				top : 0,
+				width : Ti.App.size(640),
+				backgroundSelectedColor : Ti.App.Color.xanhnhat
+			});
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
 				image : jsonResuilt.news[i].image,
 				top : 0,
 				width : Ti.App.size(640),
 				height : Ti.App.size(500),
 				left : 0,
-				backgroundSelectedColor:"red"
+				backgroundSelectedColor : "red"
 			});
 			sv.arr.ViewCover[i] = Titanium.UI.createView({
 				backgroundColor : Ti.App.Color.nauden,
@@ -99,7 +105,7 @@ function createUI(sv) {
 				height : Ti.App.size(170),
 				left : 0,
 				zIndex : 0,
-				backgroundSelectedColor:"red"
+				backgroundSelectedColor : "red"
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,
@@ -107,8 +113,8 @@ function createUI(sv) {
 				height : Ti.App.size(170),
 				left : 0,
 				zIndex : 10,
-				backgroundColor:"transparent",
-				backgroundSelectedColor:"red"
+				backgroundColor : "transparent",
+				backgroundSelectedColor : "red"
 			});
 			sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
 				text : jsonResuilt.news[i].title.toString(),
@@ -123,7 +129,7 @@ function createUI(sv) {
 				top : Ti.App.size(10),
 				height : Ti.UI.SIZE,
 				right : Ti.App.size(10),
-				touchEnabled:false
+				touchEnabled : false
 				// width:Ti.App.size(470)
 				// bottom : Ti.App.size(130)
 			});
@@ -154,37 +160,32 @@ function createUI(sv) {
 				height : Ti.UI.SIZE,
 				right : Ti.App.size(10),
 				top : Ti.App.size(70),
-				touchEnabled:false
+				touchEnabled : false
 				// bottom:Ti.App.size(10)
 			});
 
-			// sv.ui.ViewListTinTuc.add(sv.arr.ViewTinTuc[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.AnhTinTuc[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.ViewContent[i]);
 			sv.arr.ViewTinTuc[i].add(sv.arr.ViewCover[i]);
 			sv.arr.ViewContent[i].add(sv.arr.TenTinTuc[i]);
-			// sv.arr.ViewContent[i].add(sv.arr.ThoiGianTinTuc[i]);
 			sv.arr.ViewContent[i].add(sv.arr.TTTinTuc[i]);
+			sv.arr.ViewRow[i].add(sv.arr.ViewTinTuc[i]);
 		}
 		sv.ui.ViewListTinTuc = Ti.UI.createTableView({
 			top : Ti.App.size(0),
 			left : 0,
 			right : 0,
-			data : sv.arr.ViewTinTuc,
+			data : sv.arr.ViewRow,
 			separatorColor : Ti.App.Color.nauden,
 			width : Ti.App.size(640),
 			showVerticalScrollIndicator : 'true'
 		});
 		createUI_Event(sv);
 		for (var i = 0; i < sv.arr.linkbai.length; i++) {
-			sv.arr.ViewTinTuc[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
-			sv.arr.ViewTinTuc[i].addEventListener('postlayout', function(e) {
+			sv.arr.ViewRow[i].addEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+			sv.arr.ViewRow[i].addEventListener('postlayout', function(e) {
 				Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewTinTuc[i]);
 			});
-			// sv.vari.timeout = setTimeout(function() {
-			// Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewTinTuc[i]);
-			// clearTimeout(sv.vari.timeout);
-			// }, 1000);
 		}
 
 		sv.ui.ViewTong.add(sv.ui.ViewListTinTuc);
@@ -196,7 +197,7 @@ function createUI(sv) {
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
 		for (var i = 0; i < sv.arr.linkbai.length; i++) {
-			sv.arr.ViewTinTuc[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+			sv.arr.ViewRow[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
 		}
 		Ti.API.info('remove su kien tin tuc');
 	};

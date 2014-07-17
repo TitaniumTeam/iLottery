@@ -9,31 +9,82 @@ module.exports = function() {
 	if (userinfo.isValidRow()) {
 		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));
 	}
+	var customView = require('ui-controller/customView');
 	var win = Ti.UI.createWindow({
-		backgroundImage : "/assets/icon/100_Main_screen.png",
+		backgroundImage : "/assets/icon/bg_login.png",
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
-	// Create a Button.
-	var aButton = Ti.UI.createButton({
-		title : 'Bóng đá',
-		height : Ti.UI.SIZE,
-		width : Ti.UI.SIZE,
-		color : "white",
-		top : Ti.App.size(702),
-		left : Ti.App.size(125)
+	var AppIcon = Ti.UI.createImageView({
+		width : Ti.App.size(640),
+		height : Ti.App.size(721),
+		image : "/assets/icon/icon_splash.png",
+		top : Ti.App.size(-140),
+		touchEnabled : false,
+		zIndex : 0
 	});
-	var bButton = Ti.UI.createButton({
-		title : 'Xổ Số',
-		height : Ti.UI.SIZE,
+	var TenApp = Ti.UI.createLabel({
+		top : Ti.App.size(400),
 		width : Ti.UI.SIZE,
-		color : "white",
-		top : Ti.App.size(702),
-		right : Ti.App.size(125)
-
+		text : "XỔ SỐ BÓNG ĐÁ",
+		font : {
+			fontSize : Ti.App.size(68),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.superwhite,
+		touchEnabled : false
+	});
+	var WelCome = Ti.UI.createLabel({
+		top : Ti.App.size(480),
+		width : Ti.UI.SIZE,
+		text : "Welcome to Xổ Số Bóng Đá ",
+		font : {
+			fontSize : Ti.App.size(20),
+			fontWeight : 'bold'
+		},
+		color : Ti.App.Color.red,
+		touchEnabled : false,
+	});
+	var viewButton = Ti.UI.createView({
+		width : Ti.App.size(640),
+		height : Ti.App.size(93),
+		top : Ti.App.size(580),
+		backgroundColor : "transparent",
+		left : 0
+	});
+	// Create a Button.
+	var aButton = customView({
+		top : 0,
+		left : Ti.App.size(45),
+		backgroundImage : "/assets/icon/btn_bongda.png",
+		backgroundSelectedImage : "/assets/icon/btn_bongda_select.png",
+		width : Ti.App.size(256),
+		height : Ti.App.size(93)
+	});
+	var bButton = customView({
+		top : 0,
+		right : Ti.App.size(45),
+		backgroundImage : "/assets/icon/btn_xoso.png",
+		backgroundSelectedImage : "/assets/icon/btn_xoso_select.png",
+		width : Ti.App.size(256),
+		height : Ti.App.size(93)
+	});
+	var Hoac = Ti.UI.createLabel({
+		width : Ti.App.size(128),
+		height : Ti.App.size(93),
+		font : {
+			fontSize : Ti.App.size(20)
+		},
+		color : Ti.App.Color.superwhite,
+		left : Ti.App.size(256),
+		textAlign : "center",
+		backgroundColor : "transparent",
+		touchEnabled : false,
+		top : 0,
+		text : "Hoặc"
 	});
 	var evt_btnBongda = function(e) {
 		userinfo.close();
@@ -76,7 +127,7 @@ module.exports = function() {
 		win.removeEventListener('open', evt_openWin);
 		aButton.removeEventListener('click', evt_btnBongda);
 		bButton.removeEventListener('click', evt_btnSoxo);
-		win.removeEventListener('android:back',fn_BackDevicePress);
+		win.removeEventListener('android:back', fn_BackDevicePress);
 		win.removeEventListener('close', evt_closeWin);
 		Ti.API.info('remove su kien win home');
 	};
@@ -84,10 +135,15 @@ module.exports = function() {
 	bButton.addEventListener('click', evt_btnSoxo);
 	win.addEventListener('open', evt_openWin);
 	win.addEventListener('close', evt_closeWin);
-	win.addEventListener('android:back',fn_BackDevicePress);
-	win.add(aButton);
-	win.add(bButton);
+	win.addEventListener('android:back', fn_BackDevicePress);
 
+	win.add(AppIcon);
+	win.add(TenApp);
+	win.add(WelCome);
+	viewButton.add(Hoac);
+	viewButton.add(aButton);
+	viewButton.add(bButton);
+	win.add(viewButton);
 	// Listen for click events.
 
 	return win;

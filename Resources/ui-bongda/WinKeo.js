@@ -105,7 +105,8 @@ function createUI(sv) {
 		width : Ti.App.size(610),
 		height : Ti.App.size(220),
 		backgroundColor : "transparent",
-		top : Ti.App.size(10)
+		top : Ti.App.size(10),
+		touchEnabled : false
 	});
 	// sv.ui.ViewNen=Ti.UI.createView({
 	// width : Ti.App.size(610),
@@ -164,28 +165,65 @@ function createUI(sv) {
 			fontSize : Ti.App.size(25)
 		},
 		color : Ti.App.Color.superwhite,
-		left : Ti.App.size(465),
-		top : Ti.App.size(170)
+		// left : Ti.App.size(465),
+		top : Ti.App.size(170),
+		right : Ti.App.size(63)
 	});
 	sv.ui.TySo = Ti.UI.createLabel({
 		color : Ti.App.Color.superwhite,
 		font : {
-			fontSize : Ti.App.size(25),
+			fontSize : Ti.App.size(35),
 			fontWeight : 'bold'
 		},
 		top : Ti.App.size(100)
 	});
-	sv.ui.ThoiGian = Titanium.UI.createLabel({
-		color : Ti.App.Color.superwhite,
+	sv.ui.IconLive = Titanium.UI.createImageView({
+		right : Ti.App.size(75),
+		width : Ti.App.size(45),
+		height : Ti.App.size(20),
+		image : "/assets/icon/icon_live.png",
+		touchEnabled : false,
+		top : Ti.App.size(15)
+	});
+	sv.ui.lblPhut = Titanium.UI.createLabel({
+		right : Ti.App.size(10),
+		height : Ti.UI.SIZE,
 		font : {
 			fontSize : Ti.App.size(20)
 		},
-		top : Ti.App.size(65),
+		color : Ti.App.Color.superwhite,
+		touchEnabled : false,
+		top : Ti.App.size(10)
+	});
+	sv.ui.ThoiGian = Titanium.UI.createLabel({
+		color : Ti.App.Color.brown,
+		font : {
+			fontSize : Ti.App.size(15)
+		},
 		width : Ti.App.size(640),
 		height : Ti.App.size(25),
 		textAlign : 'center',
-		left : 0,
+		top : Ti.App.size(65)
 	});
+	sv.ui.lineView1 = Titanium.UI.createImageView({
+		width : Ti.App.size(2),
+		height : Ti.App.size(100),
+		left : Ti.App.size(225),
+		image : "/assets/icon/100c_devider.png",
+		touchEnabled : "false",
+		top : Ti.App.size(65)
+	});
+	sv.ui.lineView2 = Titanium.UI.createImageView({
+		width : Ti.App.size(2),
+		height : Ti.App.size(100),
+		right : Ti.App.size(225),
+		image : "/assets/icon/100c_devider.png",
+		touchEnabled : "false",
+		top : Ti.App.size(65)
+		// top : Ti.App.size(35)
+		// backgroundColor : Ti.App.Color.brown,
+	});
+
 	//////
 	sv.ui.ViewChuaKeo = Ti.UI.createScrollView({
 		width : Ti.App.size(640),
@@ -196,6 +234,10 @@ function createUI(sv) {
 		layout : 'vertical'
 	});
 	//////
+	sv.ui.ViewTranDau.add(sv.ui.IconLive);
+	sv.ui.ViewTranDau.add(sv.ui.lblPhut);
+	sv.ui.ViewTranDau.add(sv.ui.lineView1);
+	sv.ui.ViewTranDau.add(sv.ui.lineView2);
 	sv.ui.ViewTranDau.add(sv.ui.IconGiaiDau);
 	sv.ui.ViewTranDau.add(sv.ui.TenGiaiDau);
 	sv.ui.ViewTranDau.add(sv.ui.IconDoi1);
@@ -224,11 +266,11 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventOpenWindow = function() {
-		Ti.API.info('Opened window');
-		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
-		setTimeout(function() {
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
-		}, 1000);
+		Ti.API.info('Opened window keo');
+		// Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
+		// setTimeout(function() {
+		// Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
+		// }, 1000);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
@@ -252,8 +294,17 @@ function thongtinTD(sv) {
 	sv.setThongTinTD = function(param, tourname, img) {
 		sv.ui.TenDoi1.text = param.ownerID;
 		sv.ui.TenDoi2.text = param.guestID;
-		sv.ui.TySo.text = param.result;
-		sv.ui.ThoiGian.text = param.date;
+		if (param.trangthai == "Playing") {
+			sv.ui.TySo.text = param.result;
+			sv.ui.ThoiGian.text = param.date;
+			sv.ui.IconLive.setVisible(true);
+			sv.ui.lblPhut.setText(param.sophut);
+		} else {
+			sv.ui.TySo.text = "VS";
+			sv.ui.ThoiGian.text = param.date;
+			sv.ui.IconLive.setVisible(false);
+		}
+
 		sv.ui.TenGiaiDau.text = tourname;
 		sv.ui.IconGiaiDau.image = img;
 		GetMatchRatio(sv, {
@@ -493,6 +544,14 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('du lieu la : ', jsonResuilt.match);
 		///////
+		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
+		sv.ui.ViewChuaKeo.setVisible(false);
+		sv.ui.ViewChuaKeo.setTouchEnabled(false);
+		setTimeout(function() {
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
+			sv.ui.ViewChuaKeo.setVisible(true);
+			sv.ui.ViewChuaKeo.setTouchEnabled(true);
+		}, 1000);
 		if (jsonResuilt.match.aisiabe_betting[0]) {
 			sv.vari.ViewKeoChauA = ViewKeo();
 			sv.vari.ViewKeoChauA.setPos("Kèo Châu Á", jsonResuilt.match.aisiabe_betting[0], tendoi1, tendoi2);

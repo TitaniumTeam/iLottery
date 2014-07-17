@@ -6,7 +6,8 @@ module.exports = function() {
 	var lblfirst = Titanium.UI.createLabel({
 		color : Ti.App.Color.superwhite,
 		font : {
-			fontSize : Ti.App.size(30)
+			fontSize : Ti.App.size(30),
+			fontWeight:'bold'
 		},
 		left : Ti.App.size(65),
 		id : "MB"
@@ -42,7 +43,6 @@ module.exports = function() {
 	var tableview = Ti.UI.createTableView({
 		separatorColor : Ti.App.Color.red_press,
 		right : Ti.App.size(25),
-		// visible : false,
 		backgroundColor : Ti.App.Color.nauden,
 		zIndex : 10,
 		showVerticalScrollIndicator : 'true',
