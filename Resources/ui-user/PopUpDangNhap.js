@@ -19,7 +19,7 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
-	var customView=require('ui-controller/customView');
+	var customView = require('ui-controller/customView');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
@@ -49,19 +49,19 @@ function createUI(sv) {
 		image : "/assets/icon/icon_giao_dich_that_bai.png"
 	});
 	// sv.ui.ViewIconClose = customButton({
-		// width : Ti.App.size(100),
-		// height : Ti.App.size(90),
-		// backgroundColor : 'transparent',
-		// backgroundSelectedColor : Ti.App.Color.xanhnhat,
-		// top : Ti.App.size(150),
-		// right : 0,
-		// zIndex : 10
+	// width : Ti.App.size(100),
+	// height : Ti.App.size(90),
+	// backgroundColor : 'transparent',
+	// backgroundSelectedColor : Ti.App.Color.xanhnhat,
+	// top : Ti.App.size(150),
+	// right : 0,
+	// zIndex : 10
 	// });
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
 		width : Ti.App.size(90),
 		height : Ti.App.size(90),
-		right:0,
+		right : 0,
 		top : Ti.App.size(150),
 		zIndex : 10
 	});
@@ -94,10 +94,11 @@ function createUI(sv) {
 		backgroundImage : "/assets/icon/btn_dang_nhap2.png",
 		width : Ti.App.size(526),
 		height : Ti.App.size(96),
-		backgroundSelectedImage:"/assets/icon/btn_dang_nhap2_select.png"
+		backgroundSelectedImage : "/assets/icon/btn_dang_nhap2_select.png"
 	});
 	createUI_Event(sv);
 
+	sv.ui.Window.addEventListener('android:back', sv.fu.eventClickIcon);
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
@@ -130,6 +131,7 @@ function createUI_Event(sv) {
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
 		sv.ui.btnDangNhap.removeEventListener('click', sv.fu.eventBtnDangNhap);
+		sv.ui.Window.removeEventListener('android:back', sv.fu.eventClickIcon);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

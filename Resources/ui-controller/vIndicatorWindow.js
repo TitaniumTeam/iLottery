@@ -27,7 +27,7 @@ var vIndicatorWindow = function(text) {
 	this.background1 = Ti.UI.createView({
 		height : "200dp",
 		width : "200dp",
-		center:true
+		center:true,
 	});
 	this.background = Ti.UI.createView({
 		height : Ti.UI.SIZE,

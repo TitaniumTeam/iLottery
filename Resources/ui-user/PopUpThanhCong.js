@@ -83,7 +83,7 @@ function createUI(sv) {
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
 	sv.ui.Icon.addEventListener('click', sv.fu.eventClickIcon);
-
+	sv.ui.Window.addEventListener('android:back', sv.fu.eventClickIcon);
 	sv.ui.Window.add(sv.ui.Icon);
 	sv.ui.ViewPopUp.add(sv.ui.Note);
 	sv.ui.ViewPopUp.add(sv.ui.IconNap);
@@ -104,6 +104,7 @@ function createUI_Event(sv) {
 		sv.ui.Window.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.Window.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.Icon.removeEventListener('click', sv.fu.eventClickIcon);
+		sv.ui.Window.removeEventListener('android:back', sv.fu.eventClickIcon);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

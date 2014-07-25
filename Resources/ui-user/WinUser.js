@@ -32,8 +32,6 @@ function tao_bien(sv) {
 	sv.vari.LabelChucNang2 = [];
 	sv.vari.lineRow1 = [];
 	sv.vari.lineRow2 = [];
-	sv.arr.naptien = ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms", "Thoát"];
-	sv.arr.edit_info = ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"];
 };
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
@@ -44,17 +42,9 @@ function tao_ui(sv) {
 		navBarHidden : true,
 		fullscreen : false,
 		orientationModes : [Ti.UI.PORTRAIT],
-		backgroundColor:Ti.App.Color.magenta,
+		backgroundColor : Ti.App.Color.magenta,
 	});
 	///
-	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
-		title : "Lựa chọn cách thức",
-		options : sv.arr.naptien
-	});
-	sv.ui.opt_dialog_edit_info = Titanium.UI.createOptionDialog({
-		title : "Lựa chọn thông tin mà bạn muốn đổi",
-		options : sv.arr.edit_info
-	});
 	//////header
 	sv.ui.ViewHeader = Ti.UI.createView({
 		backgroundImage : "/assets/icon/nav_bar.png",
@@ -101,6 +91,17 @@ function tao_ui(sv) {
 		top : Ti.App.size(80),
 		left : 0
 	});
+	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
+		title : "Lựa chọn cách thức",
+		options : ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms", "Thoát"],
+		opaquebackground : true,
+	});
+	sv.ui.opt_edit = Titanium.UI.createOptionDialog({
+		title : "Lựa chọn thông tin mà bạn muốn đổi",
+		options : ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"],
+		opaquebackground : true,
+	});
+
 	sv.ui.ViewAvartar = Ti.UI.createView({
 		width : Ti.App.size(196),
 		height : Ti.App.size(190),
@@ -201,7 +202,7 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		layout : "vertical",
 		showVerticalScrollIndicator : "true",
-		bottom:Ti.App.size(25)
+		bottom : Ti.App.size(25)
 	});
 	sv.ui.TableChucNang1 = Ti.UI.createTableView({
 		top : Ti.App.size(25),
@@ -305,24 +306,25 @@ function tao_ui(sv) {
 	});
 	sv.ui.TableChucNang2.setData(sv.vari.rowChucNang2);
 	////
-	sv.ui.btn_LogOut=customView({
-		width:Ti.App.size(590),
-		height:Ti.App.size(96),
-		backgroundImage:"/assets/icon/btn_logout.png",
-		backgroundSelectedImage:"/assets/icon/btn_logout_select.png",
-		top:Ti.App.size(25)
+	sv.ui.btn_LogOut = customView({
+		width : Ti.App.size(590),
+		height : Ti.App.size(96),
+		backgroundImage : "/assets/icon/btn_logout.png",
+		backgroundSelectedImage : "/assets/icon/btn_logout_select.png",
+		top : Ti.App.size(25)
 	});
-	
+
 	////
 	tao_sukien(sv);
-	sv.ui.btn_LogOut.addEventListener('click',sv.fu.evt_logout);
+	sv.ui.btn_LogOut.addEventListener('click', sv.fu.evt_logout);
 	sv.ui.ViewIconBack.addEventListener('click', sv.fu.evtIconBack);
 	sv.ui.Win.addEventListener('close', sv.fu.evtCloseWin);
 	sv.ui.Win.addEventListener('open', sv.fu.evtOpenWin);
 	sv.ui.TableChucNang1.addEventListener('click', sv.fu.evtClickTableView1);
 	sv.ui.opt_dialog.addEventListener('click', sv.fu.event_optiondialog);
-	sv.ui.ViewIconEdit.addEventListener('click', sv.fu.evtClickEditInfo);
-	sv.ui.opt_dialog_edit_info.addEventListener('click', sv.fu.evt_opt_edit_info);
+	sv.ui.ViewIconEdit.addEventListener('click', sv.fu.evtEditInfo);
+	sv.ui.opt_edit.addEventListener('click', sv.fu.evt_opt_edit_info);
+	sv.ui.Win.addEventListener('android:back', sv.fu.evtIconBack);
 	/////
 	sv.ui.ViewIconBack.add(sv.ui.IconBack);
 	sv.ui.ViewHeader.add(sv.ui.ViewIconBack);
@@ -353,16 +355,17 @@ function tao_ui(sv) {
 };
 function tao_sukien(sv) {
 	///event edit user info
-	sv.fu.evtClickEditInfo = function(e) {
-		sv.ui.opt_dialog_edit_info.show();
+	sv.fu.evtEditInfo = function(e) {
+		sv.ui.opt_edit.show();
 	};
-	sv.fu.evt_logout=function(e){
-		var db=Ti.Database.open("userinfo");
+	sv.fu.evt_logout = function(e) {
+		var db = Ti.Database.open("userinfo");
 		db.execute("DELETE FROM SaveInfo");
 		db.close();
 		sv.ui.Win.close();
 	};
 	sv.fu.evt_opt_edit_info = function(e) {
+		// if(Ti.Platform.osname=="android")
 		if (e.index == 0) {
 			sv.vari.wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
 			sv.vari.wdEditInfo.open();
@@ -370,9 +373,6 @@ function tao_sukien(sv) {
 		if (e.index == 1) {
 			sv.vari.wdEditPass = new (require('ui-user/WinThayPass'))();
 			sv.vari.wdEditPass.open();
-		}
-		if (e.index == 2) {
-			sv.ui.opt_dialog_edit_info.hide();
 		}
 	};
 	////
@@ -416,8 +416,10 @@ function tao_sukien(sv) {
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
 		sv.ui.TableChucNang1.removeEventListener('click', sv.fu.evtClickTableView1);
 		sv.ui.opt_dialog.removeEventListener('click', sv.fu.event_optiondialog);
-		sv.ui.ViewIconEdit.removeEventListener('click', sv.fu.evtClickEditInfo);
-		sv.ui.opt_dialog_edit_info.removeEventListener('click', sv.fu.evt_opt_edit_info);
+		sv.ui.ViewIconEdit.removeEventListener('click', sv.fu.evtEditInfo);
+		sv.ui.opt_edit.removeEventListener('click', sv.fu.evt_opt_edit_info);
+		sv.ui.btn_LogOut.removeEventListener('click', sv.fu.evt_logout);
+		sv.ui.Win.removeEventListener('android:back', sv.fu.evtIconBack);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

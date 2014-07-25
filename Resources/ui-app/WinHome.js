@@ -16,8 +16,8 @@ module.exports = function() {
 		keepScreenOn : true,
 		navBarHidden : true,
 		fullscreen : false,
-		orientationModes : [Ti.UI.PORTRAIT],
 	});
+	win.orientationModes = [Ti.UI.PORTRAIT];
 	var AppIcon = Ti.UI.createImageView({
 		width : Ti.App.size(640),
 		height : Ti.App.size(721),

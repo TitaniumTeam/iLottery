@@ -69,21 +69,6 @@ function createUI(sv) {
 	});
 	sv.ui.View_Back.add(sv.ui.btn_Back);
 	sv.ui.ViewHeader.add(sv.ui.View_Back);
-	// sv.ui.ViewIconUser = customButton({
-	// backgroundColor : 'transparent',
-	// backgroundSelectedColor : Ti.App.Color.xanhnhat,
-	// right : 0,
-	// width : Ti.App.size(140),
-	// height : Ti.App.size(90),
-	// });
-	// sv.ui.IconUser = Ti.UI.createImageView({
-	// image : '/assets/icon/icon_account.png',
-	// touchEnabled : false,
-	// width : Ti.App.size(54),
-	// height : Ti.App.size(54)
-	// });
-	// sv.ui.ViewIconUser.add(sv.ui.IconUser);
-	// sv.ui.ViewHeader.add(sv.ui.ViewIconUser);
 	///////
 	sv.ui.ViewTong = Ti.UI.createView({
 		backgroundColor : Ti.App.Color.nauden,
@@ -119,8 +104,8 @@ function createUI(sv) {
 		width : "100%",
 		height : "100%",
 		zIndex : 0,
-		opacity : 0.8,
-		backgroundColor : "black"
+		opacity:0.7,
+		backgroundColor:'black'
 	}));
 	////
 	sv.ui.IconGiaiDau = Titanium.UI.createImageView({
@@ -178,7 +163,7 @@ function createUI(sv) {
 		top : Ti.App.size(100)
 	});
 	sv.ui.IconLive = Titanium.UI.createImageView({
-		right : Ti.App.size(75),
+		right : Ti.App.size(90),
 		width : Ti.App.size(45),
 		height : Ti.App.size(20),
 		image : "/assets/icon/icon_live.png",
@@ -193,7 +178,9 @@ function createUI(sv) {
 		},
 		color : Ti.App.Color.superwhite,
 		touchEnabled : false,
-		top : Ti.App.size(10)
+		top : Ti.App.size(10),
+		textAlign : "center",
+		width : Ti.App.size(80)
 	});
 	sv.ui.ThoiGian = Titanium.UI.createLabel({
 		color : Ti.App.Color.brown,
@@ -231,7 +218,8 @@ function createUI(sv) {
 		left : 0,
 		backgroundColor : 'transparent',
 		top : Ti.App.size(240),
-		layout : 'vertical'
+		layout : 'vertical',
+		bottom : Ti.App.size(25)
 	});
 	//////
 	sv.ui.ViewTranDau.add(sv.ui.IconLive);
@@ -276,7 +264,7 @@ function createUI_Event(sv) {
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.winKeo.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.winKeo.removeEventListener('close', sv.fu.eventCloseWindow);
-		sv.ui.winKeo.removeEventListener('click', sv.fu.eventClickIconLeft);
+		sv.ui.View_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
 		sv.ui.winKeo.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.vari = null;
 		sv.arr = null;
@@ -451,7 +439,7 @@ function ViewTySo() {
 		width : Ti.App.size(620),
 		height : Ti.App.size(530),
 		left : Ti.App.size(10),
-		borderRadius : Ti.App.size(5),
+		borderRadius : 5,
 		backgroundColor : "#413839",
 		top : Ti.App.size(18),
 		// borderColor:Ti.App.Color.superwhite
@@ -494,7 +482,7 @@ function ViewTySo() {
 	var tableView = Ti.UI.createTableView({
 		top : Ti.App.size(80),
 		backgroundColor : 'transparent',
-		separatorColor : Ti.App.Color.brown,
+		separatorColor : "#2b2b2b",
 		left : 0,
 		height : Ti.UI.FILL,
 		width : Ti.App.size(640),
@@ -502,6 +490,7 @@ function ViewTySo() {
 	});
 	VTySo.add(tableView);
 	var rows = [];
+	var lbl = [];
 	VTySo.setTyLe = function(param) {
 		// VTySo.setHeight(Ti.App.size(param.length*75));
 		// VTySo.setTop(_top);
@@ -509,15 +498,21 @@ function ViewTySo() {
 			rows[i] = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
 				height : Ti.App.size(75),
-				color : Ti.App.Color.superwhite,
+				left : 0
+
+			});
+			lbl[i] = Ti.UI.createLabel({
+				width : Ti.UI.SIZE,
+				height : Ti.UI.SIZE,
+				color : "yellow",
 				font : {
 					fontSize : Ti.App.size(25)
 				},
-				title : "Tỷ lệ: " + param[i].ti_le + " - " + "Tỉ số: " + param[i].ti_so,
-				center : "true",
+				text : "Tỷ lệ: " + param[i].ti_le + " - " + "Tỉ số: " + param[i].ti_so,
+				textAlign : "center",
 				left : Ti.App.size(20)
-
 			});
+			rows[i].add(lbl[i]);
 		}
 		tableView.setData(rows);
 	};

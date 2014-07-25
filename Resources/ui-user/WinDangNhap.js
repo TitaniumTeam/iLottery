@@ -210,7 +210,6 @@ function createUI(sv, _winDK) {
 		// opaquebackground : true,
 		title : "Lấy lại mật khẩu"
 	});
-
 	sv.ui.btnQuenMatKhau = Ti.UI.createButton({
 		width : Ti.App.size(285),
 		height : Ti.App.size(93),
@@ -260,10 +259,9 @@ function createUI(sv, _winDK) {
 	sv.ui.fb.permissions = ['publish_stream', 'read_stream'];
 	sv.ui.fb.forceDialogAuth = false;
 
-
 	///////
 	createUI_Event(sv, _winDK);
-	sv.ui.fb.addEventListener('login',sv.fu.event_fb);
+	sv.ui.fb.addEventListener('login', sv.fu.event_fb);
 	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
 	sv.ui.winDangNhap.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.winDangNhap.addEventListener('close', sv.fu.eventCloseWindow);
@@ -376,9 +374,9 @@ function createUI_Event(sv, _winDK) {
 		}
 	};
 	sv.fu.evt_btnDangKy = function(e) {
+		sv.ui.winDangNhap.close();
 		var WinDangKy = new (require('ui-user/WinDangKi'))();
 		WinDangKy.open();
-		sv.ui.winDangNhap.close();
 	};
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.winDangNhap.removeEventListener('open', sv.fu.eventOpenWindow);

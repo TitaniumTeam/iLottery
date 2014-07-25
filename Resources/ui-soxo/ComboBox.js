@@ -3,21 +3,20 @@ module.exports = function() {
 		height : Ti.App.size(90),
 		backgroundColor : 'transparent'
 	});
+	var lbl_fix = Ti.UI.createLabel({
+		color : Ti.App.Color.superwhite,
+	});
+	view_contain.add(lbl_fix);
 	var lblfirst = Titanium.UI.createLabel({
 		color : Ti.App.Color.superwhite,
-		font : {
-			fontSize : Ti.App.size(30),
-			fontWeight:'bold'
-		},
-		left : Ti.App.size(65),
 		id : "MB"
 	});
 	view_contain.add(lblfirst);
-	var icon=Ti.UI.createImageView({
-		width:Ti.App.size(40),
-		height:Ti.App.size(40),
-		left:Ti.App.size(10),
-		
+	var icon = Ti.UI.createImageView({
+		width : Ti.App.size(40),
+		height : Ti.App.size(40),
+		left : Ti.App.size(10),
+
 	});
 	view_contain.add(icon);
 	var arrowdown = Titanium.UI.createImageView({
@@ -36,9 +35,9 @@ module.exports = function() {
 		width : Ti.App.size(3),
 		height : Ti.App.size(88),
 		visible : false,
-		top:0
+		top : 0
 	});
-	view_contain.add(lineView);
+	// view_contain.add(lineView);
 	//
 	var tableview = Ti.UI.createTableView({
 		separatorColor : Ti.App.Color.red_press,
@@ -59,9 +58,61 @@ module.exports = function() {
 		view_contain.setWidth(_width);
 		lblfirst.setText(_textlbl);
 		if (check == 1) {
+			lbl_fix.setFont({
+				fontSize : Ti.App.size(30),
+				fontWeight : 'bold'
+			});
+			lblfirst.setFont({
+				fontSize : Ti.App.size(30),
+				fontWeight : 'bold'
+			});
+			lbl_fix.setLeft(Ti.App.size(65));
+			lblfirst.setLeft(Ti.App.size(300));
+			lbl_fix.setText("Chọn tỉnh thành:");
 			icon.setImage("/assets/icon/icon_place.png");
 		}
-		else{
+		if (check == 2) {
+			lbl_fix.setFont({
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			});
+			lblfirst.setFont({
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			});
+			lbl_fix.setLeft(Ti.App.size(65));
+			lblfirst.setLeft(Ti.App.size(120));
+			lbl_fix.setText("Từ");
+			icon.setImage("/assets/icon/icon_calendar.png");
+		}
+		if (check == 3) {
+			lbl_fix.setFont({
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			});
+			lblfirst.setFont({
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			});
+			lbl_fix.setLeft(Ti.App.size(65));
+			lblfirst.setLeft(Ti.App.size(120));
+			lbl_fix.setText("Đến");
+			icon.setImage("/assets/icon/icon_calendar.png");
+		}
+		if (check == 4) {
+			lblfirst.setFont({
+				fontSize : Ti.App.size(30),
+				fontWeight : 'bold'
+			});
+			lblfirst.setLeft(Ti.App.size(65));
+			icon.setImage("/assets/icon/icon_place.png");
+		}
+		if (check == 5) {
+			lblfirst.setFont({
+				fontSize : Ti.App.size(25),
+				fontWeight : 'bold'
+			});
+			lblfirst.setLeft(Ti.App.size(65));
 			icon.setImage("/assets/icon/icon_calendar.png");
 		}
 	};

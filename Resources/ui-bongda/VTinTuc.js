@@ -79,6 +79,8 @@ function createUI(sv) {
 				backgroundColor : Ti.App.Color.nauden,
 				width : Ti.App.size(640),
 				id : i,
+				backgroundSelectedColor : null,
+				backgroundSelectedImage : null
 			});
 			Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewRow[i]);
 			sv.arr.ViewTinTuc[i] = Ti.UI.createView({
@@ -87,7 +89,6 @@ function createUI(sv) {
 				backgroundColor : "transparent",
 				top : 0,
 				width : Ti.App.size(640),
-				backgroundSelectedColor : Ti.App.Color.xanhnhat
 			});
 			sv.arr.AnhTinTuc[i] = Ti.UI.createImageView({
 				image : jsonResuilt.news[i].image,
@@ -95,17 +96,15 @@ function createUI(sv) {
 				width : Ti.App.size(640),
 				height : Ti.App.size(500),
 				left : 0,
-				backgroundSelectedColor : "red"
 			});
 			sv.arr.ViewCover[i] = Titanium.UI.createView({
-				backgroundColor : Ti.App.Color.nauden,
-				opacity : 0.7,
+				backgroundImage : "/assets/icon/image.png",
 				bottom : 0,
 				width : Ti.App.size(640),
 				height : Ti.App.size(170),
 				left : 0,
 				zIndex : 0,
-				backgroundSelectedColor : "red"
+				touchEnabled : false
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,
@@ -114,7 +113,8 @@ function createUI(sv) {
 				left : 0,
 				zIndex : 10,
 				backgroundColor : "transparent",
-				backgroundSelectedColor : "red"
+				backgroundSelectedColor : Ti.App.Color.xanhnhat,
+				// touchEnabled : false
 			});
 			sv.arr.TenTinTuc[i] = Ti.UI.createLabel({
 				text : jsonResuilt.news[i].title.toString(),
@@ -145,6 +145,7 @@ function createUI(sv) {
 				right : 0,
 				top : Ti.App.size(10),
 				width : Ti.App.size(150),
+				touchEnabled : false
 			});
 
 			sv.arr.TTTinTuc[i] = Ti.UI.createLabel({

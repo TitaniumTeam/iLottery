@@ -99,14 +99,16 @@ function createUI_Event(sv) {
 
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window tin tuc');
+
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winBXH);
 		sv.ui.webview.setVisible(false);
 		sv.ui.webview.setTouchEnabled(false);
+
 		setTimeout(function() {
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winBXH);
 			sv.ui.webview.setVisible(true);
 			sv.ui.webview.setTouchEnabled(true);
-		}, 1000);
+		}, 1500);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {

@@ -163,6 +163,7 @@ function tao_ui(sv) {
 		sv.arr.ViewChucNang[i].addEventListener('click', sv.arr.evtChucNang[i]);
 	}
 	sv.ui.Win.addEventListener('close', sv.fu.evtCloseWin);
+	sv.ui.Win.addEventListener('android:back', sv.fu.evtIconBack);
 }
 
 function tao_sukien(sv) {
@@ -298,6 +299,7 @@ function tao_sukien(sv) {
 		}
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
 		sv.ui.ViewIconUser.removeEventListener('click', sv.fu.evtOpenWinUser);
+		sv.ui.Win.removeEventListener('android:back', sv.fu.evtIconBack);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;

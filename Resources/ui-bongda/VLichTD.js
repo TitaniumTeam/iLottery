@@ -165,6 +165,9 @@ function tao_ui(sv) {
 function GetTour(sv, data, _cmd) {
 	Ti.API.info('cmd dau tien' + _cmd);
 	var xhr = Titanium.Network.createHTTPClient();
+	sv.ui.tbl.visible = false;
+	sv.ui.tbl.removeAllChildren();
+	Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -174,13 +177,11 @@ function GetTour(sv, data, _cmd) {
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
 	xhr.onerror = function(e) {
-		sv.ui.tbl.visible = false;
-		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
 		sv.vari.time_out1 = setTimeout(function() {
 			sv.ui.tbl.visible = true;
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
 			clearTimeout(sv.vari.time_out1);
-		}, 1500);
+		}, 2000);
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
 	};
 	xhr.onload = function() {
@@ -190,15 +191,26 @@ function GetTour(sv, data, _cmd) {
 		Ti.API.info('cac giai dau  : ', jsonResuilt.tournaments);
 		sv.arr.data = [];
 		sv.arr.logo = [];
+		sv.vari.tong_tran = [];
+		sv.vari.so_tranlive = [];
 		var customButton = require('ui-controller/customButton');
 		for (var i = 0; i < (jsonResuilt.tournaments).length; i++) {
 
 			sv.vari.SoLuongGiaiDau = (jsonResuilt.tournaments).length;
 			sv.arr.data.push(jsonResuilt.tournaments[i].name);
+			sv.vari.so_tranlive.push(jsonResuilt.tournaments[i].total_playing);
+
 			if (jsonResuilt.tournaments[i].logo) {
 				sv.arr.logo.push(jsonResuilt.tournaments[i].logo);
 			} else {
 				sv.arr.logo.push("");
+			}
+			if ((jsonResuilt.tournaments[i].total_incoming == null && jsonResuilt.tournaments[i].total_playing == null) || (jsonResuilt.tournaments[i].total_incoming == undefined && jsonResuilt.tournaments[i].total_playing == undefined)) {
+
+				sv.vari.tong_tran.push(0);
+			} else {
+				sv.vari.tong_tran.push(parseInt(jsonResuilt.tournaments[i].total_incoming) + parseInt(jsonResuilt.tournaments[i].total_playing));
+
 			}
 			sv.arr.TourId[i] = jsonResuilt.tournaments[i].id.toString();
 			sv.arr.TourName[i] = jsonResuilt.tournaments[i].name.toString();
@@ -262,7 +274,7 @@ function GetTour(sv, data, _cmd) {
 				text : sv.arr.data[i],
 				width : Ti.App.size(530),
 				font : {
-					fontSize : Ti.App.size(20),
+					fontSize : Ti.App.size(25),
 					fontWeight : 'bold'
 				},
 				color : Ti.App.Color.superwhite,
@@ -278,22 +290,18 @@ function GetTour(sv, data, _cmd) {
 				touchEnabled : false
 			});
 
-			sv.arr.lbl_Live[i] = Titanium.UI.createImageView({
-				right : Ti.App.size(95),
-				width : Ti.App.size(45),
-				height : Ti.App.size(20),
-				image : "/assets/icon/icon_live.png",
-				touchEnabled : false
-			});
 			sv.arr.lbl_sotran[i] = Titanium.UI.createLabel({
 				width : Ti.UI.SIZE,
 				height : Ti.UI.SIZE,
 				font : {
-					fontSize : Ti.App.size(20)
+					fontSize : Ti.App.size(25),
+					fontWeight : 'bold'
 				},
 				color : Ti.App.Color.superwhite,
-				right : Ti.App.size(40),
-				touchEnabled : false
+				right : Ti.App.size(60),
+				touchEnabled : false,
+				text : sv.vari.tong_tran[i],
+				textAlign : "center"
 			});
 			sv.arr.viewBack[i] = Ti.UI.createView({
 				left : 0,
@@ -321,6 +329,16 @@ function GetTour(sv, data, _cmd) {
 				touchEnabled : false
 
 			});
+			if (sv.vari.so_tranlive[i]) {
+				sv.arr.lbl_Live[i] = Titanium.UI.createImageView({
+					right : Ti.App.size(95),
+					width : Ti.App.size(45),
+					height : Ti.App.size(20),
+					image : "/assets/icon/icon_live.png",
+					touchEnabled : false,
+				});
+				sv.arr.viewArow[i].add(sv.arr.lbl_Live[i]);
+			}
 			sv.arr.rows[i].add(sv.arr.ViewChe[i]);
 			sv.arr.rows[i].add(sv.arr.viewBack[i]);
 			sv.arr.rows[i].add(sv.arr.viewRow[i]);
@@ -328,7 +346,7 @@ function GetTour(sv, data, _cmd) {
 			sv.arr.viewGD[i].add(sv.arr.lbl_co[i]);
 
 			sv.arr.viewArow[i].add(sv.arr.lbl_tennc[i]);
-			sv.arr.viewArow[i].add(sv.arr.lbl_Live[i]);
+
 			sv.arr.viewArow[i].add(sv.arr.lbl_sotran[i]);
 			sv.arr.viewArow[i].add(sv.arr.arrow[i]);
 
@@ -359,15 +377,17 @@ function GetTour(sv, data, _cmd) {
 				} else {
 					Ti.API.info('cmd' + _cmd);
 					e.source.expanded = true;
-					sv.ui.tbl.setTouchEnabled(false);
-					sv.vari.data1 = {
+					sv.ui.table_view.visible = false;
+					sv.ui.ViewCheat.visible = true;
+					// sv.ui.tbl.setTouchEnabled(false);
+					var data1 = {
 						"tourid" : sv.arr.TourId[e.source.id],
 					};
 					var xhr1 = Titanium.Network.createHTTPClient();
 					xhr1.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
 					xhr1.setRequestHeader("Content-Type", "application/json-rpc");
-					Ti.API.info(JSON.stringify(sv.vari.data1));
-					xhr1.send(JSON.stringify(sv.vari.data1));
+					Ti.API.info(JSON.stringify(data1));
+					xhr1.send(JSON.stringify(data1));
 					xhr1.onsendstream = function(e) {
 						//ind.value = e.progress;
 						Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -385,18 +405,30 @@ function GetTour(sv, data, _cmd) {
 							sv.vari.sotran = [];
 							//Ti.App.customToast.showToast("Không có trận nào", 1000);
 						} else {
-							for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
-								sv.vari.sotran.push(jsonResuilt1.matchs[j]);
-								sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
-								sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
-								sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
-								sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
-								sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
+							if (jsonResuilt1.matchs.length > 17) {
+								for (var j = 0; j < ((jsonResuilt1.matchs).length/20); j++) {
+									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
+									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
+									sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
+									sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
+									sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
+									sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
+								}
+							} else {
+								for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
+									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
+									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
+									sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
+									sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
+									sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
+									sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
+								}
 							}
+
 						}
 
 						Ti.API.info('so tran' + sv.vari.sotran.length);
-						sv.arr.rows[e.source.id].setHeight(Ti.App.size((sv.vari.sotran.length) * 105 + 90));
+						sv.arr.rows[e.source.id].setHeight(Ti.App.size((sv.vari.sotran.length) * 100 + 90));
 						sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_uparrow.png');
 						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 							if (j != (e.source.id)) {
@@ -405,14 +437,18 @@ function GetTour(sv, data, _cmd) {
 								sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');
 							}
 						}
-						sv.arr.ViewChe[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length * 105));
-						sv.arr.viewBack[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length * 105));
+						sv.arr.ViewChe[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length * 100));
+						sv.arr.viewBack[e.source.id].setHeight(Ti.App.size(sv.vari.sotran.length * 100));
 						Ti.App.g_IndicatorWindow.openIndicator(sv.arr.ViewChe[e.source.id]);
+						// Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewCheat);
 						sv.vari.time_out2 = setTimeout(function() {
 							Ti.App.g_IndicatorWindow.closeIndicator(sv.arr.ViewChe[e.source.id]);
+							// Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewCheat);
 							sv.arr.viewBack[e.source.id].visible = true;
 							sv.arr.ViewChe[e.source.id].visible = false;
-							sv.ui.tbl.setTouchEnabled(true);
+							sv.ui.table_view.visible = true;
+							sv.ui.ViewCheat.visible = false;
+							// sv.ui.tbl.setTouchEnabled(true);
 							clearTimeout(sv.vari.time_out2);
 						}, 1000);
 						for ( j = 0; j < sv.vari.sotran.length; j++) {
@@ -437,9 +473,7 @@ function GetTour(sv, data, _cmd) {
 
 							});
 						};
-						if (sv.vari.sotran.length > 0) {
-							sv.ui.tbl.setData(sv.arr.rows);
-						}
+						sv.ui.tbl.setData(sv.arr.rows);
 
 					};
 
@@ -464,19 +498,20 @@ function removeSK(sv) {
 ////
 function tao_sukien(sv) {
 	sv.fu.event_clickLabelLive = function(e) {
+		sv.ui.ViewSwitch.setBackgroundImage("/assets/icon/switch_left.png");
 		GetTour(sv, {
 			"season" : sv.ui.lblfirst.text
 		}, "getmatchschedule");
-		// setBGLabel(sv.ui.LabelLive, sv.ui.LabelAll);
-		sv.ui.ViewSwitch.setBackgroundImage("/assets/icon/switch_left.png");
 		sv.ui.tbl.scrollToTop(0, 0);
+		sv.ui.ViewCheat.visible = false;
 	};
 	sv.fu.event_clickLabelAll = function(e) {
+		sv.ui.ViewSwitch.setBackgroundImage("/assets/icon/switch_right.png");
 		GetTour(sv, {
 			"season" : sv.ui.lblfirst.text
 		}, "getmatchended");
-		sv.ui.ViewSwitch.setBackgroundImage("/assets/icon/switch_right.png");
 		sv.ui.tbl.scrollToTop(0, 0);
+		sv.ui.ViewCheat.visible = false;
 	};
 	sv.fu.event_click_view = function(e) {
 		sv.ui.tbl.scrollToTop(0, 0);
@@ -490,18 +525,14 @@ function tao_sukien(sv) {
 		//};
 	};
 	sv.fu.event_clicktbl = function(e) {
+		sv.ui.tbl.scrollToTop(0, 0);
 		sv.ui.ViewChua.touchEnabled = true;
 		sv.ui.lblfirst.text = e.row.tenrow;
 		sv.ui.ViewCheat.visible = false;
+		GetTour(sv, {
+			"season" : sv.ui.lblfirst.text
+		}, "getmatchschedule");
 	};
-	// for (var i = 0; i < (sv.vari.SoLuongGiaiDau); i++) {
-	// sv.arr.evt_bxh[i] = function(e) {
-	// Ti.API.info('thu tu ' + e.source.idGD);
-	// Ti.API.info('tourid : ', sv.arr.TourName[e.source.idGD]);
-	// sv.vari.view_bxh = new sv.vari.bxh(sv.arr.TourName[e.source.idGD], sv.ui.lblfirst.text, sv.arr.logo[e.source.idGD]);
-	// sv.vari.view_bxh.open();
-	// };
-	// }
 
 };
 ////
@@ -543,7 +574,7 @@ function thongtin_cuthe(_id) {
 	var customRow = require('ui-controller/customRow');
 	var ViewChua = customRow({
 		width : Ti.App.size(640),
-		height : Ti.App.size(105),
+		height : Ti.App.size(100),
 		left : 0,
 		// backgroundColor : 'transparent',
 		idKeo : _id,
@@ -570,22 +601,12 @@ function thongtin_cuthe(_id) {
 	});
 	var line_viewchua = Ti.UI.createView({
 		width : Ti.App.size(640),
-		height : Ti.App.size(2),
+		height : Ti.App.size(4),
 		left : 0,
 		zIndex : 10,
-		opacity : 0.3,
 		touchEnabled : false,
-		backgroundGradient : {
-			type : 'linear',
-			colors : [{
-				color : Ti.App.Color.nauden,
-				position : 0.5
-			}, {
-				color : Ti.App.Color.nauden,
-				position : 0.5
-			}]
-		},
-		bottom : 0
+		bottom : 0,
+		backgroundImage : "/assets/icon/image.png",
 	});
 	////
 	var IconDoi1 = Ti.UI.createImageView({
@@ -713,7 +734,6 @@ function thongtin_cuthe(_id) {
 		TenDoi1.text = param.ownerID;
 		TenDoi2.text = param.guestID;
 		if (_state == "Playing") {
-			Ti.API.info('playing*****');
 			TySo.setTop(Ti.App.size(20));
 			lineView1.setTop(Ti.App.size(20));
 			lineView2.setTop(Ti.App.size(20));
@@ -745,10 +765,6 @@ function thongtin_cuthe(_id) {
 	};
 	return ViewChua;
 };
-function setBGLabel(l1, l2) {
-	l1.setBackgroundColor(Ti.App.Color.red);
-	l2.setBackgroundColor("transparent");
-}
 
 function kt_mang() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
