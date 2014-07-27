@@ -7,7 +7,6 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		kt_mang();
 		createVariable(sv);
 		createUI(sv);
 	})();
@@ -22,6 +21,7 @@ function createVariable(sv) {
 	sv.vari.viewRaLienTiep = null;
 	sv.vari.viewXuatHienNhieu = null;
 	sv.vari.viewLauChuaRa = null;
+	sv.vari.flag = false;
 }
 
 function createUI(sv) {
@@ -127,6 +127,9 @@ function createUI(sv) {
 		bottom : Ti.App.size(25),
 		// contentHeight:Ti.UI.FILL
 	});
+	if (Ti.Platform.osname == "android") {
+		sv.ui.ScrollView.setContentHeight(Ti.UI.FILL);
+	}
 	thongke("getlotterystat", {
 		"provideid" : "MB",
 		"startdate" : currDate()
@@ -190,8 +193,8 @@ function createUI_Event(sv) {
 		sv.ui.table_view.visible = false;
 	};
 	sv.fu.eventCloseWindow = function(e) {
-		sv.ui.winThongKeTH.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.View_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
+		sv.ui.winThongKeTH.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.winThongKeTH.removeEventListener('close', sv.fu.eventCloseWindow);
 		sv.ui.winThongKeTH.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
@@ -229,13 +232,13 @@ function thongke(_cmd, data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		if (_cmd == "getlotterystat") {
 			sv.ui.ScrollView.visible = false;
+			sv.ui.ScrollView.removeAllChildren();
 			Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
 			sv.vari.time_out1 = setTimeout(function() {
 				sv.ui.ScrollView.visible = true;
 				Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
 				clearTimeout(sv.vari.time_out1);
 			}, 1500);
-			sv.ui.ScrollView.removeAllChildren();
 			// if (jsonResuilt.thongke.lauchuara.length > 0) {
 			sv.vari.viewLauChuaRa = bang_kq();
 			sv.vari.viewLauChuaRa.setKQ(jsonResuilt.thongke.lauchuara, "ngày", "Dãy số ít về trong 10 ngày qua");

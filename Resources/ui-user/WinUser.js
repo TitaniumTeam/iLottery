@@ -93,13 +93,15 @@ function tao_ui(sv) {
 	});
 	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
 		title : "Lựa chọn cách thức",
-		options : ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms", "Thoát"],
+		options : Ti.Platform.osname=='android'?["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms"]:["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms","Thoát"],
 		opaquebackground : true,
+		buttonNames : ["Thoát"]
 	});
 	sv.ui.opt_edit = Titanium.UI.createOptionDialog({
 		title : "Lựa chọn thông tin mà bạn muốn đổi",
-		options : ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"],
+		options :Ti.Platform.osname=='android'?["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu"]:["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu","Thoát"] ,
 		opaquebackground : true,
+		buttonNames : ["Thoát"]
 	});
 
 	sv.ui.ViewAvartar = Ti.UI.createView({
@@ -366,13 +368,18 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evt_opt_edit_info = function(e) {
 		// if(Ti.Platform.osname=="android")
-		if (e.index == 0) {
-			sv.vari.wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
-			sv.vari.wdEditInfo.open();
-		}
-		if (e.index == 1) {
-			sv.vari.wdEditPass = new (require('ui-user/WinThayPass'))();
-			sv.vari.wdEditPass.open();
+
+		if (e.button) {
+			sv.ui.opt_edit.hide();
+		} else {
+			if (e.index == 0) {
+				sv.vari.wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
+				sv.vari.wdEditInfo.open();
+			}
+			if (e.index == 1) {
+				sv.vari.wdEditPass = new (require('ui-user/WinThayPass'))();
+				sv.vari.wdEditPass.open();
+			}
 		}
 	};
 	////
@@ -389,19 +396,21 @@ function tao_sukien(sv) {
 		}
 	};
 	sv.fu.event_optiondialog = function(e) {
-		if (e.index == 0) {
-			sv.vari.wdnaptien = new (require('ui-user/PopUpNapTien'))();
-			sv.vari.wdnaptien.open({
-				modal : Ti.Platform.osname == 'android' ? true : false
-			});
-			Ti.API.info('click' + e.index);
-		}
-		if (e.index == 1) {
-			sv.vari.showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', "NAPXU");
-		}
-		if (e.index == 2) {
+		if (e.button) {
 			sv.ui.opt_dialog.hide();
+		} else {
+			if (e.index == 0) {
+				sv.vari.wdnaptien = new (require('ui-user/PopUpNapTien'))();
+				sv.vari.wdnaptien.open({
+					modal : Ti.Platform.osname == 'android' ? true : false
+				});
+				Ti.API.info('click' + e.index);
+			}
+			if (e.index == 1) {
+				sv.vari.showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', "NAPXU");
+			}
 		}
+
 	};
 	///
 	sv.fu.evtOpenWin = function(e) {

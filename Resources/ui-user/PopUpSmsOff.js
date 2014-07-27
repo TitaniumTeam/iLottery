@@ -1,4 +1,4 @@
-module.exports = function(_type) {
+module.exports = function() {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -7,71 +7,17 @@ module.exports = function(_type) {
 	sv.test = {};
 
 	(function() {
-		createVariable(sv, _type);
-		createUI(sv, _type);
+		createVariable(sv);
+		createUI(sv);
 	})();
 
 	return sv.ui.Window;
 };
 
-function createVariable(sv, _type) {
-	////type =0-soxo, type=1- bong da
-	sv.vari.db = Ti.Database.open('userinfo');
-	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	sv.vari.dauso = null;
-	sv.vari.noidung = null;
-	if (_type == 0) {
-		if (sv.vari.user_info.isValidRow()) {
-			sv.vari.dv_soxo = sv.vari.db.execute("SELECT * FROM DV_Soxo");
-			if (sv.vari.dv_soxo.isValidRow()) {
-				sv.vari.dauso = sv.vari.dv_soxo.fieldByName("servicenumber");
-				sv.vari.noidung = sv.vari.dv_soxo.fieldByName("noidung") + " " + sv.vari.dv_soxo.fieldByName("thamso");
-			} else {
-				sv.vari.dauso = "88XX";
-				sv.vari.noidung = "KQBD";
-			}
-			sv.vari.dv_soxo.close();
-		} else {
-			sv.vari.dv_soxo_free = sv.vari.db.execute("SELECT * FROM DV_Soxo_free");
-			if (sv.vari.dv_soxo_free.isValidRow()) {
-				sv.vari.dauso = sv.vari.dv_soxo_free.fieldByName("servicenumber");
-				sv.vari.noidung = sv.vari.dv_soxo_free.fieldByName("noidung") + " " + sv.vari.dv_soxo_free.fieldByName("thamso");
-
-			} else {
-				sv.vari.dauso = "88XX";
-				sv.vari.noidung = "KQBD";
-			}
-			sv.vari.dv_soxo_free.close();
-		}
-	} else {
-		if (sv.vari.user_info.isValidRow()) {
-			sv.vari.dv_bongda = sv.vari.db.execute("SELECT * FROM DV_Bongda");
-			if (sv.vari.dv_bongda.isValidRow()) {
-				sv.vari.dauso = sv.vari.dv_bongda.fieldByName("servicenumber");
-				sv.vari.noidung = sv.vari.dv_bongda.fieldByName("noidung") + " " + sv.vari.dv_bongda.fieldByName("thamso");
-			} else {
-				sv.vari.dauso = "88XX";
-				sv.vari.noidung = "KQSX";
-			}
-			sv.vari.dv_bongda.close();
-		} else {
-			sv.vari.dv_bongda_free = sv.vari.db.execute("SELECT * FROM DV_Bongda_free");
-			if (sv.vari.dv_bongda_free.isValidRow()) {
-				sv.vari.dauso = sv.vari.dv_bongda_free.fieldByName("servicenumber");
-				sv.vari.noidung = sv.vari.dv_bongda_free.fieldByName("noidung") + " " + sv.vari.dv_bongda_free.fieldByName("thamso");
-
-			} else {
-				sv.vari.dauso = "88XX";
-				sv.vari.noidung = "KQSX";
-			}
-			sv.vari.dv_bongda_free.close();
-		}
-	}
-	sv.vari.user_info.close();
-	sv.vari.db.close();
+function createVariable(sv) {
 }
 
-function createUI(sv, _type) {
+function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
@@ -130,7 +76,7 @@ function createUI(sv, _type) {
 			fontSize : Ti.App.size(30),
 		},
 		textAlign : "center",
-		text : _type == 1 ? "Chúng tôi sẽ gửi SMS offline kết quả các trận bóng cho quý khách hàng" : "Chúng tôi sẽ gửi SMS offline kết quả xổ số trực tiếp cho quý khách hàng"
+		text : "Chúng tôi sẽ gửi SMS offline kết quả cho quý khách hàng"
 	});
 	createUI_Event(sv);
 
@@ -155,7 +101,7 @@ function createUI_Event(sv) {
 		Ti.API.info('Opened window');
 	};
 	sv.fu.evt_sms = function(e) {
-		var sms = new (require('/ui-controller/showSmsDialog'))(sv.vari.dauso, sv.vari.noidung);
+		var sms = new (require('/ui-controller/showSmsDialog'))();
 		sv.ui.Window.close();
 	};
 	sv.fu.eventCloseWindow = function(e) {

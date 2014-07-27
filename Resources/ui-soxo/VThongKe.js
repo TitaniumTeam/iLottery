@@ -26,7 +26,7 @@ function taoui(sv) {
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-		backgroundImage : "/assets/icon/bg_tuvan.png"
+		backgroundImage : "/assets/icon/bg_sokq.png"
 	});
 
 	// }

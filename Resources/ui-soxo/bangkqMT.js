@@ -118,7 +118,7 @@ module.exports = function() {
 
 	////////
 	viewKQ.setParam = function(param) {
-		if (param[0].resultdate != null || param[0].resultdate != undefined) {
+		if (param[0].lines) {
 			Ti.API.info('nhay vao set text');
 			lblKQ[10].setText(param[0].provide.name);
 			lblKQ2[10].setText(param[1].provide.name);

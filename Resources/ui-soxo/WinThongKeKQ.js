@@ -7,7 +7,6 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		kt_mang();
 		createVariable(sv);
 		createUI(sv);
 	})();
@@ -20,6 +19,8 @@ function createVariable(sv) {
 	sv.ui.view_choose = new sv.vari.combobox();
 	sv.ui.view_choose1 = new sv.vari.combobox();
 	sv.ui.view_choose2 = new sv.vari.combobox();
+	// sv.vari.now=new Date();
+	// sv.vari.now=sv.vari.now.setDate(sv.vari.now.getDate()-1);
 }
 
 function createUI(sv) {
@@ -96,12 +97,11 @@ function createUI(sv) {
 		backgroundColor : "#33030c"
 	});
 	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), 0, 1);
-	sv.ui.view_choose1.setPos(0, set_lbl(), 0, Ti.App.size(320), Ti.App.size(90), 2);
-	sv.ui.view_choose2.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), Ti.App.size(90), 3);
+	sv.ui.view_choose1.setPos(0, set_lbl2(), 0, Ti.App.size(320), 0, 2);
+	sv.ui.view_choose2.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), 0, 3);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
 	sv.ui.lblfirst2 = sv.ui.view_choose2.getLblFirst();
-	sv.ui.table_view2 = sv.ui.view_choose2.getTableView();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
 
 	sv.ui.ViewPicker = Titanium.UI.createView({
@@ -112,13 +112,14 @@ function createUI(sv) {
 		zIndex : 10,
 		backgroundColor : "transparent",
 	});
-
+	////
+	var date = new Date();
+	date.setDate(date.getDate() - 3);
 	sv.ui.picker = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
 		minDate : new Date(2014, 0, 1),
-		maxDate : new Date(),
-		// top : Ti.App.size(100),
-		value : new Date(),
+		maxDate : new Date(parseInt(date.getFullYear()), parseInt((date.getMonth())), parseInt(date.getDate())),
+		value : new Date(parseInt(date.getFullYear()), parseInt((date.getMonth())), parseInt(date.getDate())),
 		backgroundColor : Ti.App.Color.nauden,
 		width : Ti.App.size(640),
 		bottom : 0,
@@ -136,8 +137,7 @@ function createUI(sv) {
 	sv.ui.picker2 = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
 		minDate : new Date(2014, 0, 1),
-		maxDate : new Date(new Date().getFullYear, new Date().getDay - 3, new Date().getMonth - 1),
-		// top : Ti.App.size(100),
+		maxDate : new Date(),
 		value : new Date(),
 		backgroundColor : Ti.App.Color.nauden,
 		width : Ti.App.size(640),
@@ -160,7 +160,7 @@ function createUI(sv) {
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
 		backgroundColor : 'transparent',
-		top : Ti.App.size(180),
+		top : Ti.App.size(90),
 		left : 0,
 		height : Ti.App.size(1136),
 		zIndex : 10,
@@ -208,7 +208,6 @@ function createUI(sv) {
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose1);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose2);
 
-	sv.ui.ViewCheat.add(sv.ui.table_view2);
 	sv.ui.ViewCheat.add(sv.ui.table_view);
 	sv.ui.ViewPicker.add(sv.ui.picker);
 	sv.ui.ViewPicker2.add(sv.ui.picker2);
@@ -282,14 +281,9 @@ function createUI_Event(sv) {
 		}, sv);
 		sv.ui.ViewPicker.visible = false;
 		sv.ui.ViewPicker2.visible = false;
-		// sv.ui.TableView.scrollToTop(0, 0);
 		sv.ui.ViewCheat.visible = true;
-		// sv.ui.TableView.touchEnabled = false;
 	};
 	sv.fu.event_clicktbl = function(e) {
-		// sv.vari.flag = true;
-		// sv.ui.TableView.scrollToTop(0, 0);
-		// sv.ui.TableView.touchEnabled = true;
 		sv.ui.lblfirst.text = e.row.tenrow;
 		sv.ui.lblfirst.id = e.row.id;
 		sv.ui.ViewCheat.visible = false;
@@ -428,6 +422,14 @@ function getYesterdaysDate() {
 	return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 }
 
+function get3DayBefore(i) {
+	var date = new Date();
+	var date = new Date();
+	date.setDate(date.getDate() - 3);
+	return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+
+}
+
 function currHour() {
 	var date = new Date();
 	var currhour = date.getHours();
@@ -440,6 +442,10 @@ function set_lbl() {
 		return getYesterdaysDate();
 	}
 };
+function set_lbl2() {
+	return get3DayBefore();
+}
+
 function kt_mang() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
 		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
@@ -449,7 +455,7 @@ function kt_mang() {
 	}
 };
 function rows() {
-	var isAndroid=Ti.Platform.osname==='android';
+	var isAndroid = Ti.Platform.osname === 'android';
 	var TenGiaiMN = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy", "Giải Tám"];
 	var rowsdata = [];
 	var viewTenGiai = [];
@@ -458,11 +464,11 @@ function rows() {
 	var viewchua = [];
 	var ViewChuaTable = Ti.UI.createView({
 		width : Ti.App.size(640),
-		height : isAndroid==true?Ti.UI.SIZE:Ti.UI.FILL,
+		height : isAndroid == true ? Ti.UI.SIZE : Ti.UI.FILL,
 		left : 0,
 		backgroundColor : 'transparent',
 		touchEnabled : false,
-		top:0,
+		top : 0,
 	});
 	var Header = Ti.UI.createView({
 		width : Ti.App.size(640),
@@ -492,7 +498,7 @@ function rows() {
 	Header.add(icon);
 	ViewChuaTable.add(Header);
 	var viewTen = Titanium.UI.createView({
-		height : isAndroid==true?Ti.UI.SIZE:Ti.UI.FILL,
+		height : isAndroid == true ? Ti.UI.SIZE : Ti.UI.FILL,
 		backgroundColor : "transparent",
 		top : Ti.App.size(90),
 		left : Ti.App.size(10),
@@ -500,7 +506,7 @@ function rows() {
 		layout : 'vertical'
 	});
 	var viewChuaGiai1 = Ti.UI.createView({
-		height : isAndroid==true?Ti.UI.SIZE:Ti.UI.FILL,
+		height : isAndroid == true ? Ti.UI.SIZE : Ti.UI.FILL,
 		backgroundColor : "transparent",
 		top : Ti.App.size(90),
 		width : Ti.App.size(470),

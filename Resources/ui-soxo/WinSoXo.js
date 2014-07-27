@@ -105,15 +105,16 @@ function tao_ui(sv) {
 		height : Ti.App.size(2),
 		backgroundColor : Ti.App.Color.red_press,
 		bottom : 0,
-		zIndex : 10
+		zIndex : 10,
+		touchEnabled:false
 	});
 	for (var i = 0; i < 4; i++) {
 		sv.arr.ViewChucNang[i] = Ti.UI.createView({
 			width : Ti.App.size(160),
 			height : Ti.App.size(75),
-			backgroundSelectedColor : Ti.App.Color.red,
 			backgroundColor : "transparent",
-			top : 0
+			top : 0,
+			backgroundSelectedImage:"/assets/icon/selected_tab.png"
 		});
 		sv.arr.LabelChucNang[i] = Ti.UI.createLabel({
 			text : sv.arr.TenChucNang[i],
@@ -125,7 +126,7 @@ function tao_ui(sv) {
 			// color : Ti.App.Color.superwhite,
 			width : Ti.App.size(160),
 			height : Ti.App.size(72),
-			//touchEnabled : false,
+			touchEnabled : false,
 			textAlign : 'center',
 			backgroundColor : 'transparent'
 		});
@@ -136,7 +137,8 @@ function tao_ui(sv) {
 				width : Ti.App.size(52),
 				height : Ti.App.size(52),
 				image : "/assets/icon/icon_star.png",
-				zIndex : 10
+				zIndex : 10,
+				touchEnabled:false
 			});
 			sv.arr.ViewChucNang[i].add(sv.ui.iconVip);
 		}

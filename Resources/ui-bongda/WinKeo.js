@@ -104,8 +104,8 @@ function createUI(sv) {
 		width : "100%",
 		height : "100%",
 		zIndex : 0,
-		opacity:0.7,
-		backgroundColor:'black'
+		opacity : 0.7,
+		backgroundColor : 'black'
 	}));
 	////
 	sv.ui.IconGiaiDau = Titanium.UI.createImageView({
@@ -219,8 +219,11 @@ function createUI(sv) {
 		backgroundColor : 'transparent',
 		top : Ti.App.size(240),
 		layout : 'vertical',
-		bottom : Ti.App.size(25)
+		bottom : Ti.App.size(25),
 	});
+	// if (Ti.Platform.osname == "android") {
+		// sv.ui.ViewChuaKeo.setContentHeight(Ti.UI.FILL);
+	// }
 	//////
 	sv.ui.ViewTranDau.add(sv.ui.IconLive);
 	sv.ui.ViewTranDau.add(sv.ui.lblPhut);
@@ -484,7 +487,7 @@ function ViewTySo() {
 		backgroundColor : 'transparent',
 		separatorColor : "#2b2b2b",
 		left : 0,
-		height : Ti.UI.FILL,
+		height : Ti.UI.SIZEi,
 		width : Ti.App.size(640),
 		showVerticalScrollIndicator : 'true',
 	});
@@ -504,7 +507,7 @@ function ViewTySo() {
 			lbl[i] = Ti.UI.createLabel({
 				width : Ti.UI.SIZE,
 				height : Ti.UI.SIZE,
-				color : "yellow",
+				color : "white",
 				font : {
 					fontSize : Ti.App.size(25)
 				},

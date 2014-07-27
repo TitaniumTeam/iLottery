@@ -98,13 +98,14 @@ function createUI(sv) {
 				left : 0,
 			});
 			sv.arr.ViewCover[i] = Titanium.UI.createView({
-				backgroundImage : "/assets/icon/image.png",
 				bottom : 0,
 				width : Ti.App.size(640),
 				height : Ti.App.size(170),
 				left : 0,
 				zIndex : 0,
-				touchEnabled : false
+				touchEnabled : false,
+				opacity : 0.7,
+				backgroundColor : "black"
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,
@@ -197,10 +198,13 @@ function createUI(sv) {
 
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
-		for (var i = 0; i < sv.arr.linkbai.length; i++) {
-			sv.arr.ViewRow[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+		if (sv.arr.eventClickViewTinTuc != null || sv.arr.eventClickViewTinTuc != undefined) {
+			for (var i = 0; i < sv.arr.linkbai.length; i++) {
+				sv.arr.ViewRow[i].removeEventListener('click', sv.arr.eventClickViewTinTuc[i]);
+			}
+			Ti.API.info('remove su kien tin tuc');
 		}
-		Ti.API.info('remove su kien tin tuc');
+
 	};
 };
 function createUI_Event(sv) {

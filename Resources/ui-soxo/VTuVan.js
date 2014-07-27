@@ -5,7 +5,6 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
-		kt_mang();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -34,28 +33,38 @@ function taobien(sv) {
 
 };
 function taoui(sv) {
-	sv.ui.ViewTong = Ti.UI.createView({
+	sv.ui.ViewTong = Ti.UI.createScrollView({
 		top : Ti.App.size(165),
-		left : 0,
-		width : Ti.App.size(640),
+		showVerticalScrollIndicator : 'true',
+		contentHeight : Ti.UI.FILL,
 		height : Ti.UI.FILL,
+		zIndex : 0,
+		horizontalWrap : false,
+		disableBounce : "true",
+		layout:"vertical",
 		backgroundImage : "/assets/icon/bg_tuvan.png"
 	});
 
 	// }
+	// sv.ui.ViewChua = Ti.UI.createScrollView({
+		// backgroundColor : 'transparent',
+		// top : Ti.App.size(90),
+		// left : 0,
+		// showVerticalScrollIndicator : 'true',
+		// contentHeight : Ti.UI.FILL,
+		// height : Ti.UI.FILL,
+		// zIndex : 0,
+		// horizontalWrap : false,
+		// disableBounce : "true"
+		// // layout:"vertical"
+	// });
 	sv.ui.tbl1 = Ti.UI.createTableView({
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-		data : sv.arr.rows,
 		top : Ti.App.size(10),
 		separatorColor : "transparent",
 		left : 0,
 		backgroundColor : 'transparent'
-	});
-	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
-		title : "Lựa chọn tỉnh thành",
-		cancel : -1,
-		opaquebackground : true
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	get_menu(sv);
@@ -63,54 +72,21 @@ function taoui(sv) {
 };
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
-		if (sv.fu.evt_tblrow_click != null && sv.fu.evt_tblrow_click != undefined) {
-			sv.ui.tbl1.removeEventListener('click', sv.fu.evt_tblrow_click);
-			sv.ui.opt_dialog.removeEventListener('click', sv.fu.evt_optdialog);
-			Ti.API.info('remove su kien tu van bongda');
-		}
+		// if (sv.fu.evt_tblrow_click != null && sv.fu.evt_tblrow_click != undefined) {
+		// sv.ui.tbl1.removeEventListener('click', sv.fu.evt_tblrow_click);
+		// sv.ui.opt_dialog.removeEventListener('click', sv.fu.evt_optdialog);
+		Ti.API.info('remove su kien tu van bongda');
+		// }
 
 	};
 };
 function tao_sukien(sv) {
-	sv.fu.evt_optdialog = function(e) {
-		if (e.index === e.source.cancel) {
-			Ti.API.info('The cancel button was clicked');
-		} else {
-			tuvan_soxo("menuaction", {
-				"command" : sv.vari.action,
-				"param" : sv.vari.param[e.index],
-				"price" : sv.vari.price
-			}, sv);
-		}
-	};
-	/////
-	sv.fu.evt_tblrow_click = function(e) {
-		Ti.API.info(e.row._params);
-		Ti.API.info(e.row._price);
-		Ti.API.info(e.row._action);
-		// sv.vari.action = e.row.action;
-		// sv.vari.price = e.row.price;
-		// if (e.row._params == "" || e.row._params == null || e.row._params == undefined) {
-		// tuvan_soxo("menuaction", {
-		// "command" : sv.vari.action,
-		// "param" : "",
-		// "price" : sv.vari.price
-		// }, sv);
-		// } else {
-		// sv.vari.params = e.row.params.toString();
-		// sv.vari.param = (sv.vari.params.split(','));
-		// sv.ui.opt_dialog.options = sv.vari.param;
-		// sv.ui.opt_dialog.show();
-		// };
-	};
 };
 function get_menu(sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	var data = null;
 	sv.vari.db = Ti.Database.open('userinfo');
 	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	sv.vari.dv1 = sv.vari.db.execute("SELECT * FROM DV_Bongda");
-	sv.vari.dv2 = sv.vari.db.execute("SELECT * FROM DV_Bongda_free");
 	if (sv.vari.user_info.isValidRow()) {
 		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
 		data = {
@@ -164,6 +140,7 @@ function get_menu(sv) {
 		};
 		sv.vari.user_info.close();
 		sv.vari.db.close();
+
 		for (var i = 0; i < (menucap1.length); i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
 				width : Ti.App.size(640),
@@ -179,7 +156,7 @@ function get_menu(sv) {
 				top : 0,
 				id : menucap1[i].id,
 				idrow : i,
-				expanded : false
+				expanded : false,
 			});
 			sv.arr.Label_ten_dv[i] = Ti.UI.createLabel({
 				left : Ti.App.size(20),
@@ -203,40 +180,45 @@ function get_menu(sv) {
 			sv.arr.View_rows[i].add(sv.arr.Label_ten_dv[i]);
 			sv.arr.rows[i].add(sv.arr.View_rows[i]);
 			sv.arr.rows[i].add(sv.arr.ViewBack[i]);
-			// sv.arr.rows[i].addEventListener('click', function(e) {
-			// sv.arr.rows[i].setHeight(Ti.UI.FILL);
-			// });
 		}
 		sv.ui.tbl1.setData(sv.arr.rows);
-		tao_sukien(sv);
+		// tao_sukien(sv);
 		for (var i = 0; i < (menucap1.length); i++) {
 			sv.arr.View_rows[i].addEventListener('click', function(e) {
 				// Ti.API.info('click row thu' + e.source.idrow);
 				if (e.source.expanded) {
 					e.source.expanded = false;
-					sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
+					// sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
+					for (var j = 0; j < (menucap1.length); j++) {
+						// if (j != (e.source.idrow)) {
+							sv.arr.View_rows[j].expanded = false;
+							sv.arr.rows[j].setHeight(Ti.App.size(90));
+						// }
+					}
+				} else {
+					// var dem = 0;
+					e.source.expanded = true;
+					sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90 *4));
+					sv.arr.ViewBack[e.source.idrow].setHeight(Ti.App.size(90 * 3));
 					for (var j = 0; j < (menucap1.length); j++) {
 						if (j != (e.source.idrow)) {
-							sv.arr.rows[j].expanded = false;
+							sv.arr.View_rows[j].expanded = false;
 							sv.arr.rows[j].setHeight(Ti.App.size(90));
 						}
 					}
-				} else {
-					var dem = 0;
-					e.source.expanded = true;
 					for (var k = 0; k < (menucap2.length); k++) {
 						if (e.source.id == menucap2[k].parentid) {
-							dem++;
+							// dem++;
 							sv.arr.ViewChuaLbl[k] = Titanium.UI.createView({
 								width : Ti.App.size(640),
 								height : Ti.App.size(90),
-								backgroundColor : 'red',
 								left : 0,
 								_id_menucap2 : menucap2[k].id,
 								_action : menucap2[k].action ? menucap2[k].action : null,
 								_params : menucap2[k].params ? menucap2[k].params : null,
 								_servicenumber : menucap2[k].servicenumber ? menucap2[k].servicenumber : null,
-								_price : menucap2[k].price ? menucap2[k].price : null
+								_price : menucap2[k].price ? menucap2[k].price : null,
+								backgroundSelectedColor : Ti.App.Color.magenta
 							});
 							sv.arr.Label_dvcon[k] = Ti.UI.createLabel({
 								left : Ti.App.size(20),
@@ -249,7 +231,7 @@ function get_menu(sv) {
 								},
 								backgroundColor : "transparent",
 								text : menucap2[k].name.toString(),
-								touchEnabled:false
+								touchEnabled : false
 							});
 							sv.arr.ViewChuaLbl[k].add(sv.arr.Label_dvcon[k]);
 							sv.arr.ViewBack[e.source.idrow].add(sv.arr.ViewChuaLbl[k]);
@@ -305,14 +287,6 @@ function get_menu(sv) {
 							});
 						}
 					}
-					sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90 * (dem + 1)));
-					sv.arr.ViewBack[e.source.idrow].setHeight(Ti.App.size(90 * dem));
-					for (var j = 0; j < (menucap1.length); j++) {
-						if (j != (e.source.idrow)) {
-							sv.arr.rows[j].expanded = false;
-							sv.arr.rows[j].setHeight(Ti.App.size(90));
-						}
-					}
 				}
 			});
 			sv.ui.tbl1.setData(sv.arr.rows);
@@ -359,7 +333,7 @@ function tuvan_soxo(data) {
 
 function kt_mang() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))();
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});

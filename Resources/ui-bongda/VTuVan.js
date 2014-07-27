@@ -19,7 +19,7 @@ function taobien(sv) {
 	sv.arr.Label_ten_dv = [];
 	sv.arr.Label_dvcon = [];
 	sv.arr.ViewBack = [];
-
+	sv.arr.ViewChuaLbl = [];
 	sv.arr.cacdichvu = {};
 	sv.arr.cacdichvu.id = [];
 	sv.arr.cacdichvu.name = [];
@@ -45,17 +45,12 @@ function taoui(sv) {
 	// }
 	sv.ui.tbl1 = Ti.UI.createTableView({
 		width : Ti.App.size(640),
-		height : Ti.UI.SIZE,
+		height : Ti.UI.FILL,
 		data : sv.arr.rows,
 		top : Ti.App.size(10),
 		separatorColor : "transparent",
 		left : 0,
 		backgroundColor : 'transparent'
-	});
-	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
-		title : "Lựa chọn tỉnh thành",
-		cancel : -1,
-		opaquebackground : true
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	get_menu(sv);
@@ -72,45 +67,12 @@ function removeSK(sv) {
 	};
 };
 function tao_sukien(sv) {
-	sv.fu.evt_optdialog = function(e) {
-		if (e.index === e.source.cancel) {
-			Ti.API.info('The cancel button was clicked');
-		} else {
-			tuvan_soxo("menuaction", {
-				"command" : sv.vari.action,
-				"param" : sv.vari.param[e.index],
-				"price" : sv.vari.price
-			}, sv);
-		}
-	};
-	/////
-	sv.fu.evt_tblrow_click = function(e) {
-		Ti.API.info(e.row._params);
-		Ti.API.info(e.row._price);
-		Ti.API.info(e.row._action);
-		// sv.vari.action = e.row.action;
-		// sv.vari.price = e.row.price;
-		// if (e.row._params == "" || e.row._params == null || e.row._params == undefined) {
-		// tuvan_soxo("menuaction", {
-		// "command" : sv.vari.action,
-		// "param" : "",
-		// "price" : sv.vari.price
-		// }, sv);
-		// } else {
-		// sv.vari.params = e.row.params.toString();
-		// sv.vari.param = (sv.vari.params.split(','));
-		// sv.ui.opt_dialog.options = sv.vari.param;
-		// sv.ui.opt_dialog.show();
-		// };
-	};
 };
 function get_menu(sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	var data = null;
 	sv.vari.db = Ti.Database.open('userinfo');
 	sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-	sv.vari.dv1 = sv.vari.db.execute("SELECT * FROM DV_Bongda");
-	sv.vari.dv2 = sv.vari.db.execute("SELECT * FROM DV_Bongda_free");
 	if (sv.vari.user_info.isValidRow()) {
 		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
 		data = {
@@ -217,7 +179,7 @@ function get_menu(sv) {
 					sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
 					for (var j = 0; j < (menucap1.length); j++) {
 						if (j != (e.source.idrow)) {
-							sv.arr.rows[j].expanded = false;
+							sv.arr.View_rows[j].expanded = false;
 							sv.arr.rows[j].setHeight(Ti.App.size(90));
 						}
 					}
@@ -227,9 +189,29 @@ function get_menu(sv) {
 					for (var k = 0; k < (menucap2.length); k++) {
 						if (e.source.id == menucap2[k].parentid) {
 							dem++;
+							sv.arr.ViewChuaLbl[k] = Titanium.UI.createView({
+								width : Ti.App.size(640),
+								height : Ti.App.size(90),
+								left : 0,
+								_id_menucap2 : menucap2[k].id,
+								_action : menucap2[k].action ? menucap2[k].action : null,
+								_params : menucap2[k].params ? menucap2[k].params : null,
+								_servicenumber : menucap2[k].servicenumber ? menucap2[k].servicenumber : null,
+								_price : menucap2[k].price ? menucap2[k].price : null,
+								// backgroundGradient : {
+									// type : 'linear',
+									// colors : [{
+										// color : "#2b2b2b",
+										// position : 0.5
+									// }, {
+										// color : "#2b2b2b",
+										// position : 0.5
+									// }]
+								// },
+							});
 							sv.arr.Label_dvcon[k] = Ti.UI.createLabel({
 								left : Ti.App.size(20),
-								width : Ti.App.size(640),
+								width : Ti.App.size(620),
 								textAlign : "left",
 								color : Ti.App.Color.superwhite,
 								height : Ti.App.size(90),
@@ -238,14 +220,11 @@ function get_menu(sv) {
 								},
 								backgroundColor : "transparent",
 								text : menucap2[k].name.toString(),
-								_id_menucap2 : menucap2[k].id,
-								_action : menucap2[k].action ? menucap2[k].action : null,
-								_params : menucap2[k].params ? menucap2[k].params : null,
-								_servicenumber : menucap2[k].servicenumber ? menucap2[k].servicenumber : null,
-								_price : menucap2[k].price ? menucap2[k].price : null
+								touchEnabled : false
 							});
-							sv.arr.ViewBack[e.source.idrow].add(sv.arr.Label_dvcon[k]);
-							sv.arr.Label_dvcon[k].addEventListener('click', function(e) {
+							sv.arr.ViewChuaLbl[k].add(sv.arr.Label_dvcon[k]);
+							sv.arr.ViewBack[e.source.idrow].add(sv.arr.ViewChuaLbl[k]);
+							sv.arr.ViewChuaLbl[k].addEventListener('click', function(e) {
 								Ti.API.info('action****' + e.source._action);
 								Ti.API.info('param******' + e.source._params);
 								Ti.API.info('servicenum****' + e.source._servicenumber);
@@ -301,12 +280,13 @@ function get_menu(sv) {
 					sv.arr.ViewBack[e.source.idrow].setHeight(Ti.App.size(90 * dem));
 					for (var j = 0; j < (menucap1.length); j++) {
 						if (j != (e.source.idrow)) {
-							sv.arr.rows[j].expanded = false;
+							sv.arr.View_rows[j].expanded = false;
 							sv.arr.rows[j].setHeight(Ti.App.size(90));
 						}
 					}
 				}
 			});
+			sv.ui.tbl1.setData(sv.arr.rows);
 		};
 		// sv.ui.opt_dialog.addEventListener('click', sv.fu.evt_optdialog);
 	};

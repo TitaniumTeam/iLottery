@@ -45,19 +45,19 @@ module.exports = function(_top, _textlbl, _left, _width, _toptbl) {
 	};
 	//
 	var tableview = Ti.UI.createTableView({
-		separatorColor : Ti.App.Color.red,
 		top : _toptbl,
 		width : _width,
 		left : _left,
 		right : Ti.App.size(25),
 		// visible : false,
-		backgroundColor : Ti.App.Color.nauden,
 		zIndex : 10,
 		borderColor : Ti.App.Color.nauden,
 		borderWidth : 1,
 		showVerticalScrollIndicator : 'true',
 		scrollable : true,
-		height : Ti.UI.SIZE
+		height : Ti.UI.SIZE,
+		separatorColor : "#393939",
+		backgroundColor : "#33030c",
 	});
 	// view_contain.add(tableview);
 	view_contain.setTable = function(_tinh) {

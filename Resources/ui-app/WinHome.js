@@ -1,10 +1,14 @@
 module.exports = function() {
 	var db = Ti.Database.open('userinfo');
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Soxo_free(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS DV_Bongda_free(tendv TEXT PRIMARY KEY,noidung TEXT,servicenumber TEXT,thamso TEXT,gia INTERGER)');
+	///////////
+	db.execute('CREATE TABLE IF NOT EXISTS Menucap1_bongda(id TEXT PRIMARY KEY,name TEXT)');
+	db.execute('CREATE TABLE IF NOT EXISTS Menucap2_bongda(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS Menucap3_bongda(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
+	//////////
+	db.execute('CREATE TABLE IF NOT EXISTS Menucap1_xoso(id TEXT PRIMARY KEY,name TEXT)');
+	db.execute('CREATE TABLE IF NOT EXISTS Menucap2_xoso(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
+	db.execute('CREATE TABLE IF NOT EXISTS Menucap3_xoso(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
 	var userinfo = db.execute("SELECT * FROM SaveInfo");
 	if (userinfo.isValidRow()) {
 		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));

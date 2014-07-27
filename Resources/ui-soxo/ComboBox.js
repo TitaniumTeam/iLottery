@@ -40,9 +40,9 @@ module.exports = function() {
 	// view_contain.add(lineView);
 	//
 	var tableview = Ti.UI.createTableView({
-		separatorColor : Ti.App.Color.red_press,
+		separatorColor : "#393939",
 		right : Ti.App.size(25),
-		backgroundColor : Ti.App.Color.nauden,
+		backgroundColor : "#33030c",
 		zIndex : 10,
 		showVerticalScrollIndicator : 'true',
 		scrollable : true,
@@ -131,7 +131,8 @@ module.exports = function() {
 			var tinhthanh = Ti.UI.createLabel({
 				color : Ti.App.Color.superwhite,
 				font : {
-					fontSize : Ti.App.size(30)
+					fontSize : Ti.App.size(30),
+					fontWeight:'bold'
 				},
 				text : (_tinh[i].name) || (_tinh[i]),
 				backgroundSelectedColor : 'yellow',

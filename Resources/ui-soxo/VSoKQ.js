@@ -9,7 +9,6 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
-		kt_mang();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -56,7 +55,7 @@ function taoui(sv) {
 		backgroundColor : "#33030c"
 		// backgroundImage : "/assets/icon/bg_picker1.png"
 	});
-	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), 0, 4);
+	sv.ui.view_choose.setPos(0, '', 0, Ti.App.size(640), 0, 4);
 	sv.ui.view_choose.setTable(sv.arr.ten_mien);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
@@ -99,6 +98,7 @@ function taoui(sv) {
 		bottom : Ti.App.size(25),
 		zIndex : 0
 	});
+	showResult(sv);
 	createUI_Event(sv);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
@@ -149,56 +149,82 @@ function removeSK(sv) {
 };
 /////////ham cap nhat ket qua va hien thi
 function showResult(sv) {
-	sv.vari.interval = null;
-	if (0 < currHour() < 16) {
-		Ti.API.info('Miền Bắc');
-		sv.ui.lblfirst.setText("Miền Bắc");
-		soketqua({
-			"regionid" : "0",
-		}, sv, "0");
-	}
-	if (16 < currHour() < 17) {
-		Ti.API.info('đang quay miền trung');
+	var kt = null;
+	if ((new Date().getHours()) == 17) {
 		sv.ui.lblfirst.setText("Miền Trung");
+		soketqua({
+			"regionid" : 1
+		}, sv, 1);
 		sv.vari.interval = setInterval(function() {
-			soketqua({
-				"regionid" : "1",
-			}, sv, "1");
-			if (currHour() == 16 && currMin > 30) {
+			if (1 < new Date().getMinutes() < 40) {
+				Ti.API.info('lay ket qua MT');
+				soketqua({
+					"regionid" : 1
+				}, sv, 1);
+			} else {
+				soketqua({
+					"regionid" : 1
+				}, sv, 1);
 				clearInterval(sv.vari.interval);
 			}
 		}, 15000);
+
 	}
-	if (17 < currHour() < 18) {
-		Ti.API.info('đang quay miền nam');
+	if ((new Date().getHours()) == 16) {
 		sv.ui.lblfirst.setText("Miền Nam");
+		soketqua({
+			"regionid" : 2
+		}, sv, 2);
 		sv.vari.interval = setInterval(function() {
-			soketqua({
-				"regionid" : "2",
-			}, sv, "2");
-			if (currHour() == 17 && currMin > 30) {
+			if (1 < new Date().getMinutes() < 40) {
+				Ti.API.info('lay ket qua MN');
+				soketqua({
+					"regionid" : 2
+				}, sv, 2);
+			} else {
+				soketqua({
+					"regionid" : 2
+				}, sv, 2);
 				clearInterval(sv.vari.interval);
 			}
 		}, 15000);
+
 	}
-	if (18 < currHour() < 19) {
-		Ti.API.info('đang quay miền bắc');
-		sv.ui.lblfirst.setText("Miền Bắc");
-		sv.vari.interval = setInterval(function() {
-			soketqua({
-				"regionid" : "0",
-			}, sv, "0");
-			if (currHour() == 18 && currMin > 30) {
-				clearInterval(sv.vari.interval);
-			}
-		}, 15000);
-	}
-	if (19 < currHour() < 24) {
-		Ti.API.info('Miền Bắc');
+	if ((new Date().getHours()) == 18) {
 		sv.ui.lblfirst.setText("Miền Bắc");
 		soketqua({
-			"regionid" : "0",
-		}, sv, "0");
+			"regionid" : 0
+		}, sv, 0);
+		sv.vari.interval = setInterval(function() {
+			if (1 < new Date().getMinutes() < 40) {
+				Ti.API.info('lay ket qua MB');
+				soketqua({
+					"regionid" : 0
+				}, sv, 0);
+			} else {
+				soketqua({
+					"regionid" : 0
+				}, sv, 0);
+				clearInterval(sv.vari.interval);
+			}
+		}, 15000);
+
+	}
+	// if ((new Date().getHours()) >= 19) {
+	// sv.ui.lblfirst.setText("Miền Bắc");
+	// soketqua({
+	// "regionid" : 0
+	// }, sv, 0);
+	// clearInterval(sv.vari.interval);
+	// }
+	else
+	// (new Date().getHours() < 16)
+	{
+		Ti.API.info('lay ket qua mien bac');
+		sv.ui.lblfirst.setText("Miền Bắc");
+		soketqua({
+			"regionid" : 0
+		}, sv, 0);
 	}
 };
 
@@ -265,13 +291,3 @@ function kt_mang() {
 };
 //////////
 
-function currHour() {
-	var date = new Date();
-	var currhours = date.getHours();
-	return currhours;
-};
-function currMin() {
-	var date = new Date();
-	var currMininute = date.getMinutes();
-	return currMininute;
-}

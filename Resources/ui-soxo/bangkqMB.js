@@ -67,7 +67,7 @@ module.exports = function() {
 		lblKQ[i] = Ti.UI.createLabel({
 			textAlign : "center",
 			height : Ti.UI.SIZE,
-			width : Ti.App.size(400),
+			width : Ti.App.size(420),
 			zIndex : 1,
 			color : setColor(i),
 			top : Ti.App.size(20),
@@ -82,10 +82,13 @@ module.exports = function() {
 
 	////////
 	viewKQ.setParam = function(param) {
-		if (param[0].resultdate!=null||param[0].resultdate!=undefined) {
+		if (param[0].lines) {
 			for (var i = 0; i < (param[0].lines.length); i++) {
 				lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
 			}
+		}
+		else{
+			Ti.API.info('chua co kq');
 		}
 
 	};
@@ -97,7 +100,7 @@ module.exports = function() {
 };
 
 function setHeightRow(i) {
-	if (i == 3 || i == 5)
+	if (i == 3)
 		return Ti.App.size(105);
 	else
 

@@ -206,9 +206,10 @@ function createUI(sv, _winDK) {
 	/////
 	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
 		// cancel : 1,
-		options : ["Bằng Email", "Bằng SMS", "Thoát"],
+		options : Ti.Platform.osname=='android'?["Bằng Email", "Bằng SMS"]:["Bằng Email", "Bằng SMS","Thoát"],
 		// opaquebackground : true,
-		title : "Lấy lại mật khẩu"
+		title : "Lấy lại mật khẩu",
+		buttonNames : ["Thoát"]
 	});
 	sv.ui.btnQuenMatKhau = Ti.UI.createButton({
 		width : Ti.App.size(285),
@@ -340,16 +341,17 @@ function createUI_Event(sv, _winDK) {
 		sv.ui.opt_dialog.show();
 	};
 	sv.fu.event_optiondialog = function(e) {
-		if (e.index == 0) {
-			var winRSEmail = new (require('/ui-user/WinResetPassEmail'))();
-			winRSEmail.open();
-		}
-		if (e.index == 1) {
-			var winRSSms = new (require('/ui-user/WinResetPassSms'))();
-			winRSSms.open();
-		}
-		if (e.index == 2) {
+		if (e.button) {
 			sv.ui.opt_dialog.hide();
+		} else {
+			if (e.index == 0) {
+				var winRSEmail = new (require('/ui-user/WinResetPassEmail'))();
+				winRSEmail.open();
+			}
+			if (e.index == 1) {
+				var winRSSms = new (require('/ui-user/WinResetPassSms'))();
+				winRSSms.open();
+			}
 		}
 	};
 	sv.fu.event_androidback = function(e) {

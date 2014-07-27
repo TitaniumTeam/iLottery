@@ -5,7 +5,6 @@ module.exports = function() {
 	sv.vari = {};
 	sv.arr = {};
 	(function() {
-		kt_mang();
 		tao_bien(sv);
 		tao_ui(sv);
 		removeSK(sv);
