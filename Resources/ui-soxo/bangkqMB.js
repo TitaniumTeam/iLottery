@@ -88,7 +88,9 @@ module.exports = function() {
 			}
 		}
 		else{
-			Ti.API.info('chua co kq');
+			for (var i = 0; i < 8; i++) {
+				lblKQ[i].setText("-----");
+			}
 		}
 
 	};

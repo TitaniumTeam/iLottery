@@ -5,7 +5,6 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
-		kt_mang();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -51,6 +50,7 @@ function taoui(sv) {
 			height : Ti.App.size(90),
 			left : 0,
 			backgroundImage : "/assets/icon/btn_tuvan.png",
+			backgroundSelectedImage : "/assets/icon/btn_tuvan_select.png"
 		});
 		sv.arr.Label_ten_dv[i] = Ti.UI.createLabel({
 			left : Ti.App.size(20),

@@ -17,7 +17,8 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.vari.ViewHT;
+	sv.vari.time_out = null;
 }
 
 ////
@@ -101,7 +102,7 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.red_press,
 		bottom : 0,
 		zIndex : 10,
-		touchEnabled:false
+		touchEnabled : false
 	});
 	for (var i = 0; i < 4; i++) {
 		sv.arr.ViewChucNang[i] = Ti.UI.createView({
@@ -109,7 +110,7 @@ function tao_ui(sv) {
 			height : Ti.App.size(75),
 			backgroundColor : "transparent",
 			top : 0,
-			backgroundSelectedImage:"/assets/icon/selected_tab.png"
+			backgroundSelectedImage : "/assets/icon/selected_tab.png"
 		});
 		sv.arr.LabelChucNang[i] = Ti.UI.createLabel({
 			text : sv.arr.TenChucNang[i],
@@ -133,7 +134,7 @@ function tao_ui(sv) {
 				height : Ti.App.size(52),
 				image : "/assets/icon/icon_star.png",
 				zIndex : 10,
-				touchEnabled:false
+				touchEnabled : false
 			});
 			sv.arr.ViewChucNang[i].add(sv.ui.iconVip);
 		}

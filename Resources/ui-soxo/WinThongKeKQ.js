@@ -7,6 +7,7 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
+		sms_offline();
 		createVariable(sv);
 		createUI(sv);
 	})();
@@ -114,7 +115,11 @@ function createUI(sv) {
 	});
 	////
 	var date = new Date();
-	date.setDate(date.getDate() - 3);
+	if (new Date().getHours >= 16) {
+		date.setDate(date.getDate() - 3);
+	} else {
+		date.setDate(date.getDate() - 4);
+	}
 	sv.ui.picker = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
 		minDate : new Date(2014, 0, 1),
@@ -133,12 +138,17 @@ function createUI(sv) {
 		zIndex : 10,
 		backgroundColor : "transparent",
 	});
-
+	var date2 = new Date();
+	if (new Date().getHours >= 16) {
+		date2 = new Date();
+	} else {
+		date2.setDate(date2.getDate() - 1);
+	}
 	sv.ui.picker2 = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
-		minDate : new Date(2014, 0, 1),
-		maxDate : new Date(),
-		value : new Date(),
+		minDate : (sv.ui.picker.maxDate),
+		maxDate : new Date(parseInt(date2.getFullYear()), parseInt((date2.getMonth())), parseInt(date2.getDate())),
+		value : new Date(parseInt(date2.getFullYear()), parseInt((date2.getMonth())), parseInt(date2.getDate())),
 		backgroundColor : Ti.App.Color.nauden,
 		width : Ti.App.size(640),
 		bottom : 0,
@@ -320,12 +330,12 @@ function createUI_Event(sv) {
 		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
 		sv.ui.ViewPicker.removeEventListener('click', sv.fu.evt_hidePicker);
 		sv.ui.ViewPicker2.removeEventListener('click', sv.fu.evt_hidePicker);
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv.test = null;
-		sv = null;
+		// sv.vari = null;
+		// sv.arr = null;
+		// sv.ui = null;
+		// sv.fu = null;
+		// sv.test = null;
+		// sv = null;
 
 		Ti.API.info('Closed window THONG KE TONG HOP, sv=' + sv);
 	};
@@ -430,30 +440,34 @@ function get3DayBefore(i) {
 
 }
 
+function get4DayBefore(i) {
+	var date = new Date();
+	var date = new Date();
+	date.setDate(date.getDate() - 4);
+	return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+}
+
 function currHour() {
 	var date = new Date();
 	var currhour = date.getHours();
 	return currhour;
 };
 function set_lbl() {
-	if (currHour() >= 18) {
+	if (currHour() >= 16) {
 		return currDate();
 	} else {
 		return getYesterdaysDate();
 	}
 };
 function set_lbl2() {
-	return get3DayBefore();
+	if (currHour() >= 16) {
+		return get3DayBefore();
+	} else {
+		return get4DayBefore();
+	}
+
 }
 
-function kt_mang() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
-		pop_upsms.open({
-			modal : Ti.Platform.osname == 'android' ? true : false
-		});
-	}
-};
 function rows() {
 	var isAndroid = Ti.Platform.osname === 'android';
 	var TenGiaiMN = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy", "Giải Tám"];
@@ -616,3 +630,13 @@ function setFont(i) {
 		};
 	}
 };
+
+
+function sms_offline() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX","TKKQSX MB","CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
+		pop_upsms.open({
+			modal : Ti.Platform.osname == 'android' ? true : false
+		});
+	}
+}

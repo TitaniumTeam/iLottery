@@ -135,8 +135,8 @@ module.exports = function() {
 					fontWeight:'bold'
 				},
 				text : (_tinh[i].name) || (_tinh[i]),
-				backgroundSelectedColor : 'yellow',
 				left : Ti.App.size(20),
+				touchEnabled:false
 			});
 
 			rowTbl.add(tinhthanh);

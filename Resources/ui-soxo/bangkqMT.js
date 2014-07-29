@@ -128,6 +128,15 @@ module.exports = function() {
 			for (var i = 0; i < (param[1].lines.length); i++) {
 				lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
 			}
+		} else {
+			lblKQ[10].setText("-----");
+			lblKQ2[10].setText("-----");
+			for (var i = 0; i < (10); i++) {
+				lblKQ[i + 1].setText("-----");
+			}
+			for (var i = 0; i < (10); i++) {
+				lblKQ2[i + 1].setText("-----");
+			}
 		}
 
 	};
@@ -143,7 +152,7 @@ function setHeightRow(i) {
 	if (i == 7)
 		return Ti.App.size(160);
 	if (i == 5)
-		return Ti.App.size(300);
+		return Ti.App.size(420);
 	if (i == 4) {
 		return Ti.App.size(140);
 	} else

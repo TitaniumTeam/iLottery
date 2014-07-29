@@ -80,7 +80,8 @@ module.exports = function(_top, _textlbl, _left, _width, _toptbl) {
 				text : (_tinh[i].name) || (_tinh[i]),
 				backgroundSelectedColor : 'yellow',
 				left : Ti.App.size(20),
-				textAlign : 'center'
+				textAlign : 'center',
+				touchEnabled:false
 			});
 
 			rowTbl.add(tinhthanh);

@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_dauso,_noidung,_text) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv,_dauso,_noidung,_text);
 	})();
 
 	return sv.ui.Window;
@@ -17,7 +17,7 @@ module.exports = function() {
 function createVariable(sv) {
 }
 
-function createUI(sv) {
+function createUI(sv,_dauso,_noidung,_text) {
 	var customButton = require('ui-controller/customButton');
 	sv.ui.Window = Ti.UI.createWindow({
 		exitOnClose : false,
@@ -45,7 +45,8 @@ function createUI(sv) {
 		width : Ti.App.size(178),
 		height : Ti.App.size(119),
 		top : Ti.App.size(30),
-		image : "/assets/icon/icon_no_internet.png"
+		image : "/assets/icon/icon_no_internet.png",
+		touchEnabled:false
 	});
 	sv.ui.Icon = Ti.UI.createImageView({
 		image : '/assets/icon/btn_cancel.png',
@@ -57,17 +58,19 @@ function createUI(sv) {
 	});
 	sv.ui.ThongBao1 = Ti.UI.createLabel({
 		font : {
-			fontSize : Ti.App.size(35),
+			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		},
 		textAlign : 'center',
 		color : Ti.App.Color.nauden,
 		// left : Ti.App.size(80),
-		top : Ti.App.size(240),
-		text : "Không có kết nối mạng"
+		top : Ti.App.size(200),
+		width:Ti.UI.SIZE,
+		text : "Không có kết nối mạng - Bấm vào thông báo để soạn tin nhắn và gửi ",
+		touchEnabled:false
 	});
 	sv.ui.Note = Titanium.UI.createLabel({
-		width : Ti.App.size(525),
+		width : Ti.App.size(590),
 		height : Ti.UI.SIZE,
 		top : Ti.App.size(308),
 		color : Ti.App.Color.nauden,
@@ -76,9 +79,10 @@ function createUI(sv) {
 			fontSize : Ti.App.size(30),
 		},
 		textAlign : "center",
-		text : "Chúng tôi sẽ gửi SMS offline kết quả cho quý khách hàng"
+		text : _text,
+		touchEnabled:false
 	});
-	createUI_Event(sv);
+	createUI_Event(sv,_dauso,_noidung);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -92,7 +96,7 @@ function createUI(sv) {
 	sv.ui.Window.add(sv.ui.ViewPopUp);
 }
 
-function createUI_Event(sv) {
+function createUI_Event(sv,_dauso,_noidung) {
 	sv.fu.eventClickIcon = function(e) {
 		sv.ui.Window.close();
 	};
@@ -101,7 +105,7 @@ function createUI_Event(sv) {
 		Ti.API.info('Opened window');
 	};
 	sv.fu.evt_sms = function(e) {
-		var sms = new (require('/ui-controller/showSmsDialog'))();
+		var sms = new (require('/ui-controller/showSmsDialog'))(_dauso,_noidung);
 		sv.ui.Window.close();
 	};
 	sv.fu.eventCloseWindow = function(e) {

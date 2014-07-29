@@ -77,20 +77,22 @@ var vIndicatorWindow = function(text) {
 	// this.infoWindow.add(this.background);
 };
 
-vIndicatorWindow.prototype.openIndicator = function(_curWindow) {
+vIndicatorWindow.prototype.openIndicator = function(_curWindow,_top) {
 	if (_curWindow == null)
 		return;
 	var curWindow = _curWindow || Ti.UI.currentWindow;
 	this.activityIndicator.show();
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
+	if(_top){
+		this.background1.setBottom(0);
+	}
 };
 vIndicatorWindow.prototype.openIndicator4AddView = function(_curWindow) {
 	if (_curWindow == null)
 		return;
 	var curWindow = _curWindow || Ti.UI.getCurrentWindow();
 	this.activityIndicator.show();
-	// this.background1.setTop(_top);
 	curWindow.add(this.background1);
 	curWindow.add(this.background);
 };

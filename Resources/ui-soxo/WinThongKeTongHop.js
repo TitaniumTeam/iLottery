@@ -7,6 +7,7 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
+		sms_offline();
 		createVariable(sv);
 		createUI(sv);
 	})();
@@ -200,12 +201,12 @@ function createUI_Event(sv) {
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
 		sv.ui.ScrollView.removeEventListener('click', sv.fu.event_clickscrollview);
-		sv.vari = null;
-		sv.arr = null;
-		sv.ui = null;
-		sv.fu = null;
-		sv.test = null;
-		sv = null;
+		// sv.vari = null;
+		// sv.arr = null;
+		// sv.ui = null;
+		// sv.fu = null;
+		// sv.test = null;
+		// sv = null;
 
 		Ti.API.info('Closed window THONG KE TONG HOP, sv=' + sv);
 	};
@@ -231,8 +232,8 @@ function thongke(_cmd, data, sv) {
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
 		if (_cmd == "getlotterystat") {
-			sv.ui.ScrollView.visible = false;
 			sv.ui.ScrollView.removeAllChildren();
+			sv.ui.ScrollView.visible = false;
 			Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
 			sv.vari.time_out1 = setTimeout(function() {
 				sv.ui.ScrollView.visible = true;
@@ -467,11 +468,13 @@ function bang_kq() {
 
 	return viewchua;
 };
-function kt_mang() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
+
+
+function sms_offline() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX","TKKQSX MB","CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
 	}
-};
+}

@@ -1,14 +1,8 @@
 module.exports = function() {
 	var db = Ti.Database.open('userinfo');
+	var newdb = Ti.Database.install('/assets/database/serviceinfo', 'serviceinfo');
+	Ti.API.info('du lieu menu cap 1' + (newdb.execute("SELECT * FROM Menucap1_xoso").getRowCount()));
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
-	///////////
-	db.execute('CREATE TABLE IF NOT EXISTS Menucap1_bongda(id TEXT PRIMARY KEY,name TEXT)');
-	db.execute('CREATE TABLE IF NOT EXISTS Menucap2_bongda(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS Menucap3_bongda(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
-	//////////
-	db.execute('CREATE TABLE IF NOT EXISTS Menucap1_xoso(id TEXT PRIMARY KEY,name TEXT)');
-	db.execute('CREATE TABLE IF NOT EXISTS Menucap2_xoso(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
-	db.execute('CREATE TABLE IF NOT EXISTS Menucap3_xoso(id TEXT PRIMARY KEY,name TEXT,act TEXT,thamso TEXT,dauso TEXT,price INTERGER,parentid INTERGER)');
 	var userinfo = db.execute("SELECT * FROM SaveInfo");
 	if (userinfo.isValidRow()) {
 		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));
@@ -40,6 +34,38 @@ module.exports = function() {
 		},
 		color : Ti.App.Color.superwhite,
 		touchEnabled : false
+	});
+	var _isAndroid = (Ti.Platform.osname === 'android' );
+	var _style = null;
+	if (_isAndroid || Ti.Platform.osname === 'mobileweb') {
+		_style = Ti.UI.ActivityIndicatorStyle.BIG;
+	} else {
+		_style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
+	}
+	var view_indicatior = Ti.UI.createView({
+		width : Ti.UI.SIZE,
+		height : Ti.UI.SIZE,
+		bottom : Ti.App.size(30),
+		layout : "horizontal"
+	});
+	var label = Ti.UI.createLabel({
+		text : "Đang tải dữ liệu",
+		color : '#fff',
+		textAlign : 'center',
+		font : {
+			fontFamily : (_isAndroid) ? 'Droid Sans' : 'Helvetica Neue',
+			fontSize : '18dp',
+			fontWeight : 'bold'
+		},
+		wordwrap : false,
+		height : '44dp',
+		width : Ti.UI.SIZE
+	});
+	var activityIndicator = Ti.UI.createActivityIndicator({
+		style : _style,
+		height : Ti.UI.SIZE,
+		width : Ti.UI.SIZE,
+		zIndex : 1000,
 	});
 	var WelCome = Ti.UI.createLabel({
 		top : Ti.App.size(480),
@@ -90,17 +116,34 @@ module.exports = function() {
 		top : 0,
 		text : "Hoặc"
 	});
+	var timeout = null;
 	var evt_btnBongda = function(e) {
 		userinfo.close();
 		db.close();
-		var win = new (require('/ui-bongda/WinBongDa'));
-		win.open();
+		newdb.close();
+		var winbongda = new (require('/ui-bongda/WinBongDa'));
+		win.add(view_indicatior);
+		activityIndicator.show();
+		timeout = setTimeout(function() {
+			win.remove(view_indicatior);
+			activityIndicator.hide();
+			winbongda.open();
+			clearTimeout(timeout);
+		}, 500);
 	};
 	var evt_btnSoxo = function(e) {
 		userinfo.close();
 		db.close();
-		var win = new (require('/ui-soxo/WinSoXo'));
-		win.open();
+		newdb.close();
+		var winxoso = new (require('/ui-soxo/WinSoXo'));
+		win.add(view_indicatior);
+		activityIndicator.show();
+		timeout = setTimeout(function() {
+			win.remove(view_indicatior);
+			activityIndicator.hide();
+			winxoso.open();
+			clearTimeout(timeout);
+		}, 500);
 	};
 	var evt_openWin = function(e) {
 		push_notification();
@@ -128,6 +171,7 @@ module.exports = function() {
 	var evt_closeWin = function(e) {
 		userinfo.close();
 		db.close();
+		newdb.close();
 		win.removeEventListener('open', evt_openWin);
 		aButton.removeEventListener('click', evt_btnBongda);
 		bButton.removeEventListener('click', evt_btnSoxo);
@@ -141,12 +185,16 @@ module.exports = function() {
 	win.addEventListener('close', evt_closeWin);
 	win.addEventListener('android:back', fn_BackDevicePress);
 
-	win.add(AppIcon);
-	win.add(TenApp);
-	win.add(WelCome);
 	viewButton.add(Hoac);
 	viewButton.add(aButton);
 	viewButton.add(bButton);
+
+	view_indicatior.add(activityIndicator);
+	view_indicatior.add(label);
+
+	win.add(AppIcon);
+	win.add(TenApp);
+	win.add(WelCome);
 	win.add(viewButton);
 	// Listen for click events.
 

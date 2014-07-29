@@ -7,7 +7,6 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		kt_mang();
 		createVariable(sv);
 		createUI(sv);
 		removeSK(sv);
@@ -104,8 +103,7 @@ function createUI(sv) {
 				left : 0,
 				zIndex : 0,
 				touchEnabled : false,
-				opacity : 0.7,
-				backgroundColor : "black"
+				backgroundImage:"/assets/icon/bg70.png"
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,

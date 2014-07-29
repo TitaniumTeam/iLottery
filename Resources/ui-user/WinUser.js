@@ -93,13 +93,13 @@ function tao_ui(sv) {
 	});
 	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
 		title : "Lựa chọn cách thức",
-		options : Ti.Platform.osname=='android'?["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms"]:["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms","Thoát"],
+		options : Ti.Platform.osname == 'android' ? ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms"] : ["Nạp tiền bằng mã thẻ", "Nạp tiền bằng sms", "Thoát"],
 		opaquebackground : true,
 		buttonNames : ["Thoát"]
 	});
 	sv.ui.opt_edit = Titanium.UI.createOptionDialog({
 		title : "Lựa chọn thông tin mà bạn muốn đổi",
-		options :Ti.Platform.osname=='android'?["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu"]:["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu","Thoát"] ,
+		options : Ti.Platform.osname == 'android' ? ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu"] : ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"],
 		opaquebackground : true,
 		buttonNames : ["Thoát"]
 	});
@@ -224,14 +224,16 @@ function tao_ui(sv) {
 			top : 0,
 			left : 0,
 			height : Ti.App.size(100),
-			id : i
+			id : i,
+			backgroundSelectedColor:Ti.App.Color.xanhnhat
 		});
 		sv.vari.lineRow1[i] = Ti.UI.createView({
 			width : Ti.App.size(590),
 			bottom : 0,
 			left : 0,
 			height : Ti.App.size(3),
-			backgroundColor : Ti.App.Color.xanhnhat
+			backgroundColor : Ti.App.Color.xanhnhat,
+			touchEnabled : false
 		});
 		sv.vari.IconChucNang1[i] = Ti.UI.createImageView({
 			width : Ti.App.size(60),
@@ -249,7 +251,8 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(30)
 			},
 			width : Ti.App.size(485),
-			textAlign : "left"
+			textAlign : "left",
+			touchEnabled : false
 		});
 		sv.vari.rowChucNang1[i].add(sv.vari.lineRow1[i]);
 		sv.vari.rowChucNang1[i].add(sv.vari.IconChucNang1[i]);
@@ -263,14 +266,16 @@ function tao_ui(sv) {
 			top : 0,
 			left : 0,
 			height : Ti.App.size(100),
-			id : i
+			id : i,
+			backgroundSelectedColor:Ti.App.Color.xanhnhat
 		});
 		sv.vari.lineRow2[i] = Ti.UI.createView({
 			width : Ti.App.size(590),
 			bottom : 0,
 			left : 0,
 			height : Ti.App.size(3),
-			backgroundColor : Ti.App.Color.xanhnhat
+			backgroundColor : Ti.App.Color.xanhnhat,
+			touchEnabled:false
 		});
 		sv.vari.IconChucNang2[i] = Ti.UI.createImageView({
 			width : Ti.App.size(60),
@@ -288,7 +293,8 @@ function tao_ui(sv) {
 				fontSize : Ti.App.size(30)
 			},
 			width : Ti.App.size(485),
-			textAlign : "left"
+			textAlign : "left",
+			touchEnabled:false
 		});
 		sv.vari.rowChucNang2[i].add(sv.vari.lineRow2[i]);
 		sv.vari.rowChucNang2[i].add(sv.vari.IconChucNang2[i]);

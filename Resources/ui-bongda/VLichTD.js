@@ -5,6 +5,7 @@ module.exports = function() {
 	sv.vari = {};
 	sv.arr = {};
 	(function() {
+		sms_offline();
 		tao_bien(sv);
 		tao_ui(sv);
 		removeSK(sv);
@@ -216,13 +217,13 @@ function GetTour(sv, data, _cmd) {
 
 		}
 		/////////do du lieu vao tableview
-		sv.ui.tbl.visible = false;
+		// sv.ui.tbl.visible = false;
 		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
 		sv.vari.time_out1 = setTimeout(function() {
 			sv.ui.tbl.visible = true;
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
 			clearTimeout(sv.vari.time_out1);
-		}, 1500);
+		}, 2000);
 
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
@@ -765,11 +766,11 @@ function thongtin_cuthe(_id) {
 	return ViewChua;
 };
 
-function kt_mang() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(1);
+function sms_offline() {
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX","KQBD","CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ CÁC TRẬN ĐẤU CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
 	}
-};
+}

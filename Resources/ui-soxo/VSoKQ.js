@@ -9,6 +9,7 @@ module.exports = function() {
 	sv.arr = {};
 	sv.vari = {};
 	(function() {
+		sms_offline();
 		taobien(sv);
 		taoui(sv);
 		removeSK(sv);
@@ -152,84 +153,76 @@ function showResult(sv) {
 	var kt = null;
 	if ((new Date().getHours()) == 17) {
 		sv.ui.lblfirst.setText("Miền Trung");
-		soketqua({
-			"regionid" : 1
-		}, sv, 1);
+
+		//soketqua({
+		//	"regionid" : 1
+		//}, sv, 1,"KẾT QUẢ XỔ SỐ MIỀN TRUNG");
+
 		sv.vari.interval = setInterval(function() {
-			if (1 < new Date().getMinutes() < 40) {
+			if (15 < new Date().getMinutes() < 50) {
 				Ti.API.info('lay ket qua MT');
 				soketqua({
 					"regionid" : 1
-				}, sv, 1);
+				}, sv, 1, "KẾT QUẢ XỔ SỐ MIỀN TRUNG ");
 			} else {
 				soketqua({
 					"regionid" : 1
-				}, sv, 1);
+				}, sv, 1, "CHUẨN BỊ QUAY KQXS MIỀN TRUNG ");
 				clearInterval(sv.vari.interval);
 			}
 		}, 15000);
-
 	}
 	if ((new Date().getHours()) == 16) {
 		sv.ui.lblfirst.setText("Miền Nam");
-		soketqua({
-			"regionid" : 2
-		}, sv, 2);
+		// soketqua({
+		// "regionid" : 2
+		// }, sv, 2,"KẾT QUẢ XỔ SỐ MIỀN NAM");
 		sv.vari.interval = setInterval(function() {
-			if (1 < new Date().getMinutes() < 40) {
+			if (15 < new Date().getMinutes() < 50) {
 				Ti.API.info('lay ket qua MN');
 				soketqua({
 					"regionid" : 2
-				}, sv, 2);
+				}, sv, 2, "KẾT QUẢ XỔ SỐ MIỀN NAM ");
 			} else {
 				soketqua({
 					"regionid" : 2
-				}, sv, 2);
+				}, sv, 2, "CHUẨN BỊ QUAY KQXS MIỀN NAM ");
 				clearInterval(sv.vari.interval);
 			}
 		}, 15000);
-
 	}
 	if ((new Date().getHours()) == 18) {
 		sv.ui.lblfirst.setText("Miền Bắc");
-		soketqua({
-			"regionid" : 0
-		}, sv, 0);
+		// soketqua({
+		// "regionid" : 0
+		// }, sv, 0);
 		sv.vari.interval = setInterval(function() {
-			if (1 < new Date().getMinutes() < 40) {
+			if (15 < new Date().getMinutes() < 50) {
 				Ti.API.info('lay ket qua MB');
 				soketqua({
 					"regionid" : 0
-				}, sv, 0);
+				}, sv, 0, "KẾT QUẢ XỐ SỐ MIỀN BẮC");
 			} else {
 				soketqua({
 					"regionid" : 0
-				}, sv, 0);
+				}, sv, 0, "CHUẨN BỊ QUAY KQXS MIỀN BẮC ");
 				clearInterval(sv.vari.interval);
 			}
 		}, 15000);
+	} else {
+		if (new Date().getHours() > 19 || new Date().getHours() < 16) {
+			sv.ui.lblfirst.setText("Miền Bắc");
+			Ti.API.info('lay ket qua mien bac');
+			soketqua({
+				"regionid" : 0
+			}, sv, 0, "KẾT QUẢ XỔ SỐ MIỀN BẮC ");
+		}
 
-	}
-	// if ((new Date().getHours()) >= 19) {
-	// sv.ui.lblfirst.setText("Miền Bắc");
-	// soketqua({
-	// "regionid" : 0
-	// }, sv, 0);
-	// clearInterval(sv.vari.interval);
-	// }
-	else
-	// (new Date().getHours() < 16)
-	{
-		Ti.API.info('lay ket qua mien bac');
-		sv.ui.lblfirst.setText("Miền Bắc");
-		soketqua({
-			"regionid" : 0
-		}, sv, 0);
 	}
 };
 
 /////////
-function soketqua(data, sv, loai) {
+function soketqua(data, sv, loai, textkq) {
 	var xhr = Titanium.Network.createHTTPClient();
 	sv.ui.ViewKQ.removeAllChildren();
 	sv.ui.ViewKQ.visible = false;
@@ -245,6 +238,11 @@ function soketqua(data, sv, loai) {
 	xhr.send(JSON.stringify(data));
 	xhr.onerror = function(e) {
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		sv.vari.time_out1 = setTimeout(function() {
+			sv.ui.ViewKQ.visible = true;
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
+			clearTimeout(sv.vari.time_out1);
+		}, 1500);
 	};
 	xhr.onload = function() {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
@@ -264,15 +262,24 @@ function soketqua(data, sv, loai) {
 
 		if (loai == "1") {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
-			sv.ui.View_header.setText("KẾT QUẢ SỔ XỐ MIỀN TRUNG " + date_time[0]);
+			if (textkq)
+				sv.ui.View_header.setText(textkq + date_time[0]);
+			else
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + date_time[0]);
 		}
 		if (loai == "2") {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
-			sv.ui.View_header.setText("KẾT QUẢ SỔ XỐ MIỀN NAM " + date_time[0]);
+			if (textkq)
+				sv.ui.View_header.setText(textkq + date_time[0]);
+			else
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + date_time[0]);
 		}
 		if (loai == "0") {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
-			sv.ui.View_header.setText("KẾT QUẢ SỔ XỐ MIỀN BẮC " + date_time[0]);
+			if (textkq)
+				sv.ui.View_header.setText(textkq + date_time[0]);
+			else
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + date_time[0]);
 		}
 		sv.vari.datarow.setParam(jsonResuilt.resulttable);
 		sv.ui.ViewKQ.add(sv.vari.datarow);
@@ -280,14 +287,14 @@ function soketqua(data, sv, loai) {
 
 };
 //////////
-
-function kt_mang() {
+function sms_offline() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(0);
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "KQSX MB", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ XỔ SỐ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
 	}
-};
+}
+
 //////////
 
