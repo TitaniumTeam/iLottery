@@ -119,7 +119,7 @@ module.exports = function() {
 	////////
 	viewKQ.setParam = function(param) {
 		if (param[0].lines) {
-			Ti.API.info('nhay vao set text');
+			var interval = null;
 			lblKQ[10].setText(param[0].provide.name);
 			lblKQ2[10].setText(param[1].provide.name);
 			for (var i = 0; i < (param[0].lines.length); i++) {
@@ -128,6 +128,17 @@ module.exports = function() {
 			for (var i = 0; i < (param[1].lines.length); i++) {
 				lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
 			}
+			interval = setInterval(function() {
+				for (var i = 0; i < (param[0].lines.length); i++) {
+					lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
+				}
+				for (var i = 0; i < (param[1].lines.length); i++) {
+					lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
+				}
+				if (param[0].lines.length == 10) {
+					clearInterval(interval);
+				}
+			}, 15000);
 		} else {
 			lblKQ[10].setText("-----");
 			lblKQ2[10].setText("-----");

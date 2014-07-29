@@ -154,61 +154,22 @@ function showResult(sv) {
 	if ((new Date().getHours()) == 17) {
 		sv.ui.lblfirst.setText("Miền Trung");
 
-		//soketqua({
-		//	"regionid" : 1
-		//}, sv, 1,"KẾT QUẢ XỔ SỐ MIỀN TRUNG");
+		soketqua({
+			"regionid" : 1
+		}, sv, 1,"KẾT QUẢ XỔ SỐ MIỀN TRUNG");
 
-		sv.vari.interval = setInterval(function() {
-			if (15 < new Date().getMinutes() < 50) {
-				Ti.API.info('lay ket qua MT');
-				soketqua({
-					"regionid" : 1
-				}, sv, 1, "KẾT QUẢ XỔ SỐ MIỀN TRUNG ");
-			} else {
-				soketqua({
-					"regionid" : 1
-				}, sv, 1, "CHUẨN BỊ QUAY KQXS MIỀN TRUNG ");
-				clearInterval(sv.vari.interval);
-			}
-		}, 15000);
 	}
 	if ((new Date().getHours()) == 16) {
 		sv.ui.lblfirst.setText("Miền Nam");
-		// soketqua({
-		// "regionid" : 2
-		// }, sv, 2,"KẾT QUẢ XỔ SỐ MIỀN NAM");
-		sv.vari.interval = setInterval(function() {
-			if (15 < new Date().getMinutes() < 50) {
-				Ti.API.info('lay ket qua MN');
-				soketqua({
-					"regionid" : 2
-				}, sv, 2, "KẾT QUẢ XỔ SỐ MIỀN NAM ");
-			} else {
-				soketqua({
-					"regionid" : 2
-				}, sv, 2, "CHUẨN BỊ QUAY KQXS MIỀN NAM ");
-				clearInterval(sv.vari.interval);
-			}
-		}, 15000);
+		 soketqua({
+		 "regionid" : 2
+		 }, sv, 2,"KẾT QUẢ XỔ SỐ MIỀN NAM");
 	}
 	if ((new Date().getHours()) == 18) {
 		sv.ui.lblfirst.setText("Miền Bắc");
-		// soketqua({
-		// "regionid" : 0
-		// }, sv, 0);
-		sv.vari.interval = setInterval(function() {
-			if (15 < new Date().getMinutes() < 50) {
-				Ti.API.info('lay ket qua MB');
-				soketqua({
-					"regionid" : 0
-				}, sv, 0, "KẾT QUẢ XỐ SỐ MIỀN BẮC");
-			} else {
-				soketqua({
-					"regionid" : 0
-				}, sv, 0, "CHUẨN BỊ QUAY KQXS MIỀN BẮC ");
-				clearInterval(sv.vari.interval);
-			}
-		}, 15000);
+		soketqua({
+		"regionid" : 0
+		}, sv, 0);
 	} else {
 		if (new Date().getHours() > 19 || new Date().getHours() < 16) {
 			sv.ui.lblfirst.setText("Miền Bắc");

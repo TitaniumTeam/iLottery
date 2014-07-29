@@ -287,7 +287,9 @@ function createUI_Event(sv) {
 	};
 	sv.fu.event_click_view = function(e) {
 		soketqua("getprovide", {
-			"startdate" : set_lbl()
+			"startdate" : sv.ui.lblfirst1.text,
+			"enddate" : sv.ui.lblfirst2.text,
+			// "startdate" : set_lbl()
 		}, sv);
 		sv.ui.ViewPicker.visible = false;
 		sv.ui.ViewPicker2.visible = false;
@@ -631,10 +633,9 @@ function setFont(i) {
 	}
 };
 
-
 function sms_offline() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX","TKKQSX MB","CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "TKKQSX MB", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});

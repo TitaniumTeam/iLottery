@@ -128,12 +128,12 @@ function tao_sukien(sv) {
 			if (e.source.expanded) {
 				e.source.expanded = false;
 				// sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
-				for (var j = 0; j < (dv_cap1.length); j++) {
-					// if (j != (e.source.idrow)) {
-					sv.arr.View_rows[j].expanded = false;
-					sv.arr.rows[j].setHeight(Ti.App.size(90));
-					// }
-				}
+				// for (var j = 0; j < (dv_cap1.length); j++) {
+					// // if (j != (e.source.idrow)) {
+					// sv.arr.View_rows[j].expanded = false;
+					// sv.arr.rows[j].setHeight(Ti.App.size(90));
+					// // }
+				// }
 			} else {
 				// var dem = 0;
 				e.source.expanded = true;
@@ -190,7 +190,7 @@ function tao_sukien(sv) {
 								Ti.API.info('servicenum****' + e.source._servicenumber);
 								Ti.API.info('price*******' + e.source._price);
 								if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-									var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(e.source._servicenumber, e.source._action + " " + e.source._params, "DỊCH VỤ SX " + e.source._action + " " + e._name_menucap2);
+									var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(e.source._servicenumber, e.source._action + " " + e.source._params, "DỊCH VỤ SX " + e.source._action + " " + e.source._name_menucap2);
 									pop_upsms.open({
 										modal : Ti.Platform.osname == 'android' ? true : false
 									});
@@ -315,18 +315,18 @@ function get_menu(sv) {
 		sv.vari.user_info.close();
 		sv.vari.db.close();
 		var db_service = Ti.Database.open('serviceinfo');
-		for (var i = 0; i < (menucap1.length); i++) {
-			db_service.execute("INSERT OR IGNORE INTO Menucap1_xoso VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
-		}
-		for (var i = 0; i < (menucap2.length); i++) {
-			if (menucap2[i].action)
-				db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
-			else
-				db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
-		}
-		for (var i = 0; i < (menucap3.length); i++) {
-			db_service.execute("INSERT OR IGNORE INTO Menucap3_xoso VALUES(?,?,?,?,?,?,?)", menucap3[i].id, menucap3[i].name, menucap3[i].action, menucap3[i].params, menucap3[i].servicenumber, menucap3[i].price, menucap3[i].parentid);
-		}
+		// for (var i = 0; i < (menucap1.length); i++) {
+			// db_service.execute("INSERT OR IGNORE INTO Menucap1_xoso VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
+		// }
+		// for (var i = 0; i < (menucap2.length); i++) {
+			// if (menucap2[i].action)
+				// db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
+			// else
+				// db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
+		// }
+		// for (var i = 0; i < (menucap3.length); i++) {
+			// db_service.execute("INSERT OR IGNORE INTO Menucap3_xoso VALUES(?,?,?,?,?,?,?)", menucap3[i].id, menucap3[i].name, menucap3[i].action, menucap3[i].params, menucap3[i].servicenumber, menucap3[i].price, menucap3[i].parentid);
+		// }
 		db_service.close();
 	};
 }

@@ -83,11 +83,20 @@ module.exports = function() {
 	////////
 	viewKQ.setParam = function(param) {
 		if (param[0].lines) {
+			var interval = null;
 			for (var i = 0; i < (param[0].lines.length); i++) {
 				lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
 			}
-		}
-		else{
+			interval = setInterval(function() {
+				for (var i = 0; i < (param[0].lines.length); i++) {
+					lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
+				}
+				if (param[0].lines.length == 8) {
+					clearInterval(interval);
+				}
+			}, 15000);
+
+		} else {
 			for (var i = 0; i < 8; i++) {
 				lblKQ[i].setText("-----");
 			}
