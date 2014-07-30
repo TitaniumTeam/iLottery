@@ -53,13 +53,40 @@ function taoui(sv) {
 		height : Ti.App.size(95),
 		left : 0,
 		top : 0,
-		backgroundColor : "#33030c"
-		// backgroundImage : "/assets/icon/bg_picker1.png"
+		// backgroundColor : "#33030c"
+		backgroundImage : "/assets/icon/bg_picker1.png"
 	});
-	sv.ui.view_choose.setPos(0, '', 0, Ti.App.size(640), 0, 4);
+	sv.ui.view_choose.setPos(0, '', 0, Ti.App.size(320), 0, 4);
 	sv.ui.view_choose.setTable(sv.arr.ten_mien);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
+	sv.ui.view_choose1.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320),0,5);
+	sv.ui.lbl_thoigian = sv.ui.view_choose1.getLblFirst();
+	////view picker
+	sv.ui.ViewPicker = Titanium.UI.createView({
+		width : Ti.App.size(640),
+		height : Ti.App.size(700),
+		visible : false,
+		bottom : 0,
+		zIndex : 10,
+		backgroundColor : "transparent",
+	});
+	////
+	var date = new Date();
+	if (new Date().getHours() >= 16) {
+		date.setDate(new Date());
+	} else {
+		date.setDate(date.getDate() - 1);
+	}
+	sv.ui.picker = Ti.UI.createPicker({
+		type : Titanium.UI.PICKER_TYPE_DATE,
+		minDate : new Date(2014, 0, 1),
+		maxDate : new Date(parseInt(date.getFullYear()), parseInt((date.getMonth())), parseInt(date.getDate())),
+		value : new Date(parseInt(date.getFullYear()), parseInt((date.getMonth())), parseInt(date.getDate())),
+		backgroundColor : Ti.App.Color.nauden,
+		width : Ti.App.size(640),
+		bottom : 0,
+	});
 
 	/////
 	sv.ui.View_header = Titanium.UI.createLabel({
@@ -73,8 +100,8 @@ function taoui(sv) {
 			fontWeight : 'bold',
 		},
 		textAlign : 'center',
-		backgroundColor : Ti.App.Color.red,
-		backgroundImage : "/assets/icon/title_bar.png"
+		backgroundImage : "/assets/icon/title_bar.png",
+		touchEnabled : false
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
 		backgroundColor : 'transparent',
@@ -104,11 +131,15 @@ function taoui(sv) {
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
 	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
+	sv.ui.view_choose1.addEventListener('click', sv.fu.event_showPicker);
+	sv.ui.ViewPicker.addEventListener('click',sv.fu.event_hidePicker);
 	/////
-
+	sv.ui.ViewLuaChon.add(sv.ui.view_choose1);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose);
 	sv.ui.ViewCheat.add(sv.ui.table_view);
+	sv.ui.ViewPicker.add(sv.ui.picker);
 
+	sv.ui.ViewTong.add(sv.ui.ViewPicker);
 	sv.ui.ViewTong.add(sv.ui.ViewLuaChon);
 	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.ViewTong.add(sv.ui.ViewCheat);
@@ -116,8 +147,15 @@ function taoui(sv) {
 };
 ////
 function createUI_Event(sv) {
+	sv.fu.event_showPicker = function(e) {
+		sv.ui.ViewPicker.visible = true;
+	};
+sv.fu.event_hidePicker=function(e){
+	sv.ui.ViewPicker.visible = false;
+};
 	sv.fu.event_clickViewCheat = function(e) {
 		sv.ui.ViewCheat.visible = false;
+		sv.ui.ViewPicker.visible = false;
 		sv.ui.ViewKQ.touchEnabled = true;
 	};
 	sv.fu.event_click_view = function(e) {
@@ -129,6 +167,7 @@ function createUI_Event(sv) {
 		sv.ui.lblfirst.text = e.row.tenrow;
 		sv.ui.lblfirst.id = e.row.id;
 		sv.ui.ViewCheat.visible = false;
+		sv.ui.ViewPicker.visible = false;
 		soketqua({
 			"regionid" : sv.ui.lblfirst.id,
 		}, sv, sv.ui.lblfirst.id);
@@ -156,19 +195,19 @@ function showResult(sv) {
 
 		soketqua({
 			"regionid" : 1
-		}, sv, 1,"KẾT QUẢ XỔ SỐ MIỀN TRUNG");
+		}, sv, 1, "KẾT QUẢ XỔ SỐ MIỀN TRUNG");
 
 	}
 	if ((new Date().getHours()) == 16) {
 		sv.ui.lblfirst.setText("Miền Nam");
-		 soketqua({
-		 "regionid" : 2
-		 }, sv, 2,"KẾT QUẢ XỔ SỐ MIỀN NAM");
+		soketqua({
+			"regionid" : 2
+		}, sv, 2, "KẾT QUẢ XỔ SỐ MIỀN NAM");
 	}
 	if ((new Date().getHours()) == 18) {
 		sv.ui.lblfirst.setText("Miền Bắc");
 		soketqua({
-		"regionid" : 0
+			"regionid" : 0
 		}, sv, 0);
 	} else {
 		if (new Date().getHours() > 19 || new Date().getHours() < 16) {
@@ -258,4 +297,29 @@ function sms_offline() {
 }
 
 //////////
+function currDate() {
+	var currTime = new Date();
+	var ngay = currTime.getDate();
+	var thang = currTime.getMonth() + 1;
+	var nam = currTime.getFullYear();
+	var currdate = ngay + "/" + thang + "/" + nam;
+	return currdate;
+}
 
+function getYesterdaysDate() {
+	var date = new Date();
+	date.setDate(date.getDate() - 1);
+	return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+}
+function currHour() {
+	var date = new Date();
+	var currhour = date.getHours();
+	return currhour;
+};
+function set_lbl() {
+	if (currHour() >= 18) {
+		return currDate();
+	} else {
+		return getYesterdaysDate();
+	}
+};

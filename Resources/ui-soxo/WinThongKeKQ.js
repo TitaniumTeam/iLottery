@@ -115,7 +115,7 @@ function createUI(sv) {
 	});
 	////
 	var date = new Date();
-	if (new Date().getHours >= 16) {
+	if (new Date().getHours() >= 16) {
 		date.setDate(date.getDate() - 3);
 	} else {
 		date.setDate(date.getDate() - 4);
@@ -139,7 +139,7 @@ function createUI(sv) {
 		backgroundColor : "transparent",
 	});
 	var date2 = new Date();
-	if (new Date().getHours >= 16) {
+	if (new Date().getHours() >= 16) {
 		date2 = new Date();
 	} else {
 		date2.setDate(date2.getDate() - 1);
