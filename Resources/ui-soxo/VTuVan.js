@@ -73,11 +73,11 @@ function tao_sukien(sv) {
 	var dv_cap1 = [];
 	var dv_cap2 = [];
 	var dv_cap3 = [];
-	get_data_fromdb(db_menucap1, dv_cap1);
-	get_data_fromdb(db_menucap2, dv_cap2);
-	get_data_fromdb(db_menucap3, dv_cap3);
-	for (var i = 0; i < (dv_cap1.length); i++) {
-		Ti.API.info('name:' + dv_cap1[i].name + "/id:" + dv_cap1[i].id);
+	dv_cap1=get_data_fromdb(db_menucap1);
+	dv_cap2=get_data_fromdb(db_menucap2);
+	dv_cap3=get_data_fromdb(db_menucap3);
+	for (var i = 0; i < (dv_cap2.length); i++) {
+		Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id+dv_cap2[i].act);
 	}
 	for (var i = 0; i < (dv_cap1.length); i++) {
 		sv.arr.rows[i] = Ti.UI.createTableViewRow({
@@ -127,13 +127,13 @@ function tao_sukien(sv) {
 			// Ti.API.info('click row thu' + e.source.idrow);
 			if (e.source.expanded) {
 				e.source.expanded = false;
-				// sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
-				// for (var j = 0; j < (dv_cap1.length); j++) {
-					// // if (j != (e.source.idrow)) {
-					// sv.arr.View_rows[j].expanded = false;
-					// sv.arr.rows[j].setHeight(Ti.App.size(90));
-					// // }
-				// }
+				sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
+				for (var j = 0; j < (dv_cap1.length); j++) {
+					if (j != (e.source.idrow)) {
+					sv.arr.View_rows[j].expanded = false;
+					sv.arr.rows[j].setHeight(Ti.App.size(90));
+					}
+				}
 			} else {
 				// var dem = 0;
 				e.source.expanded = true;
@@ -146,7 +146,7 @@ function tao_sukien(sv) {
 					}
 				}
 				for (var k = 0; k < (dv_cap2.length); k++) {
-					if (e.source.id == dv_cap2[k].parentid) {
+					if (dv_cap2[k].parentid==e.source.id) {
 						// dem++;
 						sv.arr.ViewChuaLbl[k] = Titanium.UI.createView({
 							width : Ti.App.size(640),
@@ -184,11 +184,8 @@ function tao_sukien(sv) {
 						sv.arr.ViewChuaLbl[k].add(sv.arr.Label_dvcon[k]);
 						sv.arr.ViewBack[e.source.idrow].add(sv.arr.ViewChuaLbl[k]);
 						sv.arr.ViewChuaLbl[k].addEventListener('click', function(e) {
-							if (e.source._action) {
-								Ti.API.info('action****' + e.source._action);
-								Ti.API.info('param******' + e.source._params);
-								Ti.API.info('servicenum****' + e.source._servicenumber);
-								Ti.API.info('price*******' + e.source._price);
+							Ti.API.info('action****' + e.source._action);
+							if (e.source._action!=null) {
 								if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
 									var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(e.source._servicenumber, e.source._action + " " + e.source._params, "DỊCH VỤ SX " + e.source._action + " " + e.source._name_menucap2);
 									pop_upsms.open({
@@ -206,7 +203,7 @@ function tao_sukien(sv) {
 								var name_menucap3 = [];
 								var id_menucap3 = [];
 								for ( z = 0; z < (dv_cap3.length); z++) {
-									if (dv_cap3[z].parentid == e.source._id_menucap2) {
+									if (e.source._id_menucap2==dv_cap3[z].parentid) {
 										name_menucap3.push(dv_cap3[z].name);
 										id_menucap3.push(dv_cap3[z].id);
 									}
@@ -216,6 +213,7 @@ function tao_sukien(sv) {
 									options : name_menucap3,
 									opaquebackground : true,
 									title : "Lựa chọn các tỉnh thành",
+									_action:e.source._action
 								});
 								opt.show();
 								opt.addEventListener('click', function(e) {
@@ -226,7 +224,7 @@ function tao_sukien(sv) {
 										var _param = null;
 										var _price = null;
 										for (var q = 0; q < (dv_cap3.length); q++) {
-											if (dv_cap3[q].name == name_menucap3[e.index]) {
+											if (name_menucap3[e.index]==dv_cap3[q].name&&dv_cap3[q].act==e.source._action) {
 												_cmd = dv_cap3[q].act;
 												_param = dv_cap3[q].thamso;
 												_price = dv_cap3[q].dauso;
@@ -315,18 +313,23 @@ function get_menu(sv) {
 		sv.vari.user_info.close();
 		sv.vari.db.close();
 		var db_service = Ti.Database.open('serviceinfo');
-		// for (var i = 0; i < (menucap1.length); i++) {
-			// db_service.execute("INSERT OR IGNORE INTO Menucap1_xoso VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
-		// }
-		// for (var i = 0; i < (menucap2.length); i++) {
-			// if (menucap2[i].action)
-				// db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
-			// else
-				// db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
-		// }
-		// for (var i = 0; i < (menucap3.length); i++) {
-			// db_service.execute("INSERT OR IGNORE INTO Menucap3_xoso VALUES(?,?,?,?,?,?,?)", menucap3[i].id, menucap3[i].name, menucap3[i].action, menucap3[i].params, menucap3[i].servicenumber, menucap3[i].price, menucap3[i].parentid);
-		// }
+		if(Ti.Platform.osname!='android'){
+			db_service.execute("DELETE FROM Menucap1_xoso");
+			db_service.execute("DELETE FROM Menucap2_xoso");
+			db_service.execute("DELETE FROM Menucap3_xoso");
+		}
+		for (var i = 0; i < (menucap1.length); i++) {
+			db_service.execute("INSERT OR IGNORE INTO Menucap1_xoso VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
+		}
+		for (var i = 0; i < (menucap2.length); i++) {
+			if (menucap2[i].action)
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
+			else
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_xoso VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
+		}
+		for (var i = 0; i < (menucap3.length); i++) {
+			db_service.execute("INSERT OR IGNORE INTO Menucap3_xoso VALUES(?,?,?,?,?,?,?)", menucap3[i].id, menucap3[i].name, menucap3[i].action, menucap3[i].params, menucap3[i].servicenumber, menucap3[i].price, menucap3[i].parentid);
+		}
 		db_service.close();
 	};
 }
@@ -367,7 +370,8 @@ function tuvan_soxo(data) {
 
 };
 
-function get_data_fromdb(rows, results) {
+function get_data_fromdb(rows) {
+	var results=[];
 	var isAndroid = Ti.Platform.osname === 'android';
 	var field_count = null;
 	if (isAndroid) {
