@@ -22,14 +22,15 @@ function taobien(sv) {
 
 };
 function taoui(sv) {
-	sv.ui.ViewTong = Ti.UI.createView({
+	sv.ui.ViewTong = Ti.UI.createScrollView({
 		top : Ti.App.size(165),
-		// showVerticalScrollIndicator : 'true',
-		// contentHeight : Ti.UI.FILL,
+		showVerticalScrollIndicator : 'true',
+		contentHeight : Ti.UI.FILL,
 		height : Ti.UI.FILL,
-		// horizontalWrap : false,
-		// disableBounce : "true",
-		// layout : "vertical",
+		zIndex : 0,
+		horizontalWrap : false,
+		disableBounce : "true",
+		layout : "vertical",
 		backgroundImage : "/assets/icon/bg_tuvan.png"
 	});
 
@@ -43,8 +44,14 @@ function taoui(sv) {
 	});
 	sv.ui.ViewTong.add(sv.ui.tbl1);
 	get_menu(sv);
-
-	tao_sukien(sv);
+	Ti.App.g_IndicatorWindow.openIndicator(sv.ui.tbl1);
+	// sv.ui.tbl1.visible = false;
+	sv.vari.time_out1 = setTimeout(function() {
+		// sv.ui.tbl1.visible = true;
+		tao_sukien(sv);
+		Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.tbl1);
+		clearTimeout(sv.vari.time_out1);
+	}, 1000);
 
 	// sv.ui.tbl1.addEventListener('click', sv.fu.evt_tblrow_click);
 };
@@ -66,20 +73,12 @@ function tao_sukien(sv) {
 	var dv_cap1 = [];
 	var dv_cap2 = [];
 	var dv_cap3 = [];
-	get_data_fromdb(db_menucap1, dv_cap1);
-	get_data_fromdb(db_menucap2, dv_cap2);
-	get_data_fromdb(db_menucap3, dv_cap3);
-	db_service.close();
-	Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
-	// sv.ui.tbl1.visible = false;
-	sv.vari.time_out1 = setTimeout(function() {
-		// sv.ui.tbl1.visible = true;
-		Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
-		clearTimeout(sv.vari.time_out1);
-	}, 1000);
-	for (var i = 0; i < (dv_cap1.length); i++) {
-		Ti.API.info('name:' + dv_cap1[i].name + "/id:" + dv_cap1[i].id);
-	}
+	dv_cap1 = get_data_fromdb(db_menucap1);
+	dv_cap2 = get_data_fromdb(db_menucap2);
+	dv_cap3 = get_data_fromdb(db_menucap3);
+	// for (var i = 0; i < (dv_cap2.length); i++) {
+	// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
+	// }
 	for (var i = 0; i < (dv_cap1.length); i++) {
 		sv.arr.rows[i] = Ti.UI.createTableViewRow({
 			width : Ti.App.size(640),
@@ -128,12 +127,12 @@ function tao_sukien(sv) {
 			// Ti.API.info('click row thu' + e.source.idrow);
 			if (e.source.expanded) {
 				e.source.expanded = false;
-				// sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
+				sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
 				for (var j = 0; j < (dv_cap1.length); j++) {
-					// if (j != (e.source.idrow)) {
-					sv.arr.View_rows[j].expanded = false;
-					sv.arr.rows[j].setHeight(Ti.App.size(90));
-					// }
+					if (j != (e.source.idrow)) {
+						sv.arr.View_rows[j].expanded = false;
+						sv.arr.rows[j].setHeight(Ti.App.size(90));
+					}
 				}
 			} else {
 				// var dem = 0;
@@ -147,7 +146,7 @@ function tao_sukien(sv) {
 					}
 				}
 				for (var k = 0; k < (dv_cap2.length); k++) {
-					if (e.source.id == dv_cap2[k].parentid) {
+					if (dv_cap2[k].parentid == e.source.id) {
 						// dem++;
 						sv.arr.ViewChuaLbl[k] = Titanium.UI.createView({
 							width : Ti.App.size(640),
@@ -170,7 +169,7 @@ function tao_sukien(sv) {
 							left : 0
 						}));
 						sv.arr.Label_dvcon[k] = Ti.UI.createLabel({
-							left : Ti.App.size(20),
+							left : Ti.App.size(100),
 							width : Ti.App.size(620),
 							textAlign : "left",
 							color : Ti.App.Color.superwhite,
@@ -184,14 +183,14 @@ function tao_sukien(sv) {
 						});
 						sv.arr.ViewChuaLbl[k].add(sv.arr.Label_dvcon[k]);
 						sv.arr.ViewBack[e.source.idrow].add(sv.arr.ViewChuaLbl[k]);
+
+						sv.ui.tbl1.setData(sv.arr.rows);
+						// sv.ui.tbl1.insertRowAfter(e.source.idrow,sv.arr.ViewChuaLbl[k]);
 						sv.arr.ViewChuaLbl[k].addEventListener('click', function(e) {
-							if (e.source._action) {
-								Ti.API.info('action****' + e.source._action);
-								Ti.API.info('param******' + e.source._params);
-								Ti.API.info('servicenum****' + e.source._servicenumber);
-								Ti.API.info('price*******' + e.source._price);
+							Ti.API.info('action****' + e.source._action);
+							if (e.source._action != null) {
 								if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-									var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(e.source._servicenumber, e.source._action + " " + e.source._params, "DỊCH VỤ SX " + e.source._action + " " + e._name_menucap2);
+									var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(e.source._servicenumber, e.source._action + " " + e.source._params, "DỊCH VỤ SX " + e.source._action + " " + e.source._name_menucap2);
 									pop_upsms.open({
 										modal : Ti.Platform.osname == 'android' ? true : false
 									});
@@ -206,28 +205,33 @@ function tao_sukien(sv) {
 							} else {
 								var name_menucap3 = [];
 								var id_menucap3 = [];
+								var isAndroid = Ti.Platform.osname === 'android';
 								for ( z = 0; z < (dv_cap3.length); z++) {
-									if (dv_cap3[z].parentid == e.source._id_menucap2) {
+									if (e.source._id_menucap2 == dv_cap3[z].parentid) {
 										name_menucap3.push(dv_cap3[z].name);
 										id_menucap3.push(dv_cap3[z].id);
 									}
+								}
+								if (!isAndroid) {
+									name_menucap3.push("Thoát");
 								}
 								var opt = Ti.UI.createOptionDialog({
 									buttonNames : ["Thoát"],
 									options : name_menucap3,
 									opaquebackground : true,
 									title : "Lựa chọn các tỉnh thành",
+									_action : e.source._action
 								});
 								opt.show();
 								opt.addEventListener('click', function(e) {
-									if (e.button) {
+									if (e.button||opt.getOptions().toString=='Thoát') {
 										opt.hide();
 									} else {
 										var _cmd = null;
 										var _param = null;
 										var _price = null;
 										for (var q = 0; q < (dv_cap3.length); q++) {
-											if (dv_cap3[q].name == name_menucap3[e.index]) {
+											if (id_menucap3[e.index] == dv_cap3[q].id) {
 												_cmd = dv_cap3[q].act;
 												_param = dv_cap3[q].thamso;
 												_price = dv_cap3[q].dauso;
@@ -254,7 +258,6 @@ function tao_sukien(sv) {
 				}
 			}
 		});
-		sv.ui.tbl1.setData(sv.arr.rows);
 	};
 };
 function get_menu(sv) {
@@ -291,7 +294,6 @@ function get_menu(sv) {
 		sv.vari.user_info.getRowCount();
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
-
 		var jsonResuilt = JSON.parse(dl);
 		var menucap1 = [];
 		var menucap2 = [];
@@ -317,59 +319,67 @@ function get_menu(sv) {
 		sv.vari.user_info.close();
 		sv.vari.db.close();
 		var db_service = Ti.Database.open('serviceinfo');
-		// for (var i = 0; i < (menucap1.length); i++) {
-			// db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
-		// }
-		// for (var i = 0; i < (menucap2.length); i++) {
-			// if (menucap2[i].action)
-				// db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
-			// else
-				// db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
-		// }
-		// for (var i = 0; i < (menucap3.length); i++) {
-			// db_service.execute("INSERT OR IGNORE INTO Menucap3_bongda VALUES(?,?,?,?,?,?,?)", menucap3[i].id, menucap3[i].name, menucap3[i].action, menucap3[i].params, menucap3[i].servicenumber, menucap3[i].price, menucap3[i].parentid);
-		// }
+		if (Ti.Platform.osname != 'android') {
+			db_service.execute("DELETE FROM Menucap1_xoso");
+			db_service.execute("DELETE FROM Menucap2_xoso");
+			db_service.execute("DELETE FROM Menucap3_xoso");
+		}
+		for (var i = 0; i < (menucap1.length); i++) {
+			db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
+		}
+		for (var i = 0; i < (menucap2.length); i++) {
+			if (menucap2[i].action)
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
+			else
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
+		}
+		for (var i = 0; i < (menucap3.length); i++) {
+			db_service.execute("INSERT OR IGNORE INTO Menucap3_bongda VALUES(?,?,?,?,?,?,?)", menucap3[i].id, menucap3[i].name, menucap3[i].action, menucap3[i].params, menucap3[i].servicenumber, menucap3[i].price, menucap3[i].parentid);
+		}
 		db_service.close();
 	};
 }
 
 function tuvan_soxo(data) {
-	var xhr = Titanium.Network.createHTTPClient();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=menuaction');
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	if (data.command!= null || data.command!= undefined) {
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=menuaction');
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
 
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		Ti.API.info('du lieu' + dl);
-		var jsonResuilt = JSON.parse(dl);
-		if (jsonResuilt.result.code == 0 && jsonResuilt.advisor) {
-			// var link = jsonResuilt.advisor;
-			Ti.API.info('nhay vao day******');
-			if (jsonResuilt.advisor) {
-				var wdTuvan = new (require('/ui-bongda/WinTuVan'))();
-				wdTuvan.setLink(jsonResuilt.advisor);
-				wdTuvan.ui.winTuVan.open();
-			} else {
-				Ti.API.info('khong co link');
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			Ti.API.info('du lieu' + dl);
+			var jsonResuilt = JSON.parse(dl);
+			if (jsonResuilt.result.code == 0 && jsonResuilt.advisor) {
+				// var link = jsonResuilt.advisor;
+				Ti.API.info('nhay vao day******');
+				if (jsonResuilt.advisor) {
+					var wdTuvan = new (require('/ui-bongda/WinTuVan'))();
+					wdTuvan.setLink(jsonResuilt.advisor);
+					wdTuvan.ui.winTuVan.open();
+				} else {
+					Ti.API.info('khong co link');
+				}
 			}
-		}
 
-	};
+		};
+	}
 
 };
 
-function get_data_fromdb(rows, results) {
+function get_data_fromdb(rows) {
+	var results = [];
 	var isAndroid = Ti.Platform.osname === 'android';
 	var field_count = null;
 	if (isAndroid) {

@@ -406,7 +406,7 @@ function GetTour(sv, data, _cmd) {
 							//Ti.App.customToast.showToast("Không có trận nào", 1000);
 						} else {
 							if (jsonResuilt1.matchs.length > 17) {
-								for (var j = 0; j < ((jsonResuilt1.matchs).length/20); j++) {
+								for (var j = 0; j < ((jsonResuilt1.matchs).length / 20); j++) {
 									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
 									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
 									sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
@@ -456,7 +456,7 @@ function GetTour(sv, data, _cmd) {
 							sv.ui.vThongTinTD[j].setKQ(sv.arr.MangDL.state[j], sv.vari.sotran[j]);
 							sv.arr.viewBack[e.source.id].add(sv.ui.vThongTinTD[j]);
 						};
-
+						sv.ui.tbl.setData(sv.arr.rows);
 						for (var j = 0; j < (sv.vari.sotran.length); j++) {
 							sv.ui.vThongTinTD[j].addEventListener('click', function(k) {
 								sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(false);
@@ -473,7 +473,6 @@ function GetTour(sv, data, _cmd) {
 
 							});
 						};
-						sv.ui.tbl.setData(sv.arr.rows);
 
 					};
 
@@ -768,7 +767,7 @@ function thongtin_cuthe(_id) {
 
 function sms_offline() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX","KQBD","CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ CÁC TRẬN ĐẤU CHO QUÝ KHÁCH HÀNG");
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "KQBD", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ CÁC TRẬN ĐẤU CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});

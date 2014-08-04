@@ -11,6 +11,7 @@ module.exports = function() {
 		left : 0,
 		top : 0,
 		touchEnabled : false,
+		layout : "horizontal"
 	});
 	var viewChuaTenGiai = Ti.UI.createView({
 		height : Ti.UI.FILL,
@@ -26,21 +27,15 @@ module.exports = function() {
 		top : 0,
 		width : Ti.App.size(470),
 		layout : 'vertical',
-		left : Ti.App.size(160),
+		left : Ti.App.size(10),
 	});
 	for (var i = 0; i < 8; i++) {
 		viewTenGiai[i] = Titanium.UI.createView({
 			height : setHeightRow(i),
 			width : Ti.App.size(140),
-			backgroundColor : "transparent",
+			backgroundColor : "#33030c",
 			top : Ti.App.size(10)
 		});
-		viewTenGiai[i].add(Ti.UI.createView({
-			width : "100%",
-			height : "100%",
-			zIndex : 0,
-			backgroundImage : "/assets/icon/image.png",
-		}));
 		lblTenGiai[i] = Ti.UI.createLabel({
 			height : Ti.UI.SIZE,
 			text : TenGiaiMN[i],
@@ -55,15 +50,9 @@ module.exports = function() {
 			width : Ti.App.size(470),
 			// right : Ti.App.size(10),
 			height : setHeightRow(i),
-			backgroundColor : "transparent",
+			backgroundColor : "#33030c",
 			top : Ti.App.size(10)
 		});
-		viewchua[i].add(Ti.UI.createView({
-			width : "100%",
-			height : "100%",
-			zIndex : 0,
-			backgroundImage : "/assets/icon/image.png",
-		}));
 		lblKQ[i] = Ti.UI.createLabel({
 			textAlign : "center",
 			height : Ti.UI.SIZE,
@@ -79,29 +68,35 @@ module.exports = function() {
 		viewChuaTenGiai.add(viewTenGiai[i]);
 		viewChuaGiai1.add(viewchua[i]);
 	}
-
+	var interval = null;
 	////////
 	viewKQ.setParam = function(param) {
 		if (param[0].lines) {
-			var interval = null;
+			if (interval != null) {
+				Ti.API.info('clear interval o lay kq theo ngay');
+				clearInterval(interval);
+			}
 			for (var i = 0; i < (param[0].lines.length); i++) {
 				lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
 			}
-			interval = setInterval(function() {
-				for (var i = 0; i < (param[0].lines.length); i++) {
-					lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
-				}
-				if (param[0].lines.length == 8) {
-					clearInterval(interval);
-				}
-			}, 15000);
 
-		} else {
-			for (var i = 0; i < 8; i++) {
-				lblKQ[i].setText("-----");
-			}
 		}
 
+	};
+	viewKQ.setParamLive = function(param) {
+		for (var i = 0; i < (param[0].lines.length); i++) {
+			lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
+		}
+		interval = setInterval(function() {
+			Ti.API.info('lay ket qua lien tuc');
+			for (var i = 0; i < (param[0].lines.length); i++) {
+				lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
+			}
+			if (param[0].lines.length == 8) {
+				Ti.API.info('clear interval');
+				clearInterval(interval);
+			}
+		}, 15000);
 	};
 
 	/////////

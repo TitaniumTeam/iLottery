@@ -15,6 +15,7 @@ module.exports = function() {
 		left : 0,
 		top : 0,
 		touchEnabled : false,
+		layout : "horizontal"
 	});
 	var viewChuaTenGiai = Ti.UI.createView({
 		height : Ti.UI.FILL,
@@ -30,7 +31,7 @@ module.exports = function() {
 		top : 0,
 		width : Ti.App.size(160),
 		layout : 'vertical',
-		left : Ti.App.size(160),
+		left : Ti.App.size(10),
 	});
 	var viewChuaGiai2 = Ti.UI.createView({
 		width : Ti.App.size(150),
@@ -38,7 +39,7 @@ module.exports = function() {
 		backgroundColor : "transparent",
 		top : 0,
 		layout : 'vertical',
-		left : Ti.App.size(330),
+		left : Ti.App.size(10),
 	});
 	var viewChuaGiai3 = Ti.UI.createView({
 		width : Ti.App.size(150),
@@ -46,21 +47,15 @@ module.exports = function() {
 		backgroundColor : "transparent",
 		top : 0,
 		layout : 'vertical',
-		left : Ti.App.size(490)
+		left : Ti.App.size(10)
 	});
 	for (var i = 10; i > 0; i--) {
 		viewTenGiai[i] = Titanium.UI.createView({
 			height : setHeightRow(i),
 			width : Ti.App.size(140),
-			backgroundColor : "transparent",
+			backgroundColor : "#33030c",
 			top : Ti.App.size(10)
 		});
-		viewTenGiai[i].add(Ti.UI.createView({
-			width : "100%",
-			height : "100%",
-			zIndex : 0,
-			backgroundImage : "/assets/icon/image.png",
-		}));
 		lblTenGiai[i] = Ti.UI.createLabel({
 			height : Ti.UI.SIZE,
 			text : TenGiaiMN[i],
@@ -75,16 +70,9 @@ module.exports = function() {
 			width : Ti.App.size(150),
 			// right : Ti.App.size(10),
 			height : setHeightRow(i),
-			backgroundColor : "transparent",
+			backgroundColor : "#33030c",
 			top : Ti.App.size(10)
 		});
-		viewchua[i].add(Ti.UI.createView({
-			width : "100%",
-			height : "100%",
-			backgroundImage : "/assets/icon/image.png",
-			// opacity : 0.2,
-			zIndex : 0
-		}));
 		lblKQ[i] = Ti.UI.createLabel({
 			textAlign : "center",
 			height : Ti.UI.SIZE,
@@ -99,16 +87,9 @@ module.exports = function() {
 			// left : Ti.App.size(180),
 			width : Ti.App.size(150),
 			height : setHeightRow(i),
-			backgroundColor : "transparent",
+			backgroundColor : "#33030c",
 			top : Ti.App.size(10)
 		});
-		viewchua2[i].add(Ti.UI.createView({
-			width : "100%",
-			height : "100%",
-			backgroundImage : "/assets/icon/image.png",
-			// opacity : 0.2,
-			zIndex : 0
-		}));
 		lblKQ2[i] = Ti.UI.createLabel({
 			textAlign : "center",
 			height : Ti.UI.SIZE,
@@ -123,15 +104,9 @@ module.exports = function() {
 			// left : Ti.App.size(180),
 			width : Ti.App.size(150),
 			height : setHeightRow(i),
-			backgroundColor : "transparent",
+			backgroundColor : "#33030c",
 			top : Ti.App.size(10)
 		});
-		viewchua3[i].add(Ti.UI.createView({
-			width : "100%",
-			height : "100%",
-			backgroundImage : "/assets/icon/image.png",
-			zIndex : 0
-		}));
 		lblKQ3[i] = Ti.UI.createLabel({
 			textAlign : "center",
 			height : Ti.UI.SIZE,
@@ -152,54 +127,45 @@ module.exports = function() {
 		viewChuaGiai2.add(viewchua2[i]);
 		viewChuaGiai3.add(viewchua3[i]);
 	}
-
+	var interval = null;
 	////////
 	viewKQ.setParam = function(param) {
-		Ti.API.info('nhay vao set text');
 		if (param[0].lines) {
-			var interval = null;
 			lblKQ[10].setText(param[0].provide.name);
 			lblKQ2[10].setText(param[1].provide.name);
 			lblKQ3[10].setText(param[2].provide.name);
 			for (var i = 0; i < (param[0].lines.length); i++) {
-					lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
-				}
-				for (var i = 0; i < (param[1].lines.length); i++) {
-					lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
-				}
-				for (var i = 0; i < (param[2].lines.length); i++) {
-					lblKQ3[i + 1].setText(param[2].lines[i].result.toString().replace(/,/g, ' '));
-				}
-			interval = setInterval(function() {
-				for (var i = 0; i < (param[0].lines.length); i++) {
-					lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
-				}
-				for (var i = 0; i < (param[1].lines.length); i++) {
-					lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
-				}
-				for (var i = 0; i < (param[2].lines.length); i++) {
-					lblKQ3[i + 1].setText(param[2].lines[i].result.toString().replace(/,/g, ' '));
-				}
-				if (param[0].lines.length == 10) {
-					clearInterval(interval);
-				}
-			}, 15000);
-		} else {
-			lblKQ[10].setText("-----");
-			lblKQ2[10].setText("-----");
-			lblKQ3[10].setText("-----");
-			for (var i = 0; i < (10); i++) {
-				lblKQ[i + 1].setText("-----");
+				lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
 			}
-			for (var i = 0; i < (10); i++) {
-				lblKQ2[i + 1].setText("-----");
+			for (var i = 0; i < (param[1].lines.length); i++) {
+				lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
 			}
-			for (var i = 0; i < (10); i++) {
-				lblKQ3[i + 1].setText("-----");
+			for (var i = 0; i < (param[2].lines.length); i++) {
+				lblKQ3[i + 1].setText(param[2].lines[i].result.toString().replace(/,/g, ' '));
 			}
+
 		}
 	};
-
+	viewKQ.setParamLive = function(param) {
+		lblKQ[10].setText(param[0].provide.name);
+		lblKQ2[10].setText(param[1].provide.name);
+		lblKQ3[10].setText(param[2].provide.name);
+		interval = setInterval(function() {
+			Ti.API.info('lay kq lien tuc mien nam');
+			for (var i = 0; i < (param[0].lines.length); i++) {
+				lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
+			}
+			for (var i = 0; i < (param[1].lines.length); i++) {
+				lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
+			}
+			for (var i = 0; i < (param[2].lines.length); i++) {
+				lblKQ3[i + 1].setText(param[2].lines[i].result.toString().replace(/,/g, ' '));
+			}
+			if (param[0].lines.length == 10) {
+				clearInterval(interval);
+			}
+		}, 15000);
+	};
 	/////////
 	viewKQ.add(viewChuaTenGiai);
 	viewKQ.add(viewChuaGiai1);
@@ -212,7 +178,7 @@ function setHeightRow(i) {
 	if (i == 7)
 		return Ti.App.size(160);
 	if (i == 5)
-		return Ti.App.size(420);
+		return Ti.Platform.osname=='android'?Ti.App.size(420):Ti.App.size(300);
 	if (i == 4) {
 		return Ti.App.size(140);
 	} else

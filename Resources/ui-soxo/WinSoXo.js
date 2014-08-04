@@ -17,12 +17,12 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
-	sv.vari.ViewHT;
+	sv.vari.ViewHT
 	sv.vari.db = null;
 	sv.vari.user_info = null;
 	sv.vari.tk_user = null;
 	///
-	sv.vari.popup_offline = null;
+	sv.vari.flag = 0;
 }
 
 ////
@@ -106,7 +106,7 @@ function tao_ui(sv) {
 		backgroundColor : Ti.App.Color.red_press,
 		bottom : 0,
 		zIndex : 10,
-		touchEnabled:false
+		touchEnabled : false
 	});
 	for (var i = 0; i < 4; i++) {
 		sv.arr.ViewChucNang[i] = Ti.UI.createView({
@@ -114,7 +114,7 @@ function tao_ui(sv) {
 			height : Ti.App.size(75),
 			backgroundColor : "transparent",
 			top : 0,
-			backgroundSelectedImage:"/assets/icon/selected_tab.png"
+			backgroundSelectedImage : "/assets/icon/selected_tab.png"
 		});
 		sv.arr.LabelChucNang[i] = Ti.UI.createLabel({
 			text : sv.arr.TenChucNang[i],
@@ -138,7 +138,7 @@ function tao_ui(sv) {
 				height : Ti.App.size(52),
 				image : "/assets/icon/icon_star.png",
 				zIndex : 10,
-				touchEnabled:false
+				touchEnabled : false
 			});
 			sv.arr.ViewChucNang[i].add(sv.ui.iconVip);
 		}
@@ -172,52 +172,60 @@ function tao_sukien(sv) {
 	for (var i = 0; i < 4; i++) {
 		if (i == 0) {
 			sv.arr.evtChucNang[i] = function(e) {
-				for (var j = 0; j < 4; j++) {
-					if (j == 0)
-						sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
-					else {
-						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+				if (sv.vari.flag != 0) {
+					for (var j = 0; j < 4; j++) {
+						if (j == 0)
+							sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
+						else {
+							sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+						}
 					}
+					sv.vari.flag = 0;
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 				}
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
-
 			};
 		}
 		if (i == 1) {
 			sv.arr.evtChucNang[i] = function(e) {
-				for (var j = 0; j < 4; j++) {
-					if (j == 1)
-						sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
-					else {
-						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+				if (sv.vari.flag != 1) {
+					for (var j = 0; j < 4; j++) {
+						if (j == 1)
+							sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
+						else {
+							sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+						}
 					}
+					sv.vari.flag = 1;
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 				}
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-soxo/VThongKe'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 		if (i == 2) {
 			sv.arr.evtChucNang[i] = function(e) {
-				for (var j = 0; j < 4; j++) {
-					if (j == 2)
-						sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
-					else {
-						sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+				if (sv.vari.flag != 2) {
+					for (var j = 0; j < 4; j++) {
+						if (j == 2)
+							sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
+						else {
+							sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+						}
 					}
+					sv.vari.flag = 2;
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 				}
 
-				sv.vari.ViewHT.removeAllEvent();
-				sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-				sv.vari.ViewHT = null;
-				sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
-				sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 			};
 		}
 		if (i == 3) {
@@ -242,19 +250,23 @@ function tao_sukien(sv) {
 					if (sv.vari.tk_user == 1) {
 						sv.vari.user_info.close();
 						sv.vari.db.close();
-						for (var j = 0; j < 4; j++) {
-							if (j == 3)
-								sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
-							else {
-								sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
-							}
+						if (sv.vari.flag != 3) {
+							for (var j = 0; j < 4; j++) {
+								if (j == 3)
+									sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
+								else {
+									sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
+								}
 
+							}
+							sv.vari.flag = 3;
+							sv.vari.ViewHT.removeAllEvent();
+							sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+							sv.vari.ViewHT = null;
+							sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
+							sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 						}
-						sv.vari.ViewHT.removeAllEvent();
-						sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-						sv.vari.ViewHT = null;
-						sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
-						sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+
 					} else {
 						sv.vari.user_info.close();
 						sv.vari.db.close();
@@ -287,6 +299,7 @@ function tao_sukien(sv) {
 	};
 	sv.fu.evtOpenWin = function(e) {
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
+		sv.vari.flag = 0;
 		sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();
 		sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 	};

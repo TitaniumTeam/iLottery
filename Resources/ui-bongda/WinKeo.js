@@ -222,7 +222,7 @@ function createUI(sv) {
 		bottom : Ti.App.size(25),
 	});
 	// if (Ti.Platform.osname == "android") {
-		// sv.ui.ViewChuaKeo.setContentHeight(Ti.UI.FILL);
+	// sv.ui.ViewChuaKeo.setContentHeight(Ti.UI.FILL);
 	// }
 	//////
 	sv.ui.ViewTranDau.add(sv.ui.IconLive);
@@ -381,17 +381,16 @@ function ViewKeo() {
 		top : Ti.App.size(155)
 	});
 	var TyLe = Ti.UI.createLabel({
-		left : Ti.App.size(20),
-		text : "Tỷ lệ",
-		color : Ti.App.Color.superwhite,
+		right : Ti.App.size(20),
+		color : "yellow",
 		font : {
 			fontSize : Ti.App.size(25)
 		},
 		width : Ti.UI.SIZE
 	});
 	var tyle2 = Ti.UI.createLabel({
-		right : Ti.App.size(20),
-		color : "yellow",
+		left : Ti.App.size(20),
+		color : "white",
 		font : {
 			fontSize : Ti.App.size(25)
 		},
@@ -429,10 +428,20 @@ function ViewKeo() {
 	////////
 	VKeo.setPos = function(tenKeo, param, tendoi1, tendoi2) {
 		TenKeo.setText(tenKeo);
-		TenDoi1.setText(tendoi1);
-		TenDoi2.setText(tendoi2);
+		TenDoi1.setText(tendoi1+" thắng "+doc_thangthua((param.owner)));
+		TenDoi2.setText(tendoi2+" thắng "+doc_thangthua((param.guest)));
 		tyle1.setText(param.owner);
-		tyle2.setText(param.ratio);
+		tyle2.setText("2 đội hòa "+doc_thangthua(param.ratio));
+		TyLe.setText(param.ratio);
+		tyle3.setText(param.guest);
+	};
+	VKeo.setPosChauA = function(tenKeo, param, tendoi1, tendoi2) {
+		TenKeo.setText(tenKeo);
+		TenDoi1.setText(tendoi1+" thắng "+doc_thangthua((param.owner)));
+		TenDoi2.setText(tendoi2+" thắng "+doc_thangthua((param.guest)));
+		tyle1.setText(param.owner);
+		tyle2.setText(doc_keo(tendoi1, tendoi2, param.ratio));
+		TyLe.setText(param.ratio);
 		tyle3.setText(param.guest);
 	};
 	return VKeo;
@@ -552,7 +561,7 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 		}, 1000);
 		if (jsonResuilt.match.aisiabe_betting[0]) {
 			sv.vari.ViewKeoChauA = ViewKeo();
-			sv.vari.ViewKeoChauA.setPos("Kèo Châu Á", jsonResuilt.match.aisiabe_betting[0], tendoi1, tendoi2);
+			sv.vari.ViewKeoChauA.setPosChauA("Kèo Châu Á", jsonResuilt.match.aisiabe_betting[0], tendoi1, tendoi2);
 			sv.ui.ViewChuaKeo.add(sv.vari.ViewKeoChauA);
 		}
 		if (jsonResuilt.match.euro_betting[0]) {
@@ -573,4 +582,67 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 		}
 		///////
 	};
+};
+function doc_thangthua(_tyle) {
+	var result;
+	if (_tyle < 0) {
+		result = " bỏ " + Math.floor(_tyle * (-100)) + " ăn 100";
+	}
+	if (_tyle > 0) {
+		result = " đặt 100 ăn " + Math.floor(_tyle * (100));
+	}
+	return result;
+};
+function doc_keo(_doi1, _doi2, _tyle) {
+	var keo = _tyle.toString().split(':');
+	var _tyledoi1 = (keo[0]);
+	var _tyledoi2 = (keo[1]);
+	var _tylekeo = null;
+	var kq = null;
+	if (_tyledoi1 == "0") {
+		kq = _doi1 + " chấp " + _doi2 + " " + doc_tile(_tyledoi2);
+	} else {
+		kq = _doi2 + " chấp " + _doi1 + " " + doc_tile(_tyledoi1);
+	}
+	return kq;
+}
+
+function doc_tile(_tyle) {
+	Ti.API.info('string length****' + _tyle.length);
+	var result;
+	if (_tyle.length == 1) {
+		if (_tyle == 0) {
+			result = " hòa được thua";
+		} else {
+			result = " " + _tyle + " trái";
+		}
+
+	}
+	if (_tyle.length == 3) {
+		if (_tyle == "1/4") {
+			result = " hòa thắng nửa";
+		}
+		if (_tyle == "1/2") {
+			result = " nửa trái";
+		}
+		if (_tyle == "3/4") {
+			result = " nửa một";
+		}
+
+	}
+	if (_tyle.length == 5) {
+		var split_tile = _tyle.split(' ');
+		var _tyle0 = split_tile[0];
+		var _tyle1 = split_tile[1];
+		if (_tyle1 == "1/4") {
+			result = " " + _tyle0 + " thua nửa";
+		}
+		if (_tyle1 == "1/2") {
+			result = " " + _tyle0 + " đứt";
+		}
+		if (_tyle1 == "3/4") {
+			result = " " + (parseInt(_tyle0) + 1) + " ăn nửa";
+		}
+	}
+	return result;
 };

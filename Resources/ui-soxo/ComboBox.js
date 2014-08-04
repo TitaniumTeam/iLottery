@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_check) {
 	var view_contain = Titanium.UI.createView({
 		height : Ti.App.size(90),
 		backgroundColor : 'transparent'
@@ -9,7 +9,7 @@ module.exports = function() {
 	view_contain.add(lbl_fix);
 	var lblfirst = Titanium.UI.createLabel({
 		color : Ti.App.Color.superwhite,
-		id : "MB"
+		id : _check == 1 ? 0 : "MB"
 	});
 	view_contain.add(lblfirst);
 	var icon = Ti.UI.createImageView({
@@ -132,11 +132,11 @@ module.exports = function() {
 				color : Ti.App.Color.superwhite,
 				font : {
 					fontSize : Ti.App.size(30),
-					fontWeight:'bold'
+					fontWeight : 'bold'
 				},
 				text : (_tinh[i].name) || (_tinh[i]),
 				left : Ti.App.size(20),
-				touchEnabled:false
+				touchEnabled : false
 			});
 
 			rowTbl.add(tinhthanh);

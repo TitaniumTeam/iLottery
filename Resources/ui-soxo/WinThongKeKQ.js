@@ -538,15 +538,9 @@ function rows() {
 				width : Ti.App.size(160),
 				height : setHeightRow(param, i),
 				width : Ti.App.size(140),
-				backgroundColor : "transparent",
+				backgroundColor : "#33030c",
 				top : Ti.App.size(10)
 			});
-			viewTenGiai[i].add(Ti.UI.createView({
-				width : "100%",
-				height : "100%",
-				zIndex : 0,
-				backgroundImage : "/assets/icon/image.png",
-			}));
 			lblTenGiai[i] = Ti.UI.createLabel({
 				height : Ti.UI.FILL,
 				text : TenGiaiMN[i],
@@ -559,15 +553,9 @@ function rows() {
 			viewchua[i] = Titanium.UI.createView({
 				width : Ti.App.size(470),
 				height : setHeightRow(param, i),
-				backgroundColor : "transparent",
+				backgroundColor : "#33030c",
 				top : Ti.App.size(10)
 			});
-			viewchua[i].add(Ti.UI.createView({
-				width : "100%",
-				height : "100%",
-				zIndex : 0,
-				backgroundImage : "/assets/icon/image.png",
-			}));
 			lblKQ[i] = Ti.UI.createLabel({
 				color : setColor(i),
 				font : setFont(i),

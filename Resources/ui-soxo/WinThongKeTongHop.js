@@ -377,14 +377,8 @@ function bang_kq() {
 					width : Ti.App.size(295),
 					left : Ti.App.size(0),
 					height : Ti.App.size(70),
-					backgroundColor : "transparent"
+					backgroundColor : "#33030c",
 				});
-				v1.add(Ti.UI.createView({
-					width : "100%",
-					height : "100%",
-					zIndex : 0,
-					backgroundImage : "/assets/icon/image.png",
-				}));
 				var l1 = Ti.UI.createLabel({
 					text : param[i].dayso,
 					width : Ti.UI.SIZE,
@@ -423,14 +417,8 @@ function bang_kq() {
 						height : Ti.App.size(70),
 						// backgroundImage : "/assets/icon/nav_bar.png",
 						right : 0,
-						backgroundColor : "transparent"
+						backgroundColor : "#33030c",
 					});
-					v2.add(Ti.UI.createView({
-						width : "100%",
-						height : "100%",
-						zIndex : 0,
-						backgroundImage : "/assets/icon/image.png",
-					}));
 					var l21 = Ti.UI.createLabel({
 						text : param[i].dayso,
 						width : Ti.UI.SIZE,
