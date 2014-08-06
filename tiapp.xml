@@ -6,9 +6,6 @@
     <property name="acs-oauth-secret-production" type="string">vxGwBTviJzzog82ivEwwnsCMpZnpoRre</property>
     <property name="acs-oauth-key-production" type="string">OsgzTAmqworEMZspTUanWun92DU6DjkG</property>
     <property name="acs-api-key-production" type="string">yOEIW7COaU1o7RdHqIoSUTWzN1mbvCGS</property>
-        <property name="acs-push-type-development" type="string">gcm</property>
-    <property name="acs-push-type-production" type="string">gcm</property>
-    <property name="acs-push-type" type="string">gcm</property>
     <id>com.ios.xoso.bongda</id>
     <name>XoSoBongDa</name>
     <version>1.0</version>
@@ -98,8 +95,8 @@
     <modules>
         <module platform="android" version="2.3.3">ti.cloudpush</module>
         <module platform="commonjs">ti.cloud</module>
-        <module platform="iphone">bencoding.sms</module>
         <module platform="android">facebook</module>
+        <module platform="iphone">bencoding.sms</module>
         <module platform="iphone">facebook</module>
     </modules>
     <deployment-targets>
