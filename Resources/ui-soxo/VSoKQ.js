@@ -192,6 +192,9 @@ function removeSK(sv) {
 		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_showPicker);
 		sv.ui.ViewPicker.removeEventListener('click', sv.fu.event_hidePicker);
 		sv.ui.picker.removeEventListener('change', sv.fu.event_picker);
+		if(sv.vari.datarow!=null||sv.vari.datarow!=undefined){
+			sv.vari.datarow.clearInterVal();
+		}
 		Ti.API.info('remove so ket qua');
 	};
 };
@@ -219,10 +222,11 @@ function showResult(sv) {
 		var time = jsonResuilt.time.toString().split(' ')[1];
 		var hour = time.split(':')[0];
 		var min = time.split(':')[1];
-		Ti.API.info('thoi gian hien tai' + time + '/' + hour + '/' + min);
+		Ti.API.info('thoi gian hien tai' + time);
 		if (hour == 17 && min >= 15) {
 			Ti.API.info('lay kq mien trung');
 			sv.ui.lblfirst.setText("Miền Trung");
+			sv.ui.lblfirst.id=1;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
@@ -231,6 +235,7 @@ function showResult(sv) {
 		}
 		if (hour == 16 && min >= 10) {
 			sv.ui.lblfirst.setText("Miền Nam");
+			sv.ui.lblfirst.id=2;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
@@ -239,6 +244,7 @@ function showResult(sv) {
 		}
 		if (hour == 18 && min >= 15) {
 			sv.ui.lblfirst.setText("Miền Bắc");
+			sv.ui.lblfirst.id=0;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
@@ -247,6 +253,7 @@ function showResult(sv) {
 		}
 		if (hour == 16 && min < 10) {
 			sv.ui.lblfirst.setText("Miền Bắc");
+			sv.ui.lblfirst.id=0;
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
 				"regionid" : 0,
@@ -254,6 +261,7 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 17 && min < 15) {
+			sv.ui.lblfirst.id=0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
@@ -262,6 +270,7 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 18 && min < 15) {
+			sv.ui.lblfirst.id=0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
@@ -270,8 +279,7 @@ function showResult(sv) {
 			}, sv, 0);
 		} else {
 			if (hour > 19 || hour < 16) {
-				
-				Ti.API.info('custom dialog'+sv.vari.txt_value);
+				sv.ui.lblfirst.id=0;
 				sv.ui.lblfirst.setText("Miền Bắc");
 				Ti.API.info('lay ket qua mien bac');
 				searchregionlottery({

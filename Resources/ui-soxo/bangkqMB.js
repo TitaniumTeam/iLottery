@@ -124,16 +124,6 @@ module.exports = function() {
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
 			lblKQ[i].setText(mangkq[i]);
-			if (socantim != null) {
-				if (mangkq[i].toString().match(/socantim.*/)) {
-					lblKQ[i].setColor("yellow");
-					lblKQ[i].setFont({
-						fontWeight : 'bold',
-						fontSize : Ti.App.size(35)
-					});
-				}
-			}
-
 		}
 
 	};
@@ -159,6 +149,7 @@ module.exports = function() {
 	};
 	/////
 	viewKQ.clearInterVal = function() {
+		Ti.API.info('clearinterval mien bac');
 		clearInterval(interval);
 	};
 	/////////
@@ -178,6 +169,7 @@ function setHeightRow(i) {
 
 function setColor(i) {
 	if (i == 0) {
+		
 		return "orange";
 	} else {
 		return Ti.App.Color.superwhite;
@@ -227,10 +219,14 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 			};
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
+			lblkq[i+1].setText(mangkq[i]);
+
+		}
+		if (mangkq.length==27) {
+			for (var i = 0; i < (mangkq.length); i++) {
 			lblkq[i].setText(mangkq[i]);
 
 		}
-		if (param[0].lines.length == 8) {
 			clearInterval(interval);
 		}
 		isLoading = false;

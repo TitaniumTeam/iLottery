@@ -113,9 +113,13 @@ module.exports = function() {
 			lblKQ[18].setText(param[0].provide.name);
 			lblKQ2[18].setText(param[1].provide.name);
 			for (var i = 0; i < (param[0].lines.length); i++)
-				kqTinh1.push(param[0].lines[i].result);
+				if (param[0].lines[i].result != "" || param[0].lines[i].result != null) {
+					kqTinh1.push(param[0].lines[i].result);
+				}
 			for (var i = 0; i < (param[1].lines.length); i++)
-				kqTinh2.push(param[1].lines[i].result);
+				if (param[1].lines[i].result != "" || param[1].lines[i].result != null) {
+					kqTinh2.push(param[1].lines[i].result);
+				}
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
@@ -155,7 +159,8 @@ module.exports = function() {
 		}, 15000);
 	};
 	///
-	viewKQ.clearInterVal=function(){
+	viewKQ.clearInterVal = function() {
+		Ti.API.info('clear interval mien trung');
 		clearInterval(interval);
 	};
 	/////////
@@ -169,7 +174,7 @@ function setHeightRow(i) {
 	if (i == 7)
 		return Ti.App.size(160);
 	if (i == 5)
-		return Ti.Platform.osname == 'android' ? Ti.App.size(420) : Ti.App.size(300);
+		return Ti.App.size(360);
 	if (i == 4) {
 		return Ti.App.size(140);
 	} else
@@ -187,7 +192,7 @@ function setColor(i) {
 function setFont(i) {
 	if (i == 10) {
 		return {
-			fontSize : Ti.App.size(25),
+			fontSize : Ti.App.size(35),
 			fontWeight : 'bold'
 		};
 	}
@@ -199,6 +204,7 @@ function setFont(i) {
 	} else {
 		return {
 			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
 		};
 	}
 };
@@ -264,8 +270,8 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, interval) {
 		for (var i = 0; i < (mangkq2.length); i++) {
 			lblkq2[i].setText(mangkq2[i]);
 		}
-		if (mangkq1.length+mangkq2.length == 36) {
-			Ti.API.info('clear interval');
+		if (mangkq1.length + mangkq2.length == 36) {
+			Ti.API.info('clear interval lay kq truc tiep');
 			clearInterval(interval);
 		}
 		isLoading = false;
@@ -309,9 +315,10 @@ function label(lbl_color, lbl_font) {
 		color : lbl_color == 1 ? "white" : "orange",
 		top : Ti.App.size(10),
 		font : lbl_font == 1 ? {
-			fontSize : Ti.App.size(25)
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold',
 		} : {
-			fonWeight : 'bold',
+			fontWeight : 'bold',
 			fontSize : Ti.App.size(35)
 		},
 		touchEnabled : false,

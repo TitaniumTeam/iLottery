@@ -312,6 +312,9 @@ function tao_sukien(sv) {
 		for (var i = 0; i < 4; i++) {
 			sv.arr.ViewChucNang[i].removeEventListener('click', sv.arr.evtChucNang[i]);
 		}
+		if (sv.vari.flag == 0) {
+			sv.vari.ViewHT.removeAllEvent();
+		}
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
 		sv.ui.ViewIconUser.removeEventListener('click', sv.fu.evtOpenWinUser);
 		sv.ui.Win.removeEventListener('android:back', sv.fu.evtIconBack);

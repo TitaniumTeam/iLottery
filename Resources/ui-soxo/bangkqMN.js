@@ -64,8 +64,11 @@ module.exports = function() {
 	}
 	//////tinh 1
 	lblKQ[18] = label(0, 1);
+	///ten tinh
+
 	viewchua[10].add(lblKQ[18]);
 	lblKQ[0] = label(0, 0);
+	///giai db
 	viewchua[1].add(lblKQ[0]);
 	for (var i = 0; i < 17; i++) {
 		lblKQ[17 - i] = label(1, 1);
@@ -208,7 +211,8 @@ module.exports = function() {
 		}, 15000);
 	};
 	///
-	viewKQ.clearInterVal=function(){
+	viewKQ.clearInterVal = function() {
+		Ti.API.info('clear interval mien nam');
 		clearInterval(interval);
 	};
 	/////////
@@ -223,7 +227,7 @@ function setHeightRow(i) {
 	if (i == 7)
 		return Ti.App.size(160);
 	if (i == 5)
-		return Ti.Platform.osname == 'android' ? Ti.App.size(420) : Ti.App.size(300);
+		return Ti.App.size(360);
 	if (i == 4) {
 		return Ti.App.size(140);
 	} else
@@ -241,7 +245,7 @@ function setColor(i) {
 function setFont(i) {
 	if (i == 10) {
 		return {
-			fontSize : Ti.App.size(25),
+			fontSize : Ti.App.size(35),
 			fontWeight : 'bold'
 		};
 	}
@@ -253,6 +257,7 @@ function setFont(i) {
 	} else {
 		return {
 			fontSize : Ti.App.size(30),
+			fontWeight : 'bold'
 		};
 	}
 };
@@ -298,30 +303,33 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval) {
 			lblkq2[18].setText(param[1].provide.name);
 			lblkq3[18].setText(param[2].provide.name);
 			for (var i = 0; i < (param[0].lines.length); i++)
-				kqTinh1.push(param[0].lines[i].result);
+				if (param[0].lines[i].result != "" || param[0].lines[i].result != null) {
+					kqTinh1.push(param[0].lines[i].result);
+				}
 			for (var i = 0; i < (param[1].lines.length); i++)
-				kqTinh2.push(param[1].lines[i].result);
+				if (param[1].lines[i].result != "" || param[1].lines[i].result != null) {
+					kqTinh2.push(param[1].lines[i].result);
+				}
 			for (var i = 0; i < (param[2].lines.length); i++)
-				kqTinh3.push(param[2].lines[i].result);
+				if (param[2].lines[i].result != "" || param[2].lines[i].result != null) {
+					kqTinh3.push(param[2].lines[i].result);
+				}
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
 			for (var j = 0; j < (mangstring1.length); j++) {
-				// Ti.API.info('mang string:' + mangstring[j]);
 				mangkq1.push(mangstring1[j]);
 			};
 		}
 		for (var i = 0; i < (kqTinh2.length); i++) {
 			mangstring2 = (kqTinh2[i].toString()).split(',');
 			for (var j = 0; j < (mangstring2.length); j++) {
-				// Ti.API.info('mang string:' + mangstring[j]);
 				mangkq2.push(mangstring2[j]);
 			};
 		}
 		for (var i = 0; i < (kqTinh3.length); i++) {
 			mangstring3 = (kqTinh3[i].toString()).split(',');
 			for (var j = 0; j < (mangstring3.length); j++) {
-				// Ti.API.info('mang string:' + mangstring[j]);
 				mangkq3.push(mangstring3[j]);
 			};
 		}
@@ -331,11 +339,11 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval) {
 		for (var i = 0; i < (mangkq2.length); i++) {
 			lblkq2[i].setText(mangkq2[i]);
 		}
-		for (var i = 0; i < (mangkq3.length); i++) {
+		for (var i = (mangkq3.length); i >= 0; i++) {
 			lblkq3[i].setText(mangkq3[i]);
 		}
-		if (mangkq1.length+mangkq2.length+mangkq3.length == 54) {
-			Ti.API.info('clear interval');
+		if (mangkq1.length + mangkq2.length + mangkq3.length == 54) {
+			Ti.API.info('clear interval lay kq truc tiep');
 			clearInterval(interval);
 		}
 		isLoading = false;
@@ -379,9 +387,10 @@ function label(lbl_color, lbl_font) {
 		color : lbl_color == 1 ? "white" : "orange",
 		top : Ti.App.size(10),
 		font : lbl_font == 1 ? {
-			fontSize : Ti.App.size(25)
+			fontSize : Ti.App.size(30),
+			fontWeight : 'bold',
 		} : {
-			fonWeight : 'bold',
+			fontWeight : 'bold',
 			fontSize : Ti.App.size(35)
 		},
 		touchEnabled : false,
