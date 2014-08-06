@@ -22,15 +22,15 @@ function taobien(sv) {
 
 };
 function taoui(sv) {
-	sv.ui.ViewTong = Ti.UI.createScrollView({
+	sv.ui.ViewTong = Ti.UI.createView({
 		top : Ti.App.size(165),
-		showVerticalScrollIndicator : 'true',
-		contentHeight : Ti.UI.FILL,
+		// showVerticalScrollIndicator : 'true',
+		// contentHeight : Ti.UI.FILL,
 		height : Ti.UI.FILL,
-		zIndex : 0,
-		horizontalWrap : false,
-		disableBounce : "true",
-		layout : "vertical",
+		// zIndex : 0,
+		// horizontalWrap : false,
+		// disableBounce : "true",
+		// layout : "vertical",
 		backgroundImage : "/assets/icon/bg_tuvan.png"
 	});
 
@@ -95,7 +95,7 @@ function tao_sukien(sv) {
 			id : dv_cap1[i].id,
 			idrow : i,
 			expanded : false,
-			backgroundSelectedImage : "/assets/icon/btn_tuvan_select.png"
+			backgroundSelectedImage : "/assets/icon/btn_tuvan_select.png",
 		});
 		sv.arr.Label_ten_dv[i] = Ti.UI.createLabel({
 			left : Ti.App.size(20),
@@ -128,8 +128,10 @@ function tao_sukien(sv) {
 			if (e.source.expanded) {
 				e.source.expanded = false;
 				sv.arr.rows[e.source.idrow].setHeight(Ti.App.size(90));
+				sv.arr.ViewBack[e.source.idrow].removeAllChildren();
 				for (var j = 0; j < (dv_cap1.length); j++) {
 					if (j != (e.source.idrow)) {
+						sv.arr.ViewBack[j].removeAllChildren();
 						sv.arr.View_rows[j].expanded = false;
 						sv.arr.rows[j].setHeight(Ti.App.size(90));
 					}
@@ -141,6 +143,8 @@ function tao_sukien(sv) {
 				sv.arr.ViewBack[e.source.idrow].setHeight(Ti.App.size(90 * 3));
 				for (var j = 0; j < (dv_cap1.length); j++) {
 					if (j != (e.source.idrow)) {
+						if (Ti.Platform.osname != 'android')
+							sv.arr.ViewBack[j].removeAllChildren();
 						sv.arr.View_rows[j].expanded = false;
 						sv.arr.rows[j].setHeight(Ti.App.size(90));
 					}
@@ -158,7 +162,8 @@ function tao_sukien(sv) {
 							_params : dv_cap2[k].thamso ? dv_cap2[k].thamso : null,
 							_servicenumber : dv_cap2[k].dauso ? dv_cap2[k].dauso : null,
 							_price : dv_cap2[k].price ? dv_cap2[k].price : null,
-							backgroundSelectedColor : Ti.App.Color.magenta
+							backgroundSelectedColor : Ti.App.Color.magenta,
+							backgroundColor : Ti.App.Color.nauden
 						});
 						sv.arr.ViewChuaLbl[k].add(Ti.UI.createView({
 							width : Ti.App.size(640),
@@ -224,7 +229,7 @@ function tao_sukien(sv) {
 								});
 								opt.show();
 								opt.addEventListener('click', function(e) {
-									if (e.button||opt.getOptions().toString=='Thoát') {
+									if (e.button || opt.getOptions().toString == 'Thoát') {
 										opt.hide();
 									} else {
 										var _cmd = null;
@@ -320,9 +325,9 @@ function get_menu(sv) {
 		sv.vari.db.close();
 		var db_service = Ti.Database.open('serviceinfo');
 		if (Ti.Platform.osname != 'android') {
-			db_service.execute("DELETE FROM Menucap1_xoso");
-			db_service.execute("DELETE FROM Menucap2_xoso");
-			db_service.execute("DELETE FROM Menucap3_xoso");
+			db_service.execute("DELETE FROM Menucap1_bongda");
+			db_service.execute("DELETE FROM Menucap2_bongda");
+			db_service.execute("DELETE FROM Menucap3_bongda");
 		}
 		for (var i = 0; i < (menucap1.length); i++) {
 			db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
@@ -341,7 +346,7 @@ function get_menu(sv) {
 }
 
 function tuvan_soxo(data) {
-	if (data.command!= null || data.command!= undefined) {
+	if (data.command != null || data.command != undefined) {
 		var xhr = Titanium.Network.createHTTPClient();
 		xhr.onsendstream = function(e) {
 			//ind.value = e.progress;

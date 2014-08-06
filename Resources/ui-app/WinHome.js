@@ -264,7 +264,7 @@ function push_notification() {
 		// Specify the push type as either 'android' for Android or 'ios' for iOS
 		Cloud.PushNotifications.subscribeToken({
 			device_token : device,
-			channel : 'ifootball',
+			channel : 'newchanel',
 			type : Ti.Platform.name == 'android' ? 'gcm' : 'ios'
 		}, function(e) {
 			if (e.success) {

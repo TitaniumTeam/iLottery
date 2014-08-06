@@ -40,104 +40,123 @@ module.exports = function() {
 		left : Ti.App.size(10),
 	});
 	for (var i = 10; i > 0; i--) {
-		viewTenGiai[i] = Titanium.UI.createView({
-			height : setHeightRow(i),
-			width : Ti.App.size(140),
-			backgroundColor : "#33030c",
-			top : Ti.App.size(10)
-		});
-		lblTenGiai[i] = Ti.UI.createLabel({
-			height : Ti.UI.SIZE,
-			text : TenGiaiMN[i],
-			textAlign : "center",
-			color : setColor(i),
-			width : Ti.App.size(140),
-			zIndex : 1,
-			top : Ti.App.size(20),
-			font : setFont(i),
-		});
-		viewchua[i] = Titanium.UI.createView({
-			width : Ti.App.size(230),
-			// right : Ti.App.size(10),
-			height : setHeightRow(i),
-			backgroundColor : "#33030c",
-			top : Ti.App.size(10)
-		});
-		lblKQ[i] = Ti.UI.createLabel({
-			textAlign : "center",
-			height : Ti.UI.SIZE,
-			width : setWidth(i),
-			zIndex : 1,
-			color : setColor(i),
-			top : Ti.App.size(20),
-			font : setFont(i),
-		});
-		//////
-		viewchua2[i] = Titanium.UI.createView({
-			// left : Ti.App.size(180),
-			width : Ti.App.size(230),
-			height : setHeightRow(i),
-			backgroundColor : "#33030c",
-			top : Ti.App.size(10)
-		});
-		lblKQ2[i] = Ti.UI.createLabel({
-			textAlign : "center",
-			height : Ti.UI.SIZE,
-			width : setWidth(i),
-			zIndex : 1,
-			color : setColor(i),
-			top : Ti.App.size(20),
-			font : setFont(i),
-		});
-		//////
-		/////
-		viewTenGiai[i].add(lblTenGiai[i]);
-		viewchua[i].add(lblKQ[i]);
-		viewchua2[i].add(lblKQ2[i]);
+		////
+		viewTenGiai[i] = view_result(setHeightRow(i), Ti.App.size(140));
+		viewTenGiai[i].setText(TenGiaiMN[i], setColor(i), setFont(i));
+		viewchua[i] = view_result(setHeightRow(i), Ti.App.size(230));
+		viewchua2[i] = view_result(setHeightRow(i), Ti.App.size(230));
 		viewChuaTenGiai.add(viewTenGiai[i]);
 		viewChuaGiai1.add(viewchua[i]);
 		viewChuaGiai2.add(viewchua2[i]);
+		/////
 	}
-	var interval = null;
+	//////tinh 1
+	lblKQ[18] = label(0, 1);
+	viewchua[10].add(lblKQ[18]);
+	lblKQ[0] = label(0, 0);
+	viewchua[1].add(lblKQ[0]);
+	for (var i = 0; i < 17; i++) {
+		lblKQ[17 - i] = label(1, 1);
+	}
+	viewchua[9].add(lblKQ[17]);
+	viewchua[8].add(lblKQ[16]);
+	viewchua[7].add(lblKQ[15]);
+	viewchua[7].add(lblKQ[14]);
+	viewchua[7].add(lblKQ[13]);
+	viewchua[6].add(lblKQ[12]);
+	viewchua[5].add(lblKQ[11]);
+	viewchua[5].add(lblKQ[10]);
+	viewchua[5].add(lblKQ[9]);
+	viewchua[5].add(lblKQ[8]);
+	viewchua[5].add(lblKQ[7]);
+	viewchua[5].add(lblKQ[6]);
+	viewchua[5].add(lblKQ[5]);
+	viewchua[4].add(lblKQ[4]);
+	viewchua[4].add(lblKQ[3]);
+	viewchua[3].add(lblKQ[2]);
+	viewchua[2].add(lblKQ[1]);
+
+	/////tinh 2
+	lblKQ2[18] = label(0, 1);
+	viewchua2[10].add(lblKQ2[18]);
+	lblKQ2[0] = label(0, 0);
+	viewchua2[1].add(lblKQ2[0]);
+	for (var i = 0; i < 17; i++) {
+		lblKQ2[17 - i] = label(1, 1);
+	}
+	viewchua2[9].add(lblKQ2[17]);
+	viewchua2[8].add(lblKQ2[16]);
+	viewchua2[7].add(lblKQ2[15]);
+	viewchua2[7].add(lblKQ2[14]);
+	viewchua2[7].add(lblKQ2[13]);
+	viewchua2[6].add(lblKQ2[12]);
+	viewchua2[5].add(lblKQ2[11]);
+	viewchua2[5].add(lblKQ2[10]);
+	viewchua2[5].add(lblKQ2[9]);
+	viewchua2[5].add(lblKQ2[8]);
+	viewchua2[5].add(lblKQ2[7]);
+	viewchua2[5].add(lblKQ2[6]);
+	viewchua2[5].add(lblKQ2[5]);
+	viewchua2[4].add(lblKQ2[4]);
+	viewchua2[4].add(lblKQ2[3]);
+	viewchua2[3].add(lblKQ2[2]);
+	viewchua2[2].add(lblKQ2[1]);
 	////////
 	viewKQ.setParam = function(param) {
+		var kqTinh1 = [];
+		var mangstring1 = [];
+		var mangkq1 = [];
+		var kqTinh2 = [];
+		var mangstring2 = [];
+		var mangkq2 = [];
 		if (param[0].lines) {
-			clearInterval(interval);
-			lblKQ[10].setText(param[0].provide.name);
-
-			for (var i = 0; i < (param[0].lines.length); i++) {
-				lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
-			}
-			if (param[1].provide.name) {
-				lblKQ2[10].setText(param[1].provide.name);
-				for (var i = 0; i < (param[1].lines.length); i++) {
-					lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
-				}
-			}
-
+			lblKQ[18].setText(param[0].provide.name);
+			lblKQ2[18].setText(param[1].provide.name);
+			for (var i = 0; i < (param[0].lines.length); i++)
+				kqTinh1.push(param[0].lines[i].result);
+			for (var i = 0; i < (param[1].lines.length); i++)
+				kqTinh2.push(param[1].lines[i].result);
 		}
-
+		for (var i = 0; i < (kqTinh1.length); i++) {
+			mangstring1 = (kqTinh1[i].toString()).split(',');
+			for (var j = 0; j < (mangstring1.length); j++) {
+				// Ti.API.info('mang string:' + mangstring[j]);
+				mangkq1.push(mangstring1[j]);
+			};
+		}
+		for (var i = 0; i < (kqTinh2.length); i++) {
+			mangstring2 = (kqTinh2[i].toString()).split(',');
+			for (var j = 0; j < (mangstring2.length); j++) {
+				// Ti.API.info('mang string:' + mangstring[j]);
+				mangkq2.push(mangstring2[j]);
+			};
+		}
+		for (var i = 0; i < (mangkq1.length); i++) {
+			lblKQ[i].setText(mangkq1[i]);
+		}
+		for (var i = 0; i < (mangkq2.length); i++) {
+			lblKQ2[i].setText(mangkq2[i]);
+		}
 	};
-	viewKQ.setParamLive = function(param) {
-		lblKQ[10].setText(param[0].provide.name);
-		lblKQ2[10].setText(param[1].provide.name);
-		for (var i = 0; i < (param[0].lines.length); i++) {
-			lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
-		}
-		for (var i = 0; i < (param[1].lines.length); i++) {
-			lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
-		}
+
+	var isLoading = false;
+	var interval = null;
+	viewKQ.setParamLive = function() {
+		var param = null;
+		var xhr = Titanium.Network.createHTTPClient();
+		var data = {
+			"regionid" : "2"
+		};
+		laykq_tructiep(xhr, data, lblKQ, lblKQ2);
 		interval = setInterval(function() {
-			for (var i = 0; i < (param[0].lines.length); i++) {
-				lblKQ[i + 1].setText((param[0].lines[i].result.toString()).replace(/,/g, ' '));
-			}
-			for (var i = 0; i < (param[1].lines.length); i++) {
-				lblKQ2[i + 1].setText(param[1].lines[i].result.toString().replace(/,/g, ' '));
-			}
-			if (param[0].lines.length == 10) {
-				clearInterval(interval);
-			}
+			Ti.API.info('lay ket qua');
+			laykq_tructiep(xhr, data, lblKQ, lblKQ2, interval);
+
 		}, 15000);
+	};
+	///
+	viewKQ.clearInterVal=function(){
+		clearInterval(interval);
 	};
 	/////////
 	viewKQ.add(viewChuaTenGiai);
@@ -193,3 +212,111 @@ function setWidth(i) {
 	else
 		return Ti.UI.SIZE;
 }
+
+function laykq_tructiep(xhr, data, lblkq1, lblkq2, interval) {
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=searchcurrentlottery');
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		isLoading = false;
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		param = jsonResuilt.resulttable;
+		var kqTinh1 = [];
+		var mangstring1 = [];
+		var mangkq1 = [];
+		var kqTinh2 = [];
+		var mangstring2 = [];
+		var mangkq2 = [];
+		if (param[0].lines) {
+			lblkq1[18].setText(param[0].provide.name);
+			lblkq2[18].setText(param[1].provide.name);
+			for (var i = 0; i < (param[0].lines.length); i++)
+				kqTinh1.push(param[0].lines[i].result);
+			for (var i = 0; i < (param[1].lines.length); i++)
+				kqTinh2.push(param[1].lines[i].result);
+		}
+		for (var i = 0; i < (kqTinh1.length); i++) {
+			mangstring1 = (kqTinh1[i].toString()).split(',');
+			for (var j = 0; j < (mangstring1.length); j++) {
+				// Ti.API.info('mang string:' + mangstring[j]);
+				mangkq1.push(mangstring1[j]);
+			};
+		}
+		for (var i = 0; i < (kqTinh2.length); i++) {
+			mangstring2 = (kqTinh2[i].toString()).split(',');
+			for (var j = 0; j < (mangstring2.length); j++) {
+				// Ti.API.info('mang string:' + mangstring[j]);
+				mangkq2.push(mangstring2[j]);
+			};
+		}
+		for (var i = 0; i < (mangkq1.length); i++) {
+			lblkq1[i].setText(mangkq1[i]);
+		}
+		for (var i = 0; i < (mangkq2.length); i++) {
+			lblkq2[i].setText(mangkq2[i]);
+		}
+		if (mangkq1.length+mangkq2.length == 36) {
+			Ti.API.info('clear interval');
+			clearInterval(interval);
+		}
+		isLoading = false;
+	};
+	xhr.send(JSON.stringify(data));
+	isLoading = true;
+}
+
+////
+function view_result(v_height, v_width) {
+	var datalbl;
+	var viewRS = Titanium.UI.createView({
+		height : v_height,
+		width : v_width,
+		backgroundColor : "#33030c",
+		top : Ti.App.size(10),
+		layout : "vertical",
+		touchEnabled : false
+	});
+	viewRS.setText = function(_text, _color, _font) {
+		datalbl = Ti.UI.createLabel({
+			textAlign : "center",
+			width : v_width,
+			zIndex : 1,
+			color : _color,
+			font : _font,
+			touchEnabled : false,
+			backgroundColor : 'transparent',
+			text : _text,
+			height : v_height
+		});
+		viewRS.add(datalbl);
+	};
+	return viewRS;
+};
+function label(lbl_color, lbl_font) {
+	var lbl_result = Ti.UI.createLabel({
+		textAlign : "center",
+		width : Ti.UI.SIZE,
+		zIndex : 1,
+		color : lbl_color == 1 ? "white" : "orange",
+		top : Ti.App.size(10),
+		font : lbl_font == 1 ? {
+			fontSize : Ti.App.size(25)
+		} : {
+			fonWeight : 'bold',
+			fontSize : Ti.App.size(35)
+		},
+		touchEnabled : false,
+		backgroundColor : 'transparent',
+		center : 'true',
+	});
+	return lbl_result;
+};

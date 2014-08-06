@@ -19,9 +19,6 @@ module.exports = function() {
 };
 function taobien(sv) {
 	sv.vari.datarow = null;
-	sv.vari.no_result = Ti.UI.createTableViewRow({
-		title : "Chưa có kết quả"
-	});
 	sv.arr.ten_mien = [{
 		id : "0",
 		name : "Miền Bắc"
@@ -37,6 +34,7 @@ function taobien(sv) {
 	sv.ui.view_choose = new sv.vari.combobox(1);
 	sv.ui.view_choose1 = new sv.vari.combobox();
 	sv.vari.datarow = null;
+	sv.vari.txt_value=null;
 };
 function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -65,7 +63,7 @@ function taoui(sv) {
 	////view picker
 	sv.ui.ViewPicker = Titanium.UI.createView({
 		width : Ti.App.size(640),
-		height : Ti.App.size(700),
+		height : setHeightPicker(),
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
@@ -188,7 +186,6 @@ function createUI_Event(sv) {
 ////
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
-		Ti.API.info('clear interval');
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
 		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
@@ -200,28 +197,55 @@ function removeSK(sv) {
 };
 /////////ham cap nhat ket qua va hien thi
 function showResult(sv) {
-	var kt = null;
-	if ((new Date().getHours()) == 17 && new Date().getMinutes >= 15) {
-		sv.ui.lblfirst.setText("Miền Trung");
+	var xhr = Titanium.Network.createHTTPClient();
+	var data = {};
 
-		soketqua({
-			"regionid" : 1
-		}, sv, 1, "KẾT QUẢ XỔ SỐ MIỀN TRUNG ");
-
-	}
-	if ((new Date().getHours()) == 16 && new Date().getMinutes >= 10) {
-		sv.ui.lblfirst.setText("Miền Nam");
-		soketqua({
-			"regionid" : 2
-		}, sv, 2, "KẾT QUẢ XỔ SỐ MIỀN NAM ");
-	}
-	if ((new Date().getHours()) == 18 && new Date().getMinutes >= 15) {
-		sv.ui.lblfirst.setText("Miền Bắc");
-		soketqua({
-			"regionid" : 0
-		}, sv, 0);
-	} else {
-		if (new Date().getHours() > 19 || new Date().getHours() < 16) {
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getnowtime');
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	Ti.API.info(JSON.stringify(data));
+	xhr.send(JSON.stringify(data));
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		var time = jsonResuilt.time.toString().split(' ')[1];
+		var hour = time.split(':')[0];
+		var min = time.split(':')[1];
+		Ti.API.info('thoi gian hien tai' + time + '/' + hour + '/' + min);
+		if (hour == 17 && min >= 15) {
+			Ti.API.info('lay kq mien trung');
+			sv.ui.lblfirst.setText("Miền Trung");
+			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + currDate());
+			sv.ui.ViewKQ.removeAllChildren();
+			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
+			sv.vari.datarow.setParamLive();
+			sv.ui.ViewKQ.add(sv.vari.datarow);
+		}
+		if (hour == 16 && min >= 10) {
+			sv.ui.lblfirst.setText("Miền Nam");
+			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + currDate());
+			sv.ui.ViewKQ.removeAllChildren();
+			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+			sv.vari.datarow.setParamLive();
+			sv.ui.ViewKQ.add(sv.vari.datarow);
+		}
+		if (hour == 18 && min >= 15) {
+			sv.ui.lblfirst.setText("Miền Bắc");
+			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + currDate());
+			sv.ui.ViewKQ.removeAllChildren();
+			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
+			sv.vari.datarow.setParamLive();
+			sv.ui.ViewKQ.add(sv.vari.datarow);
+		}
+		if (hour == 16 && min < 10) {
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
@@ -229,8 +253,36 @@ function showResult(sv) {
 				"date" : set_lbl()
 			}, sv, 0);
 		}
+		if (hour == 17 && min < 15) {
+			sv.ui.lblfirst.setText("Miền Bắc");
+			Ti.API.info('lay ket qua mien bac');
+			searchregionlottery({
+				"regionid" : 0,
+				"date" : set_lbl()
+			}, sv, 0);
+		}
+		if (hour == 18 && min < 15) {
+			sv.ui.lblfirst.setText("Miền Bắc");
+			Ti.API.info('lay ket qua mien bac');
+			searchregionlottery({
+				"regionid" : 0,
+				"date" : set_lbl()
+			}, sv, 0);
+		} else {
+			if (hour > 19 || hour < 16) {
+				
+				Ti.API.info('custom dialog'+sv.vari.txt_value);
+				sv.ui.lblfirst.setText("Miền Bắc");
+				Ti.API.info('lay ket qua mien bac');
+				searchregionlottery({
+					"regionid" : 0,
+					"date" : set_lbl()
+				}, sv, 0);
+			}
+		}
+	};
 
-	}
+
 };
 ////
 function searchregionlottery(data, sv, loai) {
@@ -282,55 +334,12 @@ function searchregionlottery(data, sv, loai) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + date_time[0]);
 		}
-		sv.vari.datarow.setParam(jsonResuilt.resulttable);
+		sv.vari.datarow.setParam(jsonResuilt.resulttable, sv.vari.txt_value);
 		sv.ui.ViewKQ.add(sv.vari.datarow);
 	};
 
 };
 
-/////////
-function ketquatructiep(data, sv, loai) {
-	var xhr = Titanium.Network.createHTTPClient();
-	sv.ui.ViewKQ.removeAllChildren();
-	xhr.onsendstream = function(e) {
-		//ind.value = e.progress;
-		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
-	};
-	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=searchcurrentlottery');
-	xhr.setRequestHeader("Content-Type", "application/json-rpc");
-	Ti.API.info(JSON.stringify(data));
-	xhr.send(JSON.stringify(data));
-	xhr.onerror = function(e) {
-		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
-	};
-	xhr.onload = function() {
-		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
-		var dl = JSON.parse(this.responseText);
-		var jsonResuilt = JSON.parse(dl);
-
-		var ketqua = [];
-		var dodai = null;
-		var date_time = null;
-		date_time = jsonResuilt.resulttable[0].resultdate.toString().split(' ');
-		Ti.API.info('date' + date_time[0]);
-		if (loai == "1") {
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
-			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + date_time[0]);
-		}
-		if (loai == "2") {
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
-			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + date_time[0]);
-		}
-		if (loai == "0") {
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
-			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + date_time[0]);
-		}
-		sv.vari.datarow.setParamLive(jsonResuilt.resulttable);
-		sv.ui.ViewKQ.add(sv.vari.datarow);
-	};
-
-};
 //////////
 function sms_offline() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
@@ -367,5 +376,45 @@ function set_lbl() {
 		return currDate();
 	} else {
 		return getYesterdaysDate();
+	}
+};
+function custom_dialog(sv) {
+	var isAndroid = Ti.Platform.osname === 'android';
+	var dialog = null;
+	var txt_value = null;
+	if (isAndroid) {
+		var textfield = Ti.UI.createTextField();
+		dialog = Ti.UI.createAlertDialog({
+			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
+			androidView : textfield,
+			buttonNames : ['OK', 'cancel']
+		});
+		dialog.addEventListener('click', function(e) {
+			Ti.API.info(textfield.value);
+			sv.vari.txt_value = textfield.value;
+		});
+	} else {
+		dialog = Ti.UI.createAlertDialog({
+			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
+			style : Ti.UI.iPhone.AlertDialogStyle.PLAIN_TEXT_INPUT,
+			buttonNames : ['OK', 'cancel'],
+		});
+		dialog.addEventListener('click', function(e) {
+			Ti.API.info('e.text: ' + e.text);
+			sv.vari.txt_value = e.text;
+		});
+	}
+	dialog.show();
+}
+function setHeightPicker() {
+	var isAndroid = Ti.Platform.osname === 'android';
+	var isIpad = Ti.Platform.osname === 'ipad';
+	if (isAndroid) {
+		return Ti.App.size(650);
+	} else {
+		if(isIpad)
+		return Ti.App.size(590);
+		else
+		return Ti.App.size(690);
 	}
 };

@@ -1,9 +1,9 @@
 module.exports = function() {
-	var TenGiaiMN = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy"];
+	var TenGiaiMB = ["Giải ĐB", "Giải nhất", "Giải nhì", "Giải ba", "Giải Tư", "Giải Năm", "Giải Sáu", "Giải Bảy"];
 	var viewTenGiai = [];
 	var lblTenGiai = [];
 	var lblKQ = [];
-	var viewchua = [];
+	var viewchua_result = [];
 	var viewKQ = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.UI.SIZE,
@@ -30,75 +30,137 @@ module.exports = function() {
 		left : Ti.App.size(10),
 	});
 	for (var i = 0; i < 8; i++) {
-		viewTenGiai[i] = Titanium.UI.createView({
-			height : setHeightRow(i),
-			width : Ti.App.size(140),
-			backgroundColor : "#33030c",
-			top : Ti.App.size(10)
-		});
-		lblTenGiai[i] = Ti.UI.createLabel({
-			height : Ti.UI.SIZE,
-			text : TenGiaiMN[i],
-			textAlign : "center",
-			color : setColor(i),
-			width : Ti.App.size(140),
-			zIndex : 1,
-			top : Ti.App.size(20),
-			font : setFont(i),
-		});
-		viewchua[i] = Titanium.UI.createView({
-			width : Ti.App.size(470),
-			// right : Ti.App.size(10),
-			height : setHeightRow(i),
-			backgroundColor : "#33030c",
-			top : Ti.App.size(10)
-		});
-		lblKQ[i] = Ti.UI.createLabel({
-			textAlign : "center",
-			height : Ti.UI.SIZE,
-			width : Ti.App.size(420),
-			zIndex : 1,
-			color : setColor(i),
-			top : Ti.App.size(20),
-			font : setFont(i),
-		});
-		/////
-		viewTenGiai[i].add(lblTenGiai[i]);
-		viewchua[i].add(lblKQ[i]);
+		viewTenGiai[i] = view_result(setHeightRow(i), Ti.App.size(140));
+		viewTenGiai[i].setText(TenGiaiMB[i], setColor(i), setFont(i));
+		viewchua_result[i] = view_result(setHeightRow(i), Ti.App.size(470));
 		viewChuaTenGiai.add(viewTenGiai[i]);
-		viewChuaGiai1.add(viewchua[i]);
+		viewChuaGiai1.add(viewchua_result[i]);
 	}
-	var interval = null;
+	//giai db
+	lblKQ[0] = label(0, 0, Ti.App.size(470));
+	viewchua_result[0].add(lblKQ[0]);
+	//giai nhat
+	lblKQ[1] = label(1, 1, Ti.App.size(470));
+	viewchua_result[1].add(lblKQ[1]);
+	///giai nhi
+	lblKQ[2] = label(1, 1, Ti.App.size(210));
+	lblKQ[3] = label(1, 1, Ti.App.size(210));
+	viewchua_result[2].add(lblKQ[2]);
+	viewchua_result[2].add(lblKQ[3]);
+	///giai 3
+	lblKQ[4] = label(1, 1, Ti.App.size(140));
+	lblKQ[5] = label(1, 1, Ti.App.size(140));
+	lblKQ[6] = label(1, 1, Ti.App.size(140));
+	lblKQ[7] = label(1, 1, Ti.App.size(140));
+	lblKQ[8] = label(1, 1, Ti.App.size(140));
+	lblKQ[9] = label(1, 1, Ti.App.size(140));
+	viewchua_result[3].add(lblKQ[4]);
+	viewchua_result[3].add(lblKQ[5]);
+	viewchua_result[3].add(lblKQ[6]);
+	viewchua_result[3].add(lblKQ[7]);
+	viewchua_result[3].add(lblKQ[8]);
+	viewchua_result[3].add(lblKQ[9]);
+	////giai 4
+	lblKQ[10] = label(1, 1, Ti.App.size(107));
+	lblKQ[11] = label(1, 1, Ti.App.size(107));
+	lblKQ[12] = label(1, 1, Ti.App.size(107));
+	lblKQ[13] = label(1, 1, Ti.App.size(107));
+	viewchua_result[4].add(lblKQ[10]);
+	viewchua_result[4].add(lblKQ[11]);
+	viewchua_result[4].add(lblKQ[12]);
+	viewchua_result[4].add(lblKQ[13]);
+	///giai 5
+	lblKQ[14] = label(1, 1, Ti.App.size(65));
+	lblKQ[15] = label(1, 1, Ti.App.size(65));
+	lblKQ[16] = label(1, 1, Ti.App.size(65));
+	lblKQ[17] = label(1, 1, Ti.App.size(65));
+	lblKQ[18] = label(1, 1, Ti.App.size(65));
+	lblKQ[19] = label(1, 1, Ti.App.size(65));
+	viewchua_result[5].add(lblKQ[14]);
+	viewchua_result[5].add(lblKQ[15]);
+	viewchua_result[5].add(lblKQ[16]);
+	viewchua_result[5].add(lblKQ[17]);
+	viewchua_result[5].add(lblKQ[18]);
+	viewchua_result[5].add(lblKQ[19]);
+	///giai 6
+	lblKQ[20] = label(1, 1, Ti.App.size(130));
+	lblKQ[21] = label(1, 1, Ti.App.size(130));
+	lblKQ[22] = label(1, 1, Ti.App.size(130));
+	viewchua_result[6].add(lblKQ[20]);
+	viewchua_result[6].add(lblKQ[21]);
+	viewchua_result[6].add(lblKQ[22]);
+	////giai 7
+	lblKQ[23] = label(1, 1, Ti.App.size(100));
+	lblKQ[24] = label(1, 1, Ti.App.size(100));
+	lblKQ[25] = label(1, 1, Ti.App.size(100));
+	lblKQ[26] = label(1, 1, Ti.App.size(100));
+	viewchua_result[7].add(lblKQ[23]);
+	viewchua_result[7].add(lblKQ[24]);
+	viewchua_result[7].add(lblKQ[25]);
+	viewchua_result[7].add(lblKQ[26]);
+	/*
+	*
+	* for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
+	Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
+	Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
+	ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
+	};
+	*/
 	////////
-	viewKQ.setParam = function(param) {
+	viewKQ.setParam = function(param, socantim) {
+		var ketqua = [];
+		var mangstring = [];
+		var mangkq = [];
 		if (param[0].lines) {
-			if (interval != null) {
-				Ti.API.info('clear interval o lay kq theo ngay');
-				clearInterval(interval);
-			}
-			for (var i = 0; i < (param[0].lines.length); i++) {
-				lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
+			for (var i = 0; i < (param[0].lines.length); i++)
+				ketqua.push(param[0].lines[i].result);
+		}
+		for (var i = 0; i < (ketqua.length); i++) {
+			mangstring = (ketqua[i].toString()).split(',');
+			for (var j = 0; j < (mangstring.length); j++) {
+				// Ti.API.info('mang string:' + mangstring[j]);
+				mangkq.push(mangstring[j]);
+			};
+		}
+		for (var i = 0; i < (mangkq.length); i++) {
+			lblKQ[i].setText(mangkq[i]);
+			if (socantim != null) {
+				if (mangkq[i].toString().match(/socantim.*/)) {
+					lblKQ[i].setColor("yellow");
+					lblKQ[i].setFont({
+						fontWeight : 'bold',
+						fontSize : Ti.App.size(35)
+					});
+				}
 			}
 
 		}
 
 	};
-	viewKQ.setParamLive = function(param) {
-		for (var i = 0; i < (param[0].lines.length); i++) {
-			lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
-		}
+	var param = null;
+	var isLoading = false;
+	var interval = null;
+	viewKQ.setParamLive = function() {
+		var xhr = Titanium.Network.createHTTPClient();
+		var data = {
+			"regionid" : "0"
+		};
+		laykq_tructiep(xhr, data, lblKQ);
 		interval = setInterval(function() {
-			Ti.API.info('lay ket qua lien tuc');
-			for (var i = 0; i < (param[0].lines.length); i++) {
-				lblKQ[i].setText((param[0].lines[i].result.toString()).replace(/,/g, '-'));
-			}
-			if (param[0].lines.length == 8) {
-				Ti.API.info('clear interval');
-				clearInterval(interval);
-			}
+			// if (param == null || isLoading)
+			// return;
+			// if (param[0].lines.length == 8) {
+			// clearInterval(interval);
+			//
+			// } else {
+			laykq_tructiep(xhr, data, lblKQ, interval);
+			// }
 		}, 15000);
 	};
-
+	/////
+	viewKQ.clearInterVal = function() {
+		clearInterval(interval);
+	};
 	/////////
 	viewKQ.add(viewChuaTenGiai);
 	viewKQ.add(viewChuaGiai1);
@@ -132,4 +194,96 @@ function setFont(i) {
 			fontSize : Ti.App.size(25),
 		};
 	}
+};
+function laykq_tructiep(xhr, data, lblkq, interval) {
+	xhr.onsendstream = function(e) {
+		//ind.value = e.progress;
+		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+	};
+	// open the client
+	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=searchcurrentlottery');
+	xhr.setRequestHeader("Content-Type", "application/json-rpc");
+	xhr.onerror = function(e) {
+		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		isLoading = false;
+	};
+	xhr.onload = function() {
+		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+		var dl = JSON.parse(this.responseText);
+		var jsonResuilt = JSON.parse(dl);
+		param = jsonResuilt.resulttable;
+		var ketqua = [];
+		var mangstring = [];
+		var mangkq = [];
+		if (param[0].lines) {
+			for (var i = 0; i < (param[0].lines.length); i++)
+				ketqua.push(param[0].lines[i].result);
+		}
+		for (var i = 0; i < (ketqua.length); i++) {
+			mangstring = (ketqua[i].toString()).split(',');
+			for (var j = 0; j < (mangstring.length); j++) {
+				// Ti.API.info('mang string:' + mangstring[j]);
+				mangkq.push(mangstring[j]);
+			};
+		}
+		for (var i = 0; i < (mangkq.length); i++) {
+			lblkq[i].setText(mangkq[i]);
+
+		}
+		if (param[0].lines.length == 8) {
+			clearInterval(interval);
+		}
+		isLoading = false;
+	};
+	xhr.send(JSON.stringify(data));
+	isLoading = true;
+}
+
+////
+function view_result(v_height, v_width) {
+	var datalbl;
+	var viewRS = Titanium.UI.createView({
+		height : v_height,
+		width : v_width,
+		backgroundColor : "#33030c",
+		top : Ti.App.size(10),
+		layout : "horizontal",
+		touchEnabled : false
+	});
+	viewRS.setText = function(_text, _color, _font) {
+		datalbl = Ti.UI.createLabel({
+			textAlign : "center",
+			width : v_width,
+			zIndex : 1,
+			color : _color,
+			// top : Ti.App.size(10),
+			font : _font,
+			touchEnabled : false,
+			backgroundColor : 'transparent',
+			text : _text,
+			height : v_height
+		});
+		viewRS.add(datalbl);
+	};
+	return viewRS;
+};
+function label(lbl_color, lbl_font, _width) {
+	var lbl_result = Ti.UI.createLabel({
+		textAlign : "center",
+		width : _width,
+		zIndex : 1,
+		color : lbl_color == 1 ? "white" : "orange",
+		top : Ti.App.size(10),
+		font : lbl_font == 1 ? {
+			fontSize : Ti.App.size(25)
+		} : {
+			fonWeight : 'bold',
+			fontSize : Ti.App.size(35)
+		},
+		touchEnabled : false,
+		backgroundColor : 'transparent',
+		left : Ti.App.size(10),
+		center : 'true'
+	});
+	return lbl_result;
 };

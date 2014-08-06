@@ -367,8 +367,10 @@ function GetTour(sv, data, _cmd) {
 					e.source.expanded = false;
 					sv.arr.rows[e.source.id].setHeight(Ti.App.size(90));
 					sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_downarrow.png');
+					sv.arr.viewBack[e.source.id].removeAllChildren();
 					for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 						if (j != (e.source.id)) {
+							sv.arr.viewBack[j].removeAllChildren();
 							sv.arr.rows[j].expanded = false;
 							sv.arr.rows[j].setHeight(Ti.App.size(90));
 							sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');
@@ -432,6 +434,7 @@ function GetTour(sv, data, _cmd) {
 						sv.arr.arrow[e.source.id].setImage('/assets/icon/icon_uparrow.png');
 						for (var j = 0; j < sv.vari.SoLuongGiaiDau; j++) {
 							if (j != (e.source.id)) {
+								sv.arr.viewBack[j].removeAllChildren();
 								sv.arr.rows[j].expanded = false;
 								sv.arr.rows[j].setHeight(Ti.App.size(90));
 								sv.arr.arrow[j].setImage('/assets/icon/icon_downarrow.png');

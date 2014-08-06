@@ -17,11 +17,19 @@ module.exports = function() {
 
 function createVariable(sv) {
 	sv.vari.combobox = require('/ui-soxo/ComboBox');
-	sv.ui.view_choose = new sv.vari.combobox();
+	sv.ui.view_choose = new sv.vari.combobox(1);
 	sv.ui.view_choose1 = new sv.vari.combobox();
 	sv.ui.view_choose2 = new sv.vari.combobox();
-	// sv.vari.now=new Date();
-	// sv.vari.now=sv.vari.now.setDate(sv.vari.now.getDate()-1);
+	sv.arr.ten_mien = [{
+		id : "0",
+		name : "Miền Bắc"
+	}, {
+		id : "2",
+		name : "Miền Nam"
+	}, {
+		id : "1",
+		name : "Miền Trung"
+	}];
 }
 
 function createUI(sv) {
@@ -98,16 +106,19 @@ function createUI(sv) {
 		backgroundColor : "#33030c"
 	});
 	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), 0, 1);
+	sv.ui.view_choose.setTable(sv.arr.ten_mien);
 	sv.ui.view_choose1.setPos(0, set_lbl2(), 0, Ti.App.size(320), 0, 2);
 	sv.ui.view_choose2.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), 0, 3);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
+	sv.ui.lblfirst.id = "MB";
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
 	sv.ui.lblfirst2 = sv.ui.view_choose2.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
+	sv.ui.table_view_region = sv.ui.view_choose1.getTableView();
 
 	sv.ui.ViewPicker = Titanium.UI.createView({
 		width : Ti.App.size(640),
-		height : Ti.App.size(713),
+		height :setHeightPicker(),
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
@@ -132,7 +143,7 @@ function createUI(sv) {
 	///////
 	sv.ui.ViewPicker2 = Titanium.UI.createView({
 		width : Ti.App.size(640),
-		height : Ti.App.size(713),
+		height : setHeightPicker(),
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
@@ -177,6 +188,15 @@ function createUI(sv) {
 		visible : false,
 		width : Ti.App.size(640)
 	});
+	sv.ui.ViewRegion = Titanium.UI.createView({
+		backgroundColor : 'transparent',
+		top : Ti.App.size(90),
+		left : 0,
+		height : Ti.App.size(1136),
+		zIndex : 10,
+		visible : false,
+		width : Ti.App.size(640)
+	});
 	sv.ui.ScrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(270),
 		left : 0,
@@ -213,11 +233,14 @@ function createUI(sv) {
 	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
 	sv.ui.ViewPicker.addEventListener('click', sv.fu.evt_hidePicker);
 	sv.ui.ViewPicker2.addEventListener('click', sv.fu.evt_hidePicker);
+	sv.ui.table_view_region.addEventListener('click', sv.fu.event_clicktbl_region);
+	sv.ui.ViewRegion.addEventListener('click', sv.fu.event_clickViewCheat);
 	/////
 	sv.ui.ViewLuaChonTinh.add(sv.ui.view_choose);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose1);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose2);
 
+	sv.ui.ViewRegion.add(sv.ui.table_view_region);
 	sv.ui.ViewCheat.add(sv.ui.table_view);
 	sv.ui.ViewPicker.add(sv.ui.picker);
 	sv.ui.ViewPicker2.add(sv.ui.picker2);
@@ -225,6 +248,7 @@ function createUI(sv) {
 	sv.ui.ViewTong.add(sv.ui.ViewLuaChon);
 	sv.ui.ViewTong.add(sv.ui.View_header);
 
+	sv.ui.ViewTong.add(sv.ui.ViewRegion);
 	sv.ui.ViewTong.add(sv.ui.ViewCheat);
 	sv.ui.ViewTong.add(sv.ui.ViewPicker);
 	sv.ui.ViewTong.add(sv.ui.ViewPicker2);
@@ -233,7 +257,7 @@ function createUI(sv) {
 	sv.ui.winThongKeKQ.add(sv.ui.ViewTong);
 	///////
 	soketqua("searchtimelottery", {
-		"provideid" : sv.ui.lblfirst.id,
+		"provideid" : "MB",
 		"startdate" : sv.ui.lblfirst1.text,
 		"enddate" : sv.ui.lblfirst2.text,
 	}, sv);
@@ -281,31 +305,53 @@ function createUI_Event(sv) {
 	////
 	sv.fu.event_clickViewCheat = function(e) {
 		sv.ui.ViewCheat.visible = false;
-		// sv.ui.TableView.touchEnabled = true;
 		sv.ui.ViewPicker.visible = false;
 		sv.ui.ViewPicker2.visible = false;
+		sv.ui.ViewRegion.visible = false;
 	};
 	sv.fu.event_click_view = function(e) {
-		soketqua("getprovide", {
-			"startdate" : sv.ui.lblfirst1.text,
-			"enddate" : sv.ui.lblfirst2.text,
-			// "startdate" : set_lbl()
-		}, sv);
 		sv.ui.ViewPicker.visible = false;
 		sv.ui.ViewPicker2.visible = false;
 		sv.ui.ViewCheat.visible = true;
+		sv.ui.view_choose.setTable(sv.arr.ten_mien);
 	};
-	sv.fu.event_clicktbl = function(e) {
-		sv.ui.lblfirst.text = e.row.tenrow;
+	sv.fu.event_clicktbl_region = function(e) {
 		sv.ui.lblfirst.id = e.row.id;
 		sv.ui.ViewCheat.visible = false;
 		sv.ui.ViewPicker.visible = false;
 		sv.ui.ViewPicker2.visible = false;
+		sv.ui.ViewRegion.visible = false;
 		soketqua("searchtimelottery", {
 			"provideid" : sv.ui.lblfirst.id,
 			"startdate" : sv.ui.lblfirst1.text,
 			"enddate" : sv.ui.lblfirst2.text,
 		}, sv);
+
+	};
+	sv.fu.event_clicktbl = function(e) {
+		if (e.row.id != "0") {
+			sv.ui.lblfirst.text = e.row.tenrow;
+			sv.ui.lblfirst.id = e.row.id;
+			sv.ui.ViewCheat.visible = false;
+			sv.ui.ViewPicker.visible = false;
+			sv.ui.ViewPicker2.visible = false;
+			soketqua("getprovidebyregion", {
+				"region" : sv.ui.lblfirst.id,
+				"weekday" : currDate(),
+				// "startdate" : set_lbl()
+			}, sv);
+		} else {
+			sv.ui.lblfirst.id = "MB";
+			sv.ui.ViewCheat.visible = false;
+			sv.ui.ViewPicker.visible = false;
+			sv.ui.ViewPicker2.visible = false;
+			sv.ui.ViewRegion.visible = false;
+			soketqua("searchtimelottery", {
+				"provideid" : sv.ui.lblfirst.id,
+				"startdate" : sv.ui.lblfirst1.text,
+				"enddate" : sv.ui.lblfirst2.text,
+			}, sv);
+		}
 	};
 	sv.fu.event_click_view1 = function(e) {
 		sv.ui.ViewPicker.visible = true;
@@ -332,6 +378,8 @@ function createUI_Event(sv) {
 		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
 		sv.ui.ViewPicker.removeEventListener('click', sv.fu.evt_hidePicker);
 		sv.ui.ViewPicker2.removeEventListener('click', sv.fu.evt_hidePicker);
+		sv.ui.table_view_region.removeEventListener('click', sv.fu.event_clicktbl_region);
+		sv.ui.ViewRegion.removeEventListener('click', sv.fu.event_clickViewCheat);
 		// sv.vari = null;
 		// sv.arr = null;
 		// sv.ui = null;
@@ -392,7 +440,7 @@ function soketqua(_cmd, data, sv) {
 					Ti.API.info('ten giai: ' + jsonResuilt.resulttable[i].provide.name);
 					Ti.API.info('ngay thang: ' + jsonResuilt.resulttable[i].resultdate);
 					dataTable = rows();
-					dataTable.setParam(jsonResuilt.resulttable[i].lines, "Xổ Số " + jsonResuilt.resulttable[i].provide.name + " quay ngày " + jsonResuilt.resulttable[i].resultdate);
+					dataTable.setParam(jsonResuilt.resulttable[i].lines, "Xổ Số " + jsonResuilt.resulttable[i].provide.name + " quay ngày " + (jsonResuilt.resulttable[i].resultdate).toString().split(' ')[0]);
 					sv.ui.ScrollView.add(dataTable);
 					for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
 						Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
@@ -404,13 +452,15 @@ function soketqua(_cmd, data, sv) {
 
 			}
 		} else {
-			if (_cmd == "getprovide") {
+			if (_cmd == "getprovidebyregion") {
+
 				var ketqua;
 				var mangkq = [];
 				for (var i = 0; i < jsonResuilt.provides.length; i++) {
 					mangkq.push(jsonResuilt.provides[i]);
 				}
-				sv.ui.view_choose.setTable(mangkq);
+				sv.ui.view_choose1.setTable(mangkq);
+				sv.ui.ViewRegion.visible = true;
 			}
 		}
 
@@ -629,3 +679,16 @@ function sms_offline() {
 		});
 	}
 }
+
+function setHeightPicker() {
+	var isAndroid = Ti.Platform.osname === 'android';
+	var isIpad = Ti.Platform.osname === 'ipad';
+	if (isAndroid) {
+		return Ti.App.size(650);
+	} else {
+		if(isIpad)
+		return Ti.App.size(590);
+		else
+		return Ti.App.size(690);
+	}
+};

@@ -104,8 +104,7 @@ function createUI(sv) {
 		width : "100%",
 		height : "100%",
 		zIndex : 0,
-		opacity : 0.7,
-		backgroundColor : 'black'
+		backgroundImage : "/assets/icon/bg70.png"
 	}));
 	////
 	sv.ui.IconGiaiDau = Titanium.UI.createImageView({
@@ -428,24 +427,142 @@ function ViewKeo() {
 	////////
 	VKeo.setPos = function(tenKeo, param, tendoi1, tendoi2) {
 		TenKeo.setText(tenKeo);
-		TenDoi1.setText(tendoi1+" thắng "+doc_thangthua((param.owner)));
-		TenDoi2.setText(tendoi2+" thắng "+doc_thangthua((param.guest)));
+		TenDoi1.setText(tendoi1 + " thắng " + doc_thangthua_chauAu((param.owner)));
+		TenDoi2.setText(tendoi2 + " thắng " + doc_thangthua_chauAu((param.guest)));
 		tyle1.setText(param.owner);
-		tyle2.setText("2 đội hòa "+doc_thangthua(param.ratio));
-		TyLe.setText(param.ratio);
-		tyle3.setText(param.guest);
-	};
-	VKeo.setPosChauA = function(tenKeo, param, tendoi1, tendoi2) {
-		TenKeo.setText(tenKeo);
-		TenDoi1.setText(tendoi1+" thắng "+doc_thangthua((param.owner)));
-		TenDoi2.setText(tendoi2+" thắng "+doc_thangthua((param.guest)));
-		tyle1.setText(param.owner);
-		tyle2.setText(doc_keo(tendoi1, tendoi2, param.ratio));
+		tyle2.setText("2 đội hòa " + doc_thangthua_chauAu(param.ratio));
 		TyLe.setText(param.ratio);
 		tyle3.setText(param.guest);
 	};
 	return VKeo;
 };
+////////
+function ViewKeoChauA() {
+	var VKeo = Ti.UI.createView({
+		width : Ti.App.size(620),
+		height : Ti.App.size(305),
+		left : Ti.App.size(10),
+		borderRadius : Ti.App.size(5),
+		// backgroundColor : 'brown',
+		top : Ti.App.size(18),
+		backgroundImage : "/assets/icon/bet_bg1.png"
+	});
+	var VHeader = Ti.UI.createView({
+		width : Ti.App.size(620),
+		height : Ti.App.size(80),
+		left : 0,
+		top : 0,
+		backgroundColor : "transparent"
+	});
+	VKeo.add(VHeader);
+	var TenKeo = Ti.UI.createLabel({
+		left : Ti.App.size(60),
+		width : Ti.UI.SIZE,
+		color : Ti.App.Color.superwhite,
+		font : {
+			fontWeight : 'bold',
+			fontSize : Ti.App.size(30)
+		}
+	});
+	VHeader.add(TenKeo);
+	var bet_icon = Ti.UI.createImageView({
+		width : Ti.App.size(14),
+		height : Ti.App.size(14),
+		touchEnabled : false,
+		backgroundImage : '/assets/icon/icon_bet_open.png',
+		left : Ti.App.size(10)
+	});
+	VHeader.add(bet_icon);
+	var arrow = Ti.UI.createImageView({
+		width : Ti.App.size(40),
+		height : Ti.App.size(40),
+		touchEnabled : false,
+		backgroundImage : '/assets/icon/icon_up_arrow.png',
+		right : Ti.App.size(50)
+	});
+	VHeader.add(arrow);
+	///////////
+	var Row1 = Titanium.UI.createView({
+		width : Ti.App.size(620),
+		left : 0,
+		height : Ti.App.size(75),
+		top : Ti.App.size(80)
+	});
+	var tyle_doinha = Ti.UI.createLabel({
+		left : Ti.App.size(20),
+		color : "yellow",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
+	});
+	var tyle_keo = Ti.UI.createLabel({
+		color : "yellow",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE,
+		left : Ti.App.size(300)
+	});
+	var tyle_doikhach = Ti.UI.createLabel({
+		right : Ti.App.size(20),
+		color : "yellow",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
+	});
+	Row1.add(tyle_doinha);
+	Row1.add(tyle_doikhach);
+	Row1.add(tyle_keo);
+	VKeo.add(Row1);
+	//////////
+	var Row2 = Titanium.UI.createView({
+		width : Ti.App.size(620),
+		left : 0,
+		height : Ti.App.size(75),
+		top : Ti.App.size(155)
+	});
+	var ThongTinKeo = Ti.UI.createLabel({
+		left : Ti.App.size(20),
+		color : "white",
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
+	});
+	Row2.add(ThongTinKeo);
+	VKeo.add(Row2);
+	/////////
+	var Row3 = Titanium.UI.createView({
+		width : Ti.App.size(620),
+		left : 0,
+		height : Ti.App.size(75),
+		top : Ti.App.size(240)
+	});
+	var ThongTinCuoc = Ti.UI.createLabel({
+		left : Ti.App.size(20),
+		color : Ti.App.Color.superwhite,
+		font : {
+			fontSize : Ti.App.size(25)
+		},
+		width : Ti.UI.SIZE
+	});
+	Row3.add(ThongTinCuoc);
+	VKeo.add(Row3);
+	////////
+	VKeo.setPosChauA = function(tenKeo, param, tendoi1, tendoi2) {
+		TenKeo.setText(tenKeo);
+		tyle_doikhach.setText(param.guest);
+		tyle_doinha.setText(param.owner);
+		tyle_keo.setText(param.ratio);
+		ThongTinKeo.setText(doc_keo(tendoi1, tendoi2, param.ratio));
+		ThongTinCuoc.setText(doc_thangthua(param.owner, param.guest));
+	};
+	return VKeo;
+};
+
+///////
 function ViewTySo() {
 	var VTySo = Ti.UI.createView({
 		width : Ti.App.size(620),
@@ -560,7 +677,7 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 			sv.ui.ViewChuaKeo.setTouchEnabled(true);
 		}, 1000);
 		if (jsonResuilt.match.aisiabe_betting[0]) {
-			sv.vari.ViewKeoChauA = ViewKeo();
+			sv.vari.ViewKeoChauA = ViewKeoChauA();
 			sv.vari.ViewKeoChauA.setPosChauA("Kèo Châu Á", jsonResuilt.match.aisiabe_betting[0], tendoi1, tendoi2);
 			sv.ui.ViewChuaKeo.add(sv.vari.ViewKeoChauA);
 		}
@@ -583,7 +700,25 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 		///////
 	};
 };
-function doc_thangthua(_tyle) {
+function doc_thangthua(_tyle1, _tyle2) {
+	var result;
+
+	if (_tyle1 < 0) {
+		if (_tyle2 < 0) {
+			result = "Trên bỏ " + Math.floor(_tyle1 * (-100)) + " dưới bỏ " + Math.floor(_tyle2 * (-100));
+		} else {
+			result = "Trên bỏ " + Math.floor(_tyle1 * (-100)) + " dưới ăn " + Math.floor(_tyle2 * 100);
+		}
+	} else {
+		if (_tyle2 < 0) {
+			result = "Trên ăn " + Math.floor(_tyle1 * 100) + " dưới bỏ " + Math.floor(_tyle2 * (-100));
+		} else {
+			result = "Trên ăn " + Math.floor(_tyle1 * 100) + " dưới ăn " + Math.floor(_tyle2 * 100);
+		}
+	}
+	return result;
+};
+function doc_thangthua_chauAu(_tyle) {
 	var result;
 	if (_tyle < 0) {
 		result = " bỏ " + Math.floor(_tyle * (-100)) + " ăn 100";
@@ -620,13 +755,13 @@ function doc_tile(_tyle) {
 	}
 	if (_tyle.length == 3) {
 		if (_tyle == "1/4") {
-			result = " hòa thắng nửa";
+			result = " đồng banh (nửa tiền)";
 		}
 		if (_tyle == "1/2") {
-			result = " nửa trái";
+			result = " hòa ";
 		}
 		if (_tyle == "3/4") {
-			result = " nửa một";
+			result = " một ăn nửa tiền";
 		}
 
 	}
@@ -641,7 +776,7 @@ function doc_tile(_tyle) {
 			result = " " + _tyle0 + " đứt";
 		}
 		if (_tyle1 == "3/4") {
-			result = " " + (parseInt(_tyle0) + 1) + " ăn nửa";
+			result = " " + (parseInt(_tyle0) + 1) + " ăn nửa tiền";
 		}
 	}
 	return result;
