@@ -36,11 +36,12 @@ function tao_bien(sv) {
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
 	var customView = require('ui-controller/customView');
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.Win = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 		orientationModes : [Ti.UI.PORTRAIT],
 		backgroundColor : Ti.App.Color.magenta,
 	});

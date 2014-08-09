@@ -34,7 +34,7 @@ function taobien(sv) {
 	sv.ui.view_choose = new sv.vari.combobox(1);
 	sv.ui.view_choose1 = new sv.vari.combobox();
 	sv.vari.datarow = null;
-	sv.vari.txt_value=null;
+	sv.vari.txt_value = null;
 };
 function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -192,7 +192,7 @@ function removeSK(sv) {
 		sv.ui.view_choose1.removeEventListener('click', sv.fu.event_showPicker);
 		sv.ui.ViewPicker.removeEventListener('click', sv.fu.event_hidePicker);
 		sv.ui.picker.removeEventListener('change', sv.fu.event_picker);
-		if(sv.vari.datarow!=null||sv.vari.datarow!=undefined){
+		if (sv.vari.datarow != null || sv.vari.datarow != undefined) {
 			sv.vari.datarow.clearInterVal();
 		}
 		Ti.API.info('remove so ket qua');
@@ -222,38 +222,68 @@ function showResult(sv) {
 		var time = jsonResuilt.time.toString().split(' ')[1];
 		var hour = time.split(':')[0];
 		var min = time.split(':')[1];
+		var db = Ti.Database.open('userinfo');
+
 		Ti.API.info('thoi gian hien tai' + time);
 		if (hour == 17 && min >= 15) {
 			Ti.API.info('lay kq mien trung');
 			sv.ui.lblfirst.setText("Miền Trung");
-			sv.ui.lblfirst.id=1;
+			sv.ui.lblfirst.id = 1;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
+			var kqmt = db.execute("SELECT MB FROM KQSX");
+				if (kqmt.isValidRow()) {
+					kqmt.close();
+					db.close();
+				} else {
+					kqmt.close();
+					db.close();
+					custom_dialog(1);
+				}
 		}
 		if (hour == 16 && min >= 10) {
 			sv.ui.lblfirst.setText("Miền Nam");
-			sv.ui.lblfirst.id=2;
+			sv.ui.lblfirst.id = 2;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
+			var kqmt = db.execute("SELECT MB FROM KQSX");
+				if (kqmt.isValidRow()) {
+					kqmt.close();
+					db.close();
+				} else {
+					kqmt.close();
+					db.close();
+					custom_dialog(2);
+				}
 		}
 		if (hour == 18 && min >= 15) {
 			sv.ui.lblfirst.setText("Miền Bắc");
-			sv.ui.lblfirst.id=0;
+			sv.ui.lblfirst.id = 0;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
+			var kqmt = db.execute("SELECT MB FROM KQSX");
+				if (kqmt.isValidRow()) {
+					kqmt.close();
+					db.close();
+				} else {
+					kqmt.close();
+					db.close();
+					custom_dialog(0);
+				}
 		}
 		if (hour == 16 && min < 10) {
+			db.close();
 			sv.ui.lblfirst.setText("Miền Bắc");
-			sv.ui.lblfirst.id=0;
+			sv.ui.lblfirst.id = 0;
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
 				"regionid" : 0,
@@ -261,7 +291,8 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 17 && min < 15) {
-			sv.ui.lblfirst.id=0;
+			db.close();
+			sv.ui.lblfirst.id = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
@@ -270,7 +301,8 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 18 && min < 15) {
-			sv.ui.lblfirst.id=0;
+			db.close();
+			sv.ui.lblfirst.id = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
@@ -278,8 +310,9 @@ function showResult(sv) {
 				"date" : set_lbl()
 			}, sv, 0);
 		} else {
-			if (hour > 19 || hour < 16) {
-				sv.ui.lblfirst.id=0;
+			if (hour >= 19 || hour < 16) {
+				db.close();
+				sv.ui.lblfirst.id = 0;
 				sv.ui.lblfirst.setText("Miền Bắc");
 				Ti.API.info('lay ket qua mien bac');
 				searchregionlottery({
@@ -289,7 +322,6 @@ function showResult(sv) {
 			}
 		}
 	};
-
 
 };
 ////
@@ -386,43 +418,93 @@ function set_lbl() {
 		return getYesterdaysDate();
 	}
 };
-function custom_dialog(sv) {
+function custom_dialog(_loai) {
 	var isAndroid = Ti.Platform.osname === 'android';
 	var dialog = null;
 	var txt_value = null;
+	var db = Ti.Database.open("userinfo");
 	if (isAndroid) {
 		var textfield = Ti.UI.createTextField();
 		dialog = Ti.UI.createAlertDialog({
 			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
 			androidView : textfield,
-			buttonNames : ['OK', 'cancel']
+			buttonNames : ['OK', 'cancel'],
+			cancel : 1,
+			ok : 0
 		});
 		dialog.addEventListener('click', function(e) {
 			Ti.API.info(textfield.value);
-			sv.vari.txt_value = textfield.value;
+			if (e.index == e.source.ok) {
+				if (textfield.getValue().length != 0 || textfield.getValue() != "") {
+					Ti.API.info('co gia tri');
+					switch(_loai) {
+					case 0:
+						db.execute("INSERT INTO KQSX (MB) VALUES(?)", textfield.value);
+						db.close();
+						break;
+					case 2:
+						db.execute("INSERT INTO KQSX (MN) VALUES(?)", textfield.value);
+						db.close();
+						break;
+					case 1:
+						db.execute("INSERT INTO KQSX (MT) VALUES(?)", textfield.value);
+						db.close();
+						break;
+					}
+				} else {
+					Ti.API.info('khong co gia tri');
+					db.close();
+				}
+			} else {
+				dialog.hide();
+			}
+
 		});
 	} else {
 		dialog = Ti.UI.createAlertDialog({
 			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
 			style : Ti.UI.iPhone.AlertDialogStyle.PLAIN_TEXT_INPUT,
 			buttonNames : ['OK', 'cancel'],
+			cancel : 1,
+			ok : 0
 		});
 		dialog.addEventListener('click', function(e) {
 			Ti.API.info('e.text: ' + e.text);
-			sv.vari.txt_value = e.text;
+			if (e.index == e.source.ok)
+				if (e.text.length > 0) {
+					switch(_loai) {
+					case 0:
+						db.execute("INSERT INTO KQSX (MB) VALUES(?)", e.text);
+						db.close();
+						break;
+					case 2:
+						db.execute("INSERT INTO KQSX (MN) VALUES(?)", e.text);
+						db.close();
+						break;
+					case 1:
+						db.execute("INSERT INTO KQSX (MT) VALUES(?)", e.text);
+						db.close();
+						break;
+					}
+
+				} else {
+					db.close();
+				}
+
 		});
 	}
 	dialog.show();
 }
+
 function setHeightPicker() {
 	var isAndroid = Ti.Platform.osname === 'android';
 	var isIpad = Ti.Platform.osname === 'ipad';
 	if (isAndroid) {
 		return Ti.App.size(650);
 	} else {
-		if(isIpad)
-		return Ti.App.size(590);
+		if (isIpad)
+			return Ti.App.size(590);
 		else
-		return Ti.App.size(690);
+			return Ti.App.size(690);
 	}
 };

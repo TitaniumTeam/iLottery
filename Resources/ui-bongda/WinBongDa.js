@@ -17,18 +17,19 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.vari.ViewHT;
 	sv.vari.flag = 0;
 }
 
 ////
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
+	var isAndroid=Titanium.Platform.osname==='android';
 	sv.ui.Win = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});

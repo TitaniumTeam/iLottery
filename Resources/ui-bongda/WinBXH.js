@@ -46,12 +46,13 @@ function createVariable(sv) {
 
 function createUI(sv, tourid, season, logo) {
 	var customButton = require('ui-controller/customButton');
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.winBXH = Titanium.UI.createWindow({
 		backgroundColor : Ti.App.Color.superwhite,
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({

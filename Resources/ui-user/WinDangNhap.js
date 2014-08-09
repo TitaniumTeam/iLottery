@@ -20,11 +20,12 @@ function createVariable(sv) {
 function createUI(sv, _winDK) {
 	var customButton = require('ui-controller/customButton');
 	var customView = require('ui-controller/customView');
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.winDangNhap = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({

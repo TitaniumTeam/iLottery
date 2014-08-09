@@ -407,16 +407,16 @@ function GetTour(sv, data, _cmd) {
 							sv.vari.sotran = [];
 							//Ti.App.customToast.showToast("Không có trận nào", 1000);
 						} else {
-							if (jsonResuilt1.matchs.length > 17) {
-								for (var j = 0; j < ((jsonResuilt1.matchs).length / 20); j++) {
-									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
-									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
-									sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
-									sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
-									sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
-									sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
-								}
-							} else {
+							// if (jsonResuilt1.matchs.length > 17) {
+								// for (var j = 0; j < ((jsonResuilt1.matchs).length / 20); j++) {
+									// sv.vari.sotran.push(jsonResuilt1.matchs[j]);
+									// sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
+									// sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
+									// sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
+									// sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
+									// sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
+								// }
+							// } else {
 								for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
 									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
 									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
@@ -425,7 +425,7 @@ function GetTour(sv, data, _cmd) {
 									sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
 									sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
 								}
-							}
+							// }
 
 						}
 

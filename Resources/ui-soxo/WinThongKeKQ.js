@@ -34,11 +34,12 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.winThongKeKQ = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
@@ -273,7 +274,7 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventOpenWindow = function() {
-		Ti.API.info('Opened window');
+		Ti.API.info('Opened window thong ke kq');
 	};
 	sv.fu.evt_hidePicker = function(e) {
 		sv.ui.ViewPicker.visible = false;

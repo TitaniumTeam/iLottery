@@ -27,11 +27,12 @@ function createVariable(sv) {
 
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.winThongKeTH = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});

@@ -3,17 +3,19 @@ module.exports = function() {
 	var newdb = Ti.Database.install('/assets/database/serviceinfo', 'serviceinfo');
 	Ti.API.info('du lieu menu cap 1' + (newdb.execute("SELECT * FROM Menucap1_xoso").getRowCount()));
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
+	db.execute('CREATE TABLE IF NOT EXISTS KQSX(MB TEXT,MN TEXT,MT TEXT);');
 	var userinfo = db.execute("SELECT * FROM SaveInfo");
 	if (userinfo.isValidRow()) {
 		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));
 	}
+	var isAndroid = Titanium.Platform.osname === 'android';
 	var customView = require('ui-controller/customView');
 	var win = Ti.UI.createWindow({
 		backgroundImage : "/assets/icon/bg_login.png",
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid?false:true,
 	});
 	win.orientationModes = [Ti.UI.PORTRAIT];
 	var AppIcon = Ti.UI.createImageView({

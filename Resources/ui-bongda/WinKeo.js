@@ -24,11 +24,13 @@ function createVariable(sv) {
 ////tao ui
 function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.winKeo = Titanium.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : false,
+		fullscreen : isAndroid ? 'false' : 'true',
+		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
 		width : Ti.App.size(640),
@@ -494,15 +496,17 @@ function ViewKeoChauA() {
 		font : {
 			fontSize : Ti.App.size(25)
 		},
-		width : Ti.UI.SIZE
+		width : Ti.App.size(180),
+		textAlign : "left"
 	});
 	var tyle_keo = Ti.UI.createLabel({
 		color : "yellow",
 		font : {
 			fontSize : Ti.App.size(25)
 		},
-		width : Ti.UI.SIZE,
-		left : Ti.App.size(300)
+		width : Ti.App.size(220),
+		left : Ti.App.size(200),
+		textAlign : "center"
 	});
 	var tyle_doikhach = Ti.UI.createLabel({
 		right : Ti.App.size(20),
@@ -510,7 +514,8 @@ function ViewKeoChauA() {
 		font : {
 			fontSize : Ti.App.size(25)
 		},
-		width : Ti.UI.SIZE
+		width : Ti.App.size(180),
+		textAlign : "right"
 	});
 	Row1.add(tyle_doinha);
 	Row1.add(tyle_doikhach);
