@@ -70,7 +70,7 @@ function taoui(sv) {
 	});
 	////
 	var date = new Date();
-	if (new Date().getHours() >= 19) {
+	if (new Date().getHours() >= 16) {
 	} else {
 		date.setDate(date.getDate() - 1);
 	}
@@ -225,6 +225,7 @@ function showResult(sv) {
 		Ti.API.info('thoi gian hien tai' + time);
 		if (hour == 17 && min >= 15) {
 			Ti.API.info('lay kq mien trung');
+			sv.ui.lbl_thoigian.setText(currDate());
 			sv.ui.lblfirst.setText("Miền Trung");
 			sv.ui.lblfirst.id = 1;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + currDate());
@@ -235,6 +236,7 @@ function showResult(sv) {
 		}
 		if (hour == 16 && min >= 10) {
 			sv.ui.lblfirst.setText("Miền Nam");
+			sv.ui.lbl_thoigian.setText(currDate());
 			sv.ui.lblfirst.id = 2;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
@@ -244,6 +246,7 @@ function showResult(sv) {
 		}
 		if (hour == 18 && min >= 15) {
 			sv.ui.lblfirst.setText("Miền Bắc");
+			sv.ui.lbl_thoigian.setText(currDate());
 			sv.ui.lblfirst.id = 0;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
@@ -262,8 +265,9 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 17 && min < 15) {
-			sv.ui.lblfirst.id = 0;
-			sv.ui.lblfirst.setText("Miền Bắc");
+			sv.ui.lblfirst.id = 2;
+			sv.ui.lbl_thoigian.setText(currDate());
+			sv.ui.lblfirst.setText("Miền Nam");
 			Ti.API.info('lay ket qua mien nam');
 			searchregionlottery({
 				"regionid" : 2,
@@ -271,8 +275,9 @@ function showResult(sv) {
 			}, sv, 2);
 		}
 		if (hour == 18 && min < 15) {
-			sv.ui.lblfirst.id = 0;
-			sv.ui.lblfirst.setText("Miền Bắc");
+			sv.ui.lbl_thoigian.setText(currDate());
+			sv.ui.lblfirst.id = 1;
+			sv.ui.lblfirst.setText("Miền Trung");
 			Ti.API.info('lay ket qua mien trung');
 			searchregionlottery({
 				"regionid" : 1,
@@ -338,23 +343,27 @@ function searchregionlottery(data, sv, loai) {
 		}, 1500);
 		var ketqua = [];
 		var dodai = null;
-		var date_time = null;
-		date_time = jsonResuilt.resulttable[0].resultdate.toString().split(' ');
-		Ti.API.info('date' + date_time[0]);
-		if (loai == "1") {
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
-			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + date_time[0]);
+		var date_time = [];
+		if (jsonResuilt.resulttable[0]) {
+			date_time = jsonResuilt.resulttable[0].resultdate.toString().split(' ');
+			Ti.API.info('date' + date_time[0]);
+			if (loai == "1") {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + date_time[0]);
+			}
+			if (loai == "2") {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + date_time[0]);
+			}
+			if (loai == "0") {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + date_time[0]);
+			}
+			sv.vari.datarow.setParam(jsonResuilt.resulttable);
+			sv.ui.ViewKQ.add(sv.vari.datarow);
+		}else{
+			sv.ui.View_header.setText("");
 		}
-		if (loai == "2") {
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
-			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + date_time[0]);
-		}
-		if (loai == "0") {
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
-			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + date_time[0]);
-		}
-		sv.vari.datarow.setParam(jsonResuilt.resulttable);
-		sv.ui.ViewKQ.add(sv.vari.datarow);
 	};
 
 };

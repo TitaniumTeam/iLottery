@@ -163,7 +163,7 @@ module.exports = function() {
 		var param = null;
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
-			"regionid" : "2"
+			"regionid" : "1"
 		};
 		laykq_tructiep(xhr, data, lblKQ, lblKQ2, interval, TenTinh1, TenTinh2);
 		interval = setInterval(function() {

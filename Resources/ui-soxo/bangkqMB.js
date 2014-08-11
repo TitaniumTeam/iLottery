@@ -215,6 +215,9 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 			lblkq[i].setText(mangkq[i]);
 		}
 		if (mangkq.length == 27) {
+			for (var i = 0; i < (mangkq.length); i++) {
+			lblkq[i].setText(mangkq[i]);
+		}
 			clearInterval(interval);
 		}
 		isLoading = false;
