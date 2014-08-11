@@ -145,30 +145,30 @@ module.exports = function() {
 	var isLoading = false;
 	var interval = null;
 	viewKQ.setParamLive = function() {
-		var db = Ti.Database.open('userinfo');
-		var kqmb = db.execute("SELECT * FROM KQSXMT");
-		var kqmb_db = null;
-		var arrkq_mb = [];
-		if (kqmb.isValidRow()) {
-			kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
-			Ti.API.info('ket qua ' + kqmb_db);
-			kqmb.close();
-			db.close();
-
-			for (var i = 0; i < (kqmb_db.length); i++) {
-				arrkq_mb.push(kqmb_db[i]);
-				Ti.API.info('kq' + kqmb_db[i]);
-			}
-		}
+		// var db = Ti.Database.open('userinfo');
+		// var kqmb = db.execute("SELECT * FROM KQSXMT");
+		// var kqmb_db = null;
+		// var arrkq_mb = [];
+		// if (kqmb.isValidRow()) {
+			// kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
+			// Ti.API.info('ket qua ' + kqmb_db);
+			// kqmb.close();
+			// db.close();
+// 
+			// for (var i = 0; i < (kqmb_db.length); i++) {
+				// arrkq_mb.push(kqmb_db[i]);
+				// Ti.API.info('kq' + kqmb_db[i]);
+			// }
+		// }
 		var param = null;
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
 			"regionid" : "2"
 		};
-		laykq_tructiep(xhr, data, lblKQ, lblKQ2, interval, TenTinh1, TenTinh2,arrkq_mb);
+		laykq_tructiep(xhr, data, lblKQ, lblKQ2, interval, TenTinh1, TenTinh2);
 		interval = setInterval(function() {
 			Ti.API.info('lay ket qua');
-			laykq_tructiep(xhr, data, lblKQ, lblKQ2, interval, TenTinh1, TenTinh2,arrkq_mb);
+			laykq_tructiep(xhr, data, lblKQ, lblKQ2, interval, TenTinh1, TenTinh2);
 
 		}, 15000);
 	};
@@ -189,7 +189,7 @@ function setHeightRow(i) {
 	if (i == 5)
 		return Ti.App.size(360);
 	if (i == 4) {
-		return Ti.App.size(140);
+		return Ti.App.size(120);
 	} else
 		return Ti.App.size(75);
 
@@ -215,16 +215,6 @@ function setFont(i) {
 		};
 	}
 };
-function setWidth(i) {
-	if (i == 7)
-		return Ti.App.size(85);
-	if (i == 5)
-		return Ti.App.size(90);
-	if (i == 4)
-		return Ti.App.size(90);
-	else
-		return Ti.UI.SIZE;
-}
 
 function laykq_tructiep(xhr, data, lblkq1, lblkq2, interval, TenTinh1, TenTinh2,arrkq_mb) {
 	xhr.onsendstream = function(e) {
@@ -259,13 +249,13 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, interval, TenTinh1, TenTinh2,
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
-			for (var j = (mangstring1.length); j > 0; j++) {
+			for (var j=0; j <(mangstring1.length); j++) {
 				mangkq1.push(mangstring1[j]);
 			};
 		}
 		for (var i = 0; i < (kqTinh2.length); i++) {
 			mangstring2 = (kqTinh2[i].toString()).split(',');
-			for (var j = (mangstring2.length); j > 0; j++) {
+			for (var j=0; j < (mangstring2.length); j++) {
 				mangkq2.push(mangstring2[j]);
 			};
 		}
@@ -273,29 +263,29 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, interval, TenTinh1, TenTinh2,
 		mangkq2.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
 			lblkq1[17 - i].setText(mangkq1[i]);
-			for (var j = 0; j < (arrkq_mb.length); j++) {
-				if (mangkq1[i] == arrkq_mb[j]) {
-					lblkq1[17 - i].setColor("yellow");
-					lblkq1[17 - i].setFont({
-						fontWeight : "bold",
-						fontSize : Ti.App.size(35)
-					});
-				}
-			}
+			// for (var j = 0; j < (arrkq_mb.length); j++) {
+				// if (mangkq1[i] == arrkq_mb[j]) {
+					// lblkq1[17 - i].setColor("yellow");
+					// lblkq1[17 - i].setFont({
+						// fontWeight : "bold",
+						// fontSize : Ti.App.size(35)
+					// });
+				// }
+			// }
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
 			lblkq2[17 - i].setText(mangkq2[i]);
-			for (var j = 0; j < (arrkq_mb.length); j++) {
-				if (mangkq2[i] == arrkq_mb[j]) {
-					lblkq2[17 - i].setColor("yellow");
-					lblkq2[17 - i].setFont({
-						fontWeight : "bold",
-						fontSize : Ti.App.size(35)
-					});
-				}
-			}
+			// for (var j = 0; j < (arrkq_mb.length); j++) {
+				// if (mangkq2[i] == arrkq_mb[j]) {
+					// lblkq2[17 - i].setColor("yellow");
+					// lblkq2[17 - i].setFont({
+						// fontWeight : "bold",
+						// fontSize : Ti.App.size(35)
+					// });
+				// }
+			// }
 		}
-		if (mangkq1.length + mangkq2.length == 36) {
+		if ((mangkq1.length + mangkq2.length) == 36) {
 			Ti.API.info('clear interval');
 			clearInterval(interval);
 		}

@@ -1,19 +1,9 @@
 module.exports = function() {
 	var db = Ti.Database.open('userinfo');
-	var newdb = Ti.Database.install('../assets/database/serviceinfo', 'serviceinfo');
+	var newdb = Ti.Database.install('/assets/database/serviceinfo', 'serviceinfo');
 	Ti.API.info('du lieu menu cap 1' + (newdb.execute("SELECT * FROM Menucap1_xoso").getRowCount()));
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
-	db.execute('CREATE TABLE IF NOT EXISTS KQSXMB(giatri TEXT);');
-	db.execute('CREATE TABLE IF NOT EXISTS KQSXMN(giatri TEXT);');
-	db.execute('CREATE TABLE IF NOT EXISTS KQSXMT(giatri TEXT);');
 	db.execute('CREATE TABLE IF NOT EXISTS TGHT(NGAY TEXT)');
-	db.execute('INSERT INTO TGHT VALUES(?)',new Date().getDate());
-	var date_now=db.execute("SELECT NGAY FROM TGHT ");
-	if(date_now.toString()!=(new Date().getDate().toString)){
-		db.execute('DELETE FROM KQSXMB');
-		db.execute('DELETE FROM KQSXMN');
-		db.execute('DELETE FROM KQSXMT');
-	}
 	var userinfo = db.execute("SELECT * FROM SaveInfo");
 	if (userinfo.isValidRow()) {
 		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));
