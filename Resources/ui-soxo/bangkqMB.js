@@ -98,16 +98,8 @@ module.exports = function() {
 	viewchua_result[7].add(lblKQ[24]);
 	viewchua_result[7].add(lblKQ[25]);
 	viewchua_result[7].add(lblKQ[26]);
-	/*
-	*
-	* for (var j = 0; j < jsonResuilt.resulttable[i].lines.length; j++) {
-	Ti.API.info('Thu tu: ' + jsonResuilt.resulttable[i].lines[j].name);
-	Ti.API.info('ket qua: ' + jsonResuilt.resulttable[i].lines[j].result);
-	ketqua.push(jsonResuilt.resulttable[i].lines[j].result);
-	};
-	*/
 	////////
-	viewKQ.setParam = function(param, socantim) {
+	viewKQ.setParam = function(param) {
 		var ketqua = [];
 		var mangstring = [];
 		var mangkq = [];
@@ -133,27 +125,28 @@ module.exports = function() {
 	var isLoading = false;
 	var interval = null;
 	viewKQ.setParamLive = function() {
-		// var db = Ti.Database.open('userinfo');
-		// var kqmb = db.execute("SELECT * FROM KQSX");
-		// var kqmb_db = null;
-		// if (kqmb.isValidRow()) {
-		// kqmb_db = kqmb.fieldByName("MB").toString().split(',');
-		// Ti.API.info('ket qua ' + kqmb_db);
-		// kqmb.close();
-		// db.close();
-		// }
-		// var arrkq_mb = [];
-		// for (var i = 0; i < (kqmb_db.length); i++) {
-		// arrkq_mb.push(kqmb_db[i]);
-		// Ti.API.info('kq' + kqmb_db[i]);
-		// }
+		var db = Ti.Database.open('userinfo');
+		var kqmb = db.execute("SELECT * FROM KQSXMB");
+		var kqmb_db = null;
+		var arrkq_mb = [];
+		if (kqmb.isValidRow()) {
+			kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
+			Ti.API.info('ket qua ' + kqmb_db);
+			kqmb.close();
+			db.close();
+
+			for (var i = 0; i < (kqmb_db.length); i++) {
+				arrkq_mb.push(kqmb_db[i]);
+				Ti.API.info('kq' + kqmb_db[i]);
+			}
+		}
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
 			"regionid" : "0"
 		};
-		laykq_tructiep(xhr, data, lblKQ, interval);
+		laykq_tructiep(xhr, data, lblKQ, interval,arrkq_mb);
 		interval = setInterval(function() {
-			laykq_tructiep(xhr, data, lblKQ, interval);
+			laykq_tructiep(xhr, data, lblKQ, interval,arrkq_mb);
 		}, 15000);
 	};
 	/////
@@ -197,7 +190,7 @@ function setFont(i) {
 		};
 	}
 };
-function laykq_tructiep(xhr, data, lblkq, interval) {
+function laykq_tructiep(xhr, data, lblkq, interval,arrkq_mb) {
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -235,15 +228,17 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
 			lblkq[i].setText(mangkq[i]);
-			// for (var j = 0; j < (arrkq_mb.length); j++) {
-			// if (mangkq[i] == arrkq_mb[j]) {
-			// lblkq[i].setColor("yellow");
-			// lblkq[i].setFont({
-			// fontWeight : "bold",
-			// fontSize : Ti.App.size(35)
-			// });
-			// }
-			// }
+
+			for (var j = 0; j < (arrkq_mb.length); j++) {
+				if (mangkq[i] == arrkq_mb[j]) {
+					lblkq[i].setColor("yellow");
+					lblkq[i].setFont({
+						fontWeight : "bold",
+						fontSize : Ti.App.size(35)
+					});
+				}
+			}
+
 		}
 		if (mangkq.length == 27) {
 			// for (var i = 0; i < (mangkq.length); i++) {

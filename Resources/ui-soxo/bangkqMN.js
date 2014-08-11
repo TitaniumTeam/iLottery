@@ -198,15 +198,30 @@ module.exports = function() {
 	var isLoading = false;
 	var interval = null;
 	viewKQ.setParamLive = function() {
+		var db = Ti.Database.open('userinfo');
+		var kqmb = db.execute("SELECT * FROM KQSXMN");
+		var kqmb_db = null;
+		var arrkq_mb = [];
+		if (kqmb.isValidRow()) {
+			kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
+			Ti.API.info('ket qua ' + kqmb_db);
+			kqmb.close();
+			db.close();
+
+			for (var i = 0; i < (kqmb_db.length); i++) {
+				arrkq_mb.push(kqmb_db[i]);
+				Ti.API.info('kq' + kqmb_db[i]);
+			}
+		}
 		var param = null;
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
 			"regionid" : "2"
 		};
-		laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, interval, TenTinh1, TenTinh2, TenTinh3);
+		laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, interval, TenTinh1, TenTinh2, TenTinh3, arrkq_mb);
 		interval = setInterval(function() {
 			Ti.API.info('lay ket qua');
-			laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, interval, TenTinh1, TenTinh2, TenTinh3);
+			laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, interval, TenTinh1, TenTinh2, TenTinh3, arrkq_mb);
 
 		}, 15000);
 	};
@@ -265,7 +280,7 @@ function setWidth(i) {
 		return Ti.UI.SIZE;
 }
 
-function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, TenTinh2, TenTinh3) {
+function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, TenTinh2, TenTinh3, arrkq_mb) {
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -305,21 +320,18 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
 			for (var j = 0; j < (mangstring1.length); j++) {
-				// Ti.API.info('mang string:' + mangstring[j]);
 				mangkq1.push(mangstring1[j]);
 			};
 		}
 		for (var i = 0; i < (kqTinh2.length); i++) {
 			mangstring2 = (kqTinh2[i].toString()).split(',');
 			for (var j = 0; j < (mangstring2.length); j++) {
-				// Ti.API.info('mang string:' + mangstring[j]);
 				mangkq2.push(mangstring2[j]);
 			};
 		}
 		for (var i = 0; i < (kqTinh3.length); i++) {
 			mangstring3 = (kqTinh3[i].toString()).split(',');
 			for (var j = 0; j < (mangstring3.length); j++) {
-				// Ti.API.info('mang string:' + mangstring[j]);
 				mangkq3.push(mangstring3[j]);
 			};
 		}
@@ -328,12 +340,39 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		mangkq3.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
 			lblkq1[17 - i].setText(mangkq1[i]);
+			for (var j = 0; j < (arrkq_mb.length); j++) {
+				if (mangkq1[i] == arrkq_mb[j]) {
+					lblkq1[17 - i].setColor("yellow");
+					lblkq1[17 - i].setFont({
+						fontWeight : "bold",
+						fontSize : Ti.App.size(35)
+					});
+				}
+			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
 			lblkq2[17 - i].setText(mangkq2[i]);
+			for (var j = 0; j < (arrkq_mb.length); j++) {
+				if (mangkq2[i] == arrkq_mb[j]) {
+					lblkq2[17 - i].setColor("yellow");
+					lblkq2[17 - i].setFont({
+						fontWeight : "bold",
+						fontSize : Ti.App.size(35)
+					});
+				}
+			}
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
 			lblkq3[17 - i].setText(mangkq3[i]);
+			for (var j = 0; j < (arrkq_mb.length); j++) {
+				if (mangkq3[i] == arrkq_mb[j]) {
+					lblkq3[17 - i].setColor("yellow");
+					lblkq3[17 - i].setFont({
+						fontWeight : "bold",
+						fontSize : Ti.App.size(35)
+					});
+				}
+			}
 		}
 		if (mangkq1.length + mangkq2.length + mangkq3.length == 54) {
 			Ti.API.info('clear interval');

@@ -740,9 +740,9 @@ function doc_keo(_doi1, _doi2, _tyle) {
 	var _tylekeo = null;
 	var kq = null;
 	if (_tyledoi1 == "0") {
-		kq = _doi1 + " chấp " + _doi2 + " " + doc_tile(_tyledoi2);
+		kq = _doi1 + " chấp " + _doi2  + doc_tile(_tyledoi2);
 	} else {
-		kq = _doi2 + " chấp " + _doi1 + " " + doc_tile(_tyledoi1);
+		kq = _doi2 + " chấp " + _doi1  + doc_tile(_tyledoi1);
 	}
 	return kq;
 }

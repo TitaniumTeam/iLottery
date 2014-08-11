@@ -17,7 +17,7 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.vari.ViewHT;
 	sv.vari.db = null;
 	sv.vari.user_info = null;
 	sv.vari.tk_user = null;

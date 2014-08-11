@@ -34,7 +34,6 @@ function taobien(sv) {
 	sv.ui.view_choose = new sv.vari.combobox(1);
 	sv.ui.view_choose1 = new sv.vari.combobox();
 	sv.vari.datarow = null;
-	sv.vari.txt_value = null;
 };
 function taoui(sv) {
 	sv.ui.ViewTong = Ti.UI.createView({
@@ -222,7 +221,7 @@ function showResult(sv) {
 		var time = jsonResuilt.time.toString().split(' ')[1];
 		var hour = time.split(':')[0];
 		var min = time.split(':')[1];
-		// var db = Ti.Database.open('userinfo');
+		var db = Ti.Database.open('userinfo');
 
 		Ti.API.info('thoi gian hien tai' + time);
 		if (hour == 17 && min >= 15) {
@@ -234,15 +233,17 @@ function showResult(sv) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-			// var kqmt = db.execute("SELECT MB FROM KQSX");
-			// if (kqmt.isValidRow()) {
-			// kqmt.close();
-			// db.close();
-			// } else {
-			// kqmt.close();
-			// db.close();
-			// custom_dialog(1);
-			// }
+
+			var kqmt = db.execute("SELECT MB FROM KQSXMT");
+			if (kqmt.isValidRow()) {
+				kqmt.close();
+				db.close();
+			} else {
+				kqmt.close();
+				db.close();
+				custom_dialog(1);
+			}
+
 		}
 		if (hour == 16 && min >= 10) {
 			sv.ui.lblfirst.setText("Miền Nam");
@@ -252,15 +253,15 @@ function showResult(sv) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-			// var kqmt = db.execute("SELECT MB FROM KQSX");
-			// if (kqmt.isValidRow()) {
-			// kqmt.close();
-			// db.close();
-			// } else {
-			// kqmt.close();
-			// db.close();
-			// custom_dialog(2);
-			// }
+			var kqmt = db.execute("SELECT MB FROM KQSXMN");
+			if (kqmt.isValidRow()) {
+			kqmt.close();
+			db.close();
+			} else {
+			kqmt.close();
+			db.close();
+			custom_dialog(2);
+			}
 		}
 		if (hour == 18 && min >= 15) {
 			sv.ui.lblfirst.setText("Miền Bắc");
@@ -270,48 +271,53 @@ function showResult(sv) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-			// var kqmt = db.execute("SELECT MB FROM KQSX");
-			// if (kqmt.isValidRow()) {
-			// kqmt.close();
-			// db.close();
-			// } else {
-			// kqmt.close();
-			// db.close();
-			// custom_dialog(0);
-			// }
+			var kqmt = db.execute("SELECT MB FROM KQSXMB");
+			if (kqmt.isValidRow()) {
+				kqmt.close();
+				db.close();
+			} else {
+				kqmt.close();
+				db.close();
+				custom_dialog(0);
+			}
+
 		}
 		if (hour == 16 && min < 10) {
 			// db.close();
 			sv.ui.lblfirst.setText("Miền Bắc");
 			sv.ui.lblfirst.id = 0;
 			Ti.API.info('lay ket qua mien bac');
+			sv.ui.lblfirst.setText(getYesterdaysDate());
 			searchregionlottery({
 				"regionid" : 0,
-				"date" : set_lbl()
+				"date" : getYesterdaysDate()
 			}, sv, 0);
 		}
 		if (hour == 17 && min < 15) {
-			// db.close();
+			db.close();
+			sv.ui.lblfirst.setText(getYesterdaysDate());
 			sv.ui.lblfirst.id = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
 				"regionid" : 0,
-				"date" : set_lbl()
+				"date" : getYesterdaysDate()
 			}, sv, 0);
 		}
 		if (hour == 18 && min < 15) {
-			// db.close();
+			db.close();
+			sv.ui.lblfirst.setText(getYesterdaysDate());
 			sv.ui.lblfirst.id = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
 				"regionid" : 0,
-				"date" : set_lbl()
+				"date" : getYesterdaysDate()
 			}, sv, 0);
 		} else {
 			if (hour >= 19) {
-				// db.close();
+				sv.ui.lblfirst.setText(currDate());
+				db.close();
 				sv.ui.lblfirst.id = 0;
 				sv.ui.lblfirst.setText("Miền Bắc");
 				Ti.API.info('lay ket qua mien bac');
@@ -321,12 +327,14 @@ function showResult(sv) {
 				}, sv, 0);
 			}
 			if (hour < 16) {
+				db.close();
+				sv.ui.lblfirst.setText(getYesterdaysDate());
 				sv.ui.lblfirst.id = 0;
 				sv.ui.lblfirst.setText("Miền Bắc");
 				Ti.API.info('lay ket qua mien bac');
 				searchregionlottery({
-				"regionid" : 0,
-				"date" : getYesterdaysDate()
+					"regionid" : 0,
+					"date" : getYesterdaysDate()
 				}, sv, 0);
 			}
 		}
@@ -383,7 +391,7 @@ function searchregionlottery(data, sv, loai) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + date_time[0]);
 		}
-		sv.vari.datarow.setParam(jsonResuilt.resulttable, sv.vari.txt_value);
+		sv.vari.datarow.setParam(jsonResuilt.resulttable);
 		sv.ui.ViewKQ.add(sv.vari.datarow);
 	};
 
@@ -398,6 +406,101 @@ function sms_offline() {
 		});
 	}
 }
+
+function custom_dialog(_loai) {
+	var isAndroid = Ti.Platform.osname === 'android';
+	var db = Ti.Database.open("userinfo");
+	if (isAndroid) {
+		var textfield = Ti.UI.createTextField({
+		});
+		var dialog = Ti.UI.createAlertDialog({
+			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
+			androidView : textfield,
+			buttonNames : ['OK', 'cancel'],
+			cancel : 1,
+			ok : 0
+		});
+		dialog.show();
+		dialog.addEventListener('click', function(e) {
+			Ti.API.info(textfield.value);
+			if (e.index == e.source.ok) {
+				if (textfield.getValue().length != 0 || textfield.getValue() != "") {
+					Ti.API.info('co gia tri');
+					switch(_loai) {
+					case 0:
+						db.execute("INSERT INTO KQSXMB VALUES(?)", textfield.value);
+						db.close();
+						break;
+					case 2:
+						db.execute("INSERT INTO KQSXMN VALUES(?)", textfield.value);
+						db.close();
+						break;
+					case 1:
+						db.execute("INSERT INTO KQSXMT VALUES(?)", textfield.value);
+						db.close();
+						break;
+					default:
+						Ti.API.info('khong co gia tri nay');
+					}
+				} else {
+					Ti.API.info('khong co gia tri');
+					db.close();
+				}
+			} else {
+				dialog.hide();
+			}
+
+		});
+	} else {
+		var dialog = Ti.UI.createAlertDialog({
+			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
+			style : Ti.UI.iPhone.AlertDialogStyle.PLAIN_TEXT_INPUT,
+			buttonNames : ['OK', 'cancel'],
+			cancel : 1,
+			ok : 0
+		});
+		dialog.show();
+		dialog.addEventListener('click', function(e) {
+			Ti.API.info('e.text: ' + e.text);
+			if (e.index == e.source.ok)
+				if (e.text.length > 0) {
+					switch(_loai) {
+					case 0:
+						db.execute("INSERT INTO KQSXMB VALUES(?)", e.text);
+						db.close();
+						break;
+					case 2:
+						db.execute("INSERT INTO KQSXMN VALUES(?)", e.text);
+						db.close();
+						break;
+					case 1:
+						db.execute("INSERT INTO KQSXMT VALUES(?)", e.text);
+						db.close();
+						break;
+					default:
+						Ti.API.info('khong co gia tri nay');
+					}
+
+				} else {
+					db.close();
+				}
+
+		});
+	}
+}
+
+function setHeightPicker() {
+	var isAndroid = Ti.Platform.osname === 'android';
+	var isIpad = Ti.Platform.osname === 'ipad';
+	if (isAndroid) {
+		return Ti.App.size(650);
+	} else {
+		if (isIpad)
+			return Ti.App.size(590);
+		else
+			return Ti.App.size(690);
+	}
+};
 
 //////////
 function currDate() {
@@ -425,95 +528,5 @@ function set_lbl() {
 		return currDate();
 	} else {
 		return getYesterdaysDate();
-	}
-};
-function custom_dialog(_loai) {
-	var isAndroid = Ti.Platform.osname === 'android';
-	var dialog = null;
-	var txt_value = null;
-	var db = Ti.Database.open("userinfo");
-	if (isAndroid) {
-		var textfield = Ti.UI.createTextField();
-		dialog = Ti.UI.createAlertDialog({
-			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
-			androidView : textfield,
-			buttonNames : ['OK', 'cancel'],
-			cancel : 1,
-			ok : 0
-		});
-		dialog.addEventListener('click', function(e) {
-			Ti.API.info(textfield.value);
-			if (e.index == e.source.ok) {
-				if (textfield.getValue().length != 0 || textfield.getValue() != "") {
-					Ti.API.info('co gia tri');
-					switch(_loai) {
-					case 0:
-						db.execute("INSERT INTO KQSX (MB) VALUES(?)", textfield.value);
-						db.close();
-						break;
-					case 2:
-						db.execute("INSERT INTO KQSX (MN) VALUES(?)", textfield.value);
-						db.close();
-						break;
-					case 1:
-						db.execute("INSERT INTO KQSX (MT) VALUES(?)", textfield.value);
-						db.close();
-						break;
-					}
-				} else {
-					Ti.API.info('khong co gia tri');
-					db.close();
-				}
-			} else {
-				dialog.hide();
-			}
-
-		});
-	} else {
-		dialog = Ti.UI.createAlertDialog({
-			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
-			style : Ti.UI.iPhone.AlertDialogStyle.PLAIN_TEXT_INPUT,
-			buttonNames : ['OK', 'cancel'],
-			cancel : 1,
-			ok : 0
-		});
-		dialog.addEventListener('click', function(e) {
-			Ti.API.info('e.text: ' + e.text);
-			if (e.index == e.source.ok)
-				if (e.text.length > 0) {
-					switch(_loai) {
-					case 0:
-						db.execute("INSERT INTO KQSX (MB) VALUES(?)", e.text);
-						db.close();
-						break;
-					case 2:
-						db.execute("INSERT INTO KQSX (MN) VALUES(?)", e.text);
-						db.close();
-						break;
-					case 1:
-						db.execute("INSERT INTO KQSX (MT) VALUES(?)", e.text);
-						db.close();
-						break;
-					}
-
-				} else {
-					db.close();
-				}
-
-		});
-	}
-	dialog.show();
-}
-
-function setHeightPicker() {
-	var isAndroid = Ti.Platform.osname === 'android';
-	var isIpad = Ti.Platform.osname === 'ipad';
-	if (isAndroid) {
-		return Ti.App.size(650);
-	} else {
-		if (isIpad)
-			return Ti.App.size(590);
-		else
-			return Ti.App.size(690);
 	}
 };
