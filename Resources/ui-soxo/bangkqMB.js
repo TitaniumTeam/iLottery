@@ -123,6 +123,7 @@ module.exports = function() {
 				mangkq.push(mangstring[j]);
 			};
 		}
+		Ti.API.info('length mang kq' + mangkq.length);
 		for (var i = 0; i < (mangkq.length); i++) {
 			lblKQ[i].setText(mangkq[i]);
 		}
@@ -132,27 +133,27 @@ module.exports = function() {
 	var isLoading = false;
 	var interval = null;
 	viewKQ.setParamLive = function() {
-		var db = Ti.Database.open('userinfo');
-		var kqmb = db.execute("SELECT * FROM KQSX");
-		var kqmb_db = null;
-		if (kqmb.isValidRow()) {
-			kqmb_db = kqmb.fieldByName("MB").toString().split(',');
-			Ti.API.info('ket qua ' + kqmb_db);
-			kqmb.close();
-			db.close();
-		}
-		var arrkq_mb = [];
-		for (var i = 0; i < (kqmb_db.length); i++) {
-			arrkq_mb.push(kqmb_db[i]);
-			Ti.API.info('kq' + kqmb_db[i]);
-		}
+		// var db = Ti.Database.open('userinfo');
+		// var kqmb = db.execute("SELECT * FROM KQSX");
+		// var kqmb_db = null;
+		// if (kqmb.isValidRow()) {
+		// kqmb_db = kqmb.fieldByName("MB").toString().split(',');
+		// Ti.API.info('ket qua ' + kqmb_db);
+		// kqmb.close();
+		// db.close();
+		// }
+		// var arrkq_mb = [];
+		// for (var i = 0; i < (kqmb_db.length); i++) {
+		// arrkq_mb.push(kqmb_db[i]);
+		// Ti.API.info('kq' + kqmb_db[i]);
+		// }
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
 			"regionid" : "0"
 		};
-		laykq_tructiep(xhr, data, lblKQ, interval, arrkq_mb);
+		laykq_tructiep(xhr, data, lblKQ, interval);
 		interval = setInterval(function() {
-			laykq_tructiep(xhr, data, lblKQ, interval, arrkq_mb);
+			laykq_tructiep(xhr, data, lblKQ, interval);
 		}, 15000);
 	};
 	/////
@@ -192,10 +193,11 @@ function setFont(i) {
 	} else {
 		return {
 			fontSize : Ti.App.size(25),
+			fontWeight : 'bold'
 		};
 	}
 };
-function laykq_tructiep(xhr, data, lblkq, interval, arrkq_mb) {
+function laykq_tructiep(xhr, data, lblkq, interval) {
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -217,7 +219,12 @@ function laykq_tructiep(xhr, data, lblkq, interval, arrkq_mb) {
 		var mangkq = [];
 		if (param[0].lines) {
 			for (var i = 0; i < (param[0].lines.length); i++)
-				ketqua.push(param[0].lines[i].result);
+
+				if (param[0].lines[i].result.toString().length == 0 || param[0].lines[i].result.toString() == "") {
+					ketqua.push("");
+				} else {
+					ketqua.push(param[0].lines[i].result);
+				}
 		}
 		for (var i = 0; i < (ketqua.length); i++) {
 			mangstring = (ketqua[i].toString()).split(',');
@@ -227,30 +234,30 @@ function laykq_tructiep(xhr, data, lblkq, interval, arrkq_mb) {
 			};
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
-			lblkq[i + 1].setText(mangkq[i]);
-			for (var j = 0; j < (arrkq_mb.length); j++) {
-				if (mangkq[i] == arrkq_mb[j]) {
-					lblkq[i].setColor("yellow");
-					lblkq[i].setFont({
-						fontWeight : "bold",
-						fontSize : Ti.App.size(35)
-					});
-				}
-			}
+			lblkq[i].setText(mangkq[i]);
+			// for (var j = 0; j < (arrkq_mb.length); j++) {
+			// if (mangkq[i] == arrkq_mb[j]) {
+			// lblkq[i].setColor("yellow");
+			// lblkq[i].setFont({
+			// fontWeight : "bold",
+			// fontSize : Ti.App.size(35)
+			// });
+			// }
+			// }
 		}
 		if (mangkq.length == 27) {
-			for (var i = 0; i < (mangkq.length); i++) {
-				lblkq[i].setText(mangkq[i]);
-				for (var j = 0; j < (arrkq_mb.length); j++) {
-					if (mangkq[i] == arrkq_mb[j]) {
-						lblkq[i].setColor("yellow");
-						lblkq[i].setFont({
-							fontWeight : "bold",
-							fontSize : Ti.App.size(35)
-						});
-					}
-				}
-			}
+			// for (var i = 0; i < (mangkq.length); i++) {
+			// lblkq[i].setText(mangkq[i]);
+			// // for (var j = 0; j < (arrkq_mb.length); j++) {
+			// // if (mangkq[i] == arrkq_mb[j]) {
+			// // lblkq[i].setColor("yellow");
+			// // lblkq[i].setFont({
+			// // fontWeight : "bold",
+			// // fontSize : Ti.App.size(35)
+			// // });
+			// // }
+			// // }
+			// }
 			clearInterval(interval);
 		}
 		isLoading = false;
@@ -295,7 +302,8 @@ function label(lbl_color, lbl_font, _width) {
 		color : lbl_color == 1 ? "white" : "orange",
 		top : Ti.App.size(10),
 		font : lbl_font == 1 ? {
-			fontSize : Ti.App.size(25)
+			fontSize : Ti.App.size(25),
+			fontWeight : 'bold'
 		} : {
 			fonWeight : 'bold',
 			fontSize : Ti.App.size(35)

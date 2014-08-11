@@ -17,19 +17,19 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Lịch thi đấu", "Tin tức", "Tư vấn", "VIP"];
-	sv.vari.ViewHT;
+	sv.vari.ViewHT
 	sv.vari.flag = 0;
 }
 
 ////
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
-	var isAndroid=Titanium.Platform.osname==='android';
+	var isAndroid = Titanium.Platform.osname === 'android';
 	sv.ui.Win = Ti.UI.createWindow({
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
@@ -312,6 +312,7 @@ function tao_sukien(sv) {
 		for (var i = 0; i < 4; i++) {
 			sv.arr.ViewChucNang[i].removeEventListener('click', sv.arr.evtChucNang[i]);
 		}
+		sv.vari.ViewHT.removeAllEvent();
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
 		sv.ui.ViewIconUser.removeEventListener('click', sv.fu.evtOpenWinUser);
 		sv.ui.Win.removeEventListener('android:back', sv.fu.evtIconBack);

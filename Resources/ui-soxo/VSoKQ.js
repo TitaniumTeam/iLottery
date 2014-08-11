@@ -222,7 +222,7 @@ function showResult(sv) {
 		var time = jsonResuilt.time.toString().split(' ')[1];
 		var hour = time.split(':')[0];
 		var min = time.split(':')[1];
-		var db = Ti.Database.open('userinfo');
+		// var db = Ti.Database.open('userinfo');
 
 		Ti.API.info('thoi gian hien tai' + time);
 		if (hour == 17 && min >= 15) {
@@ -234,15 +234,15 @@ function showResult(sv) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-			var kqmt = db.execute("SELECT MB FROM KQSX");
-				if (kqmt.isValidRow()) {
-					kqmt.close();
-					db.close();
-				} else {
-					kqmt.close();
-					db.close();
-					custom_dialog(1);
-				}
+			// var kqmt = db.execute("SELECT MB FROM KQSX");
+			// if (kqmt.isValidRow()) {
+			// kqmt.close();
+			// db.close();
+			// } else {
+			// kqmt.close();
+			// db.close();
+			// custom_dialog(1);
+			// }
 		}
 		if (hour == 16 && min >= 10) {
 			sv.ui.lblfirst.setText("Miền Nam");
@@ -252,15 +252,15 @@ function showResult(sv) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-			var kqmt = db.execute("SELECT MB FROM KQSX");
-				if (kqmt.isValidRow()) {
-					kqmt.close();
-					db.close();
-				} else {
-					kqmt.close();
-					db.close();
-					custom_dialog(2);
-				}
+			// var kqmt = db.execute("SELECT MB FROM KQSX");
+			// if (kqmt.isValidRow()) {
+			// kqmt.close();
+			// db.close();
+			// } else {
+			// kqmt.close();
+			// db.close();
+			// custom_dialog(2);
+			// }
 		}
 		if (hour == 18 && min >= 15) {
 			sv.ui.lblfirst.setText("Miền Bắc");
@@ -270,18 +270,18 @@ function showResult(sv) {
 			sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-			var kqmt = db.execute("SELECT MB FROM KQSX");
-				if (kqmt.isValidRow()) {
-					kqmt.close();
-					db.close();
-				} else {
-					kqmt.close();
-					db.close();
-					custom_dialog(0);
-				}
+			// var kqmt = db.execute("SELECT MB FROM KQSX");
+			// if (kqmt.isValidRow()) {
+			// kqmt.close();
+			// db.close();
+			// } else {
+			// kqmt.close();
+			// db.close();
+			// custom_dialog(0);
+			// }
 		}
 		if (hour == 16 && min < 10) {
-			db.close();
+			// db.close();
 			sv.ui.lblfirst.setText("Miền Bắc");
 			sv.ui.lblfirst.id = 0;
 			Ti.API.info('lay ket qua mien bac');
@@ -291,7 +291,7 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 17 && min < 15) {
-			db.close();
+			// db.close();
 			sv.ui.lblfirst.id = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
@@ -301,7 +301,7 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 18 && min < 15) {
-			db.close();
+			// db.close();
 			sv.ui.lblfirst.id = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			Ti.API.info('lay ket qua mien bac');
@@ -310,14 +310,23 @@ function showResult(sv) {
 				"date" : set_lbl()
 			}, sv, 0);
 		} else {
-			if (hour >= 19 || hour < 16) {
-				db.close();
+			if (hour >= 19) {
+				// db.close();
 				sv.ui.lblfirst.id = 0;
 				sv.ui.lblfirst.setText("Miền Bắc");
 				Ti.API.info('lay ket qua mien bac');
 				searchregionlottery({
 					"regionid" : 0,
-					"date" : set_lbl()
+					"date" : currDate()
+				}, sv, 0);
+			}
+			if (hour < 16) {
+				sv.ui.lblfirst.id = 0;
+				sv.ui.lblfirst.setText("Miền Bắc");
+				Ti.API.info('lay ket qua mien bac');
+				searchregionlottery({
+				"regionid" : 0,
+				"date" : getYesterdaysDate()
 				}, sv, 0);
 			}
 		}
