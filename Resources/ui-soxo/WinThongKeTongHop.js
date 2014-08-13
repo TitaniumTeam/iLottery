@@ -32,7 +32,7 @@ function createUI(sv) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
@@ -93,10 +93,9 @@ function createUI(sv) {
 		// backgroundImage : "/assets/icon/nav_bar.png"
 	});
 
-	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), Ti.App.size(95), 1);
+	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), 0, 1, Ti.App.size(320));
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
-
 	/////
 	sv.ui.View_header = Titanium.UI.createLabel({
 		height : Ti.App.size(80),
@@ -113,6 +112,18 @@ function createUI(sv) {
 		backgroundColor : Ti.App.Color.red,
 		text : "Thống kê tổng hợp Miền Bắc ",
 		backgroundImage : "/assets/icon/title_bar.png"
+	});
+	sv.ui.ViewCheat = Titanium.UI.createView({
+		// backgroundColor : 'transparent',
+		top : Ti.App.size(90),
+		left : 0,
+		height : Ti.App.size(1136),
+		zIndex : 10,
+		visible : false,
+		width : Ti.App.size(640),
+		zIndex : 10,
+		backgroundImage : "/assets/icon/bg70.png",
+		backgroundSelectedImage : null
 	});
 	///
 	sv.ui.ScrollView = Ti.UI.createScrollView({
@@ -144,13 +155,14 @@ function createUI(sv) {
 	sv.ui.winThongKeTH.addEventListener('android:back', sv.fu.event_androidback);
 	sv.ui.view_choose.addEventListener('click', sv.fu.event_click_view);
 	sv.ui.table_view.addEventListener('click', sv.fu.event_clicktbl);
-	sv.ui.ScrollView.addEventListener('click', sv.fu.event_clickscrollview);
-
+	sv.ui.ViewCheat.addEventListener('click', sv.fu.event_clickViewCheat);
+	////
+	sv.ui.ViewCheat.add(sv.ui.table_view);
 	/////
+	sv.ui.ViewTong.add(sv.ui.ViewCheat);
 	sv.ui.ViewTong.add(sv.ui.ViewLuaChon);
 	sv.ui.ViewTong.add(sv.ui.View_header);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose);
-	sv.ui.ViewTong.add(sv.ui.table_view);
 	sv.ui.ViewTong.add(sv.ui.ScrollView);
 	sv.ui.winThongKeTH.add(sv.ui.ViewTong);
 }
@@ -167,32 +179,27 @@ function createUI_Event(sv) {
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window');
 	};
-	sv.fu.event_clickscrollview = function(e) {
-		sv.vari.flag = false;
-		if (sv.vari.flag == false) {
-			sv.ui.table_view.visible = false;
-		};
-	};
 	sv.fu.event_click_view = function(e) {
-		sv.vari.flag = true;
 		thongke("getprovide", {
 			"startdate" : currDate()
 		}, sv);
-		sv.ui.table_view.visible = true;
+		sv.ui.ViewCheat.visible = true;
+	};
+	sv.fu.event_clickViewCheat = function(e) {
+		sv.ui.ViewCheat.visible = false;
+		sv.ui.ScrollView.touchEnabled = true;
 	};
 	sv.fu.event_clicktbl = function(e) {
-		sv.vari.flag = true;
-		tbl_click(e, sv.ui.lblfirst, sv.ui.table_view, sv);
+		sv.ui.ScrollView.touchEnabled = true;
+		sv.ui.lblfirst.text = e.row.tenrow;
+		sv.ui.lblfirst.id = e.row.id;
+		sv.ui.ViewCheat.visible = false;
 		sv.ui.View_header.text = "Thống kê tổng hợp " + sv.ui.lblfirst.text;
 		thongke("getlotterystat", {
-			"provideid" : sv.ui.lblfirst.text,
+			"provideid" : sv.ui.lblfirst.id,
 			"startdate" : currDate()
 			//currDate()
 		}, sv);
-	};
-	sv.fu.event_click_view1 = function(e) {
-		sv.vari.flag = true;
-		sv.ui.table_view.visible = false;
 	};
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.View_Back.removeEventListener('click', sv.fu.eventClickIconLeft);
@@ -201,7 +208,7 @@ function createUI_Event(sv) {
 		sv.ui.winThongKeTH.removeEventListener('android:back', sv.fu.event_androidback);
 		sv.ui.view_choose.removeEventListener('click', sv.fu.event_click_view);
 		sv.ui.table_view.removeEventListener('click', sv.fu.event_clicktbl);
-		sv.ui.ScrollView.removeEventListener('click', sv.fu.event_clickscrollview);
+		sv.ui.ViewCheat.removeEventListener('click', sv.fu.event_clickViewCheat);
 		// sv.vari = null;
 		// sv.arr = null;
 		// sv.ui = null;
@@ -458,10 +465,9 @@ function bang_kq() {
 	return viewchua;
 };
 
-
 function sms_offline() {
 	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX","TKKQSX MB","CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
+		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "TKKQSX MB", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});

@@ -92,7 +92,7 @@ function tao_sukien(sv) {
 function removeSK(sv) {
 	sv.removeAllEvent = function(e) {
 		sv.ui.tbl1.removeEventListener('click', sv.fu.evt_clickrow);
-		Ti.API.info('remove su kien tu van xo so');
+		Ti.API.info('remove su kien thongke xo so');
 	};
 };
 ////

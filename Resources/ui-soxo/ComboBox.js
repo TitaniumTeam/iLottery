@@ -39,19 +39,10 @@ module.exports = function(_check) {
 	});
 	// view_contain.add(lineView);
 	//
-	var tableview = Ti.UI.createTableView({
-		separatorColor : "#393939",
-		right : Ti.App.size(25),
-		backgroundColor : "#33030c",
-		zIndex : 10,
-		showVerticalScrollIndicator : 'true',
-		scrollable : true,
-		height : Ti.UI.SIZE
-	});
 	// view_contain.add(tableview);
-	view_contain.setPos = function(_top, _textlbl, _left, _width, _toptbl, check) {
+	view_contain.setPos = function(_top, _textlbl, _left, _width, _toptbl, check,_widthtable) {
 		tableview.setTop(_toptbl);
-		tableview.setWidth(_width);
+		tableview.setWidth(_widthtable);
 		tableview.setLeft(_left);
 		view_contain.setTop(_top);
 		view_contain.setLeft(_left);
@@ -116,13 +107,23 @@ module.exports = function(_check) {
 			icon.setImage("/assets/icon/icon_calendar.png");
 		}
 	};
+	var tableview = Ti.UI.createTableView({
+		separatorColor : "#393939",
+		right : Ti.App.size(25),
+		backgroundColor : "#33030c",
+		zIndex : 10,
+		showVerticalScrollIndicator : 'true',
+		scrollable : true,
+		height : Ti.UI.SIZE
+	});
 	view_contain.setTable = function(_tinh) {
 		var data = [];
+		// tableview.setHeight(Ti.App.size(93*(_tinh.length)));
 		for (var i = 0; i < _tinh.length; i++) {
 			var rowTbl = Ti.UI.createTableViewRow({
 				height : Ti.App.size(93),
 				left : Ti.App.size(20),
-				top : Ti.App.size(26),
+				// top : Ti.App.size(26),
 				width : Ti.UI.FILL,
 				// width : _width,
 				tenrow : (_tinh[i].name) || (_tinh[i]),
@@ -138,7 +139,6 @@ module.exports = function(_check) {
 				left : Ti.App.size(20),
 				touchEnabled : false
 			});
-
 			rowTbl.add(tinhthanh);
 			data.push(rowTbl);
 		}

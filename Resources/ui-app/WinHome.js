@@ -40,9 +40,9 @@ module.exports = function() {
 	var _isAndroid = (Ti.Platform.osname === 'android' );
 	var _style = null;
 	if (_isAndroid || Ti.Platform.osname === 'mobileweb') {
-		_style = Ti.UI.ActivityIndicatorStyle.BIG;
+		_style = Ti.UI.ActivityIndicatorStyle.PLAIN;
 	} else {
-		_style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
+		_style = Ti.UI.iPhone.ActivityIndicatorStyle.PLAIN;
 	}
 	var view_indicatior = Ti.UI.createView({
 		width : Ti.UI.SIZE,

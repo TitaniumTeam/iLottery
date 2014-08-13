@@ -45,7 +45,7 @@ ACSPush.prototype.registerDevice = function(channel_name, onReceive, onLaunched,
 	} else
 	{
 		Titanium.Network.registerForPushNotifications({
-			types : [Titanium.Network.NOTIFICATION_TYPE_BADGE, Titanium.Network.NOTIFICATION_TYPE_ALERT, Titanium.Network.NOTIFICATION_TYPE_SOUND],
+			types : [Titanium.Network.NOTIFICATION_TYPE_BADGE, Titanium.Network.NOTIFICATION_TYPE_SOUND],
 			success : function(e) {
 				token = e.deviceToken;
 				that.token = token;

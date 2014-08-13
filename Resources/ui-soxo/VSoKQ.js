@@ -53,11 +53,11 @@ function taoui(sv) {
 		// backgroundColor : "#33030c"
 		backgroundImage : "/assets/icon/bg_picker1.png"
 	});
-	sv.ui.view_choose.setPos(0, '', 0, Ti.App.size(320), 0, 4);
+	sv.ui.view_choose.setPos(0, '', 0, Ti.App.size(320), 0, 4, Ti.App.size(320));
 	sv.ui.view_choose.setTable(sv.arr.ten_mien);
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.table_view = sv.ui.view_choose.getTableView();
-	sv.ui.view_choose1.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), 0, 5);
+	sv.ui.view_choose1.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), 0, 5, Ti.App.size(320));
 	sv.ui.lbl_thoigian = sv.ui.view_choose1.getLblFirst();
 	////view picker
 	sv.ui.ViewPicker = Titanium.UI.createView({
@@ -100,14 +100,16 @@ function taoui(sv) {
 		touchEnabled : false
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
-		backgroundColor : 'transparent',
+		// backgroundColor : 'transparent',
 		top : Ti.App.size(90),
 		left : 0,
 		height : Ti.App.size(1136),
 		zIndex : 10,
 		visible : false,
 		width : Ti.App.size(640),
-		zIndex : 10
+		zIndex : 10,
+		backgroundImage : "/assets/icon/bg70.png",
+		backgroundSelectedImage : null
 	});
 	sv.ui.ViewKQ = Titanium.UI.createScrollView({
 		top : Ti.App.size(180),
@@ -117,7 +119,8 @@ function taoui(sv) {
 		backgroundColor : "transparent",
 		showVerticalScrollIndicator : "true",
 		bottom : Ti.App.size(25),
-		zIndex : 0
+		zIndex : 0,
+		layout : 'vertical'
 	});
 	showResult(sv);
 	createUI_Event(sv);
@@ -295,6 +298,9 @@ function showResult(sv) {
 				}, sv, 0);
 			}
 			if (hour < 16) {
+				// var customDialog=new (require('/ui-controller/customDialog'))();
+				// customDialog.openDialog();
+				// Ti.API.info('textfield value'+customDialog.getTextValue());
 				sv.ui.lbl_thoigian.setText(getYesterdaysDate());
 				sv.ui.lblfirst.id = 0;
 				sv.ui.lblfirst.setText("Miền Bắc");
@@ -361,7 +367,7 @@ function searchregionlottery(data, sv, loai) {
 			}
 			sv.vari.datarow.setParam(jsonResuilt.resulttable);
 			sv.ui.ViewKQ.add(sv.vari.datarow);
-		}else{
+		} else {
 			sv.ui.View_header.setText("");
 		}
 	};
@@ -374,88 +380,6 @@ function sms_offline() {
 		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "KQSX MB", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ XỔ SỐ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
-		});
-	}
-}
-
-function custom_dialog(_loai) {
-	var isAndroid = Ti.Platform.osname === 'android';
-	var db = Ti.Database.open("userinfo");
-	if (isAndroid) {
-		var textfield = Ti.UI.createTextField({
-		});
-		var dialog = Ti.UI.createAlertDialog({
-			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
-			androidView : textfield,
-			buttonNames : ['OK', 'cancel'],
-			cancel : 1,
-			ok : 0
-		});
-		dialog.show();
-		dialog.addEventListener('click', function(e) {
-			Ti.API.info(textfield.value);
-			if (e.index == e.source.ok) {
-				if (textfield.getValue().length != 0 || textfield.getValue() != "") {
-					Ti.API.info('co gia tri');
-					switch(_loai) {
-					case 0:
-						db.execute("INSERT INTO KQSXMB VALUES(?)", textfield.value);
-						db.close();
-						break;
-					case 2:
-						db.execute("INSERT INTO KQSXMN VALUES(?)", textfield.value);
-						db.close();
-						break;
-					case 1:
-						db.execute("INSERT INTO KQSXMT VALUES(?)", textfield.value);
-						db.close();
-						break;
-					default:
-						Ti.API.info('khong co gia tri nay');
-					}
-				} else {
-					Ti.API.info('khong co gia tri');
-					db.close();
-				}
-			} else {
-				dialog.hide();
-			}
-
-		});
-	} else {
-		var dialog = Ti.UI.createAlertDialog({
-			title : 'Nhập con số hôm nay bạn đánh, mỗi số ngăn cách nhau bởi dấu phẩy',
-			style : Ti.UI.iPhone.AlertDialogStyle.PLAIN_TEXT_INPUT,
-			buttonNames : ['OK', 'cancel'],
-			cancel : 1,
-			ok : 0
-		});
-		dialog.show();
-		dialog.addEventListener('click', function(e) {
-			Ti.API.info('e.text: ' + e.text);
-			if (e.index == e.source.ok)
-				if (e.text.length > 0) {
-					switch(_loai) {
-					case 0:
-						db.execute("INSERT INTO KQSXMB VALUES(?)", e.text);
-						db.close();
-						break;
-					case 2:
-						db.execute("INSERT INTO KQSXMN VALUES(?)", e.text);
-						db.close();
-						break;
-					case 1:
-						db.execute("INSERT INTO KQSXMT VALUES(?)", e.text);
-						db.close();
-						break;
-					default:
-						Ti.API.info('khong co gia tri nay');
-					}
-
-				} else {
-					db.close();
-				}
-
 		});
 	}
 }

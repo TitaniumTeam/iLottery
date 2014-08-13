@@ -39,7 +39,7 @@ function createUI(sv) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
@@ -106,10 +106,10 @@ function createUI(sv) {
 		top : 0,
 		backgroundColor : "#33030c"
 	});
-	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), 0, 1);
+	sv.ui.view_choose.setPos(0, 'MIỀN BẮC', 0, Ti.App.size(640), 0, 1, Ti.App.size(320));
 	sv.ui.view_choose.setTable(sv.arr.ten_mien);
-	sv.ui.view_choose1.setPos(0, set_lbl2(), 0, Ti.App.size(320), 0, 2);
-	sv.ui.view_choose2.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), 0, 3);
+	sv.ui.view_choose1.setPos(0, set_lbl2(), 0, Ti.App.size(320), 0, 2, Ti.App.size(320));
+	sv.ui.view_choose2.setPos(0, set_lbl(), Ti.App.size(320), Ti.App.size(320), 0, 3, Ti.App.size(320));
 	sv.ui.lblfirst = sv.ui.view_choose.getLblFirst();
 	sv.ui.lblfirst.id = "MB";
 	sv.ui.lblfirst1 = sv.ui.view_choose1.getLblFirst();
@@ -119,7 +119,7 @@ function createUI(sv) {
 
 	sv.ui.ViewPicker = Titanium.UI.createView({
 		width : Ti.App.size(640),
-		height :setHeightPicker(),
+		height : setHeightPicker(),
 		visible : false,
 		bottom : 0,
 		zIndex : 10,
@@ -181,28 +181,31 @@ function createUI(sv) {
 		backgroundImage : "/assets/icon/title_bar.png"
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
-		backgroundColor : 'transparent',
 		top : Ti.App.size(90),
 		left : 0,
 		height : Ti.App.size(1136),
 		zIndex : 10,
 		visible : false,
-		width : Ti.App.size(640)
+		width : Ti.App.size(640),
+		backgroundImage : "/assets/icon/bg70.png",
+		backgroundSelectedImage : null
 	});
 	sv.ui.ViewRegion = Titanium.UI.createView({
-		backgroundColor : 'transparent',
+		// backgroundColor : 'transparent',
 		top : Ti.App.size(90),
 		left : 0,
-		height : Ti.App.size(1136),
+		// height : Ti.App.size(1136),
 		zIndex : 10,
 		visible : false,
-		width : Ti.App.size(640)
+		width : Ti.App.size(640),
+		backgroundImage : "/assets/icon/bg70.png",
+		backgroundSelectedImage : null,
+		height:Ti.UI.FILL
 	});
 	sv.ui.ScrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(270),
 		left : 0,
 		width : Ti.App.size(640),
-		// height : Ti.UI.SIZE,
 		// contentHeight : Ti.UI.SIZE,
 		backgroundColor : "transparent",
 		layout : "vertical",
@@ -218,6 +221,11 @@ function createUI(sv) {
 		sv.ui.ScrollView.setHeight(Ti.UI.SIZE);
 
 	}
+	soketqua("searchtimelottery", {
+		"provideid" : "MB",
+		"startdate" : sv.ui.lblfirst1.text,
+		"enddate" : sv.ui.lblfirst2.text,
+	}, sv);
 	///
 	/////
 	createUI_Event(sv);
@@ -257,11 +265,6 @@ function createUI(sv) {
 	/////
 	sv.ui.winThongKeKQ.add(sv.ui.ViewTong);
 	///////
-	soketqua("searchtimelottery", {
-		"provideid" : "MB",
-		"startdate" : sv.ui.lblfirst1.text,
-		"enddate" : sv.ui.lblfirst2.text,
-	}, sv);
 }
 
 function createUI_Event(sv) {
@@ -338,7 +341,7 @@ function createUI_Event(sv) {
 			sv.ui.ViewPicker2.visible = false;
 			soketqua("getprovidebyregion", {
 				"region" : sv.ui.lblfirst.id,
-				"weekday" : currDate(),
+				// "weekday" : currDate(),
 				// "startdate" : set_lbl()
 			}, sv);
 		} else {
@@ -427,13 +430,15 @@ function soketqua(_cmd, data, sv) {
 			var ketqua = [];
 			var dodai = null;
 			var dataTable = null;
-			if (jsonResuilt.resulttable[0].provide) {
+			if (jsonResuilt.resulttable.length > 0) {
 				if (sv.ui.lblfirst1.text != sv.ui.lblfirst2.text) {
 					sv.ui.View_header.text = "KQSX " + jsonResuilt.resulttable[0].provide.name.toString() + " từ: " + sv.ui.lblfirst1.text + ' đến: ' + sv.ui.lblfirst2.text;
 				} else {
 					sv.ui.View_header.text = "KQSX " + jsonResuilt.resulttable[0].provide.name.toString() + " ngày " + sv.ui.lblfirst1.text;
 				}
 
+			} else {
+				sv.ui.View_header.text = "";
 			}
 			for (var i = 0; i < jsonResuilt.resulttable.length; i++) {
 
@@ -449,6 +454,7 @@ function soketqua(_cmd, data, sv) {
 
 					};
 				} else {
+					return;
 				}
 
 			}
@@ -687,9 +693,9 @@ function setHeightPicker() {
 	if (isAndroid) {
 		return Ti.App.size(650);
 	} else {
-		if(isIpad)
-		return Ti.App.size(590);
+		if (isIpad)
+			return Ti.App.size(590);
 		else
-		return Ti.App.size(690);
+			return Ti.App.size(690);
 	}
 };

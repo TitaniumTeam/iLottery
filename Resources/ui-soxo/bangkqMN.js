@@ -142,7 +142,10 @@ module.exports = function() {
 	viewchua3[3].add(lblKQ3[2]);
 	viewchua3[2].add(lblKQ3[1]);
 	////////
+	var isLoading = false;
+	var interval = null;
 	viewKQ.setParam = function(param) {
+		clearInterval(interval);
 		var kqTinh1 = [];
 		var mangstring1 = [];
 		var mangkq1 = [];
@@ -184,19 +187,20 @@ module.exports = function() {
 				mangkq3.push(mangstring3[j]);
 			};
 		}
+		mangkq1.reverse();
+		mangkq2.reverse();
+		mangkq3.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
-			lblKQ[i].setText(mangkq1[i]);
+			lblKQ[17-i].setText(mangkq1[i]);
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
-			lblKQ2[i].setText(mangkq2[i]);
+			lblKQ2[17-i].setText(mangkq2[i]);
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
-			lblKQ3[i].setText(mangkq3[i]);
+			lblKQ3[17-i].setText(mangkq3[i]);
 		}
 	};
 
-	var isLoading = false;
-	var interval = null;
 	viewKQ.setParamLive = function() {
 		// var db = Ti.Database.open('userinfo');
 		// var kqmb = db.execute("SELECT * FROM KQSXMN");
@@ -330,42 +334,15 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		mangkq3.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
 			lblkq1[17 - i].setText(mangkq1[i]);
-			// for (var j = 0; j < (arrkq_mb.length); j++) {
-				// if (mangkq1[i] == arrkq_mb[j]) {
-					// lblkq1[17 - i].setColor("yellow");
-					// lblkq1[17 - i].setFont({
-						// fontWeight : "bold",
-						// fontSize : Ti.App.size(35)
-					// });
-				// }
-			// }
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
 			lblkq2[17 - i].setText(mangkq2[i]);
-			// for (var j = 0; j < (arrkq_mb.length); j++) {
-				// if (mangkq2[i] == arrkq_mb[j]) {
-					// lblkq2[17 - i].setColor("yellow");
-					// lblkq2[17 - i].setFont({
-						// fontWeight : "bold",
-						// fontSize : Ti.App.size(35)
-					// });
-				// }
-			// }
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
 			lblkq3[17 - i].setText(mangkq3[i]);
-			// for (var j = 0; j < (arrkq_mb.length); j++) {
-				// if (mangkq3[i] == arrkq_mb[j]) {
-					// lblkq3[17 - i].setColor("yellow");
-					// lblkq3[17 - i].setFont({
-						// fontWeight : "bold",
-						// fontSize : Ti.App.size(35)
-					// });
-				// }
-			// }
 		}
-		if ((mangkq1.length + mangkq2.length + mangkq3.length) == 54) {
-			Ti.API.info('clear interval'+(mangkq1.length+mangkq2.length+mangkq3.length));
+		if ((param[2].lines[0].result.length>0)&&(param[1].lines[0].result.length>0)&&(param[0].lines[0].result.length>0)) {
+			Ti.API.info('clear inter val');
 			clearInterval(interval);
 		}
 		isLoading = false;

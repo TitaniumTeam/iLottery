@@ -99,14 +99,24 @@ module.exports = function() {
 	viewchua_result[7].add(lblKQ[25]);
 	viewchua_result[7].add(lblKQ[26]);
 	////////
+	var param = null;
+	var isLoading = false;
+	var interval = null;
 	viewKQ.setParam = function(param) {
+		clearInterval(interval);
 		var ketqua = [];
 		var mangstring = [];
 		var mangkq = [];
 
 		if (param[0].lines) {
-			for (var i = 0; i < (param[0].lines.length); i++)
-				ketqua.push(param[0].lines[i].result);
+			for (var i = 0; i < (param[0].lines.length); i++) {
+				if (param[0].lines[i].result.toString().length == 0 || param[0].lines[i].result.toString() == "") {
+					ketqua.push("");
+				} else {
+					ketqua.push(param[0].lines[i].result);
+				}
+			}
+
 		}
 		for (var i = 0; i < (ketqua.length); i++) {
 			mangstring = (ketqua[i].toString()).split(',');
@@ -115,15 +125,11 @@ module.exports = function() {
 				mangkq.push(mangstring[j]);
 			};
 		}
-		Ti.API.info('length mang kq' + mangkq.length);
 		for (var i = 0; i < (mangkq.length); i++) {
 			lblKQ[i].setText(mangkq[i]);
 		}
 
 	};
-	var param = null;
-	var isLoading = false;
-	var interval = null;
 	viewKQ.setParamLive = function() {
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
@@ -196,13 +202,14 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		var mangstring = [];
 		var mangkq = [];
 		if (param[0].lines) {
-			for (var i = 0; i < (param[0].lines.length); i++)
-
+			for (var i = 0; i < (param[0].lines.length); i++) {
 				if (param[0].lines[i].result.toString().length == 0 || param[0].lines[i].result.toString() == "") {
 					ketqua.push("");
 				} else {
 					ketqua.push(param[0].lines[i].result);
 				}
+			}
+
 		}
 		for (var i = 0; i < (ketqua.length); i++) {
 			mangstring = (ketqua[i].toString()).split(',');
@@ -214,10 +221,10 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		for (var i = 0; i < (mangkq.length); i++) {
 			lblkq[i].setText(mangkq[i]);
 		}
-		if (mangkq.length == 27) {
+		if (param[0].lines[0].result.length>0) {
 			for (var i = 0; i < (mangkq.length); i++) {
-			lblkq[i].setText(mangkq[i]);
-		}
+				lblkq[i].setText(mangkq[i]);
+			}
 			clearInterval(interval);
 		}
 		isLoading = false;
