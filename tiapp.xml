@@ -6,7 +6,7 @@
     <property name="acs-oauth-secret-production" type="string">vxGwBTviJzzog82ivEwwnsCMpZnpoRre</property>
     <property name="acs-oauth-key-production" type="string">OsgzTAmqworEMZspTUanWun92DU6DjkG</property>
     <property name="acs-api-key-production" type="string">yOEIW7COaU1o7RdHqIoSUTWzN1mbvCGS</property>
-    <id>com.ios.xoso.bongda</id>
+    <id>com.xoso.bongda</id>
     <name>XoSoBongDa</name>
     <version>1.0</version>
     <publisher>minhdv</publisher>
