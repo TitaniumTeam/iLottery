@@ -73,6 +73,7 @@ function tao_sukien(sv) {
 	var dv_cap2 = [];
 	dv_cap1 = get_data_fromdb(db_menucap1);
 	dv_cap2 = get_data_fromdb(db_menucap2);
+	db_service.close();
 // 
 	// for (var i = 0; i < (dv_cap2.length); i++) {
 		// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
@@ -220,10 +221,10 @@ function get_menu(sv) {
 		sv.vari.user_info.close();
 		sv.vari.db.close();
 		var db_service = Ti.Database.open('servicedb');
-		if (Ti.Platform.osname != 'android') {
+		// if (Ti.Platform.osname != 'android') {
 			db_service.execute("DELETE FROM Menucap1_xoso");
 			db_service.execute("DELETE FROM Menucap2_xoso");
-		}
+		// }
 		for (var i = 0; i < (menucap1.length); i++) {
 			db_service.execute("INSERT OR IGNORE INTO Menucap1_xoso VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
 		}

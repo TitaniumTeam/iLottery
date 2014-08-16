@@ -73,7 +73,7 @@ function tao_sukien(sv) {
 	var dv_cap2 = [];
 	dv_cap1 = get_data_fromdb(db_menucap1);
 	dv_cap2 = get_data_fromdb(db_menucap2);
-
+	db_service.close();
 	// for (var i = 0; i < (dv_cap2.length); i++) {
 		// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
 	// }

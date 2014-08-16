@@ -290,17 +290,17 @@ function push_notifi_mod() {
 
 	// set cross-platform event
 	var onReceive = function(evt) {
-		alert('A push notification was received!');
+		Ti.API.info('A push notification was received!');
 		console.log('A push notification was received!' + JSON.stringify(evt));
 	};
 	// set android-only event
 	var onLaunched = function(evt) {
-		alert('A push notification was received - onLaunched');
+		Ti.API.info('A push notification was received - onLaunched');
 		console.log('A push notification was received!' + JSON.stringify(evt));
 	};
 	// set android-only event
 	var onFocused = function(evt) {
-		alert('A push notification was received - onFocused');
+		Ti.API.info('A push notification was received - onFocused');
 		console.log('A push notification was received!' + JSON.stringify(evt));
 	};
 	// load library
