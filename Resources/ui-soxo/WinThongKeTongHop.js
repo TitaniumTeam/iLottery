@@ -136,12 +136,16 @@ function createUI(sv) {
 		showVerticalScrollIndicator : true,
 		disableBounce : true,
 		horizontalBounce : true,
-		height : Ti.UI.FILL,
+		// height : Ti.UI.FILL,
 		bottom : Ti.App.size(25),
-		// contentHeight:Ti.UI.FILL
+		// contentHeight:Ti.UI.FILL,
+		left:0
 	});
 	if (Ti.Platform.osname == "android") {
 		sv.ui.ScrollView.setContentHeight(Ti.UI.FILL);
+		sv.ui.ScrollView.setHeight(Ti.UI.FILL);
+	}else{
+		sv.ui.ScrollView.setHeight(Ti.UI.SIZE);
 	}
 	thongke("getlotterystat", {
 		"provideid" : "MB",
@@ -260,7 +264,7 @@ function thongke(_cmd, data, sv) {
 			// }
 			// if (jsonResuilt.thongke.xuatthiennhieu > 0) {
 			sv.vari.viewXuatHienNhieu = bang_kq();
-			sv.vari.viewXuatHienNhieu.setKQ(jsonResuilt.thongke.xuathiennhieu, "lần", "8 cặp số xuất hiện nhiều trong 10 ngày qua");
+			sv.vari.viewXuatHienNhieu.setKQ(jsonResuilt.thongke.xuathiennhieu, "lần", "Các cặp số xuất hiện nhiều trong 10 ngày qua");
 			sv.ui.ScrollView.add(sv.vari.viewXuatHienNhieu);
 			// }
 
@@ -338,6 +342,8 @@ function bang_kq() {
 		backgroundColor : 'transparent',
 		left : Ti.App.size(20),
 		right : Ti.App.size(20),
+		backgroundSelectedColor:null,
+		touchEnabled:false
 	});
 	var Header = Titanium.UI.createView({
 		width : Ti.App.size(600),

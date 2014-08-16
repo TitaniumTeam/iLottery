@@ -57,7 +57,7 @@ ACSPush.prototype.registerDevice = function(channel_name, onReceive, onLaunched,
 			},
 			callback : function(e) {
 				onReceive(e.data);
-				console.log("push notification received: " + JSON.stringify(e.data));
+				Ti.API.info("push notification received: " + JSON.stringify(e.data));
 			}
 		});
 	}
