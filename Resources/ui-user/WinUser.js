@@ -1,4 +1,9 @@
 module.exports = function() {
+	var isAndroid = Ti.Platform.osname === 'android';
+	if (!isAndroid) {
+		var revemob = new (require('/ui-controller/revmob'))();
+		revemob.hideBanner();
+	}
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -41,7 +46,7 @@ function tao_ui(sv) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
 		orientationModes : [Ti.UI.PORTRAIT],
 		backgroundColor : Ti.App.Color.magenta,
 	});
@@ -226,7 +231,7 @@ function tao_ui(sv) {
 			left : 0,
 			height : Ti.App.size(100),
 			id : i,
-			backgroundSelectedColor:Ti.App.Color.xanhnhat
+			backgroundSelectedColor : Ti.App.Color.xanhnhat
 		});
 		sv.vari.lineRow1[i] = Ti.UI.createView({
 			width : Ti.App.size(590),
@@ -268,7 +273,7 @@ function tao_ui(sv) {
 			left : 0,
 			height : Ti.App.size(100),
 			id : i,
-			backgroundSelectedColor:Ti.App.Color.xanhnhat
+			backgroundSelectedColor : Ti.App.Color.xanhnhat
 		});
 		sv.vari.lineRow2[i] = Ti.UI.createView({
 			width : Ti.App.size(590),
@@ -276,7 +281,7 @@ function tao_ui(sv) {
 			left : 0,
 			height : Ti.App.size(3),
 			backgroundColor : Ti.App.Color.xanhnhat,
-			touchEnabled:false
+			touchEnabled : false
 		});
 		sv.vari.IconChucNang2[i] = Ti.UI.createImageView({
 			width : Ti.App.size(60),
@@ -295,7 +300,7 @@ function tao_ui(sv) {
 			},
 			width : Ti.App.size(485),
 			textAlign : "left",
-			touchEnabled:false
+			touchEnabled : false
 		});
 		sv.vari.rowChucNang2[i].add(sv.vari.lineRow2[i]);
 		sv.vari.rowChucNang2[i].add(sv.vari.IconChucNang2[i]);

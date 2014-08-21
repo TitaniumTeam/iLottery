@@ -25,7 +25,7 @@ function createUI(sv, _winDK) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
@@ -186,7 +186,7 @@ function createUI(sv, _winDK) {
 		font : {
 			fontSize : Ti.App.size(25)
 		},
-		autocorrect : false
+		autocorrect : false,
 	});
 	///
 	sv.ui.ViewBtn2 = Titanium.UI.createView({
@@ -207,7 +207,7 @@ function createUI(sv, _winDK) {
 	/////
 	sv.ui.opt_dialog = Titanium.UI.createOptionDialog({
 		// cancel : 1,
-		options : Ti.Platform.osname=='android'?["Bằng Email", "Bằng SMS"]:["Bằng Email", "Bằng SMS","Thoát"],
+		options : Ti.Platform.osname == 'android' ? ["Bằng Email", "Bằng SMS"] : ["Bằng Email", "Bằng SMS", "Thoát"],
 		// opaquebackground : true,
 		title : "Lấy lại mật khẩu",
 		buttonNames : ["Thoát"]
@@ -412,7 +412,7 @@ function dangnhap(data, sv, _winDK) {
 			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 		};
 		// open the client
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=login');
+		xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=login');
 		xhr.setRequestHeader("Content-Type", "application/json-rpc");
 		Ti.API.info(JSON.stringify(data));
 		xhr.send(JSON.stringify(data));

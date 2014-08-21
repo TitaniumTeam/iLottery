@@ -13,6 +13,7 @@ module.exports = function() {
 		touchEnabled : false,
 		layout : "horizontal"
 	});
+	
 	var viewChuaTenGiai = Ti.UI.createView({
 		height : Ti.UI.FILL,
 		backgroundColor : "transparent",
@@ -187,7 +188,7 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=searchcurrentlottery');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=searchcurrentlottery');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	xhr.onerror = function(e) {
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
@@ -272,7 +273,7 @@ function label(lbl_color, lbl_font, _width) {
 			fontSize : Ti.App.size(25),
 			fontWeight : 'bold'
 		} : {
-			fonWeight : 'bold',
+			fontWeight : 'bold',
 			fontSize : Ti.App.size(35)
 		},
 		touchEnabled : false,

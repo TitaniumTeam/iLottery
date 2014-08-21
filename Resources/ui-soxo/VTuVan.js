@@ -1,4 +1,9 @@
 module.exports = function() {
+	var isAndroid = Ti.Platform.osname === 'android';
+	if (!isAndroid) {
+		var revemob = new (require('/ui-controller/revmob'))();
+		revemob.hideBanner();
+	}
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -74,9 +79,9 @@ function tao_sukien(sv) {
 	dv_cap1 = get_data_fromdb(db_menucap1);
 	dv_cap2 = get_data_fromdb(db_menucap2);
 	db_service.close();
-// 
+	//
 	// for (var i = 0; i < (dv_cap2.length); i++) {
-		// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
+	// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
 	// }
 
 	for (var i = 0; i < (dv_cap1.length); i++) {
@@ -145,7 +150,7 @@ function tao_sukien(sv) {
 				opaquebackground : true,
 				title : "Lựa chọn các tỉnh thành",
 			});
-			if (menucap2.name.length > 0)
+			if ((menucap2.name.length > 0 && isAndroid) || (menucap2.name.length > 1 && (!isAndroid)))
 				opt.show();
 			opt.addEventListener('click', function(e) {
 				if (e.button || opt.getOptions().toString == 'Thoát') {
@@ -191,7 +196,7 @@ function get_menu(sv) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getmenu');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=getmenu');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -222,8 +227,8 @@ function get_menu(sv) {
 		sv.vari.db.close();
 		var db_service = Ti.Database.open('servicedb');
 		// if (Ti.Platform.osname != 'android') {
-			db_service.execute("DELETE FROM Menucap1_xoso");
-			db_service.execute("DELETE FROM Menucap2_xoso");
+		db_service.execute("DELETE FROM Menucap1_xoso");
+		db_service.execute("DELETE FROM Menucap2_xoso");
 		// }
 		for (var i = 0; i < (menucap1.length); i++) {
 			db_service.execute("INSERT OR IGNORE INTO Menucap1_xoso VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
@@ -246,7 +251,7 @@ function tuvan_soxo(data) {
 			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 		};
 		// open the client
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=menuaction');
+		xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=menuaction');
 		xhr.setRequestHeader("Content-Type", "application/json-rpc");
 		Ti.API.info(JSON.stringify(data));
 		xhr.send(JSON.stringify(data));

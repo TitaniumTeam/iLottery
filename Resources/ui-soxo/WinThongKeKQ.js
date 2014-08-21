@@ -404,7 +404,7 @@ function soketqua(_cmd, data, sv) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=' + _cmd);
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));

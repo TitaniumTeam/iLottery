@@ -1,4 +1,9 @@
 module.exports = function() {
+	var isAndroid = Ti.Platform.osname === 'android';
+	if (!isAndroid) {
+		var revemob = new (require('/ui-controller/revmob'))();
+		revemob.hideBanner();
+	}
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -75,7 +80,7 @@ function tao_sukien(sv) {
 	dv_cap2 = get_data_fromdb(db_menucap2);
 	db_service.close();
 	// for (var i = 0; i < (dv_cap2.length); i++) {
-		// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
+	// Ti.API.info('name:' + dv_cap2[i].name + "/id:" + dv_cap2[i].id + dv_cap2[i].act);
 	// }
 
 	for (var i = 0; i < (dv_cap1.length); i++) {
@@ -144,8 +149,8 @@ function tao_sukien(sv) {
 				opaquebackground : true,
 				title : "Lựa chọn các tỉnh thành",
 			});
-			if(menucap2.name.length>0)
-			opt.show();
+			if ((menucap2.name.length > 0 && isAndroid) || (menucap2.name.length > 1 && (!isAndroid)))
+				opt.show();
 			opt.addEventListener('click', function(e) {
 				if (e.button || opt.getOptions().toString == 'Thoát') {
 					opt.hide();
@@ -190,7 +195,7 @@ function get_menu(sv) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getmenu');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=getmenu');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -245,7 +250,7 @@ function tuvan_soxo(data) {
 			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 		};
 		// open the client
-		xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=menuaction');
+		xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=menuaction');
 		xhr.setRequestHeader("Content-Type", "application/json-rpc");
 		Ti.API.info(JSON.stringify(data));
 		xhr.send(JSON.stringify(data));

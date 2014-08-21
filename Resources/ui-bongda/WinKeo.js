@@ -660,7 +660,7 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getmatchratio');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=getmatchratio');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));

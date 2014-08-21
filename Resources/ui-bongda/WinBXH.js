@@ -52,7 +52,7 @@ function createUI(sv, tourid, season, logo) {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
 		orientationModes : [Ti.UI.PORTRAIT],
 	});
 	sv.ui.ViewHeader = Ti.UI.createView({
@@ -269,13 +269,13 @@ function createUI(sv, tourid, season, logo) {
 		zIndex : 0
 	});
 	sv.ui.ViewCheat = Ti.UI.createView({
-		backgroundColor : 'transparent',
 		top : Ti.App.size(90),
 		left : 0,
 		height : Ti.App.size(1136),
 		zIndex : 10,
 		visible : false,
-		width : Ti.App.size(640)
+		width : Ti.App.size(640),
+		backgroundImage : "/assets/icon/bg70.png",
 	});
 	///
 	BXH(sv, tourid, season);
@@ -343,14 +343,14 @@ function createUI_Event(sv, tourid) {
 
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window bang xh');
-		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
-		sv.ui.ViewListTeam.setVisible(false);
-		sv.ui.ViewListTeam.setTouchEnabled(false);
-		setTimeout(function() {
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
-			sv.ui.ViewListTeam.setVisible(true);
-			sv.ui.ViewListTeam.setTouchEnabled(true);
-		}, 1000);
+		// Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
+		// sv.ui.ViewListTeam.setVisible(false);
+		// sv.ui.ViewListTeam.setTouchEnabled(false);
+		// setTimeout(function() {
+			// Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
+			// sv.ui.ViewListTeam.setVisible(true);
+			// sv.ui.ViewListTeam.setTouchEnabled(true);
+		// }, 1000);
 	};
 
 	sv.fu.eventCloseWindow = function(e) {
@@ -398,7 +398,7 @@ function BXH(sv, tourid, season) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + "getleaguerate");
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=' + "getleaguerate");
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));

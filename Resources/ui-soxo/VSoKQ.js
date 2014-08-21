@@ -1,5 +1,5 @@
 /**
- * 16h là miền Nam, 17h15 là miền Trung, 18h15 là miền Bắc
+ * 16h15 là miền Nam, 17h15 là miền Trung, 18h15 là miền Bắc
  */
 
 module.exports = function() {
@@ -210,7 +210,7 @@ function showResult(sv) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=getnowtime');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=getnowtime');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -298,9 +298,6 @@ function showResult(sv) {
 				}, sv, 0);
 			}
 			if (hour < 16) {
-				// var customDialog=new (require('/ui-controller/customDialog'))();
-				// customDialog.openDialog();
-				// Ti.API.info('textfield value'+customDialog.getTextValue());
 				sv.ui.lbl_thoigian.setText(getYesterdaysDate());
 				sv.ui.lblfirst.id = 0;
 				sv.ui.lblfirst.setText("Miền Bắc");
@@ -325,7 +322,7 @@ function searchregionlottery(data, sv, loai) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=searchregionlottery');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=searchregionlottery');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));

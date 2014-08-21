@@ -280,7 +280,7 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=searchcurrentlottery');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=searchcurrentlottery');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	xhr.onerror = function(e) {
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);

@@ -121,13 +121,15 @@ function tao_ui(sv) {
 		// layout:"vertical"
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({
-		backgroundColor : 'transparent',
-		top : Ti.App.size(90),
+		top : Ti.App.size(88),
 		left : 0,
-		height : Ti.App.size(1136),
+		height : Ti.UI.FILL,
 		zIndex : 10,
 		visible : false,
-		width : Ti.App.size(640)
+		width : Ti.App.size(640),
+		backgroundColor : 'transparent',
+		backgroundSelectedColor : null,
+		backgroundSelectedImage : null,
 	});
 	sv.ui.tbl = Ti.UI.createTableView({
 		height : Ti.UI.FILL,
@@ -172,7 +174,7 @@ function GetTour(sv, data, _cmd) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=gettour');
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=gettour');
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -386,7 +388,7 @@ function GetTour(sv, data, _cmd) {
 						"tourid" : sv.arr.TourId[e.source.id],
 					};
 					var xhr1 = Titanium.Network.createHTTPClient();
-					xhr1.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+					xhr1.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=' + _cmd);
 					xhr1.setRequestHeader("Content-Type", "application/json-rpc");
 					Ti.API.info(JSON.stringify(data1));
 					xhr1.send(JSON.stringify(data1));
@@ -407,16 +409,16 @@ function GetTour(sv, data, _cmd) {
 							sv.vari.sotran = [];
 							//Ti.App.customToast.showToast("Không có trận nào", 1000);
 						} else {
-							// if (jsonResuilt1.matchs.length > 17) {
-								// for (var j = 0; j < ((jsonResuilt1.matchs).length / 20); j++) {
-									// sv.vari.sotran.push(jsonResuilt1.matchs[j]);
-									// sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
-									// sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
-									// sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
-									// sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
-									// sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
-								// }
-							// } else {
+							if (jsonResuilt1.matchs.length > 17) {
+								for (var j = 0; j < ((jsonResuilt1.matchs).length / 20); j++) {
+									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
+									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
+									sv.arr.MangDL.khach[j] = jsonResuilt1.matchs[j].guestID;
+									sv.arr.MangDL.chunha[j] = jsonResuilt1.matchs[j].ownerID;
+									sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
+									sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
+								}
+							} else {
 								for (var j = 0; j < (jsonResuilt1.matchs).length; j++) {
 									sv.vari.sotran.push(jsonResuilt1.matchs[j]);
 									sv.arr.MangDL.id[j] = jsonResuilt1.matchs[j].id;
@@ -425,7 +427,7 @@ function GetTour(sv, data, _cmd) {
 									sv.arr.MangDL.date[j] = jsonResuilt1.matchs[j].date;
 									sv.arr.MangDL.state[j] = jsonResuilt1.matchs[j].trangthai;
 								}
-							// }
+							}
 
 						}
 
@@ -462,16 +464,20 @@ function GetTour(sv, data, _cmd) {
 						sv.ui.tbl.setData(sv.arr.rows);
 						for (var j = 0; j < (sv.vari.sotran.length); j++) {
 							sv.ui.vThongTinTD[j].addEventListener('click', function(k) {
-								sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(false);
-								sv.vari.time_out3 = setTimeout(function() {
-									sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(true);
-									clearTimeout(sv.vari.time_out3);
-								}, 1000);
-								if (sv.arr.MangDL.id[k.source.idKeo]) {
-									Ti.API.info('id tran dau:' + sv.vari.sotran[k.source.idKeo].id);
-									sv.ui.TTTD = new sv.vari.TTTD_cuthe();
-									sv.ui.TTTD.ui.winKeo.open();
-									sv.ui.TTTD.setThongTinTD(sv.vari.sotran[k.source.idKeo], sv.arr.data[e.source.id], sv.arr.logo[e.source.id]);
+								if (_cmd != "getmatchended") {
+									sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(false);
+									sv.vari.time_out3 = setTimeout(function() {
+										sv.ui.vThongTinTD[k.source.idKeo].setTouchEnabled(true);
+										clearTimeout(sv.vari.time_out3);
+									}, 1000);
+									if (sv.arr.MangDL.id[k.source.idKeo]) {
+										Ti.API.info('id tran dau:' + sv.vari.sotran[k.source.idKeo].id);
+										sv.ui.TTTD = new sv.vari.TTTD_cuthe();
+										sv.ui.TTTD.ui.winKeo.open();
+										sv.ui.TTTD.setThongTinTD(sv.vari.sotran[k.source.idKeo], sv.arr.data[e.source.id], sv.arr.logo[e.source.id]);
+									}
+								} else {
+									return;
 								}
 
 							});

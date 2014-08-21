@@ -14,9 +14,10 @@ module.exports = function() {
 		exitOnClose : false,
 		keepScreenOn : true,
 		navBarHidden : true,
-		fullscreen : isAndroid?false:true,
+		fullscreen : isAndroid ? false : true,
+		orientationModes : [Ti.UI.PORTRAIT]
 	});
-	win.orientationModes = [Ti.UI.PORTRAIT];
+	////////////
 	var AppIcon = Ti.UI.createImageView({
 		width : Ti.App.size(640),
 		height : Ti.App.size(721),
@@ -147,6 +148,10 @@ module.exports = function() {
 		}, 500);
 	};
 	var evt_openWin = function(e) {
+		// var isAndroid = Ti.Platform.osname === 'android';
+		// if (!isAndroid) {
+			// var revemob = new (require('/ui-controller/revmob'))();
+		// }
 		// push_notification();
 		push_notifi_mod();
 		Ti.API.info('open window home');

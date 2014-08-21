@@ -232,7 +232,7 @@ function thongke(_cmd, data, sv) {
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
 	};
 	// open the client
-	xhr.open('POST', 'http://bestteam.no-ip.biz:7788/api?cmd=' + _cmd);
+	xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=' + _cmd);
 	xhr.setRequestHeader("Content-Type", "application/json-rpc");
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
@@ -254,17 +254,17 @@ function thongke(_cmd, data, sv) {
 			}, 1500);
 			// if (jsonResuilt.thongke.lauchuara.length > 0) {
 			sv.vari.viewLauChuaRa = bang_kq();
-			sv.vari.viewLauChuaRa.setKQ(jsonResuilt.thongke.lauchuara, "ngày", "Dãy số ít về trong 10 ngày qua");
+			sv.vari.viewLauChuaRa.setKQ(jsonResuilt.thongke.lauchuara, "ngày", "Dãy số ít về trong 40 ngày qua");
 			sv.ui.ScrollView.add(sv.vari.viewLauChuaRa);
 			// }
 			// if (jsonResuilt.thongke.ralientiep > 0) {
-			sv.vari.viewRaLienTiep = bang_kq();
-			sv.vari.viewRaLienTiep.setKQ(jsonResuilt.thongke.ralientiep, "ngày", "Dãy số ra liên tiếp trong 10 ngày qua");
-			sv.ui.ScrollView.add(sv.vari.viewRaLienTiep);
+			// sv.vari.viewRaLienTiep = bang_kq();
+			// sv.vari.viewRaLienTiep.setKQ(jsonResuilt.thongke.ralientiep, "ngày", "Dãy số ra liên tiếp trong 10 ngày qua");
+			// sv.ui.ScrollView.add(sv.vari.viewRaLienTiep);
 			// }
 			// if (jsonResuilt.thongke.xuatthiennhieu > 0) {
 			sv.vari.viewXuatHienNhieu = bang_kq();
-			sv.vari.viewXuatHienNhieu.setKQ(jsonResuilt.thongke.xuathiennhieu, "lần", "Các cặp số xuất hiện nhiều trong 10 ngày qua");
+			sv.vari.viewXuatHienNhieu.setKQ(jsonResuilt.thongke.xuathiennhieu, "lần", "Các cặp số xuất hiện nhiều trong 40 ngày qua");
 			sv.ui.ScrollView.add(sv.vari.viewXuatHienNhieu);
 			// }
 
