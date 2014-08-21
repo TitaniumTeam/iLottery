@@ -148,10 +148,6 @@ module.exports = function() {
 		}, 500);
 	};
 	var evt_openWin = function(e) {
-		// var isAndroid = Ti.Platform.osname === 'android';
-		// if (!isAndroid) {
-			// var revemob = new (require('/ui-controller/revmob'))();
-		// }
 		// push_notification();
 		push_notifi_mod();
 		Ti.API.info('open window home');

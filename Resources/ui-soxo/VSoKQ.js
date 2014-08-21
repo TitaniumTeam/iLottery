@@ -120,7 +120,8 @@ function taoui(sv) {
 		showVerticalScrollIndicator : "true",
 		bottom : Ti.App.size(25),
 		zIndex : 0,
-		layout : 'vertical'
+		layout : 'vertical',
+		bottom : Ti.App.size(100)
 	});
 	showResult(sv);
 	createUI_Event(sv);
@@ -268,24 +269,24 @@ function showResult(sv) {
 			}, sv, 0);
 		}
 		if (hour == 17 && min < 15) {
-			sv.ui.lblfirst.id = 2;
-			sv.ui.lbl_thoigian.setText(currDate());
-			sv.ui.lblfirst.setText("Miền Nam");
-			Ti.API.info('lay ket qua mien nam');
+			sv.ui.lbl_thoigian.setText(getYesterdaysDate());
+			sv.ui.lblfirst.id = 0;
+			sv.ui.lblfirst.setText("Miền Bắc");
+			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
-				"regionid" : 2,
-				"date" : currDate()
-			}, sv, 2);
+				"regionid" : 0,
+				"date" : getYesterdaysDate()
+			}, sv, 0);
 		}
 		if (hour == 18 && min < 15) {
-			sv.ui.lbl_thoigian.setText(currDate());
-			sv.ui.lblfirst.id = 1;
-			sv.ui.lblfirst.setText("Miền Trung");
-			Ti.API.info('lay ket qua mien trung');
+			sv.ui.lbl_thoigian.setText(getYesterdaysDate());
+			sv.ui.lblfirst.id = 0;
+			sv.ui.lblfirst.setText("Miền Bắc");
+			Ti.API.info('lay ket qua mien bac');
 			searchregionlottery({
-				"regionid" : 1,
-				"date" : currDate()
-			}, sv, 1);
+				"regionid" : 0,
+				"date" : getYesterdaysDate()
+			}, sv, 0);
 		} else {
 			if (hour >= 19) {
 				sv.ui.lbl_thoigian.setText(currDate());

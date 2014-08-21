@@ -1,9 +1,9 @@
 module.exports = function() {
-	var isAndroid = Ti.Platform.osname === 'android';
-	if (!isAndroid) {
-		var revemob = new (require('/ui-controller/revmob'))();
-		revemob.hideBanner();
-	}
+	// var isAndroid = Ti.Platform.osname === 'android';
+	// if (!isAndroid) {
+	// var revemob = new (require('/ui-controller/revmob'))();
+	// revemob.hideBanner();
+	// }
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};
@@ -18,6 +18,7 @@ module.exports = function() {
 	return sv;
 };
 function taobien(sv) {
+	sv.vari.customDialog = new (require('/ui-controller/customDialog'))();
 	sv.arr.rows = [];
 	sv.arr.View_rows = [];
 	sv.arr.Label_ten_dv = [];
@@ -141,39 +142,44 @@ function tao_sukien(sv) {
 
 				}
 			}
-			var isAndroid = Ti.Platform.osname === 'android';
-			if (!isAndroid)
-				menucap2.name.push("Thoát");
-			var opt = Ti.UI.createOptionDialog({
-				buttonNames : ["Thoát"],
-				options : menucap2.name,
-				opaquebackground : true,
-				title : "Lựa chọn các tỉnh thành",
+			sv.vari.customDialog.open({
+				modal : Ti.Platform.osname == 'android' ? true : false
 			});
-			if ((menucap2.name.length > 0 && isAndroid) || (menucap2.name.length > 1 && (!isAndroid)))
-				opt.show();
-			opt.addEventListener('click', function(e) {
-				if (e.button || opt.getOptions().toString == 'Thoát') {
-					opt.hide();
-				} else {
-					Ti.API.info('id' + menucap2.act[e.index] + menucap2.name[e.index]);
-					if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
-						var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index], "DỊCH VỤ SX " + menucap2.act[e.index] + " " + menucap2.name[e.index]);
-						pop_upsms.open({
-							modal : Ti.Platform.osname == 'android' ? true : false
-						});
-					} else {
-						tuvan_soxo({
-							"command" : menucap2.act[e.index],
-							"param" : menucap2.param[e.index],
-							"price" : menucap2.price[e.index],
-						});
-					}
-				}
-			});
+			sv.vari.customDialog.setData(menucap2);
+			// var isAndroid = Ti.Platform.osname === 'android';
+			// if (!isAndroid)
+			// menucap2.name.push("Thoát");
+			// var opt = Ti.UI.createOptionDialog({
+			// buttonNames : ["Thoát"],
+			// options : menucap2.name,
+			// opaquebackground : true,
+			// title : "Lựa chọn các tỉnh thành",
+			// });
+			// if ((menucap2.name.length > 0 && isAndroid) || (menucap2.name.length > 1 && (!isAndroid)))
+			// opt.show();
+			// opt.addEventListener('click', function(e) {
+			// if (e.button || opt.getOptions().toString == 'Thoát') {
+			// opt.hide();
+			// } else {
+			// Ti.API.info('id' + menucap2.act[e.index] + menucap2.name[e.index]);
+			// if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+			// var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index], "DỊCH VỤ SX " + menucap2.act[e.index] + " " + menucap2.name[e.index]);
+			// pop_upsms.open({
+			// modal : Ti.Platform.osname == 'android' ? true : false
+			// });
+			// } else {
+			// tuvan_soxo({
+			// "command" : menucap2.act[e.index],
+			// "param" : menucap2.param[e.index],
+			// "price" : menucap2.price[e.index],
+			// });
+			// }
+			// }
+			// });
 		});
 	};
 };
+
 function get_menu(sv) {
 	var xhr = Titanium.Network.createHTTPClient();
 	var data = null;

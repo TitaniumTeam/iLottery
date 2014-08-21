@@ -155,7 +155,7 @@ module.exports = function() {
 		var kqTinh3 = [];
 		var mangstring3 = [];
 		var mangkq3 = [];
-		if (param[0].lines) {
+		if (param[0].provide || param[1].provide || param[2].provide) {
 			TenTinh1.setText(param[0].provide.name);
 			TenTinh2.setText(param[1].provide.name);
 			TenTinh3.setText(param[2].provide.name);
@@ -165,6 +165,8 @@ module.exports = function() {
 				kqTinh2.push(param[1].lines[i].result);
 			for (var i = 0; i < (param[2].lines.length); i++)
 				kqTinh3.push(param[2].lines[i].result);
+		} else {
+			return;
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
@@ -191,13 +193,13 @@ module.exports = function() {
 		mangkq2.reverse();
 		mangkq3.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
-			lblKQ[17-i].setText(mangkq1[i]);
+			lblKQ[17 - i].setText(mangkq1[i]);
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
-			lblKQ2[17-i].setText(mangkq2[i]);
+			lblKQ2[17 - i].setText(mangkq2[i]);
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
-			lblKQ3[17-i].setText(mangkq3[i]);
+			lblKQ3[17 - i].setText(mangkq3[i]);
 		}
 	};
 
@@ -207,15 +209,15 @@ module.exports = function() {
 		// var kqmb_db = null;
 		// var arrkq_mb = [];
 		// if (kqmb.isValidRow()) {
-			// kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
-			// Ti.API.info('ket qua ' + kqmb_db);
-			// kqmb.close();
-			// db.close();
-// 
-			// for (var i = 0; i < (kqmb_db.length); i++) {
-				// arrkq_mb.push(kqmb_db[i]);
-				// Ti.API.info('kq' + kqmb_db[i]);
-			// }
+		// kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
+		// Ti.API.info('ket qua ' + kqmb_db);
+		// kqmb.close();
+		// db.close();
+		//
+		// for (var i = 0; i < (kqmb_db.length); i++) {
+		// arrkq_mb.push(kqmb_db[i]);
+		// Ti.API.info('kq' + kqmb_db[i]);
+		// }
 		// }
 		var param = null;
 		var xhr = Titanium.Network.createHTTPClient();
@@ -341,7 +343,7 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		for (var i = 0; i < (mangkq3.length); i++) {
 			lblkq3[17 - i].setText(mangkq3[i]);
 		}
-		if ((param[2].lines[0].result.length>0)&&(param[1].lines[0].result.length>0)&&(param[0].lines[0].result.length>0)) {
+		if ((param[2].lines[0].result.length > 0) && (param[1].lines[0].result.length > 0) && (param[0].lines[0].result.length > 0)) {
 			Ti.API.info('clear inter val');
 			clearInterval(interval);
 		}

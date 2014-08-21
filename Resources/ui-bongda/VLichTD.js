@@ -117,7 +117,8 @@ function tao_ui(sv) {
 		height : Ti.UI.FILL,
 		zIndex : 0,
 		horizontalWrap : false,
-		disableBounce : "true"
+		disableBounce : "true",
+		bottom:Ti.App.size(100)
 		// layout:"vertical"
 	});
 	sv.ui.ViewCheat = Titanium.UI.createView({

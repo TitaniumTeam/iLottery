@@ -47,7 +47,8 @@ function createUI(sv) {
 		left : 0,
 		width : Ti.App.size(640),
 		height : Ti.UI.FILL,
-		backgroundColor : 'transparent'
+		backgroundColor : 'transparent',
+		bottom : Ti.App.size(100)
 	});
 
 	var xhr = Titanium.Network.createHTTPClient();
@@ -103,7 +104,7 @@ function createUI(sv) {
 				left : 0,
 				zIndex : 0,
 				touchEnabled : false,
-				backgroundImage:"/assets/icon/bg70.png"
+				backgroundImage : "/assets/icon/bg70.png"
 			});
 			sv.arr.ViewContent[i] = Titanium.UI.createView({
 				bottom : 0,

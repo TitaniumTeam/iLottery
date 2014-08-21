@@ -5,6 +5,8 @@ module.exports = function() {
 
 	var revmob = null;
 	var dem = 0;
+	var interval = null;
+	var isSeason = false;
 	function RevMob(appId) {
 		var moduleNames = {
 			'iPhone OS' : 'com.revmob.titanium',
@@ -21,10 +23,36 @@ module.exports = function() {
 		Ti.API.info('nhay vao day');
 		revmob = new RevMob("5106be9d0639b41100000052");
 	}
+	var isAndroid = Ti.Platform.osname === 'android';
+	revmob.setTestingMode(revmob.testingMode.disabled);
 	revmob.addEventListener('sessionIsStarted', function(e) {
 		log('Session is started.');
-		revmob.showBanner();
+		// if(!isAndroid)
+		// revmob.showBanner();
 	});
+	function check_banner() {
+		interval = setInterval(function() {
+			dem++;
+			revmob.showBanner();
+			if (dem == 2) {
+				dem = 0;
+				clearInterval(interval);
+			}
+		}, 100);
+	};
+	revmob.showBan = function() {
+		setTimeout(function() {
+			check_banner();
+		}, 2000);
+	};
+	revmob.hideBan = function() {
+		revmob.hideBanner();
+		if (interval != null) {
+			dem = 0;
+			clearInterval(interval);
+		}
+
+	};
 	revmob.addEventListener('sessionNotStarted', function(e) {
 		log('Session failed to start.');
 	});
@@ -39,7 +67,6 @@ module.exports = function() {
 	});
 	revmob.addEventListener('adClicked', function(e) {
 		log('Ad clicked.');
-		revmob.openAdLink();
 	});
 	revmob.addEventListener('adClosed', function(e) {
 		log('Ad closed.');
