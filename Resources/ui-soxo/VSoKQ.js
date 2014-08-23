@@ -234,7 +234,11 @@ function showResult(sv) {
 			sv.ui.lblfirst.id = 1;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
+			if (new Date().getDate() == 7) {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+			} else {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
+			}
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
 		}
@@ -244,7 +248,11 @@ function showResult(sv) {
 			sv.ui.lblfirst.id = 2;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
-			sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+			if (new Date().getDay() == 7) {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+			} else {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMN_t7'))();
+			}
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
 		}
@@ -352,11 +360,20 @@ function searchregionlottery(data, sv, loai) {
 			date_time = jsonResuilt.resulttable[0].resultdate.toString().split(' ');
 			Ti.API.info('date' + date_time[0]);
 			if (loai == "1") {
-				sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
+				if (jsonResuilt.resulttable.length == 3) {
+					sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+				} else {
+					sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
+				}
 				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + date_time[0]);
 			}
 			if (loai == "2") {
-				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+				if (jsonResuilt.resulttable.length == 4) {
+					sv.vari.datarow = new (require('/ui-soxo/bangkqMN_t7'))();
+				} else {
+					sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+				}
+
 				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + date_time[0]);
 			}
 			if (loai == "0") {

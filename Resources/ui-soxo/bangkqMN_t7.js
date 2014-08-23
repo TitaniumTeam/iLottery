@@ -5,12 +5,15 @@ module.exports = function() {
 	var lblKQ = [];
 	var lblKQ2 = [];
 	var lblKQ3 = [];
+	var lblKQ4 = [];
 	var TenTinh1 = null;
 	var TenTinh2 = null;
 	var TenTinh3 = null;
+	var TenTinh4 = null;
 	var viewchua = [];
 	var viewchua2 = [];
 	var viewchua3 = [];
+	var viewchua4 = [];
 	var viewKQ = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.UI.SIZE,
@@ -25,19 +28,19 @@ module.exports = function() {
 		backgroundColor : "transparent",
 		top : 0,
 		left : Ti.App.size(10),
-		width : Ti.App.size(140),
+		width : Ti.App.size(100),
 		layout : 'vertical'
 	});
 	var viewChuaGiai1 = Ti.UI.createView({
 		height : Ti.UI.FILL,
 		backgroundColor : "transparent",
 		top : 0,
-		width : Ti.App.size(150),
+		width : Ti.App.size(120),
 		layout : 'vertical',
 		left : Ti.App.size(10),
 	});
 	var viewChuaGiai2 = Ti.UI.createView({
-		width : Ti.App.size(150),
+		width : Ti.App.size(120),
 		height : Ti.UI.FILL,
 		backgroundColor : "transparent",
 		top : 0,
@@ -45,7 +48,15 @@ module.exports = function() {
 		left : Ti.App.size(10),
 	});
 	var viewChuaGiai3 = Ti.UI.createView({
-		width : Ti.App.size(150),
+		width : Ti.App.size(120),
+		height : Ti.UI.FILL,
+		backgroundColor : "transparent",
+		top : 0,
+		layout : 'vertical',
+		left : Ti.App.size(10)
+	});
+	var viewChuaGiai4 = Ti.UI.createView({
+		width : Ti.App.size(120),
 		height : Ti.UI.FILL,
 		backgroundColor : "transparent",
 		top : 0,
@@ -56,13 +67,15 @@ module.exports = function() {
 		////
 		viewTenGiai[i] = view_result(setHeightRow(i), Ti.App.size(140));
 		viewTenGiai[i].setText(TenGiaiMN[i], setColor(i), setFont(i));
-		viewchua[i] = view_result(setHeightRow(i), Ti.App.size(150));
-		viewchua2[i] = view_result(setHeightRow(i), Ti.App.size(150));
-		viewchua3[i] = view_result(setHeightRow(i), Ti.App.size(150));
+		viewchua[i] = view_result(setHeightRow(i), Ti.App.size(120));
+		viewchua2[i] = view_result(setHeightRow(i), Ti.App.size(120));
+		viewchua3[i] = view_result(setHeightRow(i), Ti.App.size(120));
+		viewchua4[i] = view_result(setHeightRow(i), Ti.App.size(120));
 		viewChuaTenGiai.add(viewTenGiai[i]);
 		viewChuaGiai1.add(viewchua[i]);
 		viewChuaGiai2.add(viewchua2[i]);
 		viewChuaGiai3.add(viewchua3[i]);
+		viewChuaGiai4.add(viewchua4[i]);
 		/////
 	}
 	//////tinh 1
@@ -141,7 +154,33 @@ module.exports = function() {
 	viewchua3[4].add(lblKQ3[3]);
 	viewchua3[3].add(lblKQ3[2]);
 	viewchua3[2].add(lblKQ3[1]);
-	////////
+	////////tinh 4
+	TenTinh4 = label(0, 1);
+	viewchua4[10].add(TenTinh4);
+	lblKQ4[0] = label(0, 0);
+	viewchua4[1].add(lblKQ4[0]);
+	for (var i = 0; i < 17; i++) {
+		lblKQ4[17 - i] = label(1, 1);
+	}
+	viewchua4[9].add(lblKQ4[17]);
+	viewchua4[8].add(lblKQ4[16]);
+	viewchua4[7].add(lblKQ4[15]);
+	viewchua4[7].add(lblKQ4[14]);
+	viewchua4[7].add(lblKQ4[13]);
+	viewchua4[6].add(lblKQ4[12]);
+	viewchua4[5].add(lblKQ4[11]);
+	viewchua4[5].add(lblKQ4[10]);
+	viewchua4[5].add(lblKQ4[9]);
+	viewchua4[5].add(lblKQ4[8]);
+	viewchua4[5].add(lblKQ4[7]);
+	viewchua4[5].add(lblKQ4[6]);
+	viewchua4[5].add(lblKQ4[5]);
+	viewchua4[4].add(lblKQ4[4]);
+	viewchua4[4].add(lblKQ4[3]);
+	viewchua4[3].add(lblKQ4[2]);
+	viewchua4[2].add(lblKQ4[1]);
+
+	/////
 	var isLoading = false;
 	var interval = null;
 	viewKQ.setParam = function(param) {
@@ -155,16 +194,23 @@ module.exports = function() {
 		var kqTinh3 = [];
 		var mangstring3 = [];
 		var mangkq3 = [];
-		if (param.length == 3) {
+		var kqTinh4 = [];
+		var mangstring4 = [];
+		var mangkq4 = [];
+
+		if (param.length == 4) {
 			TenTinh3.setText(param[2].provide.name);
-			for (var i = 0; i < (param[2].lines.length); i++)
-				kqTinh3.push(param[2].lines[i].result);
 			TenTinh1.setText(param[0].provide.name);
 			TenTinh2.setText(param[1].provide.name);
+			TenTinh4.setText(param[3].provide.name);
+			for (var i = 0; i < (param[2].lines.length); i++)
+				kqTinh3.push(param[2].lines[i].result);
 			for (var i = 0; i < (param[0].lines.length); i++)
 				kqTinh1.push(param[0].lines[i].result);
 			for (var i = 0; i < (param[1].lines.length); i++)
 				kqTinh2.push(param[1].lines[i].result);
+			for (var i = 0; i < (param[3].lines.length); i++)
+				kqTinh4.push(param[3].lines[i].result);
 		} else {
 			TenTinh1.setText(param[0].provide.name);
 			TenTinh2.setText(param[1].provide.name);
@@ -194,9 +240,16 @@ module.exports = function() {
 				mangkq3.push(mangstring3[j]);
 			};
 		}
+		for (var i = 0; i < (kqTinh4.length); i++) {
+			mangstring4 = (kqTinh4[i].toString()).split(',');
+			for (var j = 0; j < (mangstring4.length); j++) {
+				mangkq4.push(mangstring4[j]);
+			};
+		}
 		mangkq1.reverse();
 		mangkq2.reverse();
 		mangkq3.reverse();
+		mangkq4.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
 			lblKQ[17 - i].setText(mangkq1[i]);
 		}
@@ -206,6 +259,9 @@ module.exports = function() {
 		for (var i = 0; i < (mangkq3.length); i++) {
 			lblKQ3[17 - i].setText(mangkq3[i]);
 		}
+		for (var i = 0; i < (mangkq4.length); i++) {
+			lblKQ4[17 - i].setText(mangkq4[i]);
+		}
 	};
 
 	viewKQ.setParamLive = function() {
@@ -214,10 +270,10 @@ module.exports = function() {
 		var data = {
 			"regionid" : "2"
 		};
-		laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, interval, TenTinh1, TenTinh2, TenTinh3);
+		laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, lblKQ4, interval, TenTinh1, TenTinh2, TenTinh3, TenTinh4);
 		interval = setInterval(function() {
 			Ti.API.info('lay ket qua');
-			laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, interval, TenTinh1, TenTinh2, TenTinh3);
+			laykq_tructiep(xhr, data, lblKQ, lblKQ2, lblKQ3, lblKQ4, interval, TenTinh1, TenTinh2, TenTinh3, TenTinh4);
 
 		}, 15000);
 	};
@@ -230,6 +286,7 @@ module.exports = function() {
 	viewKQ.add(viewChuaGiai1);
 	viewKQ.add(viewChuaGiai2);
 	viewKQ.add(viewChuaGiai3);
+	viewKQ.add(viewChuaGiai4);
 	return viewKQ;
 };
 
@@ -255,18 +312,18 @@ function setColor(i) {
 function setFont(i) {
 	if (i == 10) {
 		return {
-			fontSize : Ti.App.size(35),
+			fontSize : Ti.App.size(30),
 			fontWeight : 'bold'
 		};
 	} else {
 		return {
-			fontSize : Ti.App.size(30),
+			fontSize : Ti.App.size(25),
 			fontWeight : 'bold',
 		};
 	}
 };
 
-function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, TenTinh2, TenTinh3) {
+function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3,lblkq4, interval, TenTinh1, TenTinh2, TenTinh3,TenTinh4) {
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -292,16 +349,22 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		var kqTinh3 = [];
 		var mangstring3 = [];
 		var mangkq3 = [];
+		var kqTinh4 = [];
+		var mangstring4 = [];
+		var mangkq4 = [];
 		if (param[0].lines) {
 			TenTinh1.setText(param[0].provide.name);
 			TenTinh2.setText(param[1].provide.name);
 			TenTinh3.setText(param[2].provide.name);
+			TenTinh4.setText(param[3].provide.name);
 			for (var i = 0; i < (param[0].lines.length); i++)
 				kqTinh1.push(param[0].lines[i].result);
 			for (var i = 0; i < (param[1].lines.length); i++)
 				kqTinh2.push(param[1].lines[i].result);
 			for (var i = 0; i < (param[2].lines.length); i++)
 				kqTinh3.push(param[2].lines[i].result);
+				for (var i = 0; i < (param[3].lines.length); i++)
+				kqTinh4.push(param[2].lines[i].result);
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
@@ -321,9 +384,16 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 				mangkq3.push(mangstring3[j]);
 			};
 		}
+		for (var i = 0; i < (kqTinh4.length); i++) {
+			mangstring4 = (kqTinh4[i].toString()).split(',');
+			for (var j = 0; j < (mangstring4.length); j++) {
+				mangkq4.push(mangstring4[j]);
+			};
+		}
 		mangkq1.reverse();
 		mangkq2.reverse();
 		mangkq3.reverse();
+		mangkq4.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
 			lblkq1[17 - i].setText(mangkq1[i]);
 		}
@@ -333,7 +403,10 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		for (var i = 0; i < (mangkq3.length); i++) {
 			lblkq3[17 - i].setText(mangkq3[i]);
 		}
-		if ((param[2].lines[0].result.length > 0) && (param[1].lines[0].result.length > 0) && (param[0].lines[0].result.length > 0)) {
+		for (var i = 0; i < (mangkq4.length); i++) {
+			lblkq4[17 - i].setText(mangkq4[i]);
+		}
+		if ((param[2].lines[0].result.length > 0) && (param[1].lines[0].result.length > 0) && (param[0].lines[0].result.length > 0) && (param[3].lines[0].result.length > 0)) {
 			Ti.API.info('clear inter val');
 			clearInterval(interval);
 		}
@@ -378,11 +451,11 @@ function label(lbl_color, lbl_font) {
 		color : lbl_color == 1 ? "white" : "orange",
 		top : Ti.App.size(10),
 		font : lbl_font == 1 ? {
-			fontSize : Ti.App.size(25),
+			fontSize : Ti.App.size(20),
 			fontWeight : 'bold',
 		} : {
 			fontWeight : 'bold',
-			fontSize : Ti.App.size(35)
+			fontSize : Ti.App.size(25)
 		},
 		touchEnabled : false,
 		backgroundColor : 'transparent',

@@ -146,21 +146,6 @@ module.exports = function() {
 	};
 
 	viewKQ.setParamLive = function() {
-		// var db = Ti.Database.open('userinfo');
-		// var kqmb = db.execute("SELECT * FROM KQSXMT");
-		// var kqmb_db = null;
-		// var arrkq_mb = [];
-		// if (kqmb.isValidRow()) {
-		// kqmb_db = kqmb.fieldByName("giatri").toString().split(',');
-		// Ti.API.info('ket qua ' + kqmb_db);
-		// kqmb.close();
-		// db.close();
-		//
-		// for (var i = 0; i < (kqmb_db.length); i++) {
-		// arrkq_mb.push(kqmb_db[i]);
-		// Ti.API.info('kq' + kqmb_db[i]);
-		// }
-		// }
 		var param = null;
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
