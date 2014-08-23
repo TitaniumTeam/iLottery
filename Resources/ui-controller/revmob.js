@@ -19,7 +19,7 @@ module.exports = function() {
 
 	if (Ti.Platform.osname === 'android') {
 		revmob = new RevMob("5106bea78e5bd71500000098");
-	} else if (Ti.Platform.osname === 'iphone') {
+	} else {
 		Ti.API.info('nhay vao day');
 		revmob = new RevMob("5106be9d0639b41100000052");
 	}
@@ -27,8 +27,6 @@ module.exports = function() {
 	revmob.setTestingMode(revmob.testingMode.disabled);
 	revmob.addEventListener('sessionIsStarted', function(e) {
 		log('Session is started.');
-		// if(!isAndroid)
-		// revmob.showBanner();
 	});
 	function check_banner() {
 		interval = setInterval(function() {
@@ -42,8 +40,12 @@ module.exports = function() {
 	};
 	revmob.showBan = function() {
 		setTimeout(function() {
-			check_banner();
+			if (isAndroid)
+				check_banner();
+			else
+				revmob.showBanner();
 		}, 2000);
+
 	};
 	revmob.hideBan = function() {
 		revmob.hideBanner();

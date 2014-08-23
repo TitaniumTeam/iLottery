@@ -18,7 +18,6 @@ module.exports = function() {
 	return sv;
 };
 function taobien(sv) {
-	sv.vari.customDialog = new (require('/ui-controller/customDialog'))();
 	sv.arr.rows = [];
 	sv.arr.View_rows = [];
 	sv.arr.Label_ten_dv = [];
@@ -142,10 +141,11 @@ function tao_sukien(sv) {
 
 				}
 			}
-			sv.vari.customDialog.open({
+			var customDialog = new (require('/ui-controller/customDialog'))();
+			customDialog.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
-			sv.vari.customDialog.setData(menucap2);
+			customDialog.setData(menucap2);
 			// var isAndroid = Ti.Platform.osname === 'android';
 			// if (!isAndroid)
 			// menucap2.name.push("Thoát");

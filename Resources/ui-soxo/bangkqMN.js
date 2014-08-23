@@ -155,18 +155,23 @@ module.exports = function() {
 		var kqTinh3 = [];
 		var mangstring3 = [];
 		var mangkq3 = [];
-		if (param[0].provide || param[1].provide || param[2].provide) {
+		if (param.length == 3) {
+			TenTinh3.setText(param[2].provide.name);
+			for (var i = 0; i < (param[2].lines.length); i++)
+				kqTinh3.push(param[2].lines[i].result);
 			TenTinh1.setText(param[0].provide.name);
 			TenTinh2.setText(param[1].provide.name);
-			TenTinh3.setText(param[2].provide.name);
 			for (var i = 0; i < (param[0].lines.length); i++)
 				kqTinh1.push(param[0].lines[i].result);
 			for (var i = 0; i < (param[1].lines.length); i++)
 				kqTinh2.push(param[1].lines[i].result);
-			for (var i = 0; i < (param[2].lines.length); i++)
-				kqTinh3.push(param[2].lines[i].result);
 		} else {
-			return;
+			TenTinh1.setText(param[0].provide.name);
+			TenTinh2.setText(param[1].provide.name);
+			for (var i = 0; i < (param[0].lines.length); i++)
+				kqTinh1.push(param[0].lines[i].result);
+			for (var i = 0; i < (param[1].lines.length); i++)
+				kqTinh2.push(param[1].lines[i].result);
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');
