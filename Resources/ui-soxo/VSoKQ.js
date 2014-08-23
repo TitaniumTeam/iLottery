@@ -234,7 +234,7 @@ function showResult(sv) {
 			sv.ui.lblfirst.id = 1;
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN TRUNG " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
-			if (new Date().getDate() == 7) {
+			if (new Date().getDay() == 7||new Date().getDay()==6) {
 				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
 			} else {
 				sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();

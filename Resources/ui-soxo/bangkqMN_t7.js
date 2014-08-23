@@ -84,7 +84,7 @@ module.exports = function() {
 	lblKQ[0] = label(0, 0);
 	viewchua[1].add(lblKQ[0]);
 	for (var i = 0; i < 17; i++) {
-		lblKQ[17 - i] = label(1, 1);
+		lblKQ[17 - i] = label(1, 0);
 	}
 	viewchua[9].add(lblKQ[17]);
 	viewchua[8].add(lblKQ[16]);
@@ -110,7 +110,7 @@ module.exports = function() {
 	lblKQ2[0] = label(0, 0);
 	viewchua2[1].add(lblKQ2[0]);
 	for (var i = 0; i < 17; i++) {
-		lblKQ2[17 - i] = label(1, 1);
+		lblKQ2[17 - i] = label(1, 0);
 	}
 	viewchua2[9].add(lblKQ2[17]);
 	viewchua2[8].add(lblKQ2[16]);
@@ -135,7 +135,7 @@ module.exports = function() {
 	lblKQ3[0] = label(0, 0);
 	viewchua3[1].add(lblKQ3[0]);
 	for (var i = 0; i < 17; i++) {
-		lblKQ3[17 - i] = label(1, 1);
+		lblKQ3[17 - i] = label(1, 0);
 	}
 	viewchua3[9].add(lblKQ3[17]);
 	viewchua3[8].add(lblKQ3[16]);
@@ -160,7 +160,7 @@ module.exports = function() {
 	lblKQ4[0] = label(0, 0);
 	viewchua4[1].add(lblKQ4[0]);
 	for (var i = 0; i < 17; i++) {
-		lblKQ4[17 - i] = label(1, 1);
+		lblKQ4[17 - i] = label(1, 0);
 	}
 	viewchua4[9].add(lblKQ4[17]);
 	viewchua4[8].add(lblKQ4[16]);
@@ -312,12 +312,12 @@ function setColor(i) {
 function setFont(i) {
 	if (i == 10) {
 		return {
-			fontSize : Ti.App.size(30),
+			fontSize : Ti.App.size(25),
 			fontWeight : 'bold'
 		};
 	} else {
 		return {
-			fontSize : Ti.App.size(25),
+			fontSize : Ti.App.size(20),
 			fontWeight : 'bold',
 		};
 	}
@@ -437,7 +437,7 @@ function view_result(v_height, v_width) {
 			touchEnabled : false,
 			backgroundColor : 'transparent',
 			text : _text,
-			height : v_height
+			height : v_height,
 		});
 		viewRS.add(datalbl);
 	};
