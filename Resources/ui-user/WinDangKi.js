@@ -253,9 +253,19 @@ function createUI(sv) {
 function createUI_Event(sv) {
 
 	sv.fu.event_androidback = function(e) {
+		var isAndroid = Ti.Platform.osname === 'android';
+		if (!isAndroid) {
+			var revemob = new (require('/ui-controller/revmob'))();
+			revemob.showBan();
+		}
 		sv.ui.winDangKi.close();
 	};
 	sv.fu.eventClickIconLeft = function(e) {
+		var isAndroid = Ti.Platform.osname === 'android';
+		if (!isAndroid) {
+			var revemob = new (require('/ui-controller/revmob'))();
+			revemob.showBan();
+		}
 		sv.ui.winDangKi.close();
 	};
 	sv.fu.evtn_btnDangKy = function(e) {

@@ -13,6 +13,7 @@ module.exports = function() {
 ////
 function tao_bien(sv) {
 	sv.vari.revemob = new (require('/ui-controller/revmob'))();
+	sv.vari.revemob.showBan();
 	sv.arr.ViewChucNang = [];
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];
@@ -299,7 +300,6 @@ function tao_sukien(sv) {
 	};
 	///
 	sv.fu.evtOpenWin = function(e) {
-		sv.vari.revemob.showBan();
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
 		sv.vari.ViewHT = new (require('/ui-bongda/VLichTD'))();
 		sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);

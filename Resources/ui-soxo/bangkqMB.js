@@ -13,7 +13,7 @@ module.exports = function() {
 		touchEnabled : false,
 		layout : "horizontal"
 	});
-	
+
 	var viewChuaTenGiai = Ti.UI.createView({
 		height : Ti.UI.FILL,
 		backgroundColor : "transparent",
@@ -103,6 +103,22 @@ module.exports = function() {
 	var param = null;
 	var isLoading = false;
 	var interval = null;
+	/////////
+	viewKQ.setParam_db = function(param) {
+		clearInterval(interval);
+		var mangstring = [];
+		var mangkq = [];
+		for (var i = 0; i < (param.length); i++) {
+			mangstring = (param[i].toString().split(','));
+			for (var j = 0; j < (mangstring.length); j++) {
+				mangkq.push(mangstring[j]);
+			}
+		};
+		for (var j = 0; j < (mangkq.length); j++) {
+			lblKQ[j].setText(mangkq[j]);
+		}
+	};
+	///////////
 	viewKQ.setParam = function(param) {
 		clearInterval(interval);
 		var ketqua = [];
@@ -131,6 +147,7 @@ module.exports = function() {
 		}
 
 	};
+	///////
 	viewKQ.setParamLive = function() {
 		var xhr = Titanium.Network.createHTTPClient();
 		var data = {
@@ -222,10 +239,18 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		for (var i = 0; i < (mangkq.length); i++) {
 			lblkq[i].setText(mangkq[i]);
 		}
-		if (param[0].lines[0].result.length>0) {
+		if (param[0].lines[0].result.length > 0) {
+			var db = Ti.Database.open("userinfo");
+			db.execute("DELETE FROM RS_CACHE");
+			var date_now = (new Date().getDate()) + (new Date().getMonth() + 1) + (new Date().getYear());
+			for (var j = 0; j < (param[0].lines.length); j++) {
+				db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_now.toString(), param[0].lines[j].result.toString());
+			}
+			db.close();
 			for (var i = 0; i < (mangkq.length); i++) {
 				lblkq[i].setText(mangkq[i]);
 			}
+
 			clearInterval(interval);
 		}
 		isLoading = false;

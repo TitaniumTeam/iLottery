@@ -1,9 +1,4 @@
 module.exports = function() {
-	// var isAndroid = Ti.Platform.osname === 'android';
-	// if (!isAndroid) {
-	// var revemob = new (require('/ui-controller/revmob'))();
-	// revemob.hideBanner();
-	// }
 	var sv = {};
 	sv.fu = {};
 	sv.ui = {};

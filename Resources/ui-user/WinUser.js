@@ -432,6 +432,11 @@ function tao_sukien(sv) {
 		sv.ui.Win.close();
 	};
 	sv.fu.evtCloseWin = function(e) {
+		var isAndroid = Ti.Platform.osname === 'android';
+		if (!isAndroid) {
+			var revemob = new (require('/ui-controller/revmob'))();
+			revemob.showBan();
+		}
 		sv.ui.ViewIconBack.removeEventListener('click', sv.fu.evtIconBack);
 		sv.ui.Win.removeEventListener('open', sv.fu.evtOpenWin);
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);

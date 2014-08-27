@@ -1,4 +1,9 @@
 module.exports = function(_winDK) {
+	var isAndroid = Ti.Platform.osname === 'android';
+	if (!isAndroid) {
+		var revemob = new (require('/ui-controller/revmob'))();
+		revemob.hideBanner();
+	}
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -356,9 +361,19 @@ function createUI_Event(sv, _winDK) {
 		}
 	};
 	sv.fu.event_androidback = function(e) {
+		var isAndroid = Ti.Platform.osname === 'android';
+		if (!isAndroid) {
+			var revemob = new (require('/ui-controller/revmob'))();
+			revemob.showBan();
+		}
 		sv.ui.winDangNhap.close();
 	};
 	sv.fu.eventClickIconLeft = function(e) {
+		var isAndroid = Ti.Platform.osname === 'android';
+		if (!isAndroid) {
+			var revemob = new (require('/ui-controller/revmob'))();
+			revemob.showBan();
+		}
 		sv.ui.winDangNhap.close();
 	};
 

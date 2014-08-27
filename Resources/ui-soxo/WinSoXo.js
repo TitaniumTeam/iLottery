@@ -13,6 +13,7 @@ module.exports = function() {
 ////
 function tao_bien(sv) {
 	sv.vari.revemob = new (require('/ui-controller/revmob'))();
+	sv.vari.revemob.showBan();
 	sv.arr.ViewChucNang = [];
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];
@@ -37,6 +38,7 @@ function tao_ui(sv) {
 		fullscreen : isAndroid ? false : true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
+		zIndex:10
 	});
 	//////header
 	sv.ui.ViewHeader = Ti.UI.createView({
@@ -300,7 +302,6 @@ function tao_sukien(sv) {
 
 	};
 	sv.fu.evtOpenWin = function(e) {
-		sv.vari.revemob.showBan();
 		sv.arr.ViewChucNang[0].setBackgroundImage("/assets/icon/selected_tab.png");
 		sv.vari.flag = 0;
 		sv.vari.ViewHT = new (require('/ui-soxo/VSoKQ'))();

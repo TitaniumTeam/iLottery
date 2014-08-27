@@ -1,8 +1,23 @@
 module.exports = function() {
 	var db = Ti.Database.open('userinfo');
 	var newdb = Ti.Database.install('/assets/database/servicedb', 'servicedb');
-	Ti.API.info('du lieu menu cap 1' + (newdb.execute("SELECT * FROM Menucap1_xoso").getRowCount()));
+	Ti.API.info('du lieu menu cap 1:-----' + (newdb.execute("SELECT * FROM Menucap1_xoso").getRowCount()));
 	db.execute('CREATE TABLE IF NOT EXISTS SaveInfo(username TEXT PRIMARY KEY, password TEXT,type INTERGER,balance INTERGER);');
+	db.execute('CREATE TABLE IF NOT EXISTS RS_CACHE(date_time text,result text);');
+	var date_time = db.execute("SELECT * FROM RS_CACHE");
+	var date_now = (new Date().getDate()) + (new Date().getMonth() + 1) + (new Date().getYear());
+	if (date_time.isValidRow()) {
+		if (date_time.fieldByName("date_time") == date_now.toString()) {
+			Ti.API.info('du lieu da co');
+			date_time.fieldByName("result");
+		} else {
+			Ti.API.info('du lieu cua ngay khac roi');
+			db.execute("DELETE FROM RS_CACHE");
+		}
+	} else {
+		Ti.API.info('khong co du lieu nao trong cache');
+	}
+
 	var userinfo = db.execute("SELECT * FROM SaveInfo");
 	if (userinfo.isValidRow()) {
 		Ti.API.info('du lieu user:' + userinfo.getRowCount() + userinfo.fieldByName("username") + "/" + userinfo.fieldByName("type") + "/" + userinfo.fieldByName("balance"));

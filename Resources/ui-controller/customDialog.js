@@ -125,7 +125,7 @@ module.exports = function() {
 		win.close();
 	};
 	var evt_openwin = function(e) {
-		win.open();
+		Ti.API.info('open customdialog');
 	};
 	btnThoat.addEventListener('click', evt_closewin);
 	win.addEventListener('open', evt_openwin);
