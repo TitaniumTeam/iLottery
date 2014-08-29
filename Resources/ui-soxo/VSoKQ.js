@@ -249,9 +249,9 @@ function showResult(sv) {
 			sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN NAM " + currDate());
 			sv.ui.ViewKQ.removeAllChildren();
 			if (new Date().getDay() == 6) {
-				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
-			} else {
 				sv.vari.datarow = new (require('/ui-soxo/bangkqMN_t7'))();
+			} else {
+				sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
 			}
 			sv.vari.datarow.setParamLive();
 			sv.ui.ViewKQ.add(sv.vari.datarow);
