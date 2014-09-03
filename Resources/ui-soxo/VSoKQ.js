@@ -225,7 +225,6 @@ function showResult(sv) {
 		var time = jsonResuilt.time.toString().split(' ')[1];
 		var hour = time.split(':')[0];
 		var min = time.split(':')[1];
-		Ti.API.info('ngay hien tai la' + new Date().getDay());
 		Ti.API.info('thoi gian hien tai' + time);
 		if (hour == 17 && min >= 15) {
 			Ti.API.info('lay kq mien trung');
@@ -352,17 +351,29 @@ function showResult(sv) {
 				var db = Ti.Database.open("userinfo");
 				var db_cache = db.execute("SELECT * FROM RS_CACHE");
 				var mangkq = [];
+				var date_now = (new Date().getDate()) + (new Date().getMonth() + 1) + (new Date().getYear());
 				if (db_cache.isValidRow()) {
-					while (db_cache.isValidRow()) {
-						mangkq.push(db_cache.fieldByName("result"));
-						db_cache.next();
+					if (db_cache.fieldByName("date_time") == date_now.toString()) {
+						while (db_cache.isValidRow()) {
+							mangkq.push(db_cache.fieldByName("result"));
+							db_cache.next();
+						}
+						sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
+						sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + currDate());
+						sv.vari.datarow.setParam_db(mangkq);
+						sv.ui.ViewKQ.add(sv.vari.datarow);
+						db.close();
+						db_cache.close();
+
+					} else {
+						db.execute("DELETE FROM RS_CACHE");
+						db_cache.close();
+						db.close();
+						searchregionlottery({
+							"regionid" : 0,
+							"date" : currDate()
+						}, sv, 0);
 					}
-					sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
-					sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ MIỀN BẮC " + currDate());
-					sv.vari.datarow.setParam_db(mangkq);
-					sv.ui.ViewKQ.add(sv.vari.datarow);
-					db.close();
-					db_cache.close();
 				} else {
 					searchregionlottery({
 						"regionid" : 0,
@@ -465,7 +476,7 @@ function searchregionlottery(data, sv, loai) {
 				} else {
 					var date_now = (new Date().getDate()) + (new Date().getMonth() + 1) + (new Date().getYear());
 					for (var j = 0; j < (jsonResuilt.resulttable[0].lines.length); j++) {
-						db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_now.toString(), jsonResuilt.resulttable[0].lines[j].result.toString());
+						db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_now, jsonResuilt.resulttable[0].lines[j].result.toString());
 					}
 				}
 				db_cache.close();
