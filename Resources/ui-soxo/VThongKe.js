@@ -95,12 +95,3 @@ function removeSK(sv) {
 		Ti.API.info('remove su kien thongke xo so');
 	};
 };
-////
-function kt_mang() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
-		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(1);
-		pop_upsms.open({
-			modal : Ti.Platform.osname == 'android' ? true : false
-		});
-	}
-};
