@@ -44,7 +44,7 @@ module.exports = function() {
 	var TenApp = Ti.UI.createLabel({
 		top : Ti.App.size(400),
 		width : Ti.UI.SIZE,
-		text : "XỔ SỐ BÓNG ĐÁ",
+		text : "SUPER SOI",
 		font : {
 			fontSize : Ti.App.size(68),
 			fontWeight : 'bold'
@@ -87,7 +87,7 @@ module.exports = function() {
 	var WelCome = Ti.UI.createLabel({
 		top : Ti.App.size(480),
 		width : Ti.UI.SIZE,
-		text : "Welcome to Xổ Số Bóng Đá ",
+		text : "Welcome to Super Soi ",
 		font : {
 			fontSize : Ti.App.size(20),
 			fontWeight : 'bold'

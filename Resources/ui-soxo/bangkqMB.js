@@ -115,7 +115,13 @@ module.exports = function() {
 			}
 		};
 		for (var j = 0; j < (mangkq.length); j++) {
-			lblKQ[j].setText(mangkq[j]);
+
+			if (mangkq[j].toString().match(/&/g)) {
+				lblKQ[j].setText(mangkq[j].replace("&", ""));
+				lblKQ[j].setColor('yellow');
+			} else {
+				lblKQ[j].setText(mangkq[j]);
+			}
 		}
 	};
 	///////////
@@ -143,7 +149,12 @@ module.exports = function() {
 			};
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
-			lblKQ[i].setText(mangkq[i]);
+			if (mangkq[i].toString().indexOf("&") > 0) {
+				lblKQ[i].setText(mangkq[i].replace("&", ""));
+				lblKQ[i].setColor('yellow');
+			} else {
+				lblKQ[i].setText(mangkq[i]);
+			}
 		}
 
 	};
@@ -237,7 +248,12 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 			};
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
-			lblkq[i].setText(mangkq[i]);
+			if (mangkq[j].toString().match(/&/g)) {
+				lblKQ[j].setText(mangkq[j].replace("&", ""));
+				lblKQ[j].setColor('yellow');
+			} else {
+				lblKQ[j].setText(mangkq[j]);
+			}
 		}
 		if (param[0].lines[0].result.length > 0) {
 			var db = Ti.Database.open("userinfo");
@@ -248,7 +264,12 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 			}
 			db.close();
 			for (var i = 0; i < (mangkq.length); i++) {
+				if (mangkq[i].toString().indexOf("&") > 0) {
+				lblkq[i].setText(mangkq[i].replace("&", ""));
+				lblkq[i].setColor('yellow');
+			} else {
 				lblkq[i].setText(mangkq[i]);
+			}
 			}
 
 			clearInterval(interval);

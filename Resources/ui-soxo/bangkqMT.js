@@ -138,10 +138,20 @@ module.exports = function() {
 		mangkq1.reverse();
 		mangkq2.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
-			lblKQ[17 - i].setText(mangkq1[i]);
+			if (mangkq1[i].toString().indexOf("&") > 0) {
+				lblKQ[17-i].setText(mangkq1[i].replace("&", ""));
+				lblKQ[17-i].setColor('yellow');
+			} else {
+				lblKQ[17-i].setText(mangkq1[i]);
+			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
-			lblKQ2[17 - i].setText(mangkq2[i]);
+			if (mangkq2[i].toString().indexOf("&") > 0) {
+				lblKQ2[17-i].setText(mangkq2[i].replace("&", ""));
+				lblKQ2[17-i].setColor('yellow');
+			} else {
+				lblKQ2[17-i].setText(mangkq2[i]);
+			}
 		}
 	};
 
@@ -248,28 +258,20 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, interval, TenTinh1, TenTinh2,
 		mangkq1.reverse();
 		mangkq2.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
-			lblkq1[17 - i].setText(mangkq1[i]);
-			// for (var j = 0; j < (arrkq_mb.length); j++) {
-			// if (mangkq1[i] == arrkq_mb[j]) {
-			// lblkq1[17 - i].setColor("yellow");
-			// lblkq1[17 - i].setFont({
-			// fontWeight : "bold",
-			// fontSize : Ti.App.size(35)
-			// });
-			// }
-			// }
+			if (mangkq1[i].toString().indexOf("&") > 0) {
+				lblkq1[17-i].setText(mangkq1[i].replace("&", ""));
+				lblkq1[17-i].setColor('yellow');
+			} else {
+				lblkq1[17-i].setText(mangkq1[i]);
+			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
-			lblkq2[17 - i].setText(mangkq2[i]);
-			// for (var j = 0; j < (arrkq_mb.length); j++) {
-			// if (mangkq2[i] == arrkq_mb[j]) {
-			// lblkq2[17 - i].setColor("yellow");
-			// lblkq2[17 - i].setFont({
-			// fontWeight : "bold",
-			// fontSize : Ti.App.size(35)
-			// });
-			// }
-			// }
+			if (mangkq2[i].toString().indexOf("&") > 0) {
+				lblkq2[17-i].setText(mangkq2[i].replace("&", ""));
+				lblkq2[17-i].setColor('yellow');
+			} else {
+				lblkq2[17-i].setText(mangkq2[i]);
+			}
 		}
 		if ((param[1].lines[0].result.length > 0) && (param[0].lines[0].result.length > 0)) {
 			Ti.API.info('clear interval');

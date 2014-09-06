@@ -83,7 +83,7 @@ function createUI(sv, _winDK) {
 	});
 	sv.ui.TenUngDung = Ti.UI.createLabel({
 		top : Ti.App.size(100),
-		text : "SỔ XỐ BÓNG ĐÁ",
+		text : "SUPER SOI",
 		color : Ti.App.Color.superwhite,
 		font : {
 			fontSize : Ti.App.size(50),
@@ -95,7 +95,7 @@ function createUI(sv, _winDK) {
 	});
 	sv.ui.WelCome = Ti.UI.createLabel({
 		top : Ti.App.size(20),
-		text : "Welcome to Sổ xố bóng đá",
+		text : "Welcome to Super Soi",
 		color : "orange",
 		font : {
 			fontSize : Ti.App.size(30)

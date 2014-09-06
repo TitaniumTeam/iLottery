@@ -198,13 +198,28 @@ module.exports = function() {
 		mangkq2.reverse();
 		mangkq3.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
-			lblKQ[17 - i].setText(mangkq1[i]);
+			if (mangkq1[i].toString().indexOf("&") > 0) {
+				lblKQ[17-i].setText(mangkq1[i].replace("&", ""));
+				lblKQ[17-i].setColor('yellow');
+			} else {
+				lblKQ[17-i].setText(mangkq1[i]);
+			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
-			lblKQ2[17 - i].setText(mangkq2[i]);
+			if (mangkq2[i].toString().indexOf("&") > 0) {
+				lblKQ2[17-i].setText(mangkq2[i].replace("&", ""));
+				lblKQ2[17-i].setColor('yellow');
+			} else {
+				lblKQ2[17-i].setText(mangkq2[i]);
+			}
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
-			lblKQ3[17 - i].setText(mangkq3[i]);
+			if (mangkq3[i].toString().indexOf("&") > 0) {
+				lblKQ3[17-i].setText(mangkq3[i].replace("&", ""));
+				lblKQ3[17-i].setColor('yellow');
+			} else {
+				lblKQ3[17-i].setText(mangkq3[i]);
+			}
 		}
 	};
 
@@ -325,13 +340,28 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, interval, TenTinh1, T
 		mangkq2.reverse();
 		mangkq3.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
-			lblkq1[17 - i].setText(mangkq1[i]);
+			if (mangkq1[i].toString().indexOf("&") > 0) {
+				lblkq1[17-i].setText(mangkq1[i].replace("&", ""));
+				lblkq1[17-i].setColor('yellow');
+			} else {
+				lblkq1[17-i].setText(mangkq1[i]);
+			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
-			lblkq2[17 - i].setText(mangkq2[i]);
+			if (mangkq2[i].toString().indexOf("&") > 0) {
+				lblkq2[17-i].setText(mangkq2[i].replace("&", ""));
+				lblkq2[17-i].setColor('yellow');
+			} else {
+				lblkq2[17-i].setText(mangkq2[i]);
+			}
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
-			lblkq3[17 - i].setText(mangkq3[i]);
+			if (mangkq3[i].toString().indexOf("&") > 0) {
+				lblkq3[17-i].setText(mangkq3[i].replace("&", ""));
+				lblkq3[17-i].setColor('yellow');
+			} else {
+				lblkq3[17-i].setText(mangkq3[i]);
+			}
 		}
 		if ((param[2].lines[0].result.length > 0) && (param[1].lines[0].result.length > 0) && (param[0].lines[0].result.length > 0)) {
 			Ti.API.info('clear inter val');
