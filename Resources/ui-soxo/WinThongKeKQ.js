@@ -188,7 +188,8 @@ function createUI(sv) {
 		visible : false,
 		width : Ti.App.size(640),
 		backgroundImage : "/assets/icon/bg70.png",
-		backgroundSelectedImage : null
+		backgroundSelectedImage : null,
+		bottom : isAndroid ? Ti.App.size(25) : Ti.App.size(100)
 	});
 	sv.ui.ViewRegion = Titanium.UI.createView({
 		// backgroundColor : 'transparent',
@@ -200,7 +201,8 @@ function createUI(sv) {
 		width : Ti.App.size(640),
 		backgroundImage : "/assets/icon/bg70.png",
 		backgroundSelectedImage : null,
-		height:Ti.UI.FILL
+		height : Ti.UI.FILL,
+		bottom : isAndroid ? Ti.App.size(25) : Ti.App.size(100)
 	});
 	sv.ui.ScrollView = Ti.UI.createScrollView({
 		top : Ti.App.size(270),
@@ -212,7 +214,8 @@ function createUI(sv) {
 		// horizontalWrap : false,
 		showVerticalScrollIndicator : "true",
 		bottom : Ti.App.size(25),
-		zIndex : 0
+		zIndex : 0,
+		bottom : isAndroid ? Ti.App.size(25) : Ti.App.size(100)
 	});
 	if (Ti.Platform.osname == "android") {
 		sv.ui.ScrollView.setContentHeight(Ti.UI.FILL);
