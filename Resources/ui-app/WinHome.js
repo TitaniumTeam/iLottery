@@ -163,8 +163,8 @@ module.exports = function() {
 		}, 500);
 	};
 	var evt_openWin = function(e) {
-		// push_notification();
-		push_notifi_mod();
+		push_notification();
+		// push_notifi_mod();
 		Ti.API.info('open window home');
 	};
 	var fn_BackDevicePress = function() {
@@ -283,7 +283,7 @@ function push_notification() {
 		// Specify the push type as either 'android' for Android or 'ios' for iOS
 		Cloud.PushNotifications.subscribeToken({
 			device_token : device,
-			channel : 'iLotery',
+			channel : 'iLottery2',
 			type : isAndroid ? 'gcm' : 'ios'
 		}, function(e) {
 			if (e.success) {
@@ -323,7 +323,7 @@ function push_notifi_mod() {
 	var ACSP = require('/ui-controller/acspush');
 
 	// create instance with your own or the user's username and password
-	var ACSPush = new ACSP.ACSPush('user_free', 'mjnhmap');
+	var ACSPush = new ACSP.ACSPush('user_lottery', 'mjnhmap');
 
 	// or make it as guest
 	//var ACSPush=new ACSP.ACSPush();

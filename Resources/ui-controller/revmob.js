@@ -44,7 +44,7 @@ module.exports = function() {
 				check_banner();
 			else
 				revmob.showBanner();
-		}, 2000);
+		}, 3000);
 
 	};
 	revmob.hideBan = function() {
