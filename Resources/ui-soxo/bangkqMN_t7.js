@@ -255,7 +255,7 @@ module.exports = function() {
 				lblKQ[17 - i].setText(mangkq1[i].replace("&", ""));
 				lblKQ[17 - i].setColor('yellow');
 			} else {
-				lblKQ[i].setText(mangkq1[i]);
+				lblKQ[17-i].setText(mangkq1[i]);
 			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
@@ -263,7 +263,7 @@ module.exports = function() {
 				lblKQ2[17 - i].setText(mangkq2[i].replace("&", ""));
 				lblKQ2[17 - i].setColor('yellow');
 			} else {
-				lblKQ2[i].setText(mangkq2[i]);
+				lblKQ2[17-i].setText(mangkq2[i]);
 			}
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
@@ -271,7 +271,7 @@ module.exports = function() {
 				lblKQ3[17 - i].setText(mangkq3[i].replace("&", ""));
 				lblKQ3[17 - i].setColor('yellow');
 			} else {
-				lblKQ3[i].setText(mangkq3[i]);
+				lblKQ3[17-i].setText(mangkq3[i]);
 			}
 		}
 		for (var i = 0; i < (mangkq4.length); i++) {
@@ -279,7 +279,7 @@ module.exports = function() {
 				lblKQ4[17 - i].setText(mangkq4[i].replace("&", ""));
 				lblKQ4[17 - i].setColor('yellow');
 			} else {
-				lblKQ4[i].setText(mangkq4[i]);
+				lblKQ4[17-i].setText(mangkq4[i]);
 			}
 		}
 	};
