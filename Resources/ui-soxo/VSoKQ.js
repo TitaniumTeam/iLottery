@@ -443,7 +443,6 @@ function searchregionlottery(data, sv, loai) {
 		Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
 		var dl = JSON.parse(this.responseText);
 		var jsonResuilt = JSON.parse(dl);
-		Ti.API.info('ket qua tra ve :-------' + jsonResuilt.resulttable[0].toString());
 		sv.vari.time_out1 = setTimeout(function() {
 			sv.ui.ViewKQ.visible = true;
 			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);

@@ -233,7 +233,6 @@ function GetTour(sv, data, _cmd) {
 				height : sv.vari.row_height,
 				width : Ti.App.size(640),
 				backgroundImage : "/assets/icon/bg_tabbar.png",
-
 			});
 			sv.arr.viewRow[i] = Ti.UI.createView({
 				height : sv.vari.row_height,
