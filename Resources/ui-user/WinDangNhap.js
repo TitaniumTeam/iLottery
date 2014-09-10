@@ -1,9 +1,4 @@
 module.exports = function(_winDK) {
-	var isAndroid = Ti.Platform.osname === 'android';
-	if (!isAndroid) {
-		var revemob = new (require('/ui-controller/revmob'))();
-		revemob.hideBanner();
-	}
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -361,19 +356,9 @@ function createUI_Event(sv, _winDK) {
 		}
 	};
 	sv.fu.event_androidback = function(e) {
-		var isAndroid = Ti.Platform.osname === 'android';
-		if (!isAndroid) {
-			var revemob = new (require('/ui-controller/revmob'))();
-			revemob.showBan();
-		}
 		sv.ui.winDangNhap.close();
 	};
 	sv.fu.eventClickIconLeft = function(e) {
-		var isAndroid = Ti.Platform.osname === 'android';
-		if (!isAndroid) {
-			var revemob = new (require('/ui-controller/revmob'))();
-			revemob.showBan();
-		}
 		sv.ui.winDangNhap.close();
 	};
 
@@ -451,13 +436,19 @@ function dangnhap(data, sv, _winDK) {
 				var username = jsonResuilt.info.username;
 				var type = jsonResuilt.info.type;
 				var balance = jsonResuilt.info.balance;
+				var timeout = null;
 				Ti.API.info('dang nhap thanh cong');
 				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
 				sql.close();
 				db.close();
-				sv.ui.winDangNhap.close();
-				var WinUser = new (require('/ui-user/WinUser'))();
-				WinUser.open();
+				Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winDangNhap);
+				timeout = setTimeout(function() {
+					Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winDangNhap);
+					sv.ui.winDangNhap.close();
+					var WinUser = new (require('/ui-user/WinUser'))();
+					WinUser.open();
+					clearTimeout(timeout);
+				}, 1500);
 			} else {
 				alert('Sai username hoặc password');
 			}

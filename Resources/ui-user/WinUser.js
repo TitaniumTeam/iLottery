@@ -1,9 +1,4 @@
 module.exports = function() {
-	var isAndroid = Ti.Platform.osname === 'android';
-	if (!isAndroid) {
-		var revemob = new (require('/ui-controller/revmob'))();
-		revemob.hideBanner();
-	}
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -30,13 +25,9 @@ function tao_bien(sv) {
 	sv.vari.rowChucNang1 = [];
 	sv.vari.IconChucNang1 = [];
 	sv.vari.LabelChucNang1 = [];
-	sv.arr.urlIcon = ["/assets/icon/icon_nap_xu.png", "/assets/icon/icon_VIP.png", "/assets/icon/icon_thong_ke.png", "/assets/icon/icon_lich_su.png", "/assets/icon/icon_hom_thu.png"];
-	sv.arr.TenChucNang = ["Nạp xu", "Nâng cấp tài khoản VIP", "Con số đã chơi", "Lịch sử giao dịch", "Hòm thư"];
-	sv.vari.rowChucNang2 = [];
-	sv.vari.IconChucNang2 = [];
-	sv.vari.LabelChucNang2 = [];
+	sv.arr.urlIcon = ["/assets/icon/icon_nap_xu.png", "/assets/icon/icon_thong_ke.png", "/assets/icon/icon_lich_su.png", "/assets/icon/icon_hom_thu.png"];
+	sv.arr.TenChucNang = ["Nạp xu", "Con số đã chơi", "Lịch sử giao dịch", "Hòm thư"];
 	sv.vari.lineRow1 = [];
-	sv.vari.lineRow2 = [];
 };
 function tao_ui(sv) {
 	var customButton = require('ui-controller/customButton');
@@ -224,7 +215,7 @@ function tao_ui(sv) {
 		borderRadius : 10,
 		scrollable : false
 	});
-	for (var i = 0; i < 2; i++) {
+	for (var i = 0; i < sv.arr.TenChucNang.length; i++) {
 		sv.vari.rowChucNang1[i] = Ti.UI.createTableViewRow({
 			width : Ti.App.size(590),
 			top : 0,
@@ -266,59 +257,6 @@ function tao_ui(sv) {
 	}
 	sv.ui.TableChucNang1.setData(sv.vari.rowChucNang1);
 	///
-	for (var i = 0; i < 3; i++) {
-		sv.vari.rowChucNang2[i] = Ti.UI.createTableViewRow({
-			width : Ti.App.size(590),
-			top : 0,
-			left : 0,
-			height : Ti.App.size(100),
-			id : i,
-			backgroundSelectedColor : Ti.App.Color.xanhnhat
-		});
-		sv.vari.lineRow2[i] = Ti.UI.createView({
-			width : Ti.App.size(590),
-			bottom : 0,
-			left : 0,
-			height : Ti.App.size(3),
-			backgroundColor : Ti.App.Color.xanhnhat,
-			touchEnabled : false
-		});
-		sv.vari.IconChucNang2[i] = Ti.UI.createImageView({
-			width : Ti.App.size(60),
-			height : Ti.App.size(60),
-			image : sv.arr.urlIcon[i + 2],
-			touchEnabled : false,
-			left : 0
-		});
-		sv.vari.LabelChucNang2[i] = Ti.UI.createLabel({
-			left : Ti.App.size(80),
-			text : sv.arr.TenChucNang[i + 2],
-			color : Ti.App.Color.nauden,
-			font : {
-				fontWeight : 'bold',
-				fontSize : Ti.App.size(30)
-			},
-			width : Ti.App.size(485),
-			textAlign : "left",
-			touchEnabled : false
-		});
-		sv.vari.rowChucNang2[i].add(sv.vari.lineRow2[i]);
-		sv.vari.rowChucNang2[i].add(sv.vari.IconChucNang2[i]);
-		sv.vari.rowChucNang2[i].add(sv.vari.LabelChucNang2[i]);
-	}
-	sv.ui.TableChucNang2 = Ti.UI.createTableView({
-		width : Ti.App.size(590),
-		height : Ti.UI.SIZE,
-		left : Ti.App.size(25),
-		right : Ti.App.size(25),
-		backgroundColor : Ti.App.Color.superwhite,
-		separatorColor : "transparent",
-		borderColor : Ti.App.Color.xanhnhat,
-		borderRadius : 10,
-		top : Ti.App.size(25),
-		scrollable : false
-	});
-	sv.ui.TableChucNang2.setData(sv.vari.rowChucNang2);
 	////
 	sv.ui.btn_LogOut = customView({
 		width : Ti.App.size(590),
@@ -362,7 +300,6 @@ function tao_ui(sv) {
 	sv.ui.Win.add(sv.ui.ViewUser);
 	///
 	sv.ui.ViewChucNang.add(sv.ui.TableChucNang1);
-	sv.ui.ViewChucNang.add(sv.ui.TableChucNang2);
 	sv.ui.ViewChucNang.add(sv.ui.btn_LogOut);
 	sv.ui.Win.add(sv.ui.ViewChucNang);
 	////
@@ -399,13 +336,6 @@ function tao_sukien(sv) {
 		if (e.row.id == 0) {
 			sv.ui.opt_dialog.show();
 		}
-		if (e.row.id == 1) {
-			sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
-			sv.vari.wdNangCap.setThongBao("Nâng cấp cho tài khoản của bạn để có thể sử dụng đầy đủ những tính năng đa dạng và hấp dẫn hơn");
-			sv.vari.wdNangCap.ui.Window.open({
-				modal : Ti.Platform.osname == 'android' ? true : false
-			});
-		}
 	};
 	sv.fu.event_optiondialog = function(e) {
 		if (e.button) {
@@ -432,11 +362,6 @@ function tao_sukien(sv) {
 		sv.ui.Win.close();
 	};
 	sv.fu.evtCloseWin = function(e) {
-		var isAndroid = Ti.Platform.osname === 'android';
-		if (!isAndroid) {
-			var revemob = new (require('/ui-controller/revmob'))();
-			revemob.showBan();
-		}
 		sv.ui.ViewIconBack.removeEventListener('click', sv.fu.evtIconBack);
 		sv.ui.Win.removeEventListener('open', sv.fu.evtOpenWin);
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);

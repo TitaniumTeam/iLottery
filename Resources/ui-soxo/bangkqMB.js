@@ -249,10 +249,10 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		}
 		for (var i = 0; i < (mangkq.length); i++) {
 			if (mangkq[j].toString().match(/&/g)) {
-				lblKQ[j].setText(mangkq[j].replace("&", ""));
-				lblKQ[j].setColor('yellow');
+				lblkq[j].setText(mangkq[j].replace("&", ""));
+				lblkq[j].setColor('yellow');
 			} else {
-				lblKQ[j].setText(mangkq[j]);
+				lblkq[j].setText(mangkq[j]);
 			}
 		}
 		if (param[0].lines[0].result.length > 0) {

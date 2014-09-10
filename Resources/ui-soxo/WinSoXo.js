@@ -13,13 +13,14 @@ module.exports = function() {
 ////
 function tao_bien(sv) {
 	sv.vari.revemob = new (require('/ui-controller/revmob'))();
-	sv.vari.revemob.showBan();
+	if (Ti.Platform.osname == 'android')
+		sv.vari.revemob.showBan();
 	sv.arr.ViewChucNang = [];
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
-	sv.vari.ViewHT;
+	sv.vari.ViewHT
 	sv.vari.db = null;
 	sv.vari.user_info = null;
 	sv.vari.tk_user = null;
@@ -38,7 +39,7 @@ function tao_ui(sv) {
 		fullscreen : isAndroid ? false : true,
 		backgroundColor : Ti.App.Color.nauden,
 		orientationModes : [Ti.UI.PORTRAIT],
-		zIndex:10
+		zIndex : 10
 	});
 	//////header
 	sv.ui.ViewHeader = Ti.UI.createView({
@@ -149,6 +150,23 @@ function tao_ui(sv) {
 		sv.arr.ViewChucNang[i].add(sv.arr.LabelChucNang[i]);
 		sv.ui.ViewTab.add(sv.arr.ViewChucNang[i]);
 	}
+
+	////iad view
+
+		if (!isAndroid) {
+			Ti.API.info('dung iads');
+			sv.ui.adView = Ti.UI.iOS.createAdView({
+				width : 'auto',
+				height : 'auto',
+				bottom : 0,
+				borderColor : '#000000',
+				backgroundColor : '#000000',
+				zIndex : 100
+			});
+			sv.ui.Win.add(sv.ui.adView);
+		}
+
+
 	/////////
 	sv.ui.ViewIconUser.add(sv.ui.IconUser);
 	sv.ui.ViewHeader.add(sv.ui.ViewIconUser);
@@ -234,52 +252,22 @@ function tao_sukien(sv) {
 		}
 		if (i == 3) {
 			sv.arr.evtChucNang[i] = function(e) {
-				sv.vari.db = Ti.Database.open('userinfo');
-				sv.vari.user_info = sv.vari.db.execute("SELECT * FROM SaveInfo");
-				if (sv.vari.user_info.isValidRow()) {
-					sv.vari.tk_user = sv.vari.user_info.fieldByName("type");
-				}
-				sv.vari.user_info.close();
-				sv.vari.db.close();
-				if (sv.vari.tk_user == 0) {
-					sv.vari.wdNangCap = new (require('/ui-user/PopUpNangCapVip'))();
-					sv.vari.wdNangCap.setThongBao("Bạn phải nâng cấp VIP mới sử dụng được chức năng này");
-					sv.vari.wdNangCap.ui.Window.open({
-						modal : Ti.Platform.osname == 'android' ? true : false
-					});
-					// Ti.API.info('state' + sv.vari.wdNangCap.getState());
-					sv.vari.user_info.close();
-					sv.vari.db.close();
-				} else {
-					if (sv.vari.tk_user == 1) {
-						sv.vari.user_info.close();
-						sv.vari.db.close();
-						if (sv.vari.flag != 3) {
-							for (var j = 0; j < 4; j++) {
-								if (j == 3)
-									sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
-								else {
-									sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
-								}
-
-							}
-							sv.vari.flag = 3;
-							sv.vari.ViewHT.removeAllEvent();
-							sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
-							sv.vari.ViewHT = null;
-							sv.vari.ViewHT = new (require('/ui-soxo/VTuVan'))();
-							sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
+				if (sv.vari.flag != 3) {
+					for (var j = 0; j < 4; j++) {
+						if (j == 3)
+							sv.arr.ViewChucNang[j].setBackgroundImage("/assets/icon/selected_tab.png");
+						else {
+							sv.arr.ViewChucNang[j].setBackgroundImage("transparent");
 						}
-
-					} else {
-						sv.vari.user_info.close();
-						sv.vari.db.close();
-						sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))();
-						sv.vari.WinPopUpDangNhap.open({
-							modal : Ti.Platform.osname == 'android' ? true : false
-						});
 					}
+					sv.vari.flag = 3;
+					sv.vari.ViewHT.removeAllEvent();
+					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
+					sv.vari.ViewHT = null;
+					sv.vari.ViewHT = new (require('/ui-soxo/VTuVanVip'))();
+					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 				}
+
 			};
 		}
 	}
@@ -312,7 +300,6 @@ function tao_sukien(sv) {
 		sv.ui.Win.close();
 	};
 	sv.fu.evtCloseWin = function(e) {
-		sv.vari.revemob.hideBan();
 		sv.ui.ViewIconBack.removeEventListener('click', sv.fu.evtIconBack);
 		sv.ui.Win.removeEventListener('open', sv.fu.evtOpenWin);
 		for (var i = 0; i < 4; i++) {
