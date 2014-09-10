@@ -158,11 +158,29 @@ function tao_sukien(sv) {
 							modal : Ti.Platform.osname == 'android' ? true : false
 						});
 					} else {
-						tuvan_soxo({
-							"command" : menucap2.act[e.index],
-							"param" : menucap2.param[e.index],
-							"price" : menucap2.price[e.index],
-						});
+						var database = Ti.Database.open('userinfo');
+						var user_info = database.execute("SELECT * FROM SaveInfo");
+						if (user_info.isValidRow()) {
+							var tien_user = user_info.fieldByName("balance");
+							if (tien_user < (menucap2.param[e.index])) {
+								var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index], "DỊCH VỤ SX " + menucap2.act[e.index] + " " + menucap2.name[e.index]);
+								pop_upsms.open({
+									modal : Ti.Platform.osname == 'android' ? true : false
+								});
+							} else {
+								tuvan_soxo({
+									"command" : menucap2.act[e.index],
+									"param" : menucap2.param[e.index],
+									"price" : menucap2.price[e.index],
+								});
+							}
+
+						} else {
+							var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index], "DỊCH VỤ SX " + menucap2.act[e.index] + " " + menucap2.name[e.index]);
+							pop_upsms.open({
+								modal : Ti.Platform.osname == 'android' ? true : false
+							});
+						}
 					}
 				}
 			});
@@ -179,12 +197,12 @@ function get_menu(sv) {
 		sv.vari.user_name = sv.vari.user_info.fieldByName("username");
 		data = {
 			"username" : sv.vari.user_name,
-			"type" : "1"
+			"type" : "0"
 		};
 	} else {
 		data = {
 			"username" : "",
-			"type" : "1"
+			"type" : "0"
 		};
 	}
 	xhr.onsendstream = function(e) {

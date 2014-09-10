@@ -139,7 +139,6 @@ function createUI(sv) {
 		// height : Ti.UI.FILL,
 		// contentHeight:Ti.UI.FILL,
 		left:0,
-		bottom:isAndroid?Ti.App.size(25):Ti.App.size(100)
 	});
 	if (Ti.Platform.osname == "android") {
 		sv.ui.ScrollView.setContentHeight(Ti.UI.FILL);
