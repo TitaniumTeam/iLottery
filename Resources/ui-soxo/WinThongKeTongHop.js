@@ -271,11 +271,14 @@ function thongke(_cmd, data, sv) {
 			if (_cmd == "getprovide") {
 				var ketqua;
 				var mangkq = [];
+				var providesmienbac={id:"MB",name:"Miền Bắc"};
 				for (var i = 0; i < jsonResuilt.provides.length; i++) {
 					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].name);
 					// Ti.API.info('ten giai: ' + jsonResuilt.provides[i].id);
 					mangkq.push(jsonResuilt.provides[i]);
 				}
+				mangkq.push(providesmienbac);
+				mangkq.reverse();
 				sv.ui.view_choose.setTable(mangkq);
 
 			}

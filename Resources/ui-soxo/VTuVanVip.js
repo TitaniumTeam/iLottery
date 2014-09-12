@@ -159,7 +159,7 @@ function tao_sukien(sv) {
 						var user_info = database.execute("SELECT * FROM SaveInfo");
 						if (user_info.isValidRow()) {
 							var tien_user = user_info.fieldByName("balance");
-							if (tien_user < (menucap2.param[e.index])) {
+							if (tien_user < (menucap2.price[e.index])) {
 								var sms = new (require('/ui-controller/showSmsDialog'))(menucap2.ser_num[e.index],menucap2.act[e.index] + " " + menucap2.param[e.index]);
 							} else {
 								tuvan_soxo({

@@ -134,39 +134,44 @@ function tao_ui(sv) {
 		touchEnabled : false,
 		text : sv.vari.ten_user
 	});
-	sv.ui.IconTK = Ti.UI.createImageView({
-		left : Ti.App.size(0),
-		top : Ti.App.size(70),
-		width : Ti.App.size(60),
-		height : Ti.App.size(60),
-		image : "/assets/icon/icon_star2.png",
-		touchEnabled : false,
-	});
-	sv.ui.LoaiTK = Ti.UI.createLabel({
-		top : Ti.App.size(80),
-		left : Ti.App.size(70),
+	// sv.ui.IconTK = Ti.UI.createImageView({
+	// left : Ti.App.size(0),
+	// top : Ti.App.size(70),
+	// width : Ti.App.size(60),
+	// height : Ti.App.size(60),
+	// image : "/assets/icon/icon_star2.png",
+	// touchEnabled : false,
+	// });
+	// sv.ui.LoaiTK = Ti.UI.createLabel({
+	// top : Ti.App.size(80),
+	// left : Ti.App.size(70),
+	// width : Ti.UI.SIZE,
+	// font : {
+	// fontSize : Ti.App.size(20)
+	// },
+	// color : Ti.App.Color.superwhite,
+	// // text : "TK thuong",
+	// backgroundColor : "transparent",
+	// touchEnabled : false,
+	// text : sv.vari.tk_user == 0 ? "Thường" : "VIP"
+	// });
+	sv.ui.ViewTien = Titanium.UI.createView({
 		width : Ti.UI.SIZE,
-		font : {
-			fontSize : Ti.App.size(20)
-		},
-		color : Ti.App.Color.superwhite,
-		// text : "TK thuong",
-		backgroundColor : "transparent",
-		touchEnabled : false,
-		text : sv.vari.tk_user == 0 ? "Thường" : "VIP"
+		height : Ti.UI.SIZE,
+		layout : "horizontal",
+		left : 0
 	});
-
 	sv.ui.IconTien = Ti.UI.createImageView({
-		left : Ti.App.size(0),
-		top : Ti.App.size(110),
+		// left : Ti.App.size(0),
+		// top : Ti.App.size(110),
 		width : Ti.App.size(60),
 		height : Ti.App.size(60),
 		image : "/assets/icon/icon_so_du_tk.png",
 		touchEnabled : false,
 	});
 	sv.ui.SoTien = Ti.UI.createLabel({
-		top : Ti.App.size(120),
-		left : Ti.App.size(70),
+		// top : Ti.App.size(120),
+		left : Ti.App.size(20),
 		width : Ti.UI.SIZE,
 		font : {
 			fontSize : Ti.App.size(20)
@@ -289,10 +294,11 @@ function tao_ui(sv) {
 
 	////
 	sv.ui.ViewThongTin.add(sv.ui.TenUser);
-	sv.ui.ViewThongTin.add(sv.ui.LoaiTK);
-	sv.ui.ViewThongTin.add(sv.ui.IconTien);
-	sv.ui.ViewThongTin.add(sv.ui.IconTK);
-	sv.ui.ViewThongTin.add(sv.ui.SoTien);
+	// sv.ui.ViewThongTin.add(sv.ui.LoaiTK);
+	sv.ui.ViewTien.add(sv.ui.IconTien);
+	// sv.ui.ViewThongTin.add(sv.ui.IconTK);
+	sv.ui.ViewTien.add(sv.ui.SoTien);
+	sv.ui.ViewThongTin.add(sv.ui.ViewTien);
 	sv.ui.ViewIconEdit.add(sv.ui.IconEdit);
 	sv.ui.ViewThongTin.add(sv.ui.ViewIconEdit);
 	sv.ui.ViewUser.add(sv.ui.ViewThongTin);
