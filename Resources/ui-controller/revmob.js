@@ -2,7 +2,6 @@ var isAndroid = Ti.Platform.osname === 'android';
 
 module.exports = function() {
 	var revmob = null;
-	if (isAndroid) {
 		function log(msg) {
 			Titanium.API.log('[RevMob] ' + msg);
 		}
@@ -11,8 +10,9 @@ module.exports = function() {
 		var interval = null;
 		function RevMob(appId) {
 			var moduleNames = {
+				'iPhone OS' : 'com.revmob.titanium',
 				'android' : 'com.revmob.ti.android'
-			};
+			}
 			var revmobModule = require(moduleNames[Ti.Platform.name]);
 			revmobModule.startSession(appId);
 			return revmobModule;
@@ -21,7 +21,7 @@ module.exports = function() {
 		if (Ti.Platform.osname === 'android') {
 			revmob = new RevMob("5106bea78e5bd71500000098");
 		} else {
-
+			revmob = new RevMob('53f197a1dfa480476e931799');
 		}
 		revmob.setTestingMode(revmob.testingMode.disabled);
 		revmob.addEventListener('sessionIsStarted', function(e) {
@@ -43,6 +43,11 @@ module.exports = function() {
 				check_banner();
 			}, 3000);
 
+		};
+		revmob.showFull=function(){
+			if(isAndroid)
+			revmob.createFullscreen();
+			revmob.showFullscreen();
 		};
 		revmob.hideBan = function() {
 			revmob.hideBanner();
@@ -70,8 +75,5 @@ module.exports = function() {
 		revmob.addEventListener('adClosed', function(e) {
 			log('Ad closed.');
 		});
-	} else {
-	}
-
 	return revmob;
 };

@@ -12,9 +12,11 @@ module.exports = function() {
 };
 ////
 function tao_bien(sv) {
-	sv.vari.revemob = new (require('/ui-controller/revmob'))();
-	if (Ti.Platform.osname == 'android')
+	
+	if (Ti.Platform.osname == 'android'){
+		sv.vari.revemob = new (require('/ui-controller/revmob'))();
 		sv.vari.revemob.showBan();
+	}
 	sv.arr.ViewChucNang = [];
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];

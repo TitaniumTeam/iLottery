@@ -3,5 +3,5 @@ if (Ti.version < 1.8) {
 }
 new (require('/ui-controller/AllData'));
 
-var home=new (require('ui-app/WinHome'))();
+var home = new (require('ui-app/WinHome'))();
 home.open();

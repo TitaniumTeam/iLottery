@@ -160,7 +160,24 @@ function tao_sukien(sv) {
 						if (user_info.isValidRow()) {
 							var tien_user = user_info.fieldByName("balance");
 							if (tien_user < (menucap2.price[e.index])) {
-								var sms = new (require('/ui-controller/showSmsDialog'))(menucap2.ser_num[e.index],menucap2.act[e.index] + " " + menucap2.param[e.index]);
+								var dialog = Ti.UI.createAlertDialog({
+									cancel : 1,
+									buttonNames : ['Có', 'Không'],
+									message : 'Tài khoản của bạn không đủ ' + menucap2.price[e.index] + ' để dùng dịch vụ trực tiếp mà phải thông qua gửi SMS.Bạn có muốn nạp tiền để sử dụng luôn hay không ?',
+									title : 'Thông báo',
+								});
+
+								dialog.addEventListener('click', function(e) {
+									if (e.index === e.source.cancel) {
+										var sms = new (require('/ui-controller/showSmsDialog'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index]);
+									} else {
+										var wdnaptien = new (require('ui-user/PopUpNapTien'))();
+										wdnaptien.open({
+											modal : Ti.Platform.osname == 'android' ? true : false
+										});
+									}
+								});
+								dialog.show();
 							} else {
 								tuvan_soxo({
 									"command" : menucap2.act[e.index],
@@ -170,7 +187,7 @@ function tao_sukien(sv) {
 							}
 
 						} else {
-							var sms = new (require('/ui-controller/showSmsDialog'))(menucap2.ser_num[e.index],menucap2.act[e.index] + " " + menucap2.param[e.index]);
+							var sms = new (require('/ui-controller/showSmsDialog'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index]);
 						}
 					}
 				}
@@ -236,13 +253,13 @@ function get_menu(sv) {
 		db_service.execute("DELETE FROM Menucap2_bongda");
 		// }
 		for (var i = 0; i < (menucap1.length); i++) {
-			db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?,?)", (menucap1[i].id), menucap1[i].name,menucap1[i].type);
+			db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?,?)", (menucap1[i].id), menucap1[i].name, menucap1[i].type);
 		}
 		for (var i = 0; i < (menucap2.length); i++) {
 			if (menucap2[i].action)
-				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid,menucap2[i].type);
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid, menucap2[i].type);
 			else
-				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid,menucap2[i].type);
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid, menucap2[i].type);
 		}
 		db_service.close();
 	};

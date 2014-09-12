@@ -194,11 +194,16 @@ function naptien(data, sv,_winparent) {
 		var dl = JSON.parse(this.responseText);
 		Ti.API.info('code' + dl.code);
 		if (dl.code == 0) {
+			var jsonResult=JSON.parse(dl);
+			var db=Ti.Database.open("userinfo");
+			db.execute("UPDATE SaveInfo SET balance+=?",parseInt(jsonResult.balance));
 			var wdPopUPThanhCong = new (require('/ui-user/PopUpThanhCong'))();
 			wdPopUPThanhCong.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
+			if(_winparent)
 			_winparent.setUserInfo();
+			db.close();
 			sv.ui.Window.close();
 		} else {
 			var wdPopUpThatBai = new (require('/ui-user/PopUpThatBai'))(0);
