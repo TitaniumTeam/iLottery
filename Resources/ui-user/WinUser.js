@@ -5,7 +5,7 @@ module.exports = function() {
 	sv.ui = {};
 	sv.fu = {};
 	sv.test = {};
-
+dangnhap();
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
@@ -392,11 +392,56 @@ function tao_sukien(sv) {
 function setThongTin(sv) {
 	sv.setUserInfo = function() {
 		Ti.API.info('do something');
-		var db=Ti.Database.open("userinfo");
+		var db = Ti.Database.open("userinfo");
 		var user_info = db.execute("SELECT * FROM SaveInfo");
 		var tien_user = user_info.fieldByName("balance");
 		user_info.close();
 		db.close();
 		sv.ui.SoTien.setText(tien_user);
 	};
+};
+function dangnhap() {
+
+	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+	} else {
+		var db = Ti.Database.open('userinfo');
+		var user_info = db.execute("SELECT * FROM SaveInfo");
+		var ten_user = user_info.fieldByName("username");
+		var pass_user = user_info.fieldByName("password");
+		var data={
+			"username":ten_user,
+			"password":pass_user
+		};
+		
+		var xhr = Titanium.Network.createHTTPClient();
+		xhr.onsendstream = function(e) {
+			//ind.value = e.progress;
+			Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
+		};
+		// open the client
+		xhr.open('POST', 'http://bestteam.publicvm.com:7788/api?cmd=login');
+		xhr.setRequestHeader("Content-Type", "application/json-rpc");
+		Ti.API.info(JSON.stringify(data));
+		xhr.send(JSON.stringify(data));
+		xhr.onerror = function(e) {
+			Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
+		};
+		xhr.onload = function() {
+			Ti.API.info('IN ONLOAD ' + this.status + ' readyState ' + this.readyState + " " + this.responseText);
+			var dl = JSON.parse(this.responseText);
+			var jsonResuilt = JSON.parse(dl);
+			Ti.API.info('ket qua' + dl);
+			Ti.API.info('json' + jsonResuilt.result.code);
+			if (jsonResuilt.result.code == "0") {
+				var balance = jsonResuilt.info.balance;
+				Ti.API.info('dang nhap thanh cong');
+				db.execute('UPDATE SaveInfo SET balance=?',balance);
+				user_info.close();
+				db.close();
+			} else {
+				alert('Sai username hoặc password');
+			}
+		};
+
+	}
 };

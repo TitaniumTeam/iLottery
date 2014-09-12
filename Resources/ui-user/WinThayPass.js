@@ -242,7 +242,10 @@ function thaydoi_pass(data, sv) {
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('code' + jsonResuilt.code);
 		if (jsonResuilt.code == 0) {
+			var db=Ti.Database.open("userinfo");
+			db.execute("UPDATE SaveInfo SET password=?",data.newpass);
 			Ti.API.info('thay doi thanh cong');
+			db.close();
 			sv.ui.winThayDoiThongTin.close();
 		} else {
 			alert("Thay đổi mật khẩu thất bại");

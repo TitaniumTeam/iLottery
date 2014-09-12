@@ -438,7 +438,7 @@ function dangnhap(data, sv, _winDK) {
 				var balance = jsonResuilt.info.balance;
 				var timeout = null;
 				Ti.API.info('dang nhap thanh cong');
-				db.execute('INSERT INTO SaveInfo(username,type,balance) VALUES(?,?,?)', username, type, balance);
+				db.execute('INSERT INTO SaveInfo(username,type,balance,password) VALUES(?,?,?,?)', username, type, balance,data.password);
 				sql.close();
 				db.close();
 				Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winDangNhap);
