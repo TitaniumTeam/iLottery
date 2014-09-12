@@ -158,8 +158,8 @@ function tao_ui(sv) {
 		if (!isAndroid) {
 			Ti.API.info('dung iads');
 			sv.ui.adView = Ti.UI.iOS.createAdView({
-				width : 'auto',
-				height : 'auto',
+				width :Ti.App.size(640),
+				height : Ti.App.size(100),
 				bottom : 0,
 				borderColor : '#000000',
 				backgroundColor : '#000000',

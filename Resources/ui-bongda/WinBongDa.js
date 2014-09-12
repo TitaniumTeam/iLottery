@@ -12,12 +12,12 @@ module.exports = function() {
 };
 ////
 function tao_bien(sv) {
-	
-	if (Ti.Platform.osname == 'android'){
+
+	if (Ti.Platform.osname == 'android') {
 		sv.vari.revemob = new (require('/ui-controller/revmob'))();
 		sv.vari.revemob.showBan();
 	}
-		
+
 	sv.arr.ViewChucNang = [];
 	sv.arr.LabelChucNang = [];
 	sv.arr.LineChucNang = [];
@@ -152,8 +152,8 @@ function tao_ui(sv) {
 	if (!isAndroid) {
 		Ti.API.info('dung iads');
 		sv.ui.adView = Ti.UI.iOS.createAdView({
-			width : 'auto',
-			height : 'auto',
+			width : Ti.App.size(640),
+			height : Ti.App.size(100),
 			bottom : 0,
 			borderColor : '#000000',
 			backgroundColor : '#000000',
