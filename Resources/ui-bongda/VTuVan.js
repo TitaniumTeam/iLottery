@@ -67,8 +67,8 @@ function removeSK(sv) {
 };
 function tao_sukien(sv) {
 	var db_service = Ti.Database.open('servicedb');
-	var db_menucap1 = db_service.execute("SELECT * FROM Menucap1_bongda");
-	var db_menucap2 = db_service.execute("SELECT * FROM Menucap2_bongda");
+	var db_menucap1 = db_service.execute("SELECT * FROM Menucap1_bongda where type=0");
+	var db_menucap2 = db_service.execute("SELECT * FROM Menucap2_bongda where type=0");
 	var dv_cap1 = [];
 	var dv_cap2 = [];
 	dv_cap1 = get_data_fromdb(db_menucap1);
@@ -142,7 +142,7 @@ function tao_sukien(sv) {
 				buttonNames : ["Thoát"],
 				options : menucap2.name,
 				opaquebackground : true,
-				title : "Lựa chọn các tỉnh thành",
+				title : "Lựa chọn giải đấu",
 			});
 			if ((menucap2.name.length > 0 && isAndroid) || (menucap2.name.length > 1 && (!isAndroid)))
 				opt.show();
@@ -225,13 +225,13 @@ function get_menu(sv) {
 			db_service.execute("DELETE FROM Menucap2_bongda");
 		}
 		for (var i = 0; i < (menucap1.length); i++) {
-			db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?)", (menucap1[i].id), menucap1[i].name);
+			db_service.execute("INSERT OR IGNORE INTO Menucap1_bongda VALUES(?,?,?)", (menucap1[i].id), menucap1[i].name,menucap1[i].type);
 		}
 		for (var i = 0; i < (menucap2.length); i++) {
 			if (menucap2[i].action)
-				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid);
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, menucap2[i].action, menucap2[i].params, menucap2[i].servicenumber, menucap2[i].price, menucap2[i].parentid,menucap2[i].type);
 			else
-				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid);
+				db_service.execute("INSERT OR IGNORE INTO Menucap2_bongda VALUES(?,?,?,?,?,?,?,?)", (menucap2[i].id), menucap2[i].name, "", "", "", "", menucap2[i].parentid,menucap2[i].type);
 		}
 		db_service.close();
 	};

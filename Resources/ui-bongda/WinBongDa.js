@@ -258,7 +258,7 @@ function tao_sukien(sv) {
 					sv.vari.ViewHT.removeAllEvent();
 					sv.ui.Win.remove(sv.vari.ViewHT.ui.ViewTong);
 					sv.vari.ViewHT = null;
-					sv.vari.ViewHT = new (require('/ui-bongda/VTuVan'))();
+					sv.vari.ViewHT = new (require('/ui-bongda/VTuVanVip'))();
 					sv.ui.Win.add(sv.vari.ViewHT.ui.ViewTong);
 				}
 
