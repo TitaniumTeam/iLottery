@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(_winparent) {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function() {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv);
+		createUI(sv,_winparent);
 	})();
 
 	return sv.ui.Window;
@@ -17,7 +17,7 @@ module.exports = function() {
 function createVariable(sv) {
 }
 
-function createUI(sv) {
+function createUI(sv,_winparent) {
 	var customButton = require('ui-controller/customButton');
 	var customView = require('ui-controller/customView');
 	sv.ui.Window = Ti.UI.createWindow({
@@ -117,7 +117,7 @@ function createUI(sv) {
 		backgroundSelectedImage : "/assets/icon/btn_nap_select.png",
 		backgroundImage : "/assets/icon/btn_nap.png"
 	});
-	createUI_Event(sv);
+	createUI_Event(sv,_winparent);
 
 	sv.ui.Window.addEventListener('open', sv.fu.eventOpenWindow);
 	sv.ui.Window.addEventListener('close', sv.fu.eventCloseWindow);
@@ -135,17 +135,19 @@ function createUI(sv) {
 	sv.ui.Window.add(sv.ui.ViewPopUp);
 }
 
-function createUI_Event(sv) {
+function createUI_Event(sv,_winparent) {
 	sv.fu.eventClicknaptien = function(e) {
-		// sv.vari.db = Ti.Database.open('userinfo');
-		// sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
-		// sv.vari.username = sv.vari.sql.fieldByName("username");
+		sv.vari.db = Ti.Database.open('userinfo');
+		sv.vari.sql = sv.vari.db.execute('SELECT * FROM SaveInfo');
+		sv.vari.username = sv.vari.sql.fieldByName("username");
+		sv.vari.db.close();
+		sv.vari.sql.close();
 		// sv.vari.type = sv.vari.sql.fieldByName("type");
 		naptien({
-			"username" : "minh17",
+			"username" : sv.vari.username,
 			"serial" : sv.ui.txt_soseri.value,
 			"pin" : sv.ui.txt_mathe.value
-		}, sv);
+		}, sv,_winparent);
 	};
 	sv.fu.eventClickIcon = function(e) {
 		sv.ui.Window.close();
@@ -172,7 +174,7 @@ function createUI_Event(sv) {
 	};
 }
 
-function naptien(data, sv) {
+function naptien(data, sv,_winparent) {
 	var xhr = Titanium.Network.createHTTPClient();
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
@@ -196,12 +198,14 @@ function naptien(data, sv) {
 			wdPopUPThanhCong.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
+			_winparent.setUserInfo();
 			sv.ui.Window.close();
 		} else {
 			var wdPopUpThatBai = new (require('/ui-user/PopUpThatBai'))(0);
 			wdPopUpThatBai.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});
+			
 			sv.ui.Window.close();
 		}
 

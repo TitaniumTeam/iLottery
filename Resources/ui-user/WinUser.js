@@ -9,6 +9,7 @@ module.exports = function() {
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
+		setThongTin(sv);
 	})();
 	return sv.ui.Win;
 };
@@ -348,7 +349,7 @@ function tao_sukien(sv) {
 			sv.ui.opt_dialog.hide();
 		} else {
 			if (e.index == 0) {
-				sv.vari.wdnaptien = new (require('ui-user/PopUpNapTien'))();
+				sv.vari.wdnaptien = new (require('ui-user/PopUpNapTien'))(sv);
 				sv.vari.wdnaptien.open({
 					modal : Ti.Platform.osname == 'android' ? true : false
 				});
@@ -389,7 +390,13 @@ function tao_sukien(sv) {
 }
 
 function setThongTin(sv) {
-	sv.setUserInfo() = function() {
-
+	sv.setUserInfo = function() {
+		Ti.API.info('do something');
+		var db=Ti.Database.open("userinfo");
+		var user_info = db.execute("SELECT * FROM SaveInfo");
+		var tien_user = user_info.fieldByName("balance");
+		user_info.close();
+		db.close();
+		sv.ui.SoTien.setText(tien_user);
 	};
 };
