@@ -11,6 +11,7 @@ module.exports = function() {
 	var viewchua = [];
 	var viewchua2 = [];
 	var viewchua3 = [];
+	var id=2;
 	var viewKQ = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.UI.SIZE,
@@ -197,6 +198,7 @@ module.exports = function() {
 		mangkq1.reverse();
 		mangkq2.reverse();
 		mangkq3.reverse();
+		if(mangkq1.length==18)
 		for (var i = 0; i < (mangkq1.length); i++) {
 			if (mangkq1[i].toString().indexOf("&") > 0) {
 				lblKQ[17-i].setText(mangkq1[i].replace("&", ""));
@@ -205,6 +207,7 @@ module.exports = function() {
 				lblKQ[17-i].setText(mangkq1[i]);
 			}
 		}
+		if(mangkq2.length==18)
 		for (var i = 0; i < (mangkq2.length); i++) {
 			if (mangkq2[i].toString().indexOf("&") > 0) {
 				lblKQ2[17-i].setText(mangkq2[i].replace("&", ""));
@@ -213,6 +216,7 @@ module.exports = function() {
 				lblKQ2[17-i].setText(mangkq2[i]);
 			}
 		}
+		if(mangkq3.length==18)
 		for (var i = 0; i < (mangkq3.length); i++) {
 			if (mangkq3[i].toString().indexOf("&") > 0) {
 				lblKQ3[17-i].setText(mangkq3[i].replace("&", ""));
@@ -239,6 +243,11 @@ module.exports = function() {
 	///
 	viewKQ.clearInterVal = function() {
 		clearInterval(interval);
+	};
+	////
+	
+	viewKQ.getID=function(){
+		return id;
 	};
 	/////////
 	viewKQ.add(viewChuaTenGiai);

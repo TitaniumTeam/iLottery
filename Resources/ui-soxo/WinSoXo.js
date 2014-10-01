@@ -22,7 +22,7 @@ function tao_bien(sv) {
 	sv.arr.LineChucNang = [];
 	sv.arr.evtChucNang = [];
 	sv.arr.TenChucNang = ["Sổ kết quả", "Thống kê", "Tư vấn", "VIP"];
-	sv.vari.ViewHT
+	sv.vari.ViewHT;
 	sv.vari.db = null;
 	sv.vari.user_info = null;
 	sv.vari.tk_user = null;
@@ -284,7 +284,7 @@ function tao_sukien(sv) {
 		} else {
 			sv.vari.userinfo.close();
 			sv.vari.database.close();
-			sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))(sv.ui.Win);
+			sv.vari.WinPopUpDangNhap = new (require('ui-user/PopUpDangNhap'))();
 			sv.vari.WinPopUpDangNhap.open({
 				modal : Ti.Platform.osname == 'android' ? true : false
 			});

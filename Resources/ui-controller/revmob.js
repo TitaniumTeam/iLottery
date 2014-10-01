@@ -19,7 +19,7 @@ module.exports = function() {
 		}
 
 		if (Ti.Platform.osname === 'android') {
-			revmob = new RevMob("5106bea78e5bd71500000098");
+			revmob = new RevMob("53f182a9cadd4ff25b6cffd5");
 		} else {
 			revmob = new RevMob('53f197a1dfa480476e931799');
 		}

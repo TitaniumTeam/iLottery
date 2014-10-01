@@ -7,7 +7,6 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		sms_offline();
 		createVariable(sv);
 		createUI(sv);
 	})();
@@ -156,15 +155,18 @@ function createUI(sv) {
 	} else {
 		date2.setDate(date2.getDate() - 1);
 	}
+	
 	sv.ui.picker2 = Ti.UI.createPicker({
 		type : Titanium.UI.PICKER_TYPE_DATE,
-		minDate : (sv.ui.picker.maxDate),
+		minDate:new Date(2014, 0, 1),
+		// minDate : (sv.ui.picker.maxDate),
 		maxDate : new Date(parseInt(date2.getFullYear()), parseInt((date2.getMonth())), parseInt(date2.getDate())),
 		value : new Date(parseInt(date2.getFullYear()), parseInt((date2.getMonth())), parseInt(date2.getDate())),
 		backgroundColor : Ti.App.Color.nauden,
 		width : Ti.App.size(640),
 		bottom : 0,
 	});
+	
 	/////
 	sv.ui.View_header = Titanium.UI.createLabel({
 		height : Ti.App.size(80),
@@ -221,11 +223,7 @@ function createUI(sv) {
 		sv.ui.ScrollView.setHeight(Ti.UI.SIZE);
 
 	}
-	soketqua("searchtimelottery", {
-		"provideid" : "MB",
-		"startdate" : sv.ui.lblfirst1.text,
-		"enddate" : sv.ui.lblfirst2.text,
-	}, sv);
+	
 	///
 	/////
 	createUI_Event(sv);
@@ -277,7 +275,13 @@ function createUI_Event(sv) {
 	};
 
 	sv.fu.eventOpenWindow = function() {
+		sms_offline(); 
 		Ti.API.info('Opened window thong ke kq');
+		soketqua("searchtimelottery", {
+		"provideid" : "MB",
+		"startdate" : sv.ui.lblfirst1.text,
+		"enddate" : sv.ui.lblfirst2.text,
+	}, sv);
 	};
 	sv.fu.evt_hidePicker = function(e) {
 		sv.ui.ViewPicker.visible = false;
@@ -297,6 +301,7 @@ function createUI_Event(sv) {
 		sv.vari.year = sv.vari.date.getFullYear();
 		sv.vari.newdate = sv.vari.day + "/" + sv.vari.month + "/" + sv.vari.year;
 		sv.ui.lblfirst1.text = sv.vari.newdate;
+		
 	};
 	sv.fu.event_picker1 = function(e) {
 		sv.vari.date = e.value;
@@ -426,7 +431,7 @@ function soketqua(_cmd, data, sv) {
 				sv.ui.ScrollView.visible = true;
 				Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
 				clearTimeout(sv.vari.time_out1);
-			}, 1500);
+			}, 1000);
 			var ketqua = [];
 			var dodai = null;
 			var dataTable = null;
@@ -679,7 +684,7 @@ function setFont(i) {
 };
 
 function sms_offline() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+	if (Ti.Network.online==false) {
 		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "TKKQSX MB", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false

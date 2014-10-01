@@ -162,8 +162,9 @@ module.exports = function() {
 			clearTimeout(timeout);
 		}, 500);
 	};
+	push_notification();
 	var evt_openWin = function(e) {
-		push_notification();
+		
 		// push_notifi_mod();
 		Ti.API.info('open window home');
 	};

@@ -215,7 +215,7 @@ function createUI(sv) {
 	//////
 	sv.ui.ViewChuaKeo = Ti.UI.createScrollView({
 		width : Ti.App.size(640),
-		height : Ti.UI.FILL,
+		height : Ti.UI.SIZE,
 		left : 0,
 		backgroundColor : 'transparent',
 		top : Ti.App.size(240),
@@ -673,14 +673,14 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 		var jsonResuilt = JSON.parse(dl);
 		Ti.API.info('du lieu la : ', jsonResuilt.match);
 		///////
-		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
-		sv.ui.ViewChuaKeo.setVisible(false);
-		sv.ui.ViewChuaKeo.setTouchEnabled(false);
-		setTimeout(function() {
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
-			sv.ui.ViewChuaKeo.setVisible(true);
-			sv.ui.ViewChuaKeo.setTouchEnabled(true);
-		}, 1000);
+		// Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winKeo);
+		// sv.ui.ViewChuaKeo.setVisible(false);
+		// sv.ui.ViewChuaKeo.setTouchEnabled(false);
+		// setTimeout(function() {
+			// Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winKeo);
+			// sv.ui.ViewChuaKeo.setVisible(true);
+			// sv.ui.ViewChuaKeo.setTouchEnabled(true);
+		// }, 1000);
 		if (jsonResuilt.match.aisiabe_betting[0]) {
 			sv.vari.ViewKeoChauA = ViewKeoChauA();
 			sv.vari.ViewKeoChauA.setPosChauA("Kèo Châu Á", jsonResuilt.match.aisiabe_betting[0], tendoi1, tendoi2);
@@ -691,11 +691,11 @@ function GetMatchRatio(sv, data, tendoi1, tendoi2) {
 			sv.vari.ViewKeoChauA.setPos("Kèo Châu Âu", jsonResuilt.match.euro_betting[0], tendoi1, tendoi2);
 			sv.ui.ViewChuaKeo.add(sv.vari.ViewKeoChauA);
 		}
-		if (jsonResuilt.match.taixiu.length > 0) {
-			sv.vari.ViewTaiXiu = ViewKeo();
-			sv.vari.ViewTaiXiu.setPos("Tài xỉu", jsonResuilt.match.taixiu[0], tendoi1, tendoi2);
-			sv.ui.ViewChuaKeo.add(sv.vari.ViewTaiXiu);
-		}
+		// if (jsonResuilt.match.taixiu.length > 0) {
+			// sv.vari.ViewTaiXiu = ViewKeo();
+			// sv.vari.ViewTaiXiu.setPos("Tài xỉu", jsonResuilt.match.taixiu[0], tendoi1, tendoi2);
+			// sv.ui.ViewChuaKeo.add(sv.vari.ViewTaiXiu);
+		// }
 		// Ti.API.info('length tai xiu'+jsonResuilt.match.taixiu.length);
 		if (jsonResuilt.match.resultbet[0]) {
 			sv.vari.ViewTySo = ViewTySo();

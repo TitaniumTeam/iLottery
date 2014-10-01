@@ -1,4 +1,4 @@
-module.exports = function(_winDK) {
+module.exports = function() {
 	var sv = {};
 	sv.vari = {};
 	sv.arr = {};
@@ -8,7 +8,7 @@ module.exports = function(_winDK) {
 
 	(function() {
 		createVariable(sv);
-		createUI(sv, _winDK);
+		createUI(sv);
 	})();
 
 	return sv.ui.winDangNhap;
@@ -17,7 +17,7 @@ module.exports = function(_winDK) {
 function createVariable(sv) {
 }
 
-function createUI(sv, _winDK) {
+function createUI(sv) {
 	var customButton = require('ui-controller/customButton');
 	var customView = require('ui-controller/customView');
 	var isAndroid = Titanium.Platform.osname === 'android';
@@ -262,7 +262,7 @@ function createUI(sv, _winDK) {
 	sv.ui.fb.forceDialogAuth = false;
 
 	///////
-	createUI_Event(sv, _winDK);
+	createUI_Event(sv);
 	sv.ui.fb.addEventListener('login', sv.fu.event_fb);
 	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
 	sv.ui.winDangNhap.addEventListener('open', sv.fu.eventOpenWindow);
@@ -309,7 +309,7 @@ function createUI(sv, _winDK) {
 	sv.ui.winDangNhap.add(sv.ui.ViewTong);
 }
 
-function createUI_Event(sv, _winDK) {
+function createUI_Event(sv) {
 	sv.fu.event_loginFB = function(e) {
 		// var winFB = new (require('ui-user/PopUpFB'))();
 		// winFB.open();
@@ -373,7 +373,7 @@ function createUI_Event(sv, _winDK) {
 			dangnhap({
 				"username" : sv.ui.txtTK.value,
 				"password" : sv.ui.txtMK.value
-			}, sv, _winDK);
+			}, sv);
 		}
 	};
 	sv.fu.evt_btnDangKy = function(e) {
@@ -400,9 +400,9 @@ function createUI_Event(sv, _winDK) {
 
 }
 
-function dangnhap(data, sv, _winDK) {
+function dangnhap(data, sv) {
 
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+	if (Ti.Network.online == false) {
 		alert('Kiểm tra kết nối mạng');
 	} else {
 
@@ -426,9 +426,9 @@ function dangnhap(data, sv, _winDK) {
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.result.code);
 			if (jsonResuilt.result.code == "0") {
-				if ((_winDK != null) || (_winDK != undefined)) {
-					_winDK.close();
-				}
+				// if ((_winDK != null) || (_winDK != undefined)) {
+				// _winDK.close();
+				// }
 
 				var db = Ti.Database.open('userinfo');
 				var sql = db.execute("SELECT * FROM SaveInfo");
@@ -438,17 +438,17 @@ function dangnhap(data, sv, _winDK) {
 				var balance = jsonResuilt.info.balance;
 				var timeout = null;
 				Ti.API.info('dang nhap thanh cong');
-				db.execute('INSERT INTO SaveInfo(username,type,balance,password) VALUES(?,?,?,?)', username, type, balance,data.password);
-				sql.close();
-				db.close();
+				db.execute('INSERT INTO SaveInfo(username,type,balance,password) VALUES(?,?,?,?)', username, type, balance, data.password);
 				Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winDangNhap);
 				timeout = setTimeout(function() {
+					sql.close();
+					db.close();
 					Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winDangNhap);
 					sv.ui.winDangNhap.close();
 					var WinUser = new (require('/ui-user/WinUser'))();
 					WinUser.open();
 					clearTimeout(timeout);
-				}, 1500);
+				}, 1000);
 			} else {
 				alert('Sai username hoặc password');
 			}

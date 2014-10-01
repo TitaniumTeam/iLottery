@@ -4,6 +4,8 @@ module.exports = function() {
 	var lblTenGiai = [];
 	var lblKQ = [];
 	var viewchua_result = [];
+	var id = 0;
+	var interval = null;
 	var viewKQ = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.UI.SIZE,
@@ -13,7 +15,6 @@ module.exports = function() {
 		touchEnabled : false,
 		layout : "horizontal"
 	});
-
 	var viewChuaTenGiai = Ti.UI.createView({
 		height : Ti.UI.FILL,
 		backgroundColor : "transparent",
@@ -102,7 +103,7 @@ module.exports = function() {
 	////////
 	var param = null;
 	var isLoading = false;
-	var interval = null;
+	
 	/////////
 	viewKQ.setParam_db = function(param) {
 		clearInterval(interval);
@@ -148,12 +149,15 @@ module.exports = function() {
 				mangkq.push(mangstring[j]);
 			};
 		}
-		for (var i = 0; i < (mangkq.length); i++) {
-			if (mangkq[i].toString().indexOf("&") > 0) {
-				lblKQ[i].setText(mangkq[i].replace("&", ""));
-				lblKQ[i].setColor('yellow');
-			} else {
-				lblKQ[i].setText(mangkq[i]);
+		Ti.API.info('length mang ket qua' + mangkq.length);
+		if (mangkq.length == 27) {
+			for (var i = 0; i < (mangkq.length); i++) {
+				if (mangkq[i].toString().indexOf("&") > 0) {
+					lblKQ[i].setText(mangkq[i].replace("&", ""));
+					lblKQ[i].setColor('yellow');
+				} else {
+					lblKQ[i].setText(mangkq[i]);
+				}
 			}
 		}
 
@@ -173,6 +177,11 @@ module.exports = function() {
 	viewKQ.clearInterVal = function() {
 		Ti.API.info('clearinterval mien bac');
 		clearInterval(interval);
+	};
+
+	///
+	viewKQ.getID = function() {
+		return id;
 	};
 	/////////
 	viewKQ.add(viewChuaTenGiai);
@@ -230,7 +239,10 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		var ketqua = [];
 		var mangstring = [];
 		var mangkq = [];
+		var date_time = null;
 		if (param[0].lines) {
+			date_time = jsonResuilt.resulttable[0].resultdate.toString().split(' ');
+			Ti.API.info('date' + date_time[0]);
 			for (var i = 0; i < (param[0].lines.length); i++) {
 				if (param[0].lines[i].result.toString().length == 0 || param[0].lines[i].result.toString() == "") {
 					ketqua.push("");
@@ -247,7 +259,7 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 				mangkq.push(mangstring[j]);
 			};
 		}
-		for (var i = 0; i < (mangkq.length); i++) {
+		for (var j = 0; j < (mangkq.length); j++) {
 			if (mangkq[j].toString().match(/&/g)) {
 				lblkq[j].setText(mangkq[j].replace("&", ""));
 				lblkq[j].setColor('yellow');
@@ -258,18 +270,17 @@ function laykq_tructiep(xhr, data, lblkq, interval) {
 		if (param[0].lines[0].result.length > 0) {
 			var db = Ti.Database.open("userinfo");
 			db.execute("DELETE FROM RS_CACHE");
-			var date_now = (new Date().getDate()) + (new Date().getMonth() + 1) + (new Date().getYear());
 			for (var j = 0; j < (param[0].lines.length); j++) {
-				db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_now.toString(), param[0].lines[j].result.toString());
+				db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_time, param[0].lines[j].result.toString());
 			}
 			db.close();
 			for (var i = 0; i < (mangkq.length); i++) {
 				if (mangkq[i].toString().indexOf("&") > 0) {
-				lblkq[i].setText(mangkq[i].replace("&", ""));
-				lblkq[i].setColor('yellow');
-			} else {
-				lblkq[i].setText(mangkq[i]);
-			}
+					lblkq[i].setText(mangkq[i].replace("&", ""));
+					lblkq[i].setColor('yellow');
+				} else {
+					lblkq[i].setText(mangkq[i]);
+				}
 			}
 
 			clearInterval(interval);

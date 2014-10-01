@@ -296,7 +296,7 @@ function createUI_Event(sv) {
 
 function dangky(data, sv, _currWin) {
 	var xhr = Titanium.Network.createHTTPClient();
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE) {
+	if (Ti.Network.online == false) {
 		alert('Kiểm tra kết nối mạng');
 	} else {
 		xhr.onsendstream = function(e) {
@@ -318,8 +318,22 @@ function dangky(data, sv, _currWin) {
 			Ti.API.info('ket qua' + dl);
 			Ti.API.info('json' + jsonResuilt.code);
 			if (jsonResuilt.code == "0") {
-				var winDangNhap = new (require('/ui-user/WinDangNhap'))(sv.ui.winDangKi);
-				winDangNhap.open();
+				var thongbao = Ti.UI.createAlertDialog({
+					cancel : 1,
+					buttonNames : ['Có', 'Không'],
+					message : 'Đăng kí tài khoản thành công, bạn có muốn vào màn hình đăng nhập ngay không',
+					title : 'Đăng kí thành công',
+				});
+				thongbao.addEventListener('click', function(e) {
+					if (e.index === e.source.cancel) {
+					} else {
+						sv.ui.winDangKi.close();
+						var winDangNhap = new (require('/ui-user/WinDangNhap'))();
+						winDangNhap.open();
+					}
+				});
+				thongbao.show();
+
 				Ti.API.info('dang ki thanh cong');
 			} else {
 				alert('Username đã bị sử dụng');

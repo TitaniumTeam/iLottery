@@ -4,8 +4,7 @@ module.exports = function() {
 	sv.arr = {};
 	sv.ui = {};
 	sv.fu = {};
-	sv.test = {};
-dangnhap();
+	dangnhap();
 	(function() {
 		tao_bien(sv);
 		tao_ui(sv);
@@ -329,12 +328,12 @@ function tao_sukien(sv) {
 			sv.ui.opt_edit.hide();
 		} else {
 			if (e.index == 0) {
-				sv.vari.wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
-				sv.vari.wdEditInfo.open();
+				var wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
+				wdEditInfo.open();
 			}
 			if (e.index == 1) {
-				sv.vari.wdEditPass = new (require('ui-user/WinThayPass'))();
-				sv.vari.wdEditPass.open();
+				var wdEditPass = new (require('ui-user/WinThayPass'))();
+				wdEditPass.open();
 			}
 		}
 	};
@@ -353,7 +352,6 @@ function tao_sukien(sv) {
 				sv.vari.wdnaptien.open({
 					modal : Ti.Platform.osname == 'android' ? true : false
 				});
-				Ti.API.info('click' + e.index);
 			}
 			if (e.index == 1) {
 				sv.vari.showSmsDialog = new (require('/ui-controller/showSmsDialog'))('88xx', "NAPXU");
@@ -369,20 +367,19 @@ function tao_sukien(sv) {
 		sv.ui.Win.close();
 	};
 	sv.fu.evtCloseWin = function(e) {
+		sv.ui.btn_LogOut.removeEventListener('click', sv.fu.evt_logout);
 		sv.ui.ViewIconBack.removeEventListener('click', sv.fu.evtIconBack);
-		sv.ui.Win.removeEventListener('open', sv.fu.evtOpenWin);
 		sv.ui.Win.removeEventListener('close', sv.fu.evtCloseWin);
+		sv.ui.Win.removeEventListener('open', sv.fu.evtOpenWin);
 		sv.ui.TableChucNang1.removeEventListener('click', sv.fu.evtClickTableView1);
 		sv.ui.opt_dialog.removeEventListener('click', sv.fu.event_optiondialog);
 		sv.ui.ViewIconEdit.removeEventListener('click', sv.fu.evtEditInfo);
 		sv.ui.opt_edit.removeEventListener('click', sv.fu.evt_opt_edit_info);
-		sv.ui.btn_LogOut.removeEventListener('click', sv.fu.evt_logout);
 		sv.ui.Win.removeEventListener('android:back', sv.fu.evtIconBack);
 		sv.vari = null;
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
-		sv.test = null;
 		sv = null;
 
 		Ti.API.info('Closed window User, sv=' + sv);
@@ -408,11 +405,11 @@ function dangnhap() {
 		var user_info = db.execute("SELECT * FROM SaveInfo");
 		var ten_user = user_info.fieldByName("username");
 		var pass_user = user_info.fieldByName("password");
-		var data={
-			"username":ten_user,
-			"password":pass_user
+		var data = {
+			"username" : ten_user,
+			"password" : pass_user
 		};
-		
+
 		var xhr = Titanium.Network.createHTTPClient();
 		xhr.onsendstream = function(e) {
 			//ind.value = e.progress;
@@ -435,7 +432,7 @@ function dangnhap() {
 			if (jsonResuilt.result.code == "0") {
 				var balance = jsonResuilt.info.balance;
 				Ti.API.info('dang nhap thanh cong');
-				db.execute('UPDATE SaveInfo SET balance=?',balance);
+				db.execute('UPDATE SaveInfo SET balance=?', balance);
 				user_info.close();
 				db.close();
 			} else {

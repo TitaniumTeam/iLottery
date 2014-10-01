@@ -149,7 +149,7 @@ function tao_sukien(sv) {
 					opt.hide();
 				} else {
 					Ti.API.info('id' + menucap2.act[e.index] + menucap2.name[e.index]);
-					if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+					if (Ti.Network.online==false) {
 						var pop_upsms = new (require('/ui-user/PopUpSmsOff'))(menucap2.ser_num[e.index], menucap2.act[e.index] + " " + menucap2.param[e.index], "DỊCH VỤ SX " + menucap2.act[e.index] + " " + menucap2.name[e.index]);
 						pop_upsms.open({
 							modal : Ti.Platform.osname == 'android' ? true : false

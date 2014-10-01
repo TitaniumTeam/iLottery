@@ -171,6 +171,11 @@ function GetTour(sv, data, _cmd) {
 	sv.ui.tbl.visible = false;
 	sv.ui.tbl.removeAllChildren();
 	Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
+	sv.vari.time_out1 = setTimeout(function() {
+			sv.ui.tbl.visible = true;
+			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
+			clearTimeout(sv.vari.time_out1);
+		}, 1000);
 	xhr.onsendstream = function(e) {
 		//ind.value = e.progress;
 		Ti.API.info('ONSENDSTREAM - PROGRESS: ' + e.progress + ' ' + this.status + ' ' + this.readyState);
@@ -180,11 +185,6 @@ function GetTour(sv, data, _cmd) {
 	Ti.API.info(JSON.stringify(data));
 	xhr.send(JSON.stringify(data));
 	xhr.onerror = function(e) {
-		sv.vari.time_out1 = setTimeout(function() {
-			sv.ui.tbl.visible = true;
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
-			clearTimeout(sv.vari.time_out1);
-		}, 2000);
 		Ti.API.info('IN ONERROR ecode' + e.code + ' estring ' + e.error);
 	};
 	xhr.onload = function() {
@@ -221,12 +221,12 @@ function GetTour(sv, data, _cmd) {
 		}
 		/////////do du lieu vao tableview
 		// sv.ui.tbl.visible = false;
-		Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
-		sv.vari.time_out1 = setTimeout(function() {
-			sv.ui.tbl.visible = true;
-			Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
-			clearTimeout(sv.vari.time_out1);
-		}, 2000);
+		// Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewChua);
+		// sv.vari.time_out1 = setTimeout(function() {
+			// sv.ui.tbl.visible = true;
+			// Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewChua);
+			// clearTimeout(sv.vari.time_out1);
+		// }, 2000);
 
 		for (var i = 0; i < sv.vari.SoLuongGiaiDau; i++) {
 			sv.arr.rows[i] = Ti.UI.createTableViewRow({
@@ -775,10 +775,11 @@ function thongtin_cuthe(_id) {
 };
 
 function sms_offline() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+	if (Ti.Network.online==false) {
 		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "KQBD", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ CÁC TRẬN ĐẤU CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
 		});
 	}
 }
+

@@ -4,7 +4,6 @@ module.exports = function() {
 	sv.arr = {};
 	sv.ui = {};
 	sv.fu = {};
-	sv.test = {};
 
 	(function() {
 		createVariable(sv);
@@ -213,7 +212,6 @@ function createUI_Event(sv) {
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
-		sv.test = null;
 		sv = null;
 
 		Ti.API.info('Closed window thay doi thong tin, sv=' + sv);

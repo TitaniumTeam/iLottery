@@ -14,6 +14,7 @@ module.exports = function() {
 	var viewchua2 = [];
 	var viewchua3 = [];
 	var viewchua4 = [];
+	var id=2;
 	var viewKQ = Ti.UI.createView({
 		width : Ti.App.size(640),
 		height : Ti.UI.SIZE,
@@ -250,6 +251,7 @@ module.exports = function() {
 		mangkq2.reverse();
 		mangkq3.reverse();
 		mangkq4.reverse();
+		if(mangkq1.length==18)
 		for (var i = 0; i < (mangkq1.length); i++) {
 			if (mangkq1[i].toString().indexOf("&") > 0) {
 				lblKQ[17 - i].setText(mangkq1[i].replace("&", ""));
@@ -258,6 +260,7 @@ module.exports = function() {
 				lblKQ[17-i].setText(mangkq1[i]);
 			}
 		}
+		if(mangkq2.length==18)
 		for (var i = 0; i < (mangkq2.length); i++) {
 			if (mangkq2[i].toString().indexOf("&") > 0) {
 				lblKQ2[17 - i].setText(mangkq2[i].replace("&", ""));
@@ -266,6 +269,7 @@ module.exports = function() {
 				lblKQ2[17-i].setText(mangkq2[i]);
 			}
 		}
+		if(mangkq3.length==18)
 		for (var i = 0; i < (mangkq3.length); i++) {
 			if (mangkq3[i].toString().indexOf("&") > 0) {
 				lblKQ3[17 - i].setText(mangkq3[i].replace("&", ""));
@@ -274,6 +278,7 @@ module.exports = function() {
 				lblKQ3[17-i].setText(mangkq3[i]);
 			}
 		}
+		if(mangkq4.length==18)
 		for (var i = 0; i < (mangkq4.length); i++) {
 			if (mangkq4[i].toString().indexOf("&") > 0) {
 				lblKQ4[17 - i].setText(mangkq4[i].replace("&", ""));
@@ -300,6 +305,11 @@ module.exports = function() {
 	///
 	viewKQ.clearInterVal = function() {
 		clearInterval(interval);
+	};
+	////
+	
+	viewKQ.getID=function(){
+		return id;
 	};
 	/////////
 	viewKQ.add(viewChuaTenGiai);
@@ -416,34 +426,34 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, lblkq4, interval, Ten
 		mangkq4.reverse();
 		for (var i = 0; i < (mangkq1.length); i++) {
 			if (mangkq1[i].toString().indexOf("&") > 0) {
-				lblKQ[17 - i].setText(mangkq1[i].replace("&", ""));
-				lblKQ[17 - i].setColor('yellow');
+				lblkq1[17 - i].setText(mangkq1[i].replace("&", ""));
+				lblkq1[17 - i].setColor('yellow');
 			} else {
-				lblKQ[17 - i].setText(mangkq1[i]);
+				lblkq1[17 - i].setText(mangkq1[i]);
 			}
 		}
 		for (var i = 0; i < (mangkq2.length); i++) {
 			if (mangkq2[i].toString().indexOf("&") > 0) {
-				lblKQ2[17 - i].setText(mangkq2[i].replace("&", ""));
-				lblKQ2[17 - i].setColor('yellow');
+				lblkq2[17 - i].setText(mangkq2[i].replace("&", ""));
+				lblkq2[17 - i].setColor('yellow');
 			} else {
-				lblKQ2[17 - i].setText(mangkq2[i]);
+				lblkq2[17 - i].setText(mangkq2[i]);
 			}
 		}
 		for (var i = 0; i < (mangkq3.length); i++) {
 			if (mangkq3[i].toString().indexOf("&") > 0) {
-				lblKQ3[17 - i].setText(mangkq3[i].replace("&", ""));
-				lblKQ3[17 - i].setColor('yellow');
+				lblkq3[17 - i].setText(mangkq3[i].replace("&", ""));
+				lblkq3[17 - i].setColor('yellow');
 			} else {
-				lblKQ3[17 - i].setText(mangkq3[i]);
+				lblkq3[17 - i].setText(mangkq3[i]);
 			}
 		}
 		for (var i = 0; i < (mangkq4.length); i++) {
 			if (mangkq4[i].toString().indexOf("&") > 0) {
-				lblKQ4[17 - i].setText(mangkq4[i].replace("&", ""));
-				lblKQ4[17 - i].setColor('yellow');
+				lblkq4[17 - i].setText(mangkq4[i].replace("&", ""));
+				lblkq4[17 - i].setColor('yellow');
 			} else {
-				lblKQ4[17 - i].setText(mangkq4[i]);
+				lblkq4[17 - i].setText(mangkq4[i]);
 			}
 		}
 		if ((param[2].lines[0].result.length > 0) && (param[1].lines[0].result.length > 0) && (param[0].lines[0].result.length > 0) && (param[3].lines[0].result.length > 0)) {

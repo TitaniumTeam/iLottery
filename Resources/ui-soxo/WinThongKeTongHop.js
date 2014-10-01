@@ -7,7 +7,7 @@ module.exports = function() {
 	sv.test = {};
 
 	(function() {
-		sms_offline();
+		
 		createVariable(sv);
 		createUI(sv);
 	})();
@@ -139,6 +139,7 @@ function createUI(sv) {
 		// height : Ti.UI.FILL,
 		// contentHeight:Ti.UI.FILL,
 		left:0,
+		bottom : Ti.App.size(25),
 	});
 	if (Ti.Platform.osname == "android") {
 		sv.ui.ScrollView.setContentHeight(Ti.UI.FILL);
@@ -146,10 +147,7 @@ function createUI(sv) {
 	}else{
 		sv.ui.ScrollView.setHeight(Ti.UI.SIZE);
 	}
-	thongke("getlotterystat", {
-		"provideid" : "MB",
-		"startdate" : currDate()
-	}, sv);
+	
 	////
 	createUI_Event(sv);
 	sv.ui.View_Back.addEventListener('click', sv.fu.eventClickIconLeft);
@@ -181,6 +179,11 @@ function createUI_Event(sv) {
 
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window');
+		sms_offline();
+		thongke("getlotterystat", {
+		"provideid" : "MB",
+		"startdate" : currDate()
+	}, sv);
 	};
 	sv.fu.event_click_view = function(e) {
 		thongke("getprovide", {
@@ -250,7 +253,7 @@ function thongke(_cmd, data, sv) {
 				sv.ui.ScrollView.visible = true;
 				Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
 				clearTimeout(sv.vari.time_out1);
-			}, 1500);
+			}, 1000);
 			// if (jsonResuilt.thongke.lauchuara.length > 0) {
 			sv.vari.viewLauChuaRa = bang_kq();
 			sv.vari.viewLauChuaRa.setKQ(jsonResuilt.thongke.lauchuara, "ngày", "Dãy số ít về trong 40 ngày qua");
@@ -474,7 +477,7 @@ function bang_kq() {
 };
 
 function sms_offline() {
-	if (Ti.Network.networkType == Ti.Network.NETWORK_NONE || Ti.Network.networkType == Ti.Network.NETWORK_UNKNOWN) {
+	if (Ti.Network.online==false) {
 		var pop_upsms = new (require('/ui-user/PopUpSmsOff'))("67XX", "TKKQSX MB", "CHÚNG TÔI SẼ GỬI SMS KẾT QUẢ THỐNG KÊ CHO QUÝ KHÁCH HÀNG");
 		pop_upsms.open({
 			modal : Ti.Platform.osname == 'android' ? true : false
