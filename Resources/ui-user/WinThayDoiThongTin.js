@@ -200,8 +200,6 @@ function createUI_Event(sv) {
 	sv.fu.eventOpenWindow = function() {
 		Ti.API.info('Opened window thay doi thong tin');
 	};
-	sv.fu.evt_btnDangNhap = function(e) {
-	};
 	sv.fu.eventCloseWindow = function(e) {
 		sv.ui.winThayDoiThongTin.removeEventListener('open', sv.fu.eventOpenWindow);
 		sv.ui.winThayDoiThongTin.removeEventListener('close', sv.fu.eventCloseWindow);
@@ -212,7 +210,7 @@ function createUI_Event(sv) {
 		sv.arr = null;
 		sv.ui = null;
 		sv.fu = null;
-		sv = null;
+		 sv = null;
 
 		Ti.API.info('Closed window thay doi thong tin, sv=' + sv);
 	};

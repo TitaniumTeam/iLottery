@@ -440,9 +440,9 @@ function dangnhap(data, sv) {
 				Ti.API.info('dang nhap thanh cong');
 				db.execute('INSERT INTO SaveInfo(username,type,balance,password) VALUES(?,?,?,?)', username, type, balance, data.password);
 				Ti.App.g_IndicatorWindow.openIndicator(sv.ui.winDangNhap);
+				sql.close();
+				db.close();
 				timeout = setTimeout(function() {
-					sql.close();
-					db.close();
 					Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.winDangNhap);
 					sv.ui.winDangNhap.close();
 					var WinUser = new (require('/ui-user/WinUser'))();

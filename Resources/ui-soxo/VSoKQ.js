@@ -150,18 +150,18 @@ function taoui(sv) {
 		// layout : 'vertical',
 		bottom : Ti.App.size(100)
 	});
-	// sv.ui.icon_refresh = Ti.UI.createView({
-	// zIndex : 10,
-	// backgroundImage : "/assets/icon/refresh_icon.png",
-	// width : Ti.App.size(64),
-	// height : Ti.App.size(64),
-	// left : Ti.App.size(40),
-	// backgroundSelectedImage : null,
-	// opacity : 0.5,
-	// top : Ti.App.size(140),
-	// //visible:false
-	// });
-	// sv.ui.ViewKQ.add(sv.ui.icon_refresh);
+	sv.ui.icon_refresh = Ti.UI.createView({
+		zIndex : 10,
+		backgroundImage : "/assets/icon/refresh_icon.png",
+		width : Ti.App.size(64),
+		height : Ti.App.size(64),
+		left : Ti.App.size(40),
+		backgroundSelectedImage : null,
+		opacity : 0.5,
+		top : Ti.App.size(250),
+		visible:false
+	});
+	sv.ui.ViewTong.add(sv.ui.icon_refresh);
 	/////pull to refreshh
 	/////
 	showResult(sv);
@@ -173,8 +173,7 @@ function taoui(sv) {
 	sv.ui.btnOK.addEventListener('click', sv.fu.event_hidePicker);
 	sv.ui.picker.addEventListener('change', sv.fu.event_picker);
 	sv.ui.ViewCheatPicker.addEventListener('click', sv.fu.event_btnCancel);
-	// sv.ui.icon_refresh.addEventListener('click', sv.fu.RefreshIcon);
-	sv.ui.ViewKQ.addEventListener('scroll', sv.fu.event_scrollViewKQ);
+	sv.ui.icon_refresh.addEventListener('click', sv.fu.RefreshIcon);
 	/////
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose1);
 	sv.ui.ViewLuaChon.add(sv.ui.view_choose);
@@ -190,67 +189,47 @@ function taoui(sv) {
 };
 ////
 function createUI_Event(sv) {
-	sv.fu.event_scrollViewKQ = function(e) {
-		Ti.API.info('offset ', e.y);
-		if (e.y == 0) {
-			if (sv.vari.flag_pull == true) {
-				if (sv.vari.datarow != null) {
-					sv.ui.lbl_thoigian.setText(sv.vari.datetime_now);
-					sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ " + sv.vari.tinh + " " + sv.vari.datetime_now);
-					Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
-					var timeout = setTimeout(function() {
-						Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
-						clearTimeout(timeout);
-					}, 500);
-					var date_time = new Date().getDay();
-					sv.ui.ViewKQ.remove(sv.vari.datarow);
-					switch(sv.vari.id_tinh_now) {
-					case 0:
-						sv.ui.lblfirst.setText("Miền Bắc");
-						sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
-						break;
-					case 1:
-						sv.ui.lblfirst.setText("Miền Trung");
-						if (date_time == 6 || date_time == 4) {
-							sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
-						} else {
-							sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
-						}
-						break;
-					case 2:
-						sv.ui.lblfirst.setText("Miền Nam");
-						if (date_time == 6) {
-							sv.vari.datarow = new (require('/ui-soxo/bangkqMN_t7'))();
-						} else {
-							sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
-						}
-						break;
+	sv.fu.RefreshIcon = function(e) {
+		if (sv.vari.flag_pull == true) {
+			if (sv.vari.datarow != null) {
+				sv.ui.lbl_thoigian.setText(sv.vari.datetime_now);
+				sv.ui.View_header.setText("KẾT QUẢ XỔ SỐ " + sv.vari.tinh + " " + sv.vari.datetime_now);
+				Ti.App.g_IndicatorWindow.openIndicator(sv.ui.ViewTong);
+				var timeout = setTimeout(function() {
+					Ti.App.g_IndicatorWindow.closeIndicator(sv.ui.ViewTong);
+					clearTimeout(timeout);
+				}, 500);
+				var date_time = new Date().getDay();
+				sv.ui.ViewKQ.remove(sv.vari.datarow);
+				switch(sv.vari.id_tinh_now) {
+				case 0:
+					sv.ui.lblfirst.setText("Miền Bắc");
+					sv.vari.datarow = new (require('/ui-soxo/bangkqMB'))();
+					break;
+				case 1:
+					sv.ui.lblfirst.setText("Miền Trung");
+					if (date_time == 6 || date_time == 4) {
+						sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+					} else {
+						sv.vari.datarow = new (require('/ui-soxo/bangkqMT'))();
 					}
-					sv.ui.ViewKQ.add(sv.vari.datarow);
-					sv.vari.datarow.clearInterVal();
-					sv.vari.datarow.setParamLive();
-					// }
-
+					break;
+				case 2:
+					sv.ui.lblfirst.setText("Miền Nam");
+					if (date_time == 6) {
+						sv.vari.datarow = new (require('/ui-soxo/bangkqMN_t7'))();
+					} else {
+						sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
+					}
+					break;
 				}
+				sv.ui.ViewKQ.add(sv.vari.datarow);
+				sv.vari.datarow.clearInterVal();
+				sv.vari.datarow.setParamLive();
+				// }
+
 			}
 		}
-		// if(Ti.Platform.osname!='android'){
-		// sv.ui.icon_refresh.setTop(Ti.App.size(4*e.y));
-		// if (e.y > 300) {
-		// sv.ui.icon_refresh.setTop(Ti.App.size(800));
-		// }
-		// if (e.y == 0) {
-		// sv.ui.icon_refresh.setTop(Ti.App.size(140));
-		// }
-		// }else{
-		// sv.ui.icon_refresh.setTop(Ti.App.size(e.y));
-		// if (e.y > 1000) {
-		// sv.ui.icon_refresh.setTop(Ti.App.size(800));
-		// }
-		// if (e.y == 0) {
-		// sv.ui.icon_refresh.setTop(Ti.App.size(140));
-		// }
-		// }
 	};
 	sv.fu.event_showPicker = function(e) {
 		sv.ui.ViewCheatPicker.visible = true;
@@ -308,9 +287,7 @@ function removeSK(sv) {
 		sv.ui.btnOK.removeEventListener('click', sv.fu.event_hidePicker);
 		sv.ui.picker.removeEventListener('change', sv.fu.event_picker);
 		sv.ui.ViewCheatPicker.removeEventListener('click', sv.fu.event_btnCancel);
-		sv.ui.ViewKQ.removeEventListener('scroll', sv.fu.event_scrollViewKQ);
-		// sv.ui.ViewKQ.removeEventListener('scroll', sv.fu.event_pullToRefresh);
-		// sv.ui.ViewKQ.removeEventListener('touchend', sv.fu.event_pullToRefreshTouchEnd);
+		sv.ui.icon_refresh.removeEventListener('scroll', sv.fu.RefreshIcon);
 		if (sv.vari.datarow != null || sv.vari.datarow != undefined) {
 			sv.vari.datarow.clearInterVal();
 		}
@@ -344,20 +321,20 @@ function showResult(sv) {
 		var date_n = date_now.split('/')[0];
 		var month_n = date_now.split('/')[1];
 		var year_n = date_now.split('/')[2];
-        if(date_n==1){
-        var datetime_js=new Date();
-        month_n=month_n-1;
-        var last_date=new Date(datetime_js.getFullYear(),datetime_js.getMonth(),0);
-        date_n=last_date.getDate();
-        }else{
-        date_n=date_n-1;
-        }
-		var yesterday_n = date_n  + "/" + month_n + "/" + year_n;
+		if (date_n == 1) {
+			var datetime_js = new Date();
+			month_n = month_n - 1;
+			var last_date = new Date(datetime_js.getFullYear(), datetime_js.getMonth(), 0);
+			date_n = last_date.getDate();
+		} else {
+			date_n = date_n - 1;
+		}
+		var yesterday_n = date_n + "/" + month_n + "/" + year_n;
 		var hour = time.split(':')[0];
 		var min = time.split(':')[1];
 		Ti.API.info('thoi gian hien tai' + time + 'datetime server:' + date_now);
 		if (hour == 17 && min >= 15) {
-			// sv.ui.icon_refresh.visible = true;
+			sv.ui.icon_refresh.visible = true;
 			sv.vari.flag_pull = true;
 			sv.vari.id_tinh_now = 1;
 			sv.ui.lbl_thoigian.setText(date_now);
@@ -375,7 +352,7 @@ function showResult(sv) {
 			sv.ui.ViewKQ.add(sv.vari.datarow);
 		}
 		if (hour == 16 && min >= 10) {
-			// sv.ui.icon_refresh.visible = true;
+			sv.ui.icon_refresh.visible = true;
 			sv.vari.flag_pull = true;
 			sv.vari.id_tinh_now = 2;
 			sv.ui.lblfirst.setText("Miền Nam");
@@ -393,7 +370,7 @@ function showResult(sv) {
 			sv.ui.ViewKQ.add(sv.vari.datarow);
 		}
 		if (hour == 18 && min >= 15) {
-			// sv.ui.icon_refresh.visible = true;
+			sv.ui.icon_refresh.visible = true;
 			sv.vari.flag_pull = true;
 			sv.vari.id_tinh_now = 0;
 			sv.ui.lblfirst.setText("Miền Bắc");
@@ -407,6 +384,7 @@ function showResult(sv) {
 			sv.ui.ViewKQ.add(sv.vari.datarow);
 		}
 		if (hour == 16 && min < 10) {
+			sv.ui.icon_refresh.visible = false;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			sv.ui.lblfirst.id = 0;
 			sv.vari.id_tinh_now = 0;
@@ -434,6 +412,7 @@ function showResult(sv) {
 			}
 		}
 		if (hour == 17 && min < 15) {
+			sv.ui.icon_refresh.visible = false;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			sv.ui.lblfirst.id = 0;
 			sv.vari.id_tinh_now = 0;
@@ -461,6 +440,7 @@ function showResult(sv) {
 			}
 		}
 		if (hour == 18 && min < 15) {
+			sv.ui.icon_refresh.visible = false;
 			sv.ui.lblfirst.setText("Miền Bắc");
 			sv.ui.lblfirst.id = 0;
 			sv.vari.id_tinh_now = 0;
@@ -616,11 +596,20 @@ function searchregionlottery(data, sv, loai) {
 				var db = Ti.Database.open("userinfo");
 				var db_cache = db.execute("SELECT * FROM RS_CACHE");
 				if (db_cache.isValidRow()) {
-					Ti.API.info('da co du lieu');
+					Ti.API.info('da co du lieu' + db_cache.fieldByName("date_time"));
 				} else {
-					for (var j = 0; j < (jsonResuilt.resulttable[0].lines.length); j++) {
-						db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_time[0], jsonResuilt.resulttable[0].lines[j].result.toString());
+					if (new Date().getHours < 19 && date_time[0] == getYesterdaysDate()) {
+						for (var j = 0; j < (jsonResuilt.resulttable[0].lines.length); j++) {
+							db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_time[0], jsonResuilt.resulttable[0].lines[j].result.toString());
+						}
+					} else if (new Date().getHours > 19 && date_time[0] == currDate()) {
+						for (var j = 0; j < (jsonResuilt.resulttable[0].lines.length); j++) {
+							db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_time[0], jsonResuilt.resulttable[0].lines[j].result.toString());
+						}
+					} else {
+						Ti.API.info('khong trung ngay nao');
 					}
+
 				}
 				db_cache.close();
 				db.close();

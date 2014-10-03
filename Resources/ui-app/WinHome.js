@@ -12,7 +12,7 @@ module.exports = function() {
 			Ti.API.info('du lieu da co');
 		} else {
 			Ti.API.info('du lieu cua ngay khac roi');
-			db.execute("DELETE FROM RS_CACHE");
+			 db.execute("DELETE FROM RS_CACHE");
 		}
 	} else {
 		Ti.API.info('khong co du lieu nao trong cache');

@@ -95,8 +95,8 @@ function tao_ui(sv) {
 		buttonNames : ["Thoát"]
 	});
 	sv.ui.opt_edit = Titanium.UI.createOptionDialog({
-		title : "Lựa chọn thông tin mà bạn muốn đổi",
-		options : Ti.Platform.osname == 'android' ? ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu"] : ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"],
+		title : "Thông tin mà bạn muốn đổi",
+		options : isAndroid ? ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu"] : ["Thay đổi thông tin cá nhân", "Thay đổi mật khẩu", "Thoát"],
 		opaquebackground : true,
 		buttonNames : ["Thoát"]
 	});
@@ -328,12 +328,12 @@ function tao_sukien(sv) {
 			sv.ui.opt_edit.hide();
 		} else {
 			if (e.index == 0) {
-				var wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
-				wdEditInfo.open();
+				sv.vari.wdEditInfo = new (require('ui-user/WinThayDoiThongTin'))();
+				sv.vari.wdEditInfo.open();
 			}
 			if (e.index == 1) {
-				var wdEditPass = new (require('ui-user/WinThayPass'))();
-				wdEditPass.open();
+				sv.vari.wdEditPass = new (require('ui-user/WinThayPass'))();
+				sv.vari.wdEditPass.open();
 			}
 		}
 	};
