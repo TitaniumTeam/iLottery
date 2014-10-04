@@ -394,7 +394,7 @@ function laykq_tructiep(xhr, data, lblkq1, lblkq2, lblkq3, lblkq4, interval, Ten
 			for (var i = 0; i < (param[2].lines.length); i++)
 				kqTinh3.push(param[2].lines[i].result);
 			for (var i = 0; i < (param[3].lines.length); i++)
-				kqTinh4.push(param[2].lines[i].result);
+				kqTinh4.push(param[3].lines[i].result);
 		}
 		for (var i = 0; i < (kqTinh1.length); i++) {
 			mangstring1 = (kqTinh1[i].toString()).split(',');

@@ -158,7 +158,7 @@ function taoui(sv) {
 		left : Ti.App.size(40),
 		backgroundSelectedImage : null,
 		opacity : 0.5,
-		top : Ti.App.size(250),
+		top : Ti.App.size(420),
 		visible:false
 	});
 	sv.ui.ViewTong.add(sv.ui.icon_refresh);
@@ -571,7 +571,7 @@ function searchregionlottery(data, sv, loai) {
 		var date_time = [];
 		if (jsonResuilt.resulttable[0]) {
 			date_time = jsonResuilt.resulttable[0].resultdate.toString().split(' ');
-			Ti.API.info('date' + date_time[0]);
+			Ti.API.info('date' + date_time[0].toString().trim()+'ham: '+currDate().toString().trim()+'hom qua'+getYesterdaysDate().toString().trim());
 			if (loai == "1") {
 				if (jsonResuilt.resulttable.length == 3) {
 					sv.vari.datarow = new (require('/ui-soxo/bangkqMN'))();
@@ -598,11 +598,11 @@ function searchregionlottery(data, sv, loai) {
 				if (db_cache.isValidRow()) {
 					Ti.API.info('da co du lieu' + db_cache.fieldByName("date_time"));
 				} else {
-					if (new Date().getHours < 19 && date_time[0] == getYesterdaysDate()) {
+					if (new Date().getHours() < 19 && date_time[0].toString() == getYesterdaysDate()) {
 						for (var j = 0; j < (jsonResuilt.resulttable[0].lines.length); j++) {
 							db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_time[0], jsonResuilt.resulttable[0].lines[j].result.toString());
 						}
-					} else if (new Date().getHours > 19 && date_time[0] == currDate()) {
+					} else if (new Date().getHours() > 19 && date_time[0].toString() == currDate()) {
 						for (var j = 0; j < (jsonResuilt.resulttable[0].lines.length); j++) {
 							db.execute('INSERT INTO RS_CACHE VALUES(?,?)', date_time[0], jsonResuilt.resulttable[0].lines[j].result.toString());
 						}
@@ -651,7 +651,12 @@ function setHeightPicker() {
 //////////
 function currDate() {
 	var currTime = new Date();
-	var ngay = currTime.getDate();
+	if(currTime.getDate()>10){
+		var ngay = currTime.getDate();
+	}else{
+		var ngay ="0"+ currTime.getDate();
+	}
+	
 	var thang = currTime.getMonth() + 1;
 	var nam = currTime.getFullYear();
 	var currdate = ngay + "/" + thang + "/" + nam;
@@ -661,7 +666,12 @@ function currDate() {
 function getYesterdaysDate() {
 	var date = new Date();
 	date.setDate(date.getDate() - 1);
-	return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+	if(date.getDate()>10){
+		var ngay = date.getDate();
+	}else{
+		var ngay ="0"+ date.getDate();
+	}
+	return ngay + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 }
 
 function currHour() {
